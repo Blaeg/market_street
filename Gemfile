@@ -28,8 +28,8 @@ gem 'compass-rails', git: 'https://github.com/Compass/compass-rails.git', branch
 
 gem 'dynamic_form'
 gem 'jbuilder'
-gem "friendly_id",    '~> 5.0.0.rc1'#, :git => "git@github.com:FriendlyId/friendly_id.git", :branch => 'rails4'
-gem 'haml',           ">= 3.0.13"#, ">= 3.0.4"#, "2.2.21"#,
+gem "friendly_id"
+gem 'haml-rails'
 gem "jquery-rails"
 gem 'jquery-ui-rails'
 gem 'json',           '~> 1.8.0'
@@ -68,7 +68,7 @@ group :development do
   gem "rails-erd"
   gem 'byebug', :platforms => [:mingw_20, :mri_20, :ruby_20]
   gem 'pry-byebug', :platforms => [:mingw_20, :mri_20, :ruby_20]
-
+  gem 'guard-livereload', require: false
   # YARD AND REDCLOTH are for generating yardocs
   gem 'yard'
   gem 'RedCloth'
@@ -96,6 +96,12 @@ group :test do
     #gem "autotest-fsevent", '~> 0.2.5'
   end
   gem "autotest-growl"
-  gem "ZenTest", '4.9.1'#, '4.6.2'
+  #gem "ZenTest", '4.9.1'#, '4.6.2'
+  gem 'ZenTest', :require => false
 
+  gem 'guard'
+  gem 'vcr'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-bundler'
 end
