@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20130719071644) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "accounting_adjustments", force: true do |t|
     t.integer  "adjustable_id",                           null: false
     t.string   "adjustable_type",                         null: false
@@ -462,7 +465,7 @@ ActiveRecord::Schema.define(version: 20130719071644) do
     t.datetime "updated_at"
   end
 
-  add_index "referrals", ["email"], name: "index_referrals_on_email", length: {"email"=>6}, using: :btree
+  add_index "referrals", ["email"], name: "index_referrals_on_email", using: :btree
   add_index "referrals", ["referral_program_id"], name: "index_referrals_on_referral_program_id", using: :btree
   add_index "referrals", ["referral_type_id"], name: "index_referrals_on_referral_type_id", using: :btree
   add_index "referrals", ["referral_user_id"], name: "index_referrals_on_referral_user_id", using: :btree
