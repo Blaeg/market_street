@@ -79,15 +79,15 @@ group :test, :development do
 end
 
 group :test do
-  gem 'factory_girl', "~> 3.3.0"
-  gem 'factory_girl_rails', "~> 3.3.0"
-  gem 'mocha', '~> 0.13.3', :require => false
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  #gem 'mocha', '~> 0.13.3', :require => false
   gem 'rspec-rails-mocha'
   gem 'database_cleaner', :github => 'bmabey/database_cleaner'
-  
   gem 'email_spec'
-
+  gem 'simplecov', :require => false
   gem "faker"
+  gem "forgery"
   gem "autotest", '~> 4.4.6'
   gem "autotest-rails-pure"
 
@@ -97,12 +97,11 @@ group :test do
   gem "autotest-growl"
   #gem "ZenTest", '4.9.1'#, '4.6.2'
   gem 'ZenTest', :require => false
-
-  gem 'guard'
+  gem 'shoulda-matchers'
   gem 'vcr'
+  gem 'growl'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-bundler'
-
   gem 'capybara'  
 end
