@@ -74,9 +74,8 @@ group :development do
   gem 'RedCloth'
 end
 group :test, :development do
-  gem 'capybara', "~> 1.1"#, :git => 'git://github.com/jnicklas/capybara.git'
   gem 'launchy'
-  gem 'database_cleaner', :github => 'bmabey/database_cleaner'
+  gem 'rspec-rails'
 end
 
 group :test do
@@ -84,8 +83,8 @@ group :test do
   gem 'factory_girl_rails', "~> 3.3.0"
   gem 'mocha', '~> 0.13.3', :require => false
   gem 'rspec-rails-mocha'
-  gem 'rspec-rails', '~> 2.12.2'
-
+  gem 'database_cleaner', :github => 'bmabey/database_cleaner'
+  
   gem 'email_spec'
 
   gem "faker"
@@ -104,4 +103,6 @@ group :test do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-bundler'
+
+  gem 'capybara'  
 end
