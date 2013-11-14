@@ -51,6 +51,11 @@ class Country < ActiveRecord::Base
       data.blank? ? [[]] : data
     end
   end
+
+  def self.create_usa
+    find_or_create_by(id: USA_ID)   
+  end
+
   private
   def expire_cache
     Rails.cache.delete("Country-form_selector")

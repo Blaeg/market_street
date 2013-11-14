@@ -34,4 +34,7 @@ class AddressType < ActiveRecord::Base
 
   validates :name, :presence => true,       :length => { :maximum => 55 }
 
+  def self.create_all
+    NAMES.each {|x| find_or_create_by(name: x) }
+  end
 end

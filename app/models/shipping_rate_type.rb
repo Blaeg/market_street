@@ -14,4 +14,7 @@ class ShippingRateType < ActiveRecord::Base
   INDIVIDUAL_ID  = 1
   ORDER_ID       = 2
 
+  def self.create_all
+    TYPES.each {|x| find_or_create_by(name: x) }
+  end
 end

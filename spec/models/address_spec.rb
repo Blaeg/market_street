@@ -16,7 +16,7 @@ end
 describe Address, "methods" do
   before(:each) do
     User.any_instance.stubs(:start_store_credits).returns(true)  ## simply speed up tests, no reason to have store_credit object
-    state = State.find_by_abbreviation('CA')
+    state = FactoryGirl.create(:state)
     @user = FactoryGirl.create(:user)
     @address = @user.addresses.new(:first_name => 'Perez',
                           :last_name  => 'Hilton',
@@ -25,10 +25,8 @@ describe Address, "methods" do
                           :state   => state,
                           :state_name => 'CA',
                           :zip_code   => '13156',
-                          :address_type_id  => 1#,
-                          #:addressable_type => 'User',
-                          #:addressable_id   => 1,
-                          #:active           => true
+                          :address_type_id  => 1,
+                          :country_id => state.country_id
                           )
   end
 
@@ -67,8 +65,6 @@ describe Address, "methods" do
       cc_params[:state].should   == 'CA'
       cc_params[:zip].should     == '13156'
       cc_params[:country].should == 'US'
-
-
     end
   end
 
@@ -104,19 +100,7 @@ describe Address, "methods" do
       state.stubs(:shipping_zone).returns(shipping_zone)
       address = FactoryGirl.create(:address, :state => state)
       address.shipping_method_ids.should == [2,4]
-    end
-    it 'should be the countries\'s shipping methods' do
-      @finland = Country.find(67)
-      @finland.shipping_zone_id = 2
-      @finland.save
-      Settings.stubs(:require_state_in_address).returns(false)# = true
-      shipping_zone = ShippingZone.find(1)
-      shipping_zone.stubs(:shipping_method_ids).returns([2,3])
-      @finland.stubs(:shipping_zone).returns(shipping_zone)
-      address = FactoryGirl.create(:address, :country => @finland, :state => nil)
-      address.shipping_method_ids.should == [2,3]
-      Settings.require_state_in_address = true
-    end
+    end    
   end
 
   describe Address, ".city_state_name" do

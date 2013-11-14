@@ -205,12 +205,12 @@ class Product < ActiveRecord::Base
   # @return [ Array[Product] ]
   def self.admin_grid(params = {}, active_state = nil)
     grid = includes(:variants).
-                deleted_at_filter(active_state).
-                name_filter(params[:name]).
-                product_type_filter( params[:product_type_id] ).
-                shipping_category_filter(params[:shipping_category_id]).
-                available_at_gt_filter(params[:available_at_gt]).
-                available_at_lt_filter(params[:available_at_lt])
+                deleted_at_filter(active_state)#.
+                # name_filter(params[:name]).
+                # product_type_filter( params[:product_type_id] ).
+                # shipping_category_filter(params[:shipping_category_id]).
+                # available_at_gt_filter(params[:available_at_gt]).
+                # available_at_lt_filter(params[:available_at_lt])
   end
 
   private

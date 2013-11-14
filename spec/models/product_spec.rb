@@ -184,8 +184,8 @@ describe Product, "class methods" do
   context "#admin_grid(params = {}, active_state = nil)" do
 
     it "should return Products " do
-      product1 = create(:product)
-      product2 = create(:product)
+      product1 = FactoryGirl.create(:product)
+      product2 = FactoryGirl.create(:product)
       product1.activate!
       product2.activate!
       admin_grid = Product.admin_grid({}, true)
@@ -194,10 +194,12 @@ describe Product, "class methods" do
       admin_grid.include?(product2).should be_true
     end
     it "should return deleted Products " do
-      product1 = create(:product)
-      product2 = create(:product)
-      admin_grid = Product.admin_grid({}, false)
+      product1 = FactoryGirl.create(:product)
+      product2 = FactoryGirl.create(:product) 
+      admin_grid = Product.admin_grid({}, nil)
+      
       admin_grid.size.should == 2
+
       admin_grid.include?(product1).should be_true
       admin_grid.include?(product2).should be_true
     end

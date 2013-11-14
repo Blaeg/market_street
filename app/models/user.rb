@@ -233,7 +233,7 @@ class User < ActiveRecord::Base
     self.last_name  = self.last_name.strip.capitalize   unless last_name.nil?
 
     ## CHANGE THIS IF YOU HAVE DIFFERENT ACCOUNT TYPES
-    self.account = Account.first unless account_id
+    self.account = Account.first if account_id.nil?
   end
 
   # email activation instructions after a user signs up

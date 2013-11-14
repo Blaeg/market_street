@@ -20,4 +20,8 @@ class ReturnReason < ActiveRecord::Base
   def self.select_form
     all.collect {|r| [r.label, r.id]}
   end
+
+  def self.create_all
+    REASONS.each {|x| find_or_create_by(label: x) }
+  end
 end

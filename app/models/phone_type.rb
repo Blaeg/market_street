@@ -6,4 +6,7 @@ class PhoneType < ActiveRecord::Base
   # Type of possible phones, used in dropdowns and seed values
   NAMES = ['Cell', 'Home', 'Work', 'Other']
 
+  def self.create_all
+    NAMES.each {|x| find_or_create_by(name: x) }
+  end
 end

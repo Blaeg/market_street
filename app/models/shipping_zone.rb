@@ -16,4 +16,7 @@ class ShippingZone < ActiveRecord::Base
 
   accepts_nested_attributes_for :states
 
+  def self.create_all
+    LOCATIONS.each {|x| find_or_create_by(name: x) }
+  end
 end

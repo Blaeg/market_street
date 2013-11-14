@@ -37,5 +37,7 @@ class Account < ActiveRecord::Base
   validates :account_type,    :presence => true,       :length => { :maximum => 255 }
   validates :monthly_charge,  :presence => true
 
-
+  def self.create_all
+    TYPES.each_pair {|type, fee| find_or_create_by(name: type, account_type: type)}    
+  end
 end

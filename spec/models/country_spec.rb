@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Country do
-
   context "#form_selector" do
+    #FactoryGirl.create(:country)
     @countries = Country.form_selector
     @countries.class.to_s.should              == 'Array'
     @countries.first.class.to_s.should        == 'Array'

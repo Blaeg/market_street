@@ -27,6 +27,7 @@ end
 
 describe State, "class methods" do
   context "#form_selector" do
+    FactoryGirl.create(:state)
     @states = State.form_selector
     @states.class.should              == Array
     @states.first.class.should        == Array
@@ -36,8 +37,8 @@ describe State, "class methods" do
 
   context 'all_with_country_id(country_id)' do
     before(:each) do
-      @country = Country.find(Country::CANADA_ID)
-      @states = State.all_with_country_id(@country.id)
+      @country = Country.find_or_create_by(id: Country::USA_ID)
+      @states = FactoryGirl.create_list(:state, 2, :country => @country)
     end
 
     it 'should return an array of States' do

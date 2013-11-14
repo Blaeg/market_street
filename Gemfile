@@ -59,28 +59,34 @@ group :production do
 end
 
 group :development do
-  gem 'sqlite3'
   #gem 'awesome_print'
   #gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'better_errors'
   gem "autotest-rails-pure"
-  gem "better_errors", '~> 0.9.0'
   gem "binding_of_caller", '~> 0.7.2'
   gem "rails-erd"
   gem 'byebug', :platforms => [:mingw_20, :mri_20, :ruby_20]
   gem 'pry-byebug', :platforms => [:mingw_20, :mri_20, :ruby_20]
+  gem 'pry-rails'
+  gem 'pry-nav'
+  #gem 'guard-livereload', require: false
 
-  # YARD AND REDCLOTH are for generating yardocs
   gem 'yard'
   gem 'RedCloth'
+  gem 'roundsman', require: false
 end
 group :test, :development do
-  gem 'capybara', "~> 1.1"#, :git => 'git://github.com/jnicklas/capybara.git'
   gem 'launchy'
   gem 'rspec-rails'  
 end
 
 group :test do
-  gem 'database_cleaner', :github => 'bmabey/database_cleaner'
+  # gem 'growl'
+  # gem 'guard'
+  # gem 'guard-rspec'
+  # gem 'guard-bundler'
+
+  gem 'database_cleaner' #, :github => 'bmabey/database_cleaner'
   gem 'factory_girl', "~> 3.3.0"
   gem 'factory_girl_rails', "~> 3.3.0"
   gem 'mocha', '~> 0.13.3', :require => false
@@ -100,5 +106,7 @@ group :test do
   end
   gem "autotest-growl"
   gem "ZenTest", '4.9.1'#, '4.6.2'
-
+  gem 'capybara', "~> 1.1"#, :git => 'git://github.com/jnicklas/capybara.git'  
+  gem 'capybara-screenshot'
+  gem 'capistrano-unicorn', require: false  
 end

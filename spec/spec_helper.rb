@@ -22,18 +22,13 @@ include ActiveMerchant::Billing
 Rails.logger.level = 4
 Settings.require_state_in_address = true
 
+#include ActionDispatch::TestProcess
+
 RSpec.configure do |config|
-  # == Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
   config.mock_with :mocha
   config.include FactoryGirl::Syntax::Methods
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
-
-
-  config.before(:suite) { trunctate_unseeded }
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -43,8 +38,33 @@ RSpec.configure do |config|
   # instead of true.
   # config.use_transactional_fixtures = true
   config.use_transactional_fixtures = false
-  #config.logger = :stdout
-  #Product.configuration[:if] = false
+
+  #config.order = "random"
+
+  config.before(:suite) { trunctate_unseeded }
+
+  # config.before(:suite) do 
+  #   DatabaseCleaner.strategy = :transaction
+  #   DatabaseCleaner.clean_with(:truncation)    
+  # end
+
+  config.before(:all) do
+    Country::create_usa    
+    FactoryGirl.create(:state)
+
+    Account::create_all
+    AddressType::create_all
+    DealType::create_all
+    PhoneType::create_all
+    ReferralType::create_all
+    ReturnCondition::create_all
+    ReturnReason::create_all
+    Role::create_all
+    ShippingZone::create_all
+    ShippingRateType::create_all 
+    TransactionAccount::create_all
+  end
+
   config.before(:each) do
     User.any_instance.stubs(:create_cim_profile).returns(true)
     User.any_instance.stubs(:update_cim_profile).returns(true)

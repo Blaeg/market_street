@@ -27,8 +27,13 @@ class Role < ActiveRecord::Base
   REPORT_ID           = 4
   CUSTOMER_SERVICE_ID = 5
   
+  def self.create_all
+    ROLES.each do |x|
+      find_or_create_by(name: x)
+    end
+  end
+
   private
-  
     def self.find_role_id(id)
       Rails.cache.fetch("role-#{id}") do #, :expires_in => 30.minutes
         self.find(id)
