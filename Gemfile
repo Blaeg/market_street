@@ -68,26 +68,30 @@ group :development do
   gem "rails-erd"
   gem 'byebug', :platforms => [:mingw_20, :mri_20, :ruby_20]
   gem 'pry-byebug', :platforms => [:mingw_20, :mri_20, :ruby_20]
-  gem 'guard-livereload', require: false
+
   # YARD AND REDCLOTH are for generating yardocs
   gem 'yard'
   gem 'RedCloth'
 end
 group :test, :development do
+  gem 'capybara', "~> 1.1"#, :git => 'git://github.com/jnicklas/capybara.git'
   gem 'launchy'
-  gem 'rspec-rails'
+  gem 'rspec-rails'  
 end
 
 group :test do
-  gem 'factory_girl'
-  gem 'factory_girl_rails'
-  #gem 'mocha', '~> 0.13.3', :require => false
-  gem 'rspec-rails-mocha'
   gem 'database_cleaner', :github => 'bmabey/database_cleaner'
+  gem 'factory_girl', "~> 3.3.0"
+  gem 'factory_girl_rails', "~> 3.3.0"
+  gem 'mocha', '~> 0.13.3', :require => false
+  gem 'rspec-rails-mocha'
+  
   gem 'email_spec'
   gem 'simplecov', :require => false
+
   gem "faker"
   gem "forgery"
+
   gem "autotest", '~> 4.4.6'
   gem "autotest-rails-pure"
 
@@ -95,13 +99,6 @@ group :test do
     #gem "autotest-fsevent", '~> 0.2.5'
   end
   gem "autotest-growl"
-  #gem "ZenTest", '4.9.1'#, '4.6.2'
-  gem 'ZenTest', :require => false
-  gem 'shoulda-matchers'
-  gem 'vcr'
-  gem 'growl'
-  gem 'guard'
-  gem 'guard-rspec'
-  gem 'guard-bundler'
-  gem 'capybara'  
+  gem "ZenTest", '4.9.1'#, '4.6.2'
+
 end
