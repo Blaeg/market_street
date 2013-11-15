@@ -10,7 +10,7 @@ end
 
 require 'factory_girl_rails'
 
-Rails.logger.info "START SEEDING"
+puts  "START SEEDING"
 Country.create_all
 State.create_all
 Role.create_all
@@ -27,11 +27,18 @@ ReturnCondition.create_all
 ReferralBonus.create_all
 ReferralProgram.create_all
 
-Rails.logger.info "SEEDING PRODUCTS"
+puts "SEEDING USERS"
+@admin = FactoryGirl.create(:super_admin_user, :with_address, 
+  first_name: 'Foundry', last_name: 'Fair', email: "foundry@foundryfair.com")
+
+
+puts  "SEEDING PRODUCTS"
+FactoryGirl.create_list(:property, 10)
+FactoryGirl.create_list(:product_type, 5)
 
 @products = FactoryGirl.create_list(:product, 10)
 @products.each do |p|
   FactoryGirl.create(:variant, product: p)
 end
 
-Rails.logger.info "SEEDING ORDERS"
+puts  "SEEDING ORDERS"

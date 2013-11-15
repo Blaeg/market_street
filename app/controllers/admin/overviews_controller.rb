@@ -9,10 +9,6 @@ class Admin::OverviewsController < ApplicationController
       redirect_to root_url unless current_user.admin?
 
     elsif Role.first
-      ##  This means we don't have any users
-      ##  First we need to create a user with all permissions
-
-
       @user = User.new(args)
       if @user.active? || @user.activate!
         @user.save
@@ -23,7 +19,6 @@ class Admin::OverviewsController < ApplicationController
         @user_session.save
       end
     else
-      ###  If you dont have roles you need to run rake db:seed
       @no_roles = true
     end
   end

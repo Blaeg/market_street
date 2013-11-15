@@ -54,10 +54,8 @@ class State < ActiveRecord::Base
   def self.create_all
     file_to_load  = Rails.root + 'db/seed/states.yml'
     states_list   = YAML::load( File.open( file_to_load ) )
-
-    states_list.each_pair do |key, state|
-      s = State.find_or_create_by(abbreviation: state['attributes']['abbreviation'], 
-                                  country_id: state['attributes']['country_id'])
+    states_list.each_pair do |key, hash|
+      find_or_create_by(hash['attributes'])
     end
   end
 end
