@@ -41,14 +41,16 @@ RSpec.configure do |config|
 
   #config.order = "random"
 
-  config.before(:suite) { trunctate_unseeded }
+  #config.before(:suite) { trunctate_unseeded }
 
   # config.before(:suite) do 
   #   DatabaseCleaner.strategy = :transaction
   #   DatabaseCleaner.clean_with(:truncation)    
   # end
 
-  config.before(:all) do
+  config.before(:suite) do
+    trunctate_unseeded
+    
     Country::create_usa    
     FactoryGirl.create(:state)
 

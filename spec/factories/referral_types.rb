@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :referral_type do
-    name "MyString"
+  	name ReferralType::DIRECT_WEB_FORM
   end
 end

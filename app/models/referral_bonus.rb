@@ -26,4 +26,7 @@ class ReferralBonus < ActiveRecord::Base
     (amount.to_f / 100.0).round_at(2)
   end
 
+  def self.create_all
+    BONUSES.each {|hash| find_or_create_by(hash) }
+  end
 end
