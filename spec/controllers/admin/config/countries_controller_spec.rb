@@ -5,8 +5,9 @@ describe Admin::Config::CountriesController do
   render_views
 
   before(:each) do
+    FactoryGirl.create(:country)
+    
     activate_authlogic
-
     @user = create_super_admin_user
     login_as(@user)
   end

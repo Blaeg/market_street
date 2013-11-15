@@ -56,6 +56,7 @@ RSpec.configure do |config|
     AddressType::create_all
     DealType::create_all
     PhoneType::create_all
+    ReferralProgram::create_all
     ReferralType::create_all
     ReturnCondition::create_all
     ReturnReason::create_all

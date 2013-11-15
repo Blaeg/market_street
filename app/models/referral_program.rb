@@ -33,10 +33,13 @@ class ReferralProgram < ActiveRecord::Base
     referral_bonus.give_credits(user)
   end
 
+  def self.create_all
+    PROGRAMS.each {|hash| find_or_create_by(hash) }
+  end
+
   private
 
-    def sanitize
-      self.active = true if active.nil? # only allow true or false
-    end
-
+  def sanitize
+    self.active = true if active.nil? # only allow true or false
+  end
 end

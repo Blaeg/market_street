@@ -11,6 +11,7 @@ class ReferralType < ActiveRecord::Base
   ADMIN_WEB_FORM_ID  = 2
 
   def self.create_all
-    NAMES.each {|x| find_or_create_by(name: x) }
+    find_or_create_by(id: DIRECT_WEB_FORM_ID, name: DIRECT_WEB_FORM)
+    find_or_create_by(id: ADMIN_WEB_FORM_ID, name: ADMIN_WEB_FORM)    
   end
 end
