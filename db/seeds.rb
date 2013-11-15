@@ -31,105 +31,43 @@ states_list.each_pair do |key,state|
 end
 
 puts "ROLES"
-roles = Role::ROLES
-roles.each do |role|
-  Role.find_or_create_by(name: role)
-end
+Role::create_all
 
 puts "Address Types"
-AddressType::NAMES.each do |address_type|
-  AddressType.find_or_create_by(name: address_type)
-end
+AddressType.create_all
 
 puts "PHONE TYPES"
-PhoneType::NAMES.each do |phone_type|
-  PhoneType.find_or_create_by(name: phone_type)
-end
+PhoneType.create_all
 
 puts "Item Types"
-ItemType::NAMES.each do |item_type|
-  ItemType.find_or_create_by(name: item_type)
-end
+ItemType.create_all
 
 puts "DEAL TYPES"
-DealType::TYPES.each do |dt|
-  DealType.find_or_create_by(name: dt)
-end
+DealType.create_all
 
 puts "Accounts"
-Account::TYPES.each_pair do |acc_type, value|
-  acc = Account.find_by(name: acc_type)
-  unless acc
-    Account.create(:name => acc_type, :account_type => acc_type, :monthly_charge => value)
-  end
-end
+Account.create_all
 
 puts "SHIPPING RATE TYPES"
-ShippingRateType::TYPES.each do |rate_type|
-  ShippingRateType.find_or_create_by(name: rate_type)
-end
+ShippingRateType.create_all
 
 puts "Shipping Zones"
-ShippingZone::LOCATIONS.each do |loc|
-  ShippingZone.where(name: loc ).first_or_create
-end
+ShippingZone.create_all
 
 puts "ACCOUNT TYPES"
-TransactionAccount::ACCOUNT_TYPES.each do |acc_type|
-  TransactionAccount.where(name: acc_type ).first_or_create
-end
+TransactionAccount.create_all
 
 puts "Return Reasons"
-ReturnReason::REASONS.each do |value|
-  rr = ReturnReason.find_by(label: value)
-  unless rr
-    ReturnReason.create(:label => value, :description => value )
-  end
-end
+ReturnReason.create_all
 
 puts "Return CONDITIONS"
-ReturnCondition::CONDITIONS.each do |value|
-  rc = ReturnCondition.find_by_label(value)
-  unless rc
-    ReturnCondition.create(:label => value, :description => value )
-  end
-end
-letters = Newsletter.count
+ReturnCondition.create_all
 
-puts "Newsletters"
-Newsletter::AUTOSUBSCRIBED.each do |name|
-  unless Newsletter.where(:name => name).first
-    Newsletter.create(:name => name, :autosubscribe => true)
-  end
-end
-
-if letters == 0
-  # Subscribe everyone the first time around
-  newsletter_ids = Newsletter.pluck(:id)
-  User.find_each do |u|
-    u.newsletter_ids = newsletter_ids
-    u.save
-  end
-end
-
-Newsletter::MANUALLY_SUBSCRIBE.each do |name|
-  unless Newsletter.where(:name => name).first
-    Newsletter.create(:name => name, :autosubscribe => false)
-  end
-end
 
 puts "Referral Bonuses"
-ReferralBonus::BONUSES.each do |referral_bonus_attributes|
-  rb = ReferralBonus.find_by_name(referral_bonus_attributes[:name])
-  unless rb
-    ReferralBonus.create(referral_bonus_attributes)
-  end
-end
+ReferralBonus.create_all
 
 puts "Referral PROGRAMS"
-ReferralProgram::PROGRAMS.each do |referral_program_attributes|
-  rp = ReferralProgram.find_by_name(referral_program_attributes[:name])
-  unless rp
-    ReferralProgram.create(referral_program_attributes)
-  end
-end
+ReferralProgram.create_all
+
+

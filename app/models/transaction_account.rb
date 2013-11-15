@@ -27,6 +27,6 @@ class TransactionAccount < ActiveRecord::Base
   validates :name,              :presence => true,       :length => { :maximum => 255 }
 
   def self.create_all
-    ACCOUNT_TYPES.each {|x| find_or_create_by(name: x) }
-  end
+    ACCOUNT_TYPES.each {|acc_type| find_or_create_by(name: acc_type) }
+  end  
 end

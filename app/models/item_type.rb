@@ -15,4 +15,7 @@ class ItemType < ActiveRecord::Base
 
   validates :name,        :presence => true,       :length => { :maximum => 55 }
 
+  def self.create_all
+    NAMES.each {|item_type| find_or_create_by(name: item_type)}    
+  end
 end

@@ -19,6 +19,6 @@ class ReturnCondition < ActiveRecord::Base
   end
 
   def self.create_all
-    CONDITIONS.each {|x| find_or_create_by(label: x) }
-  end
+    CONDITIONS.each {|value| find_or_create_by(label: value, description: value) }
+  end  
 end

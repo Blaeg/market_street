@@ -38,6 +38,8 @@ class Account < ActiveRecord::Base
   validates :monthly_charge,  :presence => true
 
   def self.create_all
-    TYPES.each_pair {|type, fee| find_or_create_by(name: type, account_type: type)}    
-  end
+    TYPES.each_pair do |acc_type, value|
+      find_or_create_by(:name => acc_type, :account_type => acc_type, :monthly_charge => value)
+    end
+  end    
 end
