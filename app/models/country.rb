@@ -55,6 +55,16 @@ class Country < ActiveRecord::Base
   def self.create_usa
     find_or_create_by(id: USA_ID)   
   end
+  
+  def self.create_all
+    file_to_load = Rails.root + 'db/seed/countries.yml'
+    countries_list = YAML::load( File.open( file_to_load ) )
+
+    countries_list.each_pair do |key, hash|
+      c = Country.find_or_create_by(hash)
+      c.update_attribute(:active, true) if ACTIVE_COUNTRY_IDS.include?(c.id)      
+    end
+  end
 
   private
   def expire_cache
