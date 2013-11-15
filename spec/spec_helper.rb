@@ -1,5 +1,25 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+
+ENV['RAILS_ENV'] = ENV['ENV'] = 'test'
+
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter "/vendor/"
+end
+
+if ENV['CIRCLE_ARTIFACTS'].nil?
+  SimpleCov.coverage_dir  'coverage/rspec'
+else
+  module SimpleCov::Configuration
+    def coverage_path
+      FileUtils.mkdir_p coverage_dir
+      coverage_dir
+    end
+  end
+  SimpleCov.coverage_dir  "#{ENV['CIRCLE_ARTIFACTS']}/simplecov_rspec"
+end
+
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require "authlogic/test_case"
