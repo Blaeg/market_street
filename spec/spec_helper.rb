@@ -59,15 +59,6 @@ RSpec.configure do |config|
   # config.use_transactional_fixtures = true
   config.use_transactional_fixtures = false
 
-  #config.order = "random"
-
-  #config.before(:suite) { trunctate_unseeded }
-
-  # config.before(:suite) do 
-  #   DatabaseCleaner.strategy = :transaction
-  #   DatabaseCleaner.clean_with(:truncation)    
-  # end
-
   config.before(:suite) do
     trunctate_unseeded
     
