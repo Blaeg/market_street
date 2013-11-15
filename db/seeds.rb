@@ -28,7 +28,10 @@ ReferralBonus.create_all
 ReferralProgram.create_all
 
 Rails.logger.info "SEEDING PRODUCTS"
-FactoryGirl.create_list(:product, 10)
-FactoryGirl.create_list(:variant, 10)
+
+@products = FactoryGirl.create_list(:product, 10)
+@products.each do |p|
+  FactoryGirl.create(:variant, product: p)
+end
 
 Rails.logger.info "SEEDING ORDERS"
