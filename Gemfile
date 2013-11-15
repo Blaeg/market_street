@@ -76,8 +76,9 @@ group :development do
   gem 'roundsman', require: false
 end
 group :test, :development do
-  gem 'launchy'
   gem 'rspec-rails'  
+  gem 'pry-rails'
+  gem 'pry-nav'
 end
 
 group :test do
