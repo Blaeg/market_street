@@ -27,14 +27,17 @@ ReturnCondition.create_all
 ReferralBonus.create_all
 ReferralProgram.create_all
 
+#sample shipping category
+['table', 'sofa', 'chair', 'rug'].each do |x| 
+	ShippingCategory::find_or_create_by(name: x)
+end
+
 puts "SEEDING USERS"
 @admin = FactoryGirl.create(:super_admin_user, :with_address, 
   first_name: 'Foundry', last_name: 'Fair', email: "foundry@foundryfair.com")
 
-
 puts  "SEEDING PRODUCTS"
-FactoryGirl.create_list(:property, 10)
-FactoryGirl.create_list(:product_type, 5)
+FactoryGirl.create_list(:property, 5)
 
 @products = FactoryGirl.create_list(:product, 10, :deleted_at => nil)
 @products.each do |p|

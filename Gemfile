@@ -21,10 +21,6 @@ gem 'aws-sdk'
 gem 'bluecloth',      '~> 2.1.0'
 gem 'cancan',         '~> 1.6.8'
 gem 'chronic'
-# Use https if you are pushing to HEROKU
-gem 'compass-rails', git: 'https://github.com/Compass/compass-rails.git', branch: 'rails4-hack'
-#gem 'compass-rails',  git: 'git://github.com/Compass/compass-rails.git', branch: 'rails4-hack'
-
 
 gem 'dynamic_form'
 gem 'jbuilder'
@@ -52,6 +48,18 @@ gem 'state_machine', '~> 1.2.0'
 #gem 'sunspot_rails', '~> 2.0.0'
 gem 'will_paginate', '~> 3.0.4'
 gem 'zurb-foundation', '~> 4.3.2'
+
+# UI components
+gem 'simple_form'
+gem 'simple-navigation'
+gem 'simple-navigation-bootstrap'
+gem 'compass-rails'
+gem 'compass-flexbox'
+gem 'haml-rails'
+gem 'breadcrumbs_on_rails'
+gem 'angularjs-rails', '~> 1.2.0.rc2'
+gem 'angularjs-rails-resource'
+gem 'underscore-rails'
 
 group :production do
   gem 'pg'
