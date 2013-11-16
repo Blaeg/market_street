@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :prototype do
-    name 'John'
+    sequence(:name) { |i| "prototype #{i}" }
   end
 end

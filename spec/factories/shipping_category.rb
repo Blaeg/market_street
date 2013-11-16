@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :shipping_category do
-    name          "34567kjhgf"
+    sequence(:name)      { |i| "Shipping Category #{i}" }
   end
 end
