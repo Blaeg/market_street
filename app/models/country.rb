@@ -1,8 +1,6 @@
 class Country < ActiveRecord::Base
   has_many :states
 
-  belongs_to :shipping_zone
-
   validates :name,  :presence => true,       :length => { :maximum => 200 }
   validates :abbreviation,  :presence => true,       :length => { :maximum => 10 }
 

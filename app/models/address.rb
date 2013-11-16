@@ -62,6 +62,8 @@ class Address < ActiveRecord::Base
   before_save :replace_address, if: :replace_address_id
   after_save  :invalidate_old_defaults
 
+  delegate :shipping_zone_id, :to => :state
+   
   #accepts_nested_attributes_for :phones
 
   # First and last name of the person on the address
@@ -105,25 +107,6 @@ class Address < ActiveRecord::Base
       :zip      => zip_code#,
       #:phone    => phone
     }
-  end
-
-  # Method used to determine the shipping methods ids available for this address
-  def shipping_method_ids
-    if state_id && state.shipping_zone
-      state.shipping_zone.shipping_method_ids
-    else
-      country.shipping_zone_id ? country.shipping_zone.shipping_method_ids : []
-    end
-  end
-  # Method used to determine the shipping_zone_id for this address
-  #
-  #  Specifically used to determine the order_item.shipping_rate_options
-  def shipping_zone_id
-    if state_id
-      state.shipping_zone_id
-    elsif country_id
-      country.shipping_zone_id
-    end
   end
 
   # Use this method to represent the full address as an array compacted

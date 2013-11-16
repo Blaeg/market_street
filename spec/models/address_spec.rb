@@ -91,18 +91,6 @@ describe Address, "methods" do
     end
   end
 
-  context ".shipping_method_ids" do
-    it 'should be the state\'s shipping methods' do
-      Settings.require_state_in_address = true
-      shipping_zone = ShippingZone.find(1)
-      shipping_zone.stubs(:shipping_method_ids).returns([2,4])
-      state = State.first
-      state.stubs(:shipping_zone).returns(shipping_zone)
-      address = FactoryGirl.create(:address, :state => state)
-      address.shipping_method_ids.should == [2,4]
-    end    
-  end
-
   describe Address, ".city_state_name" do
     #[city, state_abbr_name].join(', ')
     it 'should display the state_abbr_name' do

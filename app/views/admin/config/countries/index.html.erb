@@ -13,7 +13,6 @@
     <tr class='odd'>
         <th  class='column1_header'><%= sortable 'name', 'Name' %></th>
         <th>Abbreviation</th>
-        <th>Shipping Zone</th>
         <th>Active</th>
         <th></th>
     </tr>
@@ -22,7 +21,6 @@
       <tr  class='<%= cycle("odd", "")%>'>
           <td><%= country.name %></td>
           <td><%= country.abbreviation %></td>
-          <td><%= country.shipping_zone.try(:name) %></td>
           <td><%= link_to "InActivate", [:admin, :config, country], :data => { :confirm => 'Are you sure?' }, :method => :delete %></td>
       </tr>
     <% end %>

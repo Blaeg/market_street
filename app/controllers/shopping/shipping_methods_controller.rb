@@ -6,9 +6,7 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
       redirect_to shopping_addresses_url
     else
       session_order.find_sub_total
-      ##  TODO  refactor this method... it seems a bit lengthy
-      @shipping_method_ids = session_order.ship_address.shipping_method_ids
-
+      
       @order_items = OrderItem.includes({:variant => {:product => :shipping_category}}).order_items_in_cart(session_order.id)
       #session_order.order_
       @order_items.each do |item|
