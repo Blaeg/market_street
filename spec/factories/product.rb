@@ -8,7 +8,6 @@ FactoryGirl.define do
     shipping_category    { |c| c.association(:shipping_category) }
     sequence(:permalink) { |i| "permalink  #{i}" }
     available_at         Time.now
-    deleted_at           nil
     featured             true
     meta_description     'Describe the variant'
     meta_keywords        'Key One, Key Two'

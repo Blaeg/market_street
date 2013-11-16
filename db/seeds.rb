@@ -36,8 +36,9 @@ puts  "SEEDING PRODUCTS"
 FactoryGirl.create_list(:property, 10)
 FactoryGirl.create_list(:product_type, 5)
 
-@products = FactoryGirl.create_list(:product, 10)
+@products = FactoryGirl.create_list(:product, 10, :deleted_at => nil)
 @products.each do |p|
+  p.activate!
   FactoryGirl.create(:variant, product: p)
 end
 
