@@ -21,13 +21,12 @@ describe ShippingRate, 'instance methods' do
   end
 
   context ".name" do
-    #[shipping_method.name, shipping_method.shipping_zone.name, sub_name].join(', ')
     it "should return the name" do
       ship_rate_type = ShippingRateType.find_by_name('Individual')
       @shipping_rate.shipping_rate_type = ship_rate_type
       shipping_method = create(:shipping_method, :name => 'shipname')
       @shipping_rate.shipping_method = shipping_method
-      @shipping_rate.name.should == 'shipname, USA, (Individual - 5.5)'
+      @shipping_rate.name.should == 'shipname, (Individual - 5.5)'
     end
   end
 

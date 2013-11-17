@@ -8,7 +8,6 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
       session_order.find_sub_total
       
       @order_items = OrderItem.includes({:variant => {:product => :shipping_category}}).order_items_in_cart(session_order.id)
-      #session_order.order_
       @order_items.each do |item|
         item.variant.product.available_shipping_rates = ShippingRate.with_these_shipping_methods(item.variant.product.shipping_category.shipping_rate_ids, @shipping_method_ids)
       end

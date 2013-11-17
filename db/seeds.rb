@@ -19,6 +19,7 @@ PhoneType.create_all
 ItemType.create_all
 DealType.create_all
 Account.create_all
+ShippingMethod.create_all
 ShippingRateType.create_all
 ShippingZone.create_all
 TransactionAccount.create_all
@@ -34,7 +35,7 @@ end
 
 puts "SEEDING USERS"
 @admin = FactoryGirl.create(:super_admin_user, :with_address, 
-  first_name: 'Foundry', last_name: 'Fair', email: "foundry@foundryfair.com")
+  first_name: 'Foundry', last_name: 'Fair', email: "foundry@fair.com")
 
 puts  "SEEDING PRODUCTS"
 FactoryGirl.create_list(:property, 5)

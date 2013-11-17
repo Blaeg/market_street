@@ -6,20 +6,12 @@ class Admin::Config::ShippingMethodsController < Admin::Config::BaseController
 
   # GET /admin/config/shipping_methods/new
   def new
-
-    form_info
-    if @shipping_zones.empty?
-        flash[:notice] = "You must create a Shipping Zone before you create a Shipping Method."
-        redirect_to new_admin_config_shipping_zone_path
-    else
-      @shipping_method = ShippingMethod.new
-    end
+    @shipping_method = ShippingMethod.new    
   end
 
   # GET /admin/config/shipping_methods/1/edit
   def edit
-    @shipping_method = ShippingMethod.find(params[:id])
-    form_info
+    @shipping_method = ShippingMethod.find(params[:id])    
   end
 
   # POST /admin/config/shipping_methods
@@ -28,8 +20,7 @@ class Admin::Config::ShippingMethodsController < Admin::Config::BaseController
 
     if @shipping_method.save
       redirect_to(admin_config_shipping_methods_url, :notice => 'Shipping method was successfully created.')
-    else
-      form_info
+    else      
       render :action => "new"
     end
   end
@@ -40,7 +31,6 @@ class Admin::Config::ShippingMethodsController < Admin::Config::BaseController
     if @shipping_method.update_attributes(allowed_params)
       redirect_to(admin_config_shipping_methods_url, :notice => 'Shipping method was successfully updated.')
     else
-      form_info
       render :action => "edit"
     end
   end
@@ -48,10 +38,6 @@ class Admin::Config::ShippingMethodsController < Admin::Config::BaseController
   private
 
   def allowed_params
-    params.require(:shipping_method).permit(:name, :shipping_zone_id)
-  end
-
-  def form_info
-    @shipping_zones = ShippingZone.all.map{|sz| [sz.name, sz.id]}
-  end
+    params.require(:shipping_method).permit(:name)
+  end  
 end

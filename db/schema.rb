@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130719071644) do
+ActiveRecord::Schema.define(version: 20131116201813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,14 +127,12 @@ ActiveRecord::Schema.define(version: 20130719071644) do
 
   create_table "countries", force: true do |t|
     t.string  "name"
-    t.string  "abbreviation",     limit: 5
-    t.integer "shipping_zone_id"
-    t.boolean "active",                     default: false
+    t.string  "abbreviation", limit: 5
+    t.boolean "active",                 default: false
   end
 
   add_index "countries", ["active"], name: "index_countries_on_active", using: :btree
   add_index "countries", ["name"], name: "index_countries_on_name", using: :btree
-  add_index "countries", ["shipping_zone_id", "active"], name: "index_countries_on_shipping_zone_id_and_active", using: :btree
 
   create_table "coupons", force: true do |t|
     t.string   "type",                                                  null: false
@@ -556,13 +554,10 @@ ActiveRecord::Schema.define(version: 20130719071644) do
   end
 
   create_table "shipping_methods", force: true do |t|
-    t.string   "name",             null: false
-    t.integer  "shipping_zone_id", null: false
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "shipping_methods", ["shipping_zone_id"], name: "index_shipping_methods_on_shipping_zone_id", using: :btree
 
   create_table "shipping_rate_types", force: true do |t|
     t.string "name", null: false

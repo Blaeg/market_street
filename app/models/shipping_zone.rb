@@ -1,5 +1,4 @@
 class ShippingZone < ActiveRecord::Base
-  has_many :shipping_methods
   has_many :states#, :through => :state_shipping_zones
 
   USA48         = 'USA'

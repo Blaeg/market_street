@@ -8,7 +8,7 @@ class Admin::Shopping::Checkout::ShippingMethodsController < Admin::Shopping::Ch
       ##  TODO  refactopr this method... it seems a bit lengthy
       if @shipping_method_ids = session_admin_order.ship_address.shipping_method_ids.empty?
         flash[:alert] = "The Admin has not set up Shipping Zones / Shipping Methods correctly for #{session_admin_order.ship_address.state_country_name }."
-        redirect_to admin_config_shipping_zones_url
+        redirect_to admin_config_shipping_methods_url
       else
         @shipping_method_ids = session_admin_order.ship_address.shipping_method_ids
         session_admin_order.find_sub_total

@@ -12,10 +12,7 @@
 
 <fieldset>
   <label>Name</label>
-  <%= f.text_field :name %>
-
-  <label>Shipping Zone</label>
-  <%= f.select :shipping_zone_id, @shipping_zones %>
+  <%= f.text_field :name %>  
 </fieldset>
 
 <%= f.submit "Create", :class => "button" %>

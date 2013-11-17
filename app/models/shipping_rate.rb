@@ -19,7 +19,6 @@ class ShippingRate < ActiveRecord::Base
 
   belongs_to :shipping_method
   belongs_to :shipping_rate_type
-
   belongs_to  :shipping_category
   has_many    :products
 
@@ -50,7 +49,7 @@ class ShippingRate < ActiveRecord::Base
   # @param [none]
   # @return [ String ]
   def name
-    [shipping_method.name, shipping_method.shipping_zone.name, sub_name].join(', ')
+    [shipping_method.name, sub_name].join(', ')
   end
 
   # the shipping rate type and $$$ rate  separated by ' - '
