@@ -76,7 +76,7 @@ describe Deal do
     it 'should return 10.0"' do
       @order_item3   = create(:order_item, :price => 25.0, :order => @order, :variant => @variant2)
       @order.stubs(:order_items).returns([@order_item, @order_item2, @order_item3])
-      Deal.best_qualifing_deal(@order).should == 0.0 # $20.00 * 0.50
+      Deal.best_qualifing_deal(@order).should == 10.0 # $20.00 * 0.50
     end
 
   end
