@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :property do
-    identifing_name   'name to identify'
-    display_name      'name to display'
+  	sequence(:identifing_name) { |i| 'identifing_name #{i}'}
+  	sequence(:display_name) { |i| 'display_name #{i}'}    
   end
 end

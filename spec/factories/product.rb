@@ -11,6 +11,12 @@ FactoryGirl.define do
     featured             true
     meta_description     'Describe the variant'
     meta_keywords        'Key One, Key Two'
+
+    trait(:with_properties) do
+      after(:create) do |p|
+        p.product_properties.push(create(:product_property, :product => p))
+      end
+    end
   end
 
   factory :product_with_image, :parent => :product do
