@@ -47,3 +47,26 @@ FactoryGirl.create_list(:property, 5)
 end
 
 puts  "SEEDING ORDERS"
+
+letters = Newsletter.count
+puts "Newsletters"
+Newsletter::AUTOSUBSCRIBED.each do |name|
+  unless Newsletter.where(:name => name).first
+    Newsletter.create(:name => name, :autosubscribe => true)
+  end
+end
+
+if letters == 0
+  # Subscribe everyone the first time around
+  newsletter_ids = Newsletter.pluck(:id)
+  User.find_each do |u|
+    u.newsletter_ids = newsletter_ids
+    u.save
+  end
+end
+
+Newsletter::MANUALLY_SUBSCRIBE.each do |name|
+  unless Newsletter.where(:name => name).first
+    Newsletter.create(:name => name, :autosubscribe => false)
+  end
+end
