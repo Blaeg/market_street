@@ -18,24 +18,32 @@ puts "SEEDING USERS"
 Role.create_all
 
 @admin = FactoryGirl.create(:super_admin_user, :with_address, 
-  first_name: 'Foundry', last_name: 'Fair', email: "foundry@fair.com")
+  first_name: 'Foundry', last_name: 'Fair', email: "f@ff.com")
 
 
 puts  "SEEDING CATALOG"
-AddressType.create_all
+
 PhoneType.create_all
 ItemType.create_all
 DealType.create_all
 Account.create_all
+TransactionAccount.create_all
+ReferralBonus.create_all
+ReferralProgram.create_all
+
+puts  "SEEDING SHIPPING"
+AddressType.create_all
 ShippingCategory.create_all
 ShippingMethod.create_all
 ShippingRateType.create_all
 ShippingZone.create_all
-TransactionAccount.create_all
 ReturnReason.create_all
 ReturnCondition.create_all
-ReferralBonus.create_all
-ReferralProgram.create_all
+ShippingCategory.all.each do|sc|
+  ShippingMethod.all.each do |sm|
+    FactoryGirl.create(:shipping_rate, shipping_method: sm, shipping_category: sc)      
+  end
+end
 
 puts  "SEEDING PRODUCTS"
 FactoryGirl.create_list(:property, 5)
