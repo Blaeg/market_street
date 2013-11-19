@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/Compass/compass-rails.git
+  revision: 32c16cb90f78053310b35199a970c53355bcd300
+  branch: rails4-hack
+  specs:
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
+
+GIT
   remote: https://github.com/binarylogic/authlogic.git
   revision: abc09970ed1fad98c6c12f4ca64d1670d37d11db
   specs:
@@ -121,11 +129,6 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
-    compass-flexbox (1.1.2)
-      compass
-      sass
-    compass-rails (1.0.3)
-      compass (>= 0.12.2, < 0.14)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -367,8 +370,7 @@ DEPENDENCIES
   capybara (~> 1.1)
   capybara-screenshot
   chronic
-  compass-flexbox
-  compass-rails
+  compass-rails!
   database_cleaner
   dynamic_form
   email_spec
