@@ -31,6 +31,8 @@ class OrderItem < ActiveRecord::Base
   validates :variant_id,  :presence => true
   validates :order_id,    :presence => true
 
+  delegate :shipping_method, :shipping_method_id, :to => :shipping_rate
+
   def set_beginning_values
     @beginning_tax_rate_id      = self.tax_rate_id      rescue @beginning_tax_rate_id = nil # this stores the initial value of the tax_rate
     @beginning_shipping_rate_id = self.shipping_rate_id rescue @beginning_shipping_rate_id = nil # this stores the initial value of the tax_rate
@@ -67,23 +69,6 @@ class OrderItem < ActiveRecord::Base
 
   def unshipped?
     !shipped?
-  end
-
-  # shipping method for the order item
-  #
-  # @param [none]
-  # @return [ShippingMethod]
-  def shipping_method
-    shipping_rate.shipping_method
-  end
-
-  # shipping method id for the order item (use to reduce SQL calls)
-  #   refer to ShippingMethod ID constants to determine what shipping method is called
-  #
-  # @param [none]
-  # @return [Integer] ShippingMethod id
-  def shipping_method_id
-    shipping_rate.shipping_method_id
   end
 
   def ship_category_id
