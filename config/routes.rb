@@ -137,31 +137,11 @@ Hadean::Application.routes.draw do
       resources :carts
       resources :products
       resources :users
-      namespace :checkout do
-        resources :billing_addresses, :only => [:index, :update, :new, :create, :select_address] do
-          member do
-            put :select_address
-          end
-        end
-        resources :credit_cards
-        resource  :order, :only => [:show, :update, :start_checkout_process] do
-          member do
-            post :start_checkout_process
-          end
-        end
-        resources :shipping_addresses, :only => [:index, :update, :new, :create, :select_address] do
-          member do
-            put :select_address
-          end
-        end
-        resources :shipping_methods, :only => [:index, :update]
-      end
     end
     namespace :config do
       resources :accounts
       resources :countries, :only => [:index, :update, :destroy]
       resources :overviews
-      resources :shipping_categories
       resources :shipping_rates
       resources :shipping_methods
       resources :shipping_zones
@@ -205,7 +185,6 @@ Hadean::Application.routes.draw do
         resources :properties,          :only => [:index, :create, :update]
         resources :prototypes,          :only => [:update]
         resources :tax_categories,        :only => [:index, :create, :update]
-        resources :shipping_categories, :only => [:index, :create, :update]
         resources :product_types,       :only => [:index, :create, :update]
       end
 

@@ -322,17 +322,17 @@ describe Order, "instance methods" do
       variant = create(:variant)
       order_items_size = @order.order_items.size
       @order.add_items(variant, 2)
-      @order.order_items.size.should == order_items_size + 2
+      @order.order_items.size.should == order_items_size + 1
     end
   end
 
   context ".remove_items(variant, final_quantity)" do
     it 'should remove variant from order items ' do
       variant = create(:variant)
-      order_items_size = @order.order_items.size
       @order.add_items(variant, 3)
-      @order.remove_items(variant, 1)
-      @order.order_items.size.should == order_items_size + 1
+      expect(@order.reload.order_items.size).to eq(1)
+      @order.remove_items(variant, 0)
+      expect(@order.reload.order_items.size).to eq(0)
     end
   end
 

@@ -6,7 +6,6 @@
 #  shipping_method_id    :integer(4)      not null
 #  rate                  :decimal(8, 2)   default(0.0), not null
 #  shipping_rate_type_id :integer(4)      not null
-#  shipping_category_id  :integer(4)      not null
 #  minimum_charge        :decimal(8, 2)   default(0.0), not null
 #  position              :integer(4)
 #  active                :boolean(1)      default(TRUE)
@@ -19,17 +18,13 @@ class ShippingRate < ActiveRecord::Base
 
   belongs_to :shipping_method
   belongs_to :shipping_rate_type
-  belongs_to  :shipping_category
-  has_many    :products
+  has_many   :products
 
   validates  :rate,                   :presence => true, :numericality => true
-
   validates  :shipping_method_id,     :presence => true
   validates  :shipping_rate_type_id,  :presence => true
-  validates  :shipping_category_id,   :presence => true
-
-  scope :with_these_shipping_methods, lambda { |shipping_rate_ids, shipping_method_ids|
-          where("shipping_rates.id IN (?)", shipping_rate_ids).
+  
+  scope :with_these_shipping_methods, lambda { |shipping_method_ids|
           where("shipping_rates.shipping_method_id IN (?)", shipping_method_ids)
         }
 

@@ -65,13 +65,6 @@ describe Variant, " instance methods" do
     end
   end
 
-  context ".shipping_category_id" do
-    it 'should return the products shipping_category' do
-      @variant.product.stubs(:shipping_category_id).returns(32)
-      @variant.shipping_category_id.should == 32
-    end
-  end
-
   context ".display_property_details(separator = '<br/>')" do
     # variant_properties.collect {|vp| [vp.property.display_name ,vp.description].join(separator) }
     it 'should show all property details' do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131116201813) do
+ActiveRecord::Schema.define(version: 20131121164931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 20131116201813) do
     t.integer  "shipment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "quantity"
   end
 
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
@@ -351,22 +352,22 @@ ActiveRecord::Schema.define(version: 20131116201813) do
   add_index "product_types", ["rgt"], name: "index_product_types_on_rgt", using: :btree
 
   create_table "products", force: true do |t|
-    t.string   "name",                                 null: false
+    t.string   "name",                               null: false
     t.text     "description"
     t.text     "product_keywords"
-    t.integer  "product_type_id",                      null: false
+    t.integer  "product_type_id",                    null: false
     t.integer  "prototype_id"
-    t.integer  "shipping_category_id",                 null: false
-    t.string   "permalink",                            null: false
+    t.string   "permalink",                          null: false
     t.datetime "available_at"
     t.datetime "deleted_at"
     t.string   "meta_keywords"
     t.string   "meta_description"
-    t.boolean  "featured",             default: false
+    t.boolean  "featured",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description_markup"
     t.integer  "brand_id"
+    t.integer  "shipping_method_id"
   end
 
   add_index "products", ["brand_id"], name: "index_products_on_brand_id", using: :btree
@@ -375,7 +376,6 @@ ActiveRecord::Schema.define(version: 20131116201813) do
   add_index "products", ["permalink"], name: "index_products_on_permalink", unique: true, using: :btree
   add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
   add_index "products", ["prototype_id"], name: "index_products_on_prototype_id", using: :btree
-  add_index "products", ["shipping_category_id"], name: "index_products_on_shipping_category_id", using: :btree
 
   create_table "properties", force: true do |t|
     t.string  "identifing_name",                null: false
@@ -549,10 +549,6 @@ ActiveRecord::Schema.define(version: 20131116201813) do
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
   add_index "shipments", ["shipping_method_id"], name: "index_shipments_on_shipping_method_id", using: :btree
 
-  create_table "shipping_categories", force: true do |t|
-    t.string "name", null: false
-  end
-
   create_table "shipping_methods", force: true do |t|
     t.string   "name",       null: false
     t.datetime "created_at"
@@ -567,7 +563,6 @@ ActiveRecord::Schema.define(version: 20131116201813) do
     t.integer  "shipping_method_id",                                           null: false
     t.decimal  "rate",                  precision: 8, scale: 2, default: 0.0,  null: false
     t.integer  "shipping_rate_type_id",                                        null: false
-    t.integer  "shipping_category_id",                                         null: false
     t.decimal  "minimum_charge",        precision: 8, scale: 2, default: 0.0,  null: false
     t.integer  "position"
     t.boolean  "active",                                        default: true
@@ -575,7 +570,6 @@ ActiveRecord::Schema.define(version: 20131116201813) do
     t.datetime "updated_at"
   end
 
-  add_index "shipping_rates", ["shipping_category_id"], name: "index_shipping_rates_on_shipping_category_id", using: :btree
   add_index "shipping_rates", ["shipping_method_id"], name: "index_shipping_rates_on_shipping_method_id", using: :btree
   add_index "shipping_rates", ["shipping_rate_type_id"], name: "index_shipping_rates_on_shipping_rate_type_id", using: :btree
 

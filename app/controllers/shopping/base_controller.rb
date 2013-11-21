@@ -1,6 +1,6 @@
 class Shopping::BaseController < ApplicationController
   helper_method :session_order, :session_order_id
-  # these are methods that can be used for all orders
+  helper_method :current_line, :current_order
 
   protected
 
@@ -15,7 +15,6 @@ class Shopping::BaseController < ApplicationController
   end
 
   def next_form(order)
-
     # if cart is empty
     if session_cart.shopping_cart_items.empty?
       flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')
@@ -27,7 +26,7 @@ class Shopping::BaseController < ApplicationController
     elsif session_order.ship_address_id.nil?
       return shopping_addresses_url()
     elsif !session_order.all_order_items_have_a_shipping_rate?
-      return shopping_shipping_methods_url()
+      return shopping_shipping_methods_url()  
     end
   end
 
@@ -54,11 +53,11 @@ class Shopping::BaseController < ApplicationController
 
   def find_or_create_order
     return @session_order if @session_order
-    if session[:order_id]
+    if session[:order_id].nil?
+      create_order
+    else
       @session_order = current_user.orders.include_checkout_objects.find(session[:order_id])
       create_order if !@session_order.in_progress?
-    else
-      create_order
     end
     @session_order
   end
@@ -75,5 +74,5 @@ class Shopping::BaseController < ApplicationController
     items.each do |item|
       @session_order.add_items(item.variant, item.quantity)
     end
-  end
+  end  
 end

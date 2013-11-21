@@ -18,10 +18,7 @@ class Admin::Config::ShippingRatesController < Admin::Config::BaseController
   # GET /shipping_rates/new
   def new
     form_info
-    if @shipping_categories.empty?
-        flash[:notice] = "You must create a Shipping Category before you create a Shipping Rate."
-        redirect_to new_admin_config_shipping_category_url
-    elsif @shipping_methods.empty?
+    if @shipping_methods.empty?
         flash[:notice] = "You must create a Shipping Method before you create a Shipping Rate."
         redirect_to new_admin_config_shipping_method_url
     else
@@ -66,12 +63,11 @@ class Admin::Config::ShippingRatesController < Admin::Config::BaseController
   private
 
   def allowed_params
-    params.require(:shipping_rate).permit(:shipping_method_id, :rate, :shipping_rate_type_id, :shipping_category_id, :minimum_charge, :position, :active)
+    params.require(:shipping_rate).permit(:shipping_method_id, :rate, :shipping_rate_type_id, :minimum_charge, :position, :active)
   end
 
   def form_info
     @shipping_rate_types  = ShippingRateType.all.map{|srt| [srt.name, srt.id]}
-    @shipping_methods     = ShippingMethod.all.map{|sm| [sm.descriptive_name, sm.id]}
-    @shipping_categories  = ShippingCategory.all.map{|sc| [sc.name, sc.id]}
+    @shipping_methods     = ShippingMethod.all.map{|sm| [sm.descriptive_name, sm.id]}    
   end
 end

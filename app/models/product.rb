@@ -8,7 +8,6 @@
 #  product_keywords     :text
 #  product_type_id      :integer(4)      not null
 #  prototype_id         :integer(4)
-#  shipping_category_id :integer(4)      not null
 #  permalink            :string(255)     not null
 #  available_at         :datetime
 #  deleted_at           :datetime
@@ -35,8 +34,9 @@ class Product < ActiveRecord::Base
   belongs_to :brand
   belongs_to :product_type
   belongs_to :prototype
-  belongs_to :shipping_category
-
+  belongs_to :shipping_rate
+  belongs_to :shipping_method
+  
   has_many :product_properties
   has_many :properties,         through: :product_properties
 
@@ -57,8 +57,8 @@ class Product < ActiveRecord::Base
   accepts_nested_attributes_for :product_properties, reject_if: proc { |attributes| attributes['description'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :images,             reject_if: proc { |t| (t['photo'].nil? && t['photo_from_link'].blank?) }, allow_destroy: true
 
-  validates :shipping_category_id,  presence: true
   validates :product_type_id,       presence: true
+  validates :shipping_method_id,    presence: true
   validates :name,                  presence: true,   length: { :maximum => 165 }
   validates :description_markup,    presence: true,   length: { :maximum => 2255 },     :if => :active
   validates :meta_keywords,         presence: true,        length: { :maximum => 255 }, :if => :active
@@ -208,7 +208,6 @@ class Product < ActiveRecord::Base
                 deleted_at_filter(active_state)#.
                 # name_filter(params[:name]).
                 # product_type_filter( params[:product_type_id] ).
-                # shipping_category_filter(params[:shipping_category_id]).
                 # available_at_gt_filter(params[:available_at_gt]).
                 # available_at_lt_filter(params[:available_at_lt])
   end
@@ -230,14 +229,7 @@ class Product < ActiveRecord::Base
         all
       end
     end
-    def self.shipping_category_filter(shipping_category_id)
-      if shipping_category_id.present?
-        where("products.shipping_category_id = ?", shipping_category_id)
-      else
-        all
-      end
-    end
-
+    
     def self.product_type_filter(product_type_id)
       if product_type_id.present?
         where("products.product_type_id = ?", product_type_id)

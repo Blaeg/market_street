@@ -33,24 +33,20 @@ ReferralProgram.create_all
 
 puts  "SEEDING SHIPPING"
 AddressType.create_all
-ShippingCategory.create_all
 ShippingMethod.create_all
 ShippingRateType.create_all
 ShippingZone.create_all
 ReturnReason.create_all
 ReturnCondition.create_all
 
-ShippingCategory.all.each do|sc|
-  ShippingMethod.all.each do |sm|
-    FactoryGirl.create(:shipping_rate, shipping_method: sm, shipping_category: sc)      
-  end
+ShippingMethod.all.each do |sm|
+  FactoryGirl.create(:shipping_rate, shipping_method: sm)      
 end
 
 puts  "SEEDING PRODUCTS"
 FactoryGirl.create_list(:property, 5)
 
-@products = FactoryGirl.create_list(:product, 10, :with_properties, 
-                                    :shipping_category => ShippingCategory.first)
+@products = FactoryGirl.create_list(:product, 10, :with_properties)
 @products.each do |p|
   p.activate!
   FactoryGirl.create(:variant, product: p)

@@ -162,14 +162,6 @@ class Variant < ActiveRecord::Base
     product.tax_rate(state_id, tax_time)
   end
 
-  # convienence method to get the shipping_category_id of the product
-  #
-  # @param [none]
-  # @return [Integer] shipping_category_id
-  def shipping_category_id
-    product.shipping_category_id
-  end
-
   # returns an array of the display name and description of all the variant properties
   #  ex: obj.sub_name => ['color: green', 'size: 9.0']
   #

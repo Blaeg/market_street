@@ -21,10 +21,7 @@
   <%= f.text_field :minimum_charge %>
 
   <label>Shipping Rate Type</label>
-  <%= f.select :shipping_rate_type_id, @shipping_rate_types %>
-
-  <label>Shipping Category</label>
-  <%= f.select :shipping_category_id, @shipping_categories %>
+  <%= f.select :shipping_rate_type_id, @shipping_rate_types %>  
 </fieldset>
 
 <%= f.submit "Create", :class => "button" %>

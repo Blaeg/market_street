@@ -98,7 +98,7 @@ class Admin::Merchandise::ProductsController < Admin::BaseController
 
     def allowed_params
       params.require(:product).permit(:name, :description, :product_keywords, :set_keywords, :product_type_id,
-                                      :prototype_id, :shipping_category_id, :permalink, :available_at, :deleted_at,
+                                      :prototype_id, :permalink, :available_at, :deleted_at,
                                       :meta_keywords, :meta_description, :featured, :description_markup, :brand_id,
                                       product_properties_attributes: [:product_id, :property_id, :position, :description])
     end
@@ -106,7 +106,6 @@ class Admin::Merchandise::ProductsController < Admin::BaseController
     def form_info
       @prototypes               = Prototype.all.collect{|pt| [pt.name, pt.id]}
       @all_properties           = Property.all
-      @select_shipping_category = ShippingCategory.all.collect {|sc| [sc.name, sc.id]}
       @brands        = Brand.order(:name).collect {|ts| [ts.name, ts.id]}
     end
 
