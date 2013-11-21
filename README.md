@@ -1,54 +1,13 @@
-#ROR Ecommerce
-
 ##Project Overview
 
-Please create a ticket on github if you have issues.
-They will be addressed ASAP.
+This is a Ecommerce/marketplace forked from ror_commerce platform.
 
-Please look at the [homepage](http://www.ror-e.com) for more details.  Or take a look at the [github page](http://drhenner.github.com/ror_ecommerce/index.html)
-
-![RoR Ecommerce](http://ror-e.com/images/logo.png "ROR Ecommerce").
-
-This is a Rails e-commerce platform.
-ROR Ecommerce is a *Rails 4 application* with the intent to allow developers to create an ecommerce solution easily.
-This solution includes an Admin for *Purchase Orders*, *Product creation*, *Shipments*, *Fulfillment* and *creating Orders*.
-There is a minimal customer facing shopping cart understanding that this will be customized.
-The cart allows you to track your customers' *cart history* and includes a *double entry accounting system*.
+Market Street is a *Rails 4 application* with the intent to allow developers to create an ecommerce/marketplace solution easily.
 
 The project has *Solr searching*, *Compass* and *Zurb Foundation for CSS* and uses *jQuery*.
-The gem list is quite large and the project still has a large wish list.
-In spite of that, it is currently the most complete Rails solution, and it will only get better.
-
-Please use *Ruby 2.0* and enjoy *Rails 4.0*.
-
-ROR Ecommerce is designed so that if you understand Rails you will understand ROR_ecommerce.
-There is nothing in this project besides what you might see in a normal Rails application.
-If you don't like something, you are free to just change it like you would in any other Rails app.
-
-Contributors are welcome!
-We will always need help with UI, documentation, and code, so feel free to pitch in.
-To get started, simply fork this repo, make *any* changes (big or small), and create a pull request.
-
-##DEMO
-
-Take a look at [The Demo](https://ror-e.herokuapp.com).
-The login name is test@ror-e.com with a password => test123
 
 ##Getting Started
-
-Please feel free to ask/answer questions in our [Google Group](http://groups.google.com/group/ror_ecommerce).
-
 Install RVM with Ruby 2.0.
-If you have 2.0 on your system you're good to go.
-Please refer to the [RVM](http://beginrescueend.com/rvm/basics/) site for more details.
-
-Copy the `database.yml` for your setup.
-For SQLite3, `cp config/database.yml.sqlite3 config/database.yml`.
-For MySQL, `cp config/database.yml.mysql config/database.yml` and update your username/password.
-
-If you are using the mysql dmg file to install mysql you will need to edit your ~/.bash_profile and include this:
-
-  export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
 
 Run `rake secret` and copy/paste the output as `encryption_key` in `config/config.yml`.
 
@@ -58,11 +17,11 @@ Run `rake secret` and copy/paste the output as `encryption_key` in `config/confi
     rake db:migrate db:seed
     RAILS_ENV=test rake db:test:prepare
 
-Once everything is set up, start the server with `rails server` and direct your web browser to [localhost:3000/admin/overviews](http://localhost:3000/admin/overviews).
+Start the server with `rails server` and direct your web browser to [localhost:3000/admin/overviews]
+
 Write down the username/password (these are only shown once) and follow the directions.
 
 ## Environmental Variables
-
 Most users are using Amazon S3 or Heroku.
 Thus we have decided to have a setup easy to get your site up and running as quickly as possible
 in this production environment.  Hence you should add the following ENV variables:
