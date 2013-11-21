@@ -53,6 +53,10 @@ module Hadean
       g.fixture_replacement :factory_girl , :dir=>"spec/factories"
     end
 
+    config.assets.precompile += [ 'application.css', 'application.js', 
+                                  'application-admin.css', 'application-admin.js']
+    config.assets.initialize_on_precompile = false
+
     #config.session_store = ::Ripple::SessionStore
 
     # Configure sensitive parameters which will be filtered from the log file.
