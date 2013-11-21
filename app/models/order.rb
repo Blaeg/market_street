@@ -431,9 +431,10 @@ class Order < ActiveRecord::Base
   def add_items(variant, quantity, state_id = nil)
     self.save! if self.new_record?
     tax_rate_id = state_id ? variant.product.tax_rate(state_id) : nil
-    quantity.times do
-      self.order_items.push(OrderItem.create(:order => self,:variant_id => variant.id, :price => variant.price, :tax_rate_id => tax_rate_id))
-    end
+    self.order_items.create(:variant_id => variant.id, 
+                            :price => variant.price, 
+                            :tax_rate_id => tax_rate_id, 
+                            :quantity => quantity)    
   end
 
   # remove the variant from the order items in the order
@@ -442,16 +443,13 @@ class Order < ActiveRecord::Base
   # @param [Integer] final quantity that should be in the order
   # @return [none]
   def remove_items(variant, final_quantity)
-
-    current_qty = 0
-    items_to_remove = []
-    self.order_items.each_with_index do |order_item, i|
-      if order_item.variant_id == variant.id
-        current_qty = current_qty + 1
-        items_to_remove << order_item.id  if (current_qty - final_quantity) > 0
-      end
+    self.order_items.select{|l| l.variant_id == variant.id }.each do |l|      
+      if final_quantity == 0
+        l.destroy
+      else
+        l.update_attributes(:quantity => final_quantity)
+      end      
     end
-    OrderItem.where(id: items_to_remove).map(&:destroy) unless items_to_remove.empty?
     self.order_items.reload
   end
 

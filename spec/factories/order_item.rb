@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :order_item do
     price         3.00
     total         3.15
+    sequence(:quantity) { |i| i }
     order         { |c| c.association(:order) }
     variant       { |c| c.association(:variant) }
     tax_rate      { |c| c.association(:tax_rate) }

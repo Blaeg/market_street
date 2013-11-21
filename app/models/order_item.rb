@@ -30,6 +30,7 @@ class OrderItem < ActiveRecord::Base
 
   validates :variant_id,  :presence => true
   validates :order_id,    :presence => true
+  validates :quantity,    :presence => true
 
   delegate :shipping_method, :shipping_method_id, :to => :shipping_rate
 
@@ -70,38 +71,30 @@ class OrderItem < ActiveRecord::Base
   def unshipped?
     !shipped?
   end
-
-  def ship_category_id
-    variant.product.shipping_category_id
-  end
-
+  
   def shipping_rate_options(total_charge)
-    ShippingRate.joins(:shipping_method).where(['shipping_rates.shipping_category_id = ?
-                        AND shipping_rates.minimum_charge <= ?', ship_category_id, total_charge])
+    ShippingRate.joins(:shipping_method).where(['shipping_rates.minimum_charge <= ?', total_charge])
   end
 
   # called in checkout process. will give you the 'quantity', 'sum of all the prices' and 'sum of all the totals'
   #  it is better to do the math in SQL than ruby
   #
   # @param [Integer]  order.id
-  # @return [OrderItem] Object has addional attributes of [sum_price, sum_total, shipping_category_id, and quantity]
+  # @return [OrderItem] Object has addional attributes of [sum_price, sum_total, and quantity]
   def self.order_items_in_cart(order_id)
     joins({:variant => :product }).
     where({ :order_items => { :order_id => order_id}}).
-    select( "order_items.id, order_items.order_id, order_items.shipping_rate_id, order_items.state, order_items.tax_rate_id, order_items.price, order_items.total, order_items.variant_id,
-                           products.shipping_category_id,
-                                          count(*) as quantity,
-                                          products.shipping_category_id as shipping_category_id,
-                                          SUM(order_items.price) as sum_price,
-                                          SUM(order_items.total) as sum_total").
-     group( "order_items.id,
-                products.shipping_category_id,
-                order_items.order_id,
-                order_items.shipping_rate_id,
-                order_items.state,
-                order_items.tax_rate_id,
-                order_items.price,
-                order_items.total, order_items.variant_id")
+    select( " order_items.id, order_items.order_id, order_items.shipping_rate_id, 
+              order_items.state, order_items.tax_rate_id, order_items.price, 
+              order_items.total, order_items.variant_id, count(*) as quantity, 
+              SUM(order_items.price) as sum_price, SUM(order_items.total) as sum_total").
+     group( " order_items.id,
+              order_items.order_id,
+              order_items.shipping_rate_id,
+              order_items.state,
+              order_items.tax_rate_id,
+              order_items.price,
+              order_items.total, order_items.variant_id")
   end
 
   # forces the order to be re-calculated.  If the order item has changed then the order totals need to be adjusted
