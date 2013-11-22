@@ -22,7 +22,8 @@ Role.create_all
 
 
 puts  "SEEDING CATALOG"
-
+ProductType.create_all
+Prototype.create_all
 PhoneType.create_all
 ItemType.create_all
 DealType.create_all
@@ -46,7 +47,11 @@ end
 puts  "SEEDING PRODUCTS"
 FactoryGirl.create_list(:property, 5)
 
-@products = FactoryGirl.create_list(:product, 10, :with_properties)
+
+@products = ProductType.all.map do |pt|
+  FactoryGirl.create_list(:product, 10, :with_properties, :product_type => pt)
+end.flatten
+
 @products.each do |p|
   p.activate!
   FactoryGirl.create(:variant, product: p)
