@@ -5,7 +5,7 @@
     <%= content_for?(:title) ? "#{site_name}: #{yield(:title)}" : site_name %>
   </title>
   <link rel="shortcut icon" href="/assets/favicon.ico" />
-  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= stylesheet_link_tag "default-application", :media => "all" %>
   <%= csrf_meta_tag %>
   <%= yield :head %>
   <%= render 'shared/metadata' %>
@@ -26,9 +26,9 @@
     </div>
     <div id='prefooter_wrapper'>&nbsp;</div>
 </div>
-  <%= render 'shared/main_footer' %>
+  <%= render 'shared/footer' %>
   <%= render 'shared/google_analytics' unless @disable_ga %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'default-application' %>
   <%= yield :bottom %>
 
   <script>

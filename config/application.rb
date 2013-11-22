@@ -53,8 +53,13 @@ module Hadean
       g.fixture_replacement :factory_girl , :dir=>"spec/factories"
     end
 
-    config.assets.precompile += [ 'application.css', 'application.js', 
-                                  'application-admin.css', 'application-admin.js']
+    ['default','tokokita'].each do |theme|
+      ['fonts', 'images', 'stylesheets', 'javascripts'].each do |folder| 
+        config.assets.paths << "#{Rails.root}/app/themes/#{theme}/assets/#{folder}"
+      end
+      config.assets.precompile += [ "#{theme}-application.css", "#{theme}-application.js"]      
+    end
+    config.assets.precompile += [ "application-admin.css", "application-admin.js"]
     config.assets.initialize_on_precompile = false
 
     #config.session_store = ::Ripple::SessionStore
