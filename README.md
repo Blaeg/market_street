@@ -3,33 +3,33 @@
 Market Street is a Ecommerce/marketplace platform. (forked from ror_commerce)
 
 Its features aim to provide 
-<ol>
-<li>Easy navigation between stores, categories, and tags</li>
-<li>OAuth login using Facebook and Google</li>
-<li>Listing Integration with major ecommerce channel, such as ebay, amazon, or google</li>
-<li>Payment Integration with Stripe and Paypal</li>
-<li>Shipping Integration with Fedex and UPS</li>
-<li>Social Features such as follow, comments, tagging, and news feed</li>
-<li>Search</li>
-</ol>
+    <ol>
+    <li>Easy navigation between stores, categories, and tags</li>
+    <li>OAuth login using Facebook and Google</li>
+    <li>Listing Integration with major ecommerce channel, such as ebay, amazon, or google</li>
+    <li>Payment Integration with Stripe and Paypal</li>
+    <li>Shipping Integration with Fedex and UPS</li>
+    <li>Social Features such as follow, comments, tagging, and news feed</li>
+    <li>Search</li>
+    </ol>
 
 Its design principle are 
-<ol>
-<li>It is built firstly for developers to create ecommerce app by modifying or forking it, and secondly for non-technical people by installing. </li>
-<li>Follow Rails best practice</li>
-<li>Test driven with high coverage (90%) and continuous integration</li>
-<li>Entire servers side will be Service/Data APIs, consumed by for both internal and external clients</li>
-<li>Flexible data model around product/sku</li>
-</ol>
+    <ol>
+    <li>It is built firstly for developers to create ecommerce app by modifying or forking it, and secondly for non-technical people by installing. </li>
+    <li>Follow Rails best practice</li>
+    <li>Test driven with high coverage (90%) and continuous integration</li>
+    <li>Entire servers side will be Service/Data APIs, consumed by for both internal and external clients</li>
+    <li>Flexible data model around product/sku</li>
+    </ol>
 
 Its technology includes
-<ol>
-<li>Ruby on Rails</li>
-<li>Postgres</li>
-<li>Bootstrap/Compass</li>
-<li>Rspec/FactoryGirl</li>
-<li>Jquery/Backbone</li>
-</ol>
+    <ol>
+    <li>Ruby on Rails</li>
+    <li>Postgres</li>
+    <li>Bootstrap/Compass</li>
+    <li>Rspec/FactoryGirl</li>
+    <li>Jquery/Backbone</li>
+    </ol>
 
 ##Getting Started
 Install RVM with Ruby 2.0.
