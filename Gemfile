@@ -4,6 +4,8 @@ ruby "2.0.0"
 ## Bundle rails:
 gem 'rails', '4.0.1'
 
+gem 'pg'
+
 gem 'uglifier',     '>= 1.3.0'
 gem 'sass-rails',   '~> 4.0.0'
 
@@ -12,7 +14,6 @@ gem "activemerchant", '~> 1.29.3'#, :lib => 'active_merchant'
 gem "american_date"
 # Use https if you are pushing to HEROKU
 gem 'authlogic',          git: 'https://github.com/binarylogic/authlogic.git'
-#gem 'authlogic',          git: 'git@github.com:binarylogic/authlogic.git'
 
 gem "asset_sync"
 gem 'awesome_nested_set', '~> 3.0.0.rc.1'
@@ -27,6 +28,7 @@ gem 'jbuilder'
 gem "friendly_id"
 
 gem 'json',           '~> 1.8.0'
+gem 'awesome_print'
 
 #gem "nifty-generators", :git => 'git://github.com/drhenner/nifty-generators.git'
 gem 'nokogiri',     '~> 1.5.0'
@@ -42,8 +44,8 @@ gem 'rake', '~> 10.0.3'
 # gem 'resque', require: 'resque/server'
 
 gem 'state_machine', '~> 1.2.0'
-#gem 'sunspot_solr', '~> 2.0.0'
-#gem 'sunspot_rails', '~> 2.0.0'
+gem 'sunspot_solr', '~> 2.0.0'
+gem 'sunspot_rails', '~> 2.0.0'
 gem 'will_paginate', '~> 3.0.4'
 gem 'zurb-foundation', '~> 4.3.2'
 
@@ -65,16 +67,13 @@ gem 'underscore-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-group :production do
-  gem 'pg'
+group :production do  
   gem 'rails_12factor'
 end
 
 group :development do
-  #gem 'awesome_print'
   #gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'better_errors'
-  gem "autotest-rails-pure"
   gem "binding_of_caller", '~> 0.7.2'
   gem "rails-erd"
   gem 'byebug', :platforms => [:mingw_20, :mri_20, :ruby_20]
@@ -86,6 +85,7 @@ group :development do
   gem 'yard'
   gem 'RedCloth'
   gem 'roundsman', require: false
+  gem 'guard-livereload', require: false
 end
 group :test, :development do
   gem 'rspec-rails'  
@@ -94,12 +94,12 @@ group :test, :development do
 end
 
 group :test do
-  # gem 'growl'
-  # gem 'guard'
-  # gem 'guard-rspec'
-  # gem 'guard-bundler'
+  gem 'growl'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-bundler'
 
-  gem 'database_cleaner' #, :github => 'bmabey/database_cleaner'
+  gem 'database_cleaner'
   gem 'factory_girl', "~> 3.3.0"
   gem 'factory_girl_rails', "~> 3.3.0"
   gem 'mocha', '~> 0.13.3', :require => false
@@ -111,14 +111,6 @@ group :test do
   gem "faker"
   gem "forgery"
 
-  gem "autotest", '~> 4.4.6'
-  gem "autotest-rails-pure"
-
-  if RUBY_PLATFORM =~ /darwin/
-    #gem "autotest-fsevent", '~> 0.2.5'
-  end
-  gem "autotest-growl"
-  gem "ZenTest", '4.9.1'#, '4.6.2'
   gem 'capybara', "~> 1.1"#, :git => 'git://github.com/jnicklas/capybara.git'  
   gem 'capybara-screenshot'
   gem 'capistrano-unicorn', require: false  
