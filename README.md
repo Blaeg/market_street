@@ -1,10 +1,35 @@
 ##Project Overview
 
-This is a Ecommerce/marketplace forked from ror_commerce platform.
+Market Street is a Ecommerce/marketplace platform. (forked from ror_commerce)
 
-Market Street is a *Rails 4 application* with the intent to allow developers to create an ecommerce/marketplace solution easily.
+Its features aim to provide 
+<ol>
+<li>Easy navigation between stores, categories, and tags</li>
+<li>OAuth login using Facebook and Google</li>
+<li>Listing Integration with major ecommerce channel, such as ebay, amazon, or google</li>
+<li>Payment Integration with Stripe and Paypal</li>
+<li>Shipping Integration with Fedex and UPS</li>
+<li>Social Features such as follow, comments, tagging, and news feed</li>
+<li>Search</li>
+</ol>
 
-The project has *Solr searching*, *Compass* and *Zurb Foundation for CSS* and uses *jQuery*.
+Its design principle are 
+<ol>
+<li>It is built firstly for developers to create ecommerce app by modifying or forking it, and secondly for non-technical people by installing. </li>
+<li>Follow Rails best practice</li>
+<li>Test driven with high coverage (90%) and continuous integration</li>
+<li>Entire servers side will be Service/Data APIs, consumed by for both internal and external clients</li>
+<li>Flexible data model around product/sku</li>
+</ol>
+
+Its technology includes
+<ol>
+<li>Ruby on Rails</li>
+<li>Postgres</li>
+<li>Bootstrap/Compass</li>
+<li>Rspec/FactoryGirl</li>
+<li>Jquery/Backbone</li>
+</ol>
 
 ##Getting Started
 Install RVM with Ruby 2.0.
