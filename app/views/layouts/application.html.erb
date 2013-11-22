@@ -13,7 +13,7 @@
 <body >
 <div id='body_wrapper'>
   <%= render 'shared/header' %>
-  <%= render 'shared/flash_messages' if notice || alert %>
+  <%= render 'shared/flash_message' if notice || alert %>
   
     <div id='content_wrapper' class='row <%= "myaccount" if myaccount_tab %> '>
       <%  if myaccount_tab %>

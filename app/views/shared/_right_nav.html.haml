@@ -1,0 +1,28 @@
+%ul.nav.navbar-nav.navbar-right
+  %li.dropdown
+    = link_to "#", data: { toggle: 'dropdown'}, class: 'dropdown-toggle' do
+      =fa_icon "caret-down", text: "Shopping Cart (#{session_cart.shopping_cart_items.size})", class: "pull-right"
+    %ul.dropdown-menu
+      - if session_cart.shopping_cart_items.size > 0
+        %li= link_to 'Your Items', shopping_cart_items_path, :id => 'cart_items_buttons'         
+      - else 
+        %li= link_to 'No Item', shopping_cart_items_path      
+  
+  - if current_user
+    %li.dropdown
+      = link_to "#", data: { toggle: 'dropdown'}, class: 'dropdown-toggle' do
+        =fa_icon "caret-down", text: current_user.first_name, class: "pull-right"
+      %ul.dropdown-menu            
+        -if current_user.admin?
+          %li= link_to 'Admin', admin_users_path
+          %li.divider
+        %li= link_to 'Account', myaccount_overview_path          
+        %li= link_to 'My Orders', myaccount_orders_path
+        %li= link_to 'My Store', myaccount_orders_path
+        %li= link_to 'My Activities', myaccount_orders_path
+        %li.divider
+        %li= link_to 'Log Out', logout_path, :method => 'DELETE'
+  - else
+    %li= link_to 'Login', login_path 
+
+

@@ -5,7 +5,7 @@
     = link_to "#", data: { toggle: 'dropdown'}, class: 'dropdown-toggle' do
       =fa_icon "caret-down", text: "Categories", class: "pull-right"
     %ul.dropdown-menu
-      %li= link_to 'Newly Arrival', products_path
+      %li= link_to 'New Arrival', products_path
       %li.divider
       - product_types.each do |pt_tab|
         %li= link_to_unless_current pt_tab.name.capitalize, products_path(:product_type_id => pt_tab.id)
