@@ -181,11 +181,6 @@ Go to the bottom of `product.rb` and uncomment:
 Product.class_eval
 ```
 
-Take a look at setting up Solr - [Solr in 5 minutes](http://github.com/outoftime/sunspot/wiki/adding-sunspot-search-to-rails-in-5-minutes-or-less)
-
-If you get the error, `Errno::ECONNREFUSED (Connection refused - connect(2)):` when you try to create a product or upload an image, you have not started Solr search.
-You need to run `rake sunspot:solr:start`, or remove Solr completely.
-
 Remember to run `rake sunspot:reindex` before doing your search if you already have data in the DB
 
 ##TODO:
