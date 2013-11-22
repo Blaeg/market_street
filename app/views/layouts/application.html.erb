@@ -5,41 +5,44 @@
     <%= content_for?(:title) ? "#{site_name}: #{yield(:title)}" : site_name %>
   </title>
   <link rel="shortcut icon" href="/assets/favicon.ico" />
-  <%= stylesheet_link_tag "default-application", :media => "all" %>
+  <%= stylesheet_link_tag "tokokita-application", :media => "all" %>
   <%= csrf_meta_tag %>
   <%= yield :head %>
   <%= render 'shared/metadata' %>
 </head>
 <body >
-<div id='body_wrapper'>
+  <!-- Start Header -->
   <%= render 'shared/header' %>
   <%= render 'shared/flash_message' if notice || alert %>
-  
-    <div id='content_wrapper' class='row <%= "myaccount" if myaccount_tab %> '>
+  <!-- End Header -->
+
+  <div class="container">  
+    <div class='row'>
       <%  if myaccount_tab %>
-        <h1 style='text-align:center;'><%= site_name %></h1>
-        <hr class="first_double_hr">
-        <hr class="second_double_hr">
-        <%= render :partial => '/shared/myaccount_subheader' %>
+      <h1 style='text-align:center;'><%= site_name %></h1>
+      <hr class="first_double_hr">
+      <hr class="second_double_hr">
+      <%= render :partial => '/shared/myaccount_subheader' %>
       <% end %>
       <%= yield %>
     </div>
     <div id='prefooter_wrapper'>&nbsp;</div>
-</div>
+  </div>
+
   <%= render 'shared/footer' %>
   <%= render 'shared/google_analytics' unless @disable_ga %>
-  <%= javascript_include_tag 'default-application' %>
+  <%= javascript_include_tag 'tokokita-application' %>
   <%= yield :bottom %>
 
   <script>
-  jQuery(window).ready(
-    function() {
-      jQuery('.flash_notice').delay(6000).slideUp( 'slow');
-      jQuery('.flash_error').delay(6000).slideUp( 'slow');
-    }
-  );
+    jQuery(window).ready(
+      function() {
+        jQuery('.flash_notice').delay(6000).slideUp( 'slow');
+        jQuery('.flash_error').delay(6000).slideUp( 'slow');
+      }
+      );
   </script>
 
 </body>
-  <%= yield :below_body %>
+<%= yield :below_body %>
 </html>

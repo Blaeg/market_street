@@ -1,0 +1,16 @@
+@import 'bootstrap';
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+
+main {
+	> .container {
+		width: 960px;
+		.row {
+			margin-left: 0;
+		}
+	}
+}
+
+.lightbox-content {
+  position: relative;
+}
