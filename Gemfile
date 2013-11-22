@@ -56,6 +56,8 @@ gem 'haml-rails'
 gem "font-awesome-rails"
 gem 'compass-flexbox'
 gem 'bootstrap-sass'
+gem 'bootstrap-editable-rails'
+
 gem 'breadcrumbs_on_rails'
 gem 'angularjs-rails', '~> 1.2.0.rc2'
 gem 'angularjs-rails-resource'
