@@ -12,20 +12,9 @@
 </head>
 <body >
 <div id='body_wrapper'>
-
-  <%= render :partial => '/shared/welcome_header'%>
-
-  <% if notice || alert %>
-    <div class="row">
-      <% if notice || alert %>
-        <div class="flash_messages">
-          <%= raw "<div data-alert class='alert-box warning'> #{notice} <a href='' class='close'>&times;</a></div>"  if notice %>
-          <%= raw "<div data-alert class='alert-box alert'>#{alert} <a href='' class='close'>&times;</a></div>"     if alert %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-
+  <%= render 'shared/header' %>
+  <%= render 'shared/flash_messages' if notice || alert %>
+  
     <div id='content_wrapper' class='row <%= "myaccount" if myaccount_tab %> '>
       <%  if myaccount_tab %>
         <h1 style='text-align:center;'><%= site_name %></h1>
