@@ -25,9 +25,7 @@ gem 'chronic'
 gem 'dynamic_form'
 gem 'jbuilder'
 gem "friendly_id"
-gem 'haml-rails'
-gem "jquery-rails"
-gem 'jquery-ui-rails'
+
 gem 'json',           '~> 1.8.0'
 
 #gem "nifty-generators", :git => 'git://github.com/drhenner/nifty-generators.git'
@@ -55,10 +53,15 @@ gem 'simple-navigation'
 gem 'simple-navigation-bootstrap'
 gem 'compass-rails',  git: 'git://github.com/Compass/compass-rails.git', branch: 'rails4-hack'
 gem 'haml-rails'
+gem "font-awesome-rails"
+gem 'compass-flexbox'
+gem 'bootstrap-sass'
 gem 'breadcrumbs_on_rails'
 gem 'angularjs-rails', '~> 1.2.0.rc2'
 gem 'angularjs-rails-resource'
 gem 'underscore-rails'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 group :production do
   gem 'pg'
