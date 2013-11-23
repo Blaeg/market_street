@@ -1,0 +1,22 @@
+!!!
+%html{:lang => "en"}
+%head>
+  %title= content_for?(:title) ? "#{site_name}: #{yield(:title)}" : site_name
+  %link{:href => "/assets/favicon.ico", :rel => "shortcut icon"}
+  = stylesheet_link_tag "tokokita-application", :media => "all"
+  = csrf_meta_tag 
+  = yield :head
+  = render 'shared/metadata'
+%body
+  = render 'layouts/header/header'
+  .container
+    .row
+      = render 'shared/flash_message' if notice || alert
+      .span12
+        .breadcrumb= render_breadcrumbs
+        = yield      
+    = render 'layouts/footer/footer'
+  = render 'layouts/footer/google_analytics' unless @disable_ga
+  = javascript_include_tag 'tokokita-application'
+  = yield :bottom 
+= yield :below_body
