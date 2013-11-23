@@ -1,0 +1,16 @@
+.row
+  .span1
+    = link_to image_tag(product.featured_image(:medium)), product_path(product), title: product.name, class: 'clearfix'
+  .span6
+    %h5= link_to product.name, 'product.html'
+    = product.description
+  .span1
+    %p 
+      = number_to_currency product.price_range.first
+      - if product.price_range?
+        to
+        = number_to_currency product.price_range.last      
+  .span2
+    %p= link_to 'Add to Cart', 'cart.html', :class => "btn btn-primary"
+    %p= link_to 'Add to Wish List', '#'  
+%hr              
