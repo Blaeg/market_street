@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :user do
-    first_name  'John'
+    first_name  'Alex'
     last_name   'Doe'
-    sequence(:email)      { |n| "person#{n}@foundryfair.com" }
+    sequence(:email)      { |n| "person#{n}@market.com" }
     password              'pasword'
     password_confirmation "pasword"
     after(:build) {|user| user.send(:initialize_state_machines, :dynamic => :force)}

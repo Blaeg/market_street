@@ -1,0 +1,21 @@
+.span1.pull-right
+#signup.span4.well.pull-right
+  %h3 New to #{site_name} ?
+  = form_for @user, url: customer_registrations_path(@user), html: {class: 'span-12'}  do |form|
+    %fieldset
+      .controls
+        = form.label :first_name, 'First name'
+        = form.text_field :first_name
+      .controls
+        = form.label :last_name, 'Last name'
+        = form.text_field :last_name
+      .controls
+        = form.label :email, 'Email*'
+        = form.email_field :email      
+      .controls
+        = form.label :password, 'Password*'
+        = form.password_field :password
+      .controls
+        = form.label :password_confirmation, 'Confirm*'
+        = form.password_field :password_confirmation
+      = form.submit "Create an account", :class => 'btn btn-primary pull-right'        
