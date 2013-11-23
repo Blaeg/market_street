@@ -8,14 +8,18 @@
 
 //= require bootstrap
 //= require bootstrap-editable
+
 //= require bootstrap-lightbox
-//= require underscore-min
-//= require underscore.string.min
+//= require bootstrap/scrollspy
+//= require bootstrap/modal
+//= require bootstrap/dropdown
+//= require bootstrap/collapse
 
 //= require angular
 //= require angular-resource
 //= require angular-cookies
-//= require backbone-min
+//= require underscore-min
+//= require underscore.string.min
 
 //= require foundation
 $(function(){ $(document).foundation(); });
