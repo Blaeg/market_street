@@ -23,6 +23,8 @@
 #
 
 class Invoice < ActiveRecord::Base
+  require_dependency 'invoice/states'
+  include Invoice::States
 
   has_many :payments
   has_many :batches, :as => :batchable#, :polymorphic => true
@@ -40,44 +42,7 @@ class Invoice < ActiveRecord::Base
   NUMBER_SEED     = 3002001004005
   CHARACTERS_SEED = 20
 
-  state_machine :initial => :pending do
-    state :pending
-    state :authorized
-    state :paid
-    state :payment_declined
-    state :canceled
-
-    #after_transition :on => 'cancel', :do => :cancel_authorized_payment
-
-    event :payment_rma do
-      transition :from => :pending,
-                  :to   => :refunded
-    end
-    event :payment_authorized do
-      transition :from => :pending,
-                  :to   => :authorized
-      transition :from => :payment_declined,
-                  :to   => :authorized
-    end
-
-    event :payment_captured do
-      transition :from => :authorized,
-                  :to   => :paid
-    end
-    event :transaction_declined do
-      transition :from => :pending,
-                  :to   => :payment_declined
-      transition :from => :payment_declined,
-                  :to   => :payment_declined
-      transition :from => :authorized,
-                  :to   => :authorized
-    end
-
-    event :cancel do
-      transition :from => :authorized,
-                  :to  => :canceled
-    end
-  end
+  delegate :user_id, :user, :to => :order
 
   #  the full shipping address as an array compacted.
   #
@@ -248,22 +213,6 @@ class Invoice < ActiveRecord::Base
       end
       capture
     end
-  end
-
-  # find the user id of the order associated to the invoice.
-  #
-  # @param [none]
-  # @return [Integer] represents the id of the user
-  def user_id
-    order.user_id
-  end
-
-  # find the user of the order associated to the invoice.
-  #
-  # @param [none]
-  # @return [User]
-  def user
-    order.user
   end
 
   def self.admin_grid(args)

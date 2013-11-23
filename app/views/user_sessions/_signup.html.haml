@@ -1,6 +1,7 @@
 .span1.pull-right
 #signup.span4.well.pull-right
   %h3 New to #{site_name} ?
+  %p An account is required to checkout
   = form_for @user, url: customer_registrations_path(@user), html: {class: 'span-12'}  do |form|
     %fieldset
       .controls

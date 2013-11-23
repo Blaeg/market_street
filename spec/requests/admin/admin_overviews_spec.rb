@@ -8,7 +8,7 @@ def cookied_admin_login
    within("#login") do
      fill_in 'Email',    :with => 'test@admin.com'
      fill_in 'Password', :with => 'secret1'
-     click_button 'Log In'
+     click_button 'Sign In'
    end
 end
 def cookied_login
@@ -19,7 +19,7 @@ def cookied_login
    within("#login") do
      fill_in 'Email',    :with => 'test@nonadmin.com'
      fill_in 'Password', :with => 'secret1'
-     click_button 'Log In'
+     click_button 'Sign In'
    end
 end
 
@@ -40,7 +40,7 @@ describe "Admin::Overviews" do
       cookied_admin_login
 
       visit admin_overviews_path
-      page.should have_content('It would be best to go')
+      page.should have_content('Market Street')
     end
   end
 end

@@ -30,6 +30,9 @@
 #
 
 class User < ActiveRecord::Base
+  require_dependency 'user/states'
+  include User::States
+
   include TransactionAccountable
   include UserCim
 
@@ -120,37 +123,6 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :addresses, :user_roles
   accepts_nested_attributes_for :phones, :reject_if => lambda { |t| ( t['display_number'].gsub(/\D+/, '').blank?) }
   accepts_nested_attributes_for :customer_service_comments, :reject_if => proc { |attributes| attributes['note'].strip.blank? }
-
-  state_machine :state, :initial => :active do
-    state :inactive
-    state :active
-    state :canceled
-
-    event :activate do
-      transition all => :active, :unless => :active?
-    end
-
-    event :cancel do
-      transition :from => [:inactive, :active, :canceled], :to => :canceled
-    end
-
-  end
-
-  # returns true or false if the user is active or not
-  #
-  # @param [none]
-  # @return [ Boolean ]
-  def active?
-    !['canceled', 'inactive'].any? {|s| self.state == s }
-  end
-
-  # in plain english returns 'true' or 'false' if the user is active or not
-  #
-  # @param [none]
-  # @return [ String ]
-  def display_active
-    active?.to_s
-  end
 
   # returns true or false if the user has a role or not
   #
@@ -349,24 +321,6 @@ class User < ActiveRecord::Base
   def password_required?
     self.crypted_password.blank?
   end
-
-  #def create_cim_profile
-  #  return true if customer_cim_id
-  #  #Login to the gateway using your credentials in environment.rb
-  #  @gateway = GATEWAY
-  #
-  #  #setup the user object to save
-  #  @user = {:profile => user_profile}
-  #
-  #  #send the create message to the gateway API
-  #  response = @gateway.create_customer_profile(@user)
-  #
-  #  if response.success? and response.authorization
-  #    update_attributes({:customer_cim_id => response.authorization})
-  #    return true
-  #  end
-  #  return false
-  #end
 
   def subscribe_to_newsletters
     newsletter_ids = Newsletter.where(:autosubscribe => true).pluck(:id)

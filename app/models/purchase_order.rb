@@ -16,6 +16,9 @@
 #
 
 class PurchaseOrder < ActiveRecord::Base
+  require_dependency 'purchase_order/states'
+  include PurchaseOrder::States
+
   include TransactionAccountable
 
   belongs_to :supplier
@@ -35,27 +38,7 @@ class PurchaseOrder < ActiveRecord::Base
                                 :reject_if      => lambda { |attributes| attributes['cost'].blank? && attributes['quantity'].blank? },
                                 :allow_destroy  => true
 
-  INCOMPLETE  = 'incomplete'
-  PENDING     = 'pending'
-  RECEIVED    = 'received'
-  STATES      = [PENDING, INCOMPLETE, RECEIVED]
-
-  state_machine :state, :initial => :pending do
-    state :pending
-    state :incomplete
-    state :received
-
-    after_transition :on => :complete, :do => [:pay_for_order, :receive_variants]
-
-    event :complete do |purchase_order|
-      transition all => :received
-    end
-
-    # mark as complete even though variants might not have been receive & payment was not made
-    event :mark_as_complete do
-      transition :from => [:pending, :incomplete], :to => :received
-    end
-  end
+  
 
   # in the admin form this is the method called when the form is submitted, The method sets
   # the PO to complete, pays for the order in the accounting peice and adds the inventory to stock
