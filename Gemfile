@@ -66,6 +66,7 @@ gem 'angularjs-rails-resource'
 gem 'underscore-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'jquery-datatables-rails'
 
 group :production do  
   gem 'rails_12factor'
