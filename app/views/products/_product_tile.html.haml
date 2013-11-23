@@ -1,9 +1,8 @@
 .row
   .span1
     = link_to image_tag(product.featured_image(:medium)), product_path(product), title: product.name, class: 'clearfix'
-  .span6
-    %h5= link_to product.name, 'product.html'
-    = product.description
+  .span1
+    %h5= link_to product.name, 'product.html'    
   .span1
     %p 
       = number_to_currency product.price_range.first
