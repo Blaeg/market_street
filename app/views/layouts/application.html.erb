@@ -12,28 +12,20 @@
 </head>
 <body >
   <%= render 'shared/header' %>
-  <div class="container">  
+  <div class="container">
     <div class='row'>
-      <%= render 'shared/flash_message' if notice || alert %>
-      <%= render_breadcrumbs %>
-      <%= yield %>
-    </div>
-    <%= render 'shared/footer' %>
+      <div class='span12'>
+        <%= render 'shared/flash_message' if notice || alert %>
+        <%= render_breadcrumbs %>
+        <%= yield %>
+      </div>
+      <%= render 'shared/footer' %>
+    </div>    
   </div>
 
   <%= render 'shared/google_analytics' unless @disable_ga %>
   <%= javascript_include_tag 'tokokita-application' %>
   <%= yield :bottom %>
-
-  <script>
-    jQuery(window).ready(
-      function() {
-        jQuery('.flash_notice').delay(6000).slideUp( 'slow');
-        jQuery('.flash_error').delay(6000).slideUp( 'slow');
-      }
-      );
-  </script>
-
 </body>
 <%= yield :below_body %>
 </html>

@@ -1,6 +1,5 @@
 /*= require _bootstrap_and_overrides */
 /*= require bootstrap-lightbox */
-@import "font-awesome";
-
 /*= require main */
-@import "bootstrap-tokokita.css";
+/*= require font-awesome */
+/*= require bootstrap-tokokita */

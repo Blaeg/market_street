@@ -57,7 +57,7 @@ gem 'compass-rails',  git: 'git://github.com/Compass/compass-rails.git', branch:
 gem 'haml-rails'
 gem "font-awesome-rails"
 gem 'compass-flexbox'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 2.3.2.1'
 gem 'bootstrap-editable-rails'
 
 gem 'breadcrumbs_on_rails'
