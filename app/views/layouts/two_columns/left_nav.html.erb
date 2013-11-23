@@ -11,21 +11,21 @@
   <%= render 'shared/metadata' %>
 </head>
 <body >
-  <%= render 'shared/header' %>
+  <%= render 'layouts/header/header' %>
   <div class="container">
     <div class='row'>
       <%= render 'shared/flash_message' if notice || alert %>      
       <div class='span3'>
-      </div></div>
+        <%= render 'layouts/two_columns/sidebar' %>
+      </div>
       <div class='span9'>
         <%= render_breadcrumbs %>
         <%= yield %>
       </div>
     </div>    
-    <%= render 'shared/footer' %>
+    <%= render 'layouts/footer/footer' %>
   </div>
-
-  <%= render 'shared/google_analytics' unless @disable_ga %>
+  <%= render 'layouts/footer/google_analytics' unless @disable_ga %>
   <%= javascript_include_tag 'tokokita-application' %>
   <%= yield :bottom %>
 </body>

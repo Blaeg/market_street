@@ -1,5 +1,8 @@
 class ProductsController < ApplicationController
-
+  layout 'two_columns/left_nav'
+  add_breadcrumb "Home", :root_path
+  add_breadcrumb "Products", :products_path
+  
   def index
     products = Product.active.includes(:variants)
 
