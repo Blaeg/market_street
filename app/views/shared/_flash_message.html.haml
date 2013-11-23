@@ -1,6 +1,6 @@
-.row
-	.flash_messages
-		- if notice
-			= raw "<div data-alert class='alert-box warning'> #{notice} <a href='' class='close'>&times;</a></div>"
-		- if alert 
-			= raw "<div data-alert class='alert-box alert'>#{alert} <a href='' class='close'>&times;</a></div>" 
+- if notice
+  %button.close{'data-dismiss'=>"alert"} &times;
+  .alert= notice 
+- if alert
+  %button.close{'data-dismiss'=>"alert"} &times;
+  .alert= alert

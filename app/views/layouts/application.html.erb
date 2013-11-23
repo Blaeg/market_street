@@ -11,14 +11,12 @@
   <%= render 'shared/metadata' %>
 </head>
 <body >
-  <!-- Start Header -->
   <%= render 'shared/header' %>
-  <%= render 'shared/flash_message' if notice || alert %>
-  <!-- End Header -->
-
   <div class="container">  
     <div class='row'>
-       <%= yield %>
+      <%= render 'shared/flash_message' if notice || alert %>
+      <%= render_breadcrumbs %>
+      <%= yield %>
     </div>
     <%= render 'shared/footer' %>
   </div>

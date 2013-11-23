@@ -1,5 +1,7 @@
 class UserSessionsController < ApplicationController
   def new
+    add_breadcrumb "account", myaccount_overview_path
+    add_breadcrumb "login", new_user_session_path
     @user_session = UserSession.new
     @user = User.new
   end
