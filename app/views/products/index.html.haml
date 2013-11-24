@@ -1,3 +1,6 @@
 %ul.thumbnails
 	- @products.each_with_index do |product, i|
-		= render partial: "product_tile", locals: {product: product }
+		- if [0, 5].include?(i%6)
+			= render partial: "product_hero", locals: {product: product }
+		- else
+			= render partial: "product_tile", locals: {product: product }

@@ -9,11 +9,11 @@
   = render 'shared/metadata'
 %body
   = render 'layouts/header/header'
-  .container
+  .container-fluid
     .row
       = render 'shared/flash_message' if notice || alert
       .span3= render 'layouts/two_columns/sidebar'
-      .span9
+      .span11
         .breadcrumb= render_breadcrumbs
         = yield      
     = render 'layouts/footer/footer'

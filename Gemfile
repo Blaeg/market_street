@@ -26,6 +26,7 @@ gem 'chronic'
 gem 'dynamic_form'
 gem 'jbuilder'
 gem "friendly_id"
+gem 'draper'
 
 gem 'json',           '~> 1.8.0'
 gem 'awesome_print'
