@@ -15,5 +15,6 @@
 //= require angular-cookies
 //= require underscore-min
 //= require underscore.string.min
+//= require social-share-button
 
 //$(function(){ $(document).foundation(); });
