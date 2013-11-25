@@ -19,7 +19,7 @@
           %hr    
           .span2
             = f.select :quantity, [1,2,3,4]
-            .btn.btn-primary= link_to 'Add to Cart', '#' unless @product.active_variants.empty? 
+            #submit_add_to_cart.btn.btn-primary= link_to 'Add to Cart', '#' unless @product.active_variants.empty? 
           .clearfix
     = render 'product_details'
 
