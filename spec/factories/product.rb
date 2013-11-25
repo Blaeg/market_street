@@ -26,13 +26,4 @@ FactoryGirl.define do
       end
     end    
   end
-
-  factory :product_with_image, :parent => :product do
-    valid_file = File.new(File.join(Rails.root, 'spec', 'support', 'rails.png'))
-    images {
-      [
-        ActionController::TestUploadedFile.new(valid_file, Mime::Type.new('application/png'))
-      ]
-    }
-  end
 end
