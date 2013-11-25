@@ -1,16 +1,18 @@
 class ProductsController < ApplicationController
-  layout 'two_columns/left_nav'
-  add_breadcrumb "Home", :root_path
   add_breadcrumb "Products", :products_path
   
   def index
     products = Product.active.includes(:variants)
-
     if params[:product_type_id].present? && product_type = ProductType.find_by_id(params[:product_type_id])
       product_types = product_type.self_and_descendants.map(&:id)
       products = products.where('product_type_id IN (?)', product_types)      
-    end    
+    end
     @products = products.decorate
+
+    respond_to do |format|
+      format.html { render layout: "two_columns/left_nav"}
+      format.json { render json: @products }
+    end
   end
 
   def create
@@ -25,6 +27,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.active.find(params[:id])
+    add_breadcrumb @product.name, :products_path
     form_info
     @cart_item.variant_id = @product.active_variants.first.try(:id)
   end

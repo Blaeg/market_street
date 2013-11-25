@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout 'application'
+  add_breadcrumb "Home", :root_path
 
   helper_method :current_user,
                 :current_user_id,
