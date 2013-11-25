@@ -60,6 +60,7 @@ gem "font-awesome-rails"
 gem 'compass-flexbox'
 gem 'bootstrap-sass', '~> 2.3.2.1'
 gem 'bootstrap-editable-rails'
+gem 'social-share-button'
 
 gem 'breadcrumbs_on_rails'
 gem 'angularjs-rails', '~> 1.2.0.rc2'
@@ -93,6 +94,9 @@ group :test, :development do
   gem 'rspec-rails'  
   gem 'pry-rails'
   gem 'pry-nav'
+  
+  gem "faker"
+  gem "forgery"
 end
 
 group :test do
@@ -109,9 +113,6 @@ group :test do
   
   gem 'email_spec'
   gem 'simplecov', :require => false
-
-  gem "faker"
-  gem "forgery"
 
   gem 'capybara', "~> 1.1"#, :git => 'git://github.com/jnicklas/capybara.git'  
   gem 'capybara-screenshot'

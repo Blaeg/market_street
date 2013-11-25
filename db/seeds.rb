@@ -48,7 +48,7 @@ FactoryGirl.create_list(:property, 5)
 
 
 @products = ProductType.all.map do |pt|
-  FactoryGirl.create_list(:product, 10, :with_properties, :product_type => pt)
+  FactoryGirl.create_list(:product, 6, :with_properties, :with_images, :product_type => pt)
 end.flatten
 
 @products.each do |p|

@@ -11,7 +11,8 @@ FactoryGirl.define do
   factory :address do
     first_name 'John'
     last_name  'Doe'
-    address1  '112 south park street'
+    address1 { Faker::Address.street_address() }
+    address2 { Faker::Address.secondary_address() }
     city       'Fredville'
     state     { State.first }
     zip_code  '54322'
