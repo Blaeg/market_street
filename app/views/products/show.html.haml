@@ -2,32 +2,38 @@
   .span6
     = render 'product_images'  
     .content= raw @product.description
+    %hr
+    = render 'recommended_products'
   .span6
     .pull-right= social_share_button_tag @product.name
     %h3= @product.name
-    = number_to_currency @product.active_variants.first.price
-
-    - @product.active_variants.each_with_index do |variant, i|
-      .tiny.btn= variant.product_name
-      = form_for @cart_item, :url  => shopping_cart_items_path(@cart_item), :html => {:id => 'new_cart_item', :class => 'custom' } do |f|
-        = f.hidden_field :variant_id
-        Quantity:
-        = f.select :quantity, [1,2,3,4], {:include_blank => false}, {:class => ' '} 
-        - unless @product.active_variants.empty? 
-          .btn.small= link_to 'Add to Cart', '#'                    
+    .label.label-important= number_to_currency @product.active_variants.first.price
+    .clearfix
+    %br
     
-    %section.section
-      %p Properties
-      - @product.active_variants.each do |var| 
-        %ul 
-          - var.variant_properties.each do |prop|
-            %li= prop.property_name+':'+prop.description
+    - if @product.active_variants.size >= 1
+      - @product.active_variants.each_with_index do |variant, i|
+        .btn= variant.product_name
+        = form_for @cart_item, :url  => shopping_cart_items_path(@cart_item), :html => {:id => 'new_cart_item', :class => 'custom' } do |f|
+          = f.hidden_field :variant_id
+          %hr    
+          .span2
+            = f.select :quantity, [1,2,3,4]
+            .btn.btn-primary= link_to 'Add to Cart', '#' unless @product.active_variants.empty? 
+          .clearfix
+    = render 'product_details'
 
 - content_for :below_body do
   = javascript_include_tag 'shopping/cart.js' 
   = javascript_include_tag 'jquery.jcarousel.js'
   = javascript_include_tag 'jquery.pikachoose.full.js'
   = javascript_include_tag 'product_page.js'
+
+  :javascript
+    $('#product_tabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
 
   - if @product.images.size > 1
     :javascript

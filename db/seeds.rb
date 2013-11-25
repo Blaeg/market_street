@@ -44,16 +44,20 @@ ShippingMethod.all.each do |sm|
 end
 
 puts  "SEEDING PRODUCTS"
-FactoryGirl.create_list(:property, 5)
-
-
 @products = ProductType.all.map do |pt|
   FactoryGirl.create_list(:product, 6, :with_properties, :with_images, :product_type => pt)
 end.flatten
 
+puts  "SEEDING VARIANTS"
 @products.each do |p|
   p.activate!
-  FactoryGirl.create(:variant, product: p)
+  variant = FactoryGirl.create(:variant, product: p)
+  
+  puts  "SEEDING VARIANT PROPERTIES"
+  p.properties.each do |pp|
+    variant_property = FactoryGirl.create(:variant_property, :variant => variant, :property => pp)
+    variant.variant_properties.push(variant_property)    
+  end
 end
 
 puts  "SEEDING ORDERS"

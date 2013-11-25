@@ -6,9 +6,6 @@ gem 'rails', '4.0.1'
 
 gem 'pg'
 
-gem 'uglifier',     '>= 1.3.0'
-gem 'sass-rails',   '~> 4.0.0'
-
 gem 'actionpack-page_caching'
 gem "activemerchant", '~> 1.29.3'#, :lib => 'active_merchant'
 gem "american_date"
@@ -69,6 +66,12 @@ gem 'underscore-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails'
+
+group :assets do
+  gem 'uglifier',     '>= 1.3.0'
+  gem 'sass-rails',   '~> 4.0.0'
+  gem 'coffee-rails'  
+end
 
 group :production do  
   gem 'rails_12factor'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131121164931) do
+ActiveRecord::Schema.define(version: 20131125052243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -679,19 +679,22 @@ ActiveRecord::Schema.define(version: 20131121164931) do
     t.string   "state"
     t.integer  "account_id"
     t.string   "customer_cim_id"
-    t.integer  "comments_count",    default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "password_salt"
     t.string   "crypted_password"
     t.string   "perishable_token"
     t.string   "persistence_token"
     t.string   "access_token"
-    t.string   "password_salt"
+    t.integer  "comments_count",    default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "users", ["access_token"], name: "index_users_on_access_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["first_name"], name: "index_users_on_first_name", using: :btree
   add_index "users", ["last_name"], name: "index_users_on_last_name", using: :btree
+  add_index "users", ["perishable_token"], name: "index_users_on_perishable_token", unique: true, using: :btree
+  add_index "users", ["persistence_token"], name: "index_users_on_persistence_token", unique: true, using: :btree
 
   create_table "users_newsletters", force: true do |t|
     t.integer  "user_id"
@@ -740,6 +743,7 @@ ActiveRecord::Schema.define(version: 20131121164931) do
     t.integer  "brand_id"
     t.integer  "inventory_id"
     t.integer  "image_group_id"
+    t.float    "retail"
   end
 
   add_index "variants", ["brand_id"], name: "index_variants_on_brand_id", using: :btree

@@ -126,6 +126,13 @@ GEM
     cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
+    coffee-rails (4.0.1)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0, < 5.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.3)
     columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
@@ -430,6 +437,7 @@ DEPENDENCIES
   capybara (~> 1.1)
   capybara-screenshot
   chronic
+  coffee-rails
   compass-flexbox
   compass-rails!
   database_cleaner

@@ -1,20 +1,18 @@
 class Property < ActiveRecord::Base
 
   has_many :prototype_properties
-  has_many :prototypes,          :through => :prototype_properties
+  has_many :prototypes, :through => :prototype_properties
 
   has_many :product_properties
-  has_many :products,          :through => :product_properties
+  has_many :products, :through => :product_properties
 
   has_many :variant_properties
-  has_many :variants,          :through => :variant_properties
+  has_many :variants, :through => :variant_properties
 
-  validates :identifing_name,    :presence => true, :length => { :maximum => 250 }
-  validates :display_name,       :presence => true, :length => { :maximum => 165 }
-  # active is default true at the DB level
-
+  validates :identifing_name, :presence => true, :length => { :maximum => 250 }
+  validates :display_name, :presence => true, :length => { :maximum => 165 }
+  
   scope :visible, -> {where(active: true)}
-
 
   def full_name
     "#{display_name}: (#{identifing_name})"
@@ -24,9 +22,8 @@ class Property < ActiveRecord::Base
   # @param [Optional params]
   # @return [ Array[Property] ]
   def self.admin_grid(params = {})
-
     grid = Property
-    grid = grid.where("active = ?",true)                    unless  params[:show_all].present? &&
+    grid = grid.where("active = ?",true) unless params[:show_all].present? &&
                                                               params[:show_all] == 'true'
     grid = grid.where("properties.display_name LIKE ?", "#{params[:display_name]}%")  if params[:display_name].present?
     grid = grid.where("properties.identifing_name LIKE ?", "#{params[:identifing_name]}%")  if params[:identifing_name].present?
@@ -40,6 +37,5 @@ class Property < ActiveRecord::Base
   # @return [String] 'True' or 'False'
   def display_active
     active? ? 'True' : 'False'
-  end
-
+  end  
 end

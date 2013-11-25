@@ -14,7 +14,9 @@ FactoryGirl.define do
 
     trait(:with_properties) do
       after(:create) do |p|
-        p.product_properties.push(create(:product_property, :product => p))
+        3.times do 
+          p.product_properties.push(create(:product_property, :product => p))
+        end
       end
     end
 

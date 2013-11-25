@@ -1,0 +1,18 @@
+%ul#productTab.nav.nav-tabs
+  %li.active= link_to 'Description', '#desciption', 'data-toggle' => 'tab'
+  %li= link_to 'Properties', '#properties', 'data-toggle' => 'tab'
+  %li= link_to 'Shipping', '#shipping', 'data-toggle' => 'tab'
+              
+#productTabContent.tab-content
+  #desciption.tab-pane.fade.in.active
+    %p= raw @product.description
+                
+  #properties.tab-pane.fade
+    %section.section
+    - @product.active_variants.each do |var| 
+      %ul
+        - var.variant_properties.each do |prop|
+          %li= prop.property_name+': '+prop.description
+
+  #shipping.tab-pane.fade.in
+    %p= raw @product.description
