@@ -8,8 +8,8 @@
   <%= select_tag "countries_select", options_from_collection_for_select(@countries, "id", "name") %>
   <%= link_to "Activate", [:admin, :config, @countries.first], method: :put, id: "activate-link", style: "display:none;" %>
 </p>
-<div id="admin_country_grid_wrapper" class='pretty_table'>
-  <table>
+<div id="admin_country_grid_wrapper">
+  <table class="table table-striped">
     <tr class='odd'>
         <th  class='column1_header'><%= sortable 'name', 'Name' %></th>
         <th>Abbreviation</th>

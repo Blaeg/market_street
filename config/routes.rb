@@ -88,8 +88,6 @@ Hadean::Application.routes.draw do
     end
     resources :overviews, :only => [:index]
 
-    get "help" => "help#index"
-
     namespace :reports do
       resource :overview, :only => [:show]
       resources :graphs

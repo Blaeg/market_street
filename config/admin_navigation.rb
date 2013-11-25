@@ -19,9 +19,9 @@ SimpleNavigation::Configuration.run do |navigation|
     end
 
     primary.item :offer_tab ,"Offer", admin_generic_coupons_path do |offer|        
-      config.item :coupin_link, 'Coupons', admin_generic_coupons_path
-      config.item :deal_link,'Deals', admin_generic_deals_path
-      config.item :sales_link, 'Sales', admin_generic_sales_path
+      offer.item :coupin_link, 'Coupons', admin_generic_coupons_path
+      offer.item :deal_link,'Deals', admin_generic_deals_path
+      offer.item :sales_link, 'Sales', admin_generic_sales_path
     end
 
     primary.item :orders_tab, 'Order', admin_history_orders_path do |order|
