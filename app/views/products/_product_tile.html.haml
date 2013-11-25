@@ -2,7 +2,7 @@
   .thumbnail
     = link_to image_tag(product.featured_image(:medium)), product_path(product), title: product.name
     .caption
-      %h5= link_to product.name, product_path(product)
+      %h5= link_to product.name[0..20], product_path(product)
       %p 
         .span1= product.price_label
         = link_to fa_icon("heart"), '#'

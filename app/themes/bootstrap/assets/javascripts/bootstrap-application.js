@@ -16,4 +16,4 @@
 //= require underscore-min
 //= require underscore.string.min
 
-$(function(){ $(document).foundation(); });
+//$(function(){ $(document).foundation(); });
