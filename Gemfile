@@ -67,6 +67,11 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails'
 
+group :development do
+  gem 'capistrano', '~> 3.0.1', require: false
+  #gem 'capistrano-unicorn', require: false  
+end
+
 group :assets do
   gem 'uglifier',     '>= 1.3.0'
   gem 'sass-rails',   '~> 4.0.0'
@@ -78,7 +83,6 @@ group :production do
 end
 
 group :development do
-  #gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'better_errors'
   gem "binding_of_caller", '~> 0.7.2'
   gem "rails-erd"
@@ -90,7 +94,6 @@ group :development do
 
   gem 'yard'
   gem 'RedCloth'
-  gem 'roundsman', require: false
   gem 'guard-livereload', require: false
 end
 group :test, :development do
@@ -119,5 +122,4 @@ group :test do
 
   gem 'capybara', "~> 1.1"#, :git => 'git://github.com/jnicklas/capybara.git'  
   gem 'capybara-screenshot'
-  gem 'capistrano-unicorn', require: false  
 end
