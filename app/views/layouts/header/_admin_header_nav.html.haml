@@ -1,0 +1,85 @@
+%ul.nav
+  %li#catalog_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "#"}
+      Catalog
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/merchandise/products"} Products
+      %li
+        %a{href: "/admin/merchandise/properties"} Properties
+      %li
+        %a{href: "/admin/merchandise/product_types"} Product Types
+      %li
+        %a{href: "/admin/merchandise/prototypes"} Prototypes
+      %li
+        %a{href: "/admin/merchandise/image_groups"} Image Groups
+      %li
+        %a{href: "/admin/merchandise/brands"} Brands
+  %li#inventory_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/inventory/overviews"}
+      Inventory
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/inventory/overviews"} Overviews
+      %li
+        %a{href: "/admin/inventory/suppliers"} Suppliers
+      %li
+        %a{href: "/admin/inventory/receivings"} Receive Purchase Order
+      %li
+        %a{href: "/admin/inventory/purchase_orders"} Purchase Orders
+      %li
+        %a{href: "/admin/inventory/adjustments"} Adjustments
+  %li#offer_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/generic/coupons"}
+      Offer
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/generic/coupons"} Coupons
+      %li
+        %a{href: "/admin/generic/deals"} Deals
+      %li
+        %a{href: "/admin/generic/sales"} Sales
+  %li#orders_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/history/orders"}
+      Order
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/shopping/carts"} Create Order
+      %li
+        %a{href: "/admin/history/orders"} Orders
+      %li
+        %a{href: "/admin/fulfillment/shipments"} Shipments
+      %li
+        %a{href: "/admin/document/invoices"} Invoices
+      %li
+        %a{href: "/admin/fulfillment/orders"} Fulfillments
+  %li#user_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/users"}
+      User
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/users"} Users
+      %li
+        %a{href: "/admin/user_datas/referrals"} Referrals
+  %li#config_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/config/accounts"}
+      Config
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/config/accounts"} Accounts
+      %li
+        %a{href: "/admin/config/countries"} Countries
+      %li
+        %a{href: "/admin/config/shipping_zones"} Shipping Zones
+      %li
+        %a{href: "/admin/config/shipping_methods"} Shipping Methods
+      %li
+        %a{href: "/admin/config/shipping_rates"} Shipping Rates
+      %li
+        %a{href: "/admin/config/tax_rates"} Tax Rates

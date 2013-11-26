@@ -22,27 +22,23 @@ end
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require "authlogic/test_case"
+
 require "email_spec"
 require "mocha/setup"
 #require 'capybara/rspec'
 
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-# Requires supporting files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
-#Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 include Hadean::TruncateHelper
 include Hadean::TestHelpers
-include Authlogic::TestCase
 include ActiveMerchant::Billing
+#include ActionDispatch::TestProcess
+
+require "authlogic/test_case"
+include Authlogic::TestCase
 
 Rails.logger.level = 4
 Settings.require_state_in_address = true
-
-#include ActionDispatch::TestProcess
 
 RSpec.configure do |config|
   config.mock_with :mocha

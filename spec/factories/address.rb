@@ -1,27 +1,13 @@
-# first_name  { Sham.name }
-# last_name   { Sham.name }
-# address1    { Sham.address }
-# city        { Sham.city }
-# state       { State.first }#,       :if => Proc.new { |address| address.state_name.blank?  }
-# state_name   nil #,  :if => Proc.new { |address| address.state_id.blank?   }
-# #zip_code    { Sham.zipcode }
-# phone       { Sham.phone_number }
-
 FactoryGirl.define do
   factory :address do
-    first_name 'John'
-    last_name  'Doe'
+    sequence(:first_name) { |n| Forgery::Name.first_name }
+    sequence(:last_name)  { |n| Forgery::Name.last_name }
     address1 { Faker::Address.street_address() }
     address2 { Faker::Address.secondary_address() }
     city       'Fredville'
     state     { State.first }
     zip_code  '54322'
-    address_type { AddressType.first}
+    address_type { AddressType.first }
     addressable  { |c| c.association(:user) }
   end
 end
-
-
-#Factory.define :order_address, :parent => :address do |f|
-
-#end

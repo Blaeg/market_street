@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :user do
-    sequence(:first_name) { Forgery(:name).first_name }
-    sequence(:last_name)  { Forgery(:name).last_name }
+    sequence(:first_name) { |n| Forgery::Name.first_name }
+    sequence(:last_name)  { |n| Forgery::Name.last_name }
     sequence(:email)      { |n| "person#{n}@market.com" }
-    password              'pasword'
+    password              "pasword"
     password_confirmation "pasword"
     after(:build) {|user| user.send(:initialize_state_machines, :dynamic => :force)}
 
