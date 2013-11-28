@@ -40,9 +40,19 @@ Hadean::Application.configure do
 
   #config.cache_store = :dalli_store
   #config.cache_store = :redis_store
-  # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  
+  #mailer
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'marketstreet',
+    :user_name            => 'marketstreet',
+    :password             => 'password',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
 
 
   config.after_initialize do

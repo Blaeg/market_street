@@ -1,0 +1,13 @@
+defaults: &defaults
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  min_messages: warning
+  
+development:
+  <<: *defaults
+  database: market_street_dev
+
+test:
+  <<: *defaults
+  database: market_street_test
