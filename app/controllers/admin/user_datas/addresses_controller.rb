@@ -1,5 +1,8 @@
 class Admin::UserDatas::AddressesController < Admin::UserDatas::BaseController
-  helper_method :sort_column, :sort_direction, :customer, :select_countries, :select_states
+  helper_method :sort_column, 
+                :sort_direction, 
+                :customer, 
+                :select_states
   def index
     @addresses = customer.addresses.order(sort_column + " " + sort_direction).
                          paginate(:page => pagination_page, :per_page => pagination_rows)
@@ -75,10 +78,6 @@ class Admin::UserDatas::AddressesController < Admin::UserDatas::BaseController
 
     def customer
       @customer ||= User.includes(:addresses).find(params[:user_id])
-    end
-
-    def select_countries
-      @select_countries ||= Country.active
     end
 
     def select_states

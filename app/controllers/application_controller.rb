@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
                 :search_product,
                 :product_types,
                 :myaccount_tab,
-                :select_countries,
                 :customer_confirmation_page_view
 
   before_filter :secure_session
@@ -86,7 +85,7 @@ class ApplicationController < ActionController::Base
     return @session_cart if defined?(@session_cart)
     session_cart!
   end
-  
+
   # use this method if you want to force a SQL query to get the cart.
   def session_cart!
     if cookies[:cart_id]
@@ -119,10 +118,6 @@ class ApplicationController < ActionController::Base
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
-  end
-
-  def select_countries
-    @select_countries ||= Country.form_selector
   end
 
   def cc_params

@@ -54,7 +54,7 @@
       <% else %>
         <div class="field column">
           <%= f.label    :country_id, "Country" %>
-          <%= f.select   :country_id, select_countries,
+          <%= f.select   :country_id, Country.active,
                         :include_blank => true %>
         </div>
       <% end %>

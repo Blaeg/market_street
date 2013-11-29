@@ -76,13 +76,13 @@
       <% else %>
         <div class="field column">
           <%= f.label    :country_id, "Country" %>
-          <%= f.select   :country_id, select_countries,
+          <%= f.select   :country_id, Country.form_selector,
                         {:include_blank => true}, {:style => 'display:none;'} %>
           <div class='custom dropdown'>
             <a  class="current"><%= f.object.country.try(:name) || 'SELECT YOUR COUNTRY' %></a>
             <a href="#" class="selector"></a>
             <ul class='no-bullet'>
-              <% select_countries.each do |c| %>
+              <% Country.form_selector.each do |c| %>
                 <li value='<%= f.object.country_id %>'
                     class="<%= 'selected' if c.last == f.object.country_id %>"><%= c.first %></li>
               <% end %>
