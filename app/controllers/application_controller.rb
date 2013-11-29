@@ -25,10 +25,6 @@ class ApplicationController < ActionController::Base
     redirect_to :back, alert: exception.message
   end
 
-  def current_ability
-    @current_ability ||= Ability.new(current_user)
-  end
-
   def product_types
     @product_types ||= ProductType.roots
   end
@@ -54,7 +50,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    redirect_to login_url and store_return_location and return if logged_out?
+    redirect_to login_url and store_return_location and return unless current_user
   end
 
   def store_return_location
@@ -64,10 +60,6 @@ class ApplicationController < ActionController::Base
     unless disallowed_urls.include?(request.url)
       session[:return_to] = request.url
     end
-  end
-
-  def logged_out?
-    !current_user
   end
 
   def search_product
