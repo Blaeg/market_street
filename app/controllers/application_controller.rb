@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
                 :most_likely_user,
                 :random_user,
                 :session_cart,
-                :is_production_simulation,
                 :search_product,
                 :product_types,
                 :myaccount_tab,
@@ -78,20 +77,12 @@ class ApplicationController < ActionController::Base
     @search_product || Product.new
   end
 
-  def is_production_simulation
-    false
-  end
-
   def secure_session
-    if Rails.env == 'production' || is_production_simulation
-      if session_cart && !request.ssl?
-        cookies[:insecure] = true
-      else
-        cookies[:insecure] = false
-      end
+    if session_cart && !request.ssl?
+      cookies[:insecure] = true
     else
       cookies[:insecure] = false
-    end
+    end    
   end
 
   def session_cart
