@@ -9,6 +9,7 @@ FactoryGirl.define do
     deleted_at          nil
     master              false
     inventory           { |c| c.association(:inventory) }    
+    name { Forgery(:lorem_ipsum).words( rand( 3..8 ), :random => true).titlecase }
 
     trait(:with_properties) do
       after(:create) do |v|

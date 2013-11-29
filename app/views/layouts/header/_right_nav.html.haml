@@ -4,7 +4,9 @@
       = link_to "#", data: { toggle: 'dropdown'}, class: 'dropdown-toggle' do
         =fa_icon "caret-down", text: "Shopping Cart (#{session_cart.shopping_cart_items.size})", class: "pull-right"
       %ul.dropdown-menu
-        %li= link_to 'Your Items', shopping_cart_items_path, :id => 'cart_items_buttons'                 
+        - session_cart.shopping_cart_items.each do |item|
+          %li= link_to item.variant.name, shopping_cart_items_path, :id => 'cart_items_buttons'
+                         
   - if current_user
     %li.dropdown
       = link_to "#", data: { toggle: 'dropdown'}, class: 'dropdown-toggle' do
