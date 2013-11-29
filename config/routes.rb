@@ -15,15 +15,17 @@ Hadean::Application.routes.draw do
   resources :products, :only => [:index, :show, :create]
 
   resources :wish_items,  :only => [:index, :destroy]
-  resources :states,      :only => [:index]
-  resource :about,        :only => [:show] do 
+  resources :states,      :only => [:index]  
+  resource :home, :only => [:index] do
     collection do 
+      get :about
       get :terms
     end
   end
+
   resource  :unsubscribe,       :only => :show
 
-  root :to => "welcome#index"
+  root :to => "home#index"
 
   namespace :customer do
     resources :registrations,   :only => [:index, :new, :create]

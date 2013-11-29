@@ -1,4 +1,7 @@
-class WelcomeController < ApplicationController
+class HomeController < ApplicationController
+  caches_page :index, :about, :terms  
+  add_breadcrumb "Home", :root_path
+  
   def index
     @featured_product = Product.featured
     @best_selling_products = Product.limit(5)
@@ -10,5 +13,13 @@ class WelcomeController < ApplicationController
         redirect_to login_url
       end
     end
+  end
+
+  def about
+    add_breadcrumb "About", :about_home_path
+  end
+
+  def terms
+    add_breadcrumb "Terms", :terms_home_path
   end
 end
