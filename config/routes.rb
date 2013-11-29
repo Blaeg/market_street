@@ -16,8 +16,11 @@ Hadean::Application.routes.draw do
 
   resources :wish_items,  :only => [:index, :destroy]
   resources :states,      :only => [:index]
-  resource :about,        :only => [:show]
-  resources :terms,       :only => [:index]
+  resource :about,        :only => [:show] do 
+    collection do 
+      get :terms
+    end
+  end
   resource  :unsubscribe,       :only => :show
 
   root :to => "welcome#index"
