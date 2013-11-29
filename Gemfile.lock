@@ -7,6 +7,13 @@ GIT
       compass (>= 0.12.2, < 0.14)
 
 GIT
+  remote: git://github.com/rweng/jquery-datatables-rails.git
+  revision: 44b0448193d4856847e47fb2a245bdd51a4bb2fa
+  specs:
+    jquery-datatables-rails (1.12.2)
+      jquery-rails
+
+GIT
   remote: https://github.com/binarylogic/authlogic.git
   revision: abc09970ed1fad98c6c12f4ca64d1670d37d11db
   specs:
@@ -214,8 +221,6 @@ GEM
     jbuilder (1.5.2)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
-    jquery-datatables-rails (1.12.1)
-      jquery-rails
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -452,7 +457,7 @@ DEPENDENCIES
   guard-rspec
   haml-rails
   jbuilder
-  jquery-datatables-rails
+  jquery-datatables-rails!
   jquery-rails
   jquery-ui-rails
   json (~> 1.8.0)

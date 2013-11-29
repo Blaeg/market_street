@@ -13,7 +13,7 @@
     .row
       = render 'shared/flash_message' if notice || alert
       .span12
-        .breadcrumb= render_breadcrumbs
+        = render_breadcrumbs
         = yield      
     = render 'layouts/footer/footer'
   = render 'layouts/footer/google_analytics' unless @disable_ga
