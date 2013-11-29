@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout 'application'
   helper_method :current_user,
-                :most_likely_user,
-                :random_user,
                 :session_cart,
                 :search_product,
                 :product_types,
@@ -106,19 +104,7 @@ class ApplicationController < ActionController::Base
     end
     @session_cart
   end
-  ## The most likely user can be determined off the session / cookies or for now lets grab a random user
-  #   Change this method for showing products that the end user will more than likely like.
-  #
-  def most_likely_user
-    current_user ? current_user : random_user
-  end
-
-  ## TODO cookie[:hadean_user_id] value needs to be encrypted ### Authlogic persistence_token might work here
-  def random_user
-    return @random_user if defined?(@random_user)
-    @random_user = cookies[:hadean_uid] ? User.find_by_persistence_token(cookies[:hadean_uid]) : nil
-  end
-
+  
   ###  Authlogic helper methods
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
