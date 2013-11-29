@@ -4,10 +4,7 @@ class Myaccount::BaseController < ApplicationController
   before_filter :expire_all_browser_cache
 
   protected
-  def myaccount_tab
-    true
-  end
-
+  
   def ssl_required?
     ssl_supported?
   end

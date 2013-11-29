@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
                 :session_cart,
                 :search_product,
                 :product_types,
-                :myaccount_tab,
                 :customer_confirmation_page_view
 
   before_filter :secure_session
@@ -43,10 +42,6 @@ class ApplicationController < ActionController::Base
   def pagination_rows
     params[:rows] ||= 25
     params[:rows].to_i
-  end
-
-  def myaccount_tab
-    false
   end
 
   def require_user
