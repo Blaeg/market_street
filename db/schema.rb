@@ -740,13 +740,11 @@ ActiveRecord::Schema.define(version: 20131125052243) do
     t.boolean  "master",                                 default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "brand_id"
     t.integer  "inventory_id"
     t.integer  "image_group_id"
     t.float    "retail"
   end
 
-  add_index "variants", ["brand_id"], name: "index_variants_on_brand_id", using: :btree
   add_index "variants", ["inventory_id"], name: "index_variants_on_inventory_id", using: :btree
   add_index "variants", ["product_id"], name: "index_variants_on_product_id", using: :btree
   add_index "variants", ["sku"], name: "index_variants_on_sku", using: :btree

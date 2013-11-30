@@ -3,6 +3,7 @@ FactoryGirl.define do
     name { Forgery(:lorem_ipsum).words( rand( 3..8 ), :random => true).titlecase }
     description { Forgery(:lorem_ipsum).sentences(4, :random => true) }
     description_markup   { Forgery(:lorem_ipsum).sentences(4, :random => true) }
+    brand                { |c| c.association(:brand) }
     product_type         { |c| c.association(:product_type) }
     prototype            { |c| c.association(:prototype) }
     shipping_method      { |c| c.association(:shipping_method) }  
