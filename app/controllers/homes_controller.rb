@@ -1,8 +1,8 @@
-class HomeController < ApplicationController
+class HomesController < ApplicationController
   caches_page :index, :about, :terms  
   add_breadcrumb "Home", :root_path
-  
   def index
+    binding.pry
     @featured_product = Product.featured
     @best_selling_products = Product.limit(5)
     @other_products  ## search 2 or 3 categories (maybe based on the user)
@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       else
         redirect_to login_url
       end
-    end
+    end    
   end
 
   def about
