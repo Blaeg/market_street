@@ -1,5 +1,4 @@
 class HomesController < ApplicationController
-  caches_page :index, :about, :terms  
   add_breadcrumb "Home", :root_path
   def index
     binding.pry
