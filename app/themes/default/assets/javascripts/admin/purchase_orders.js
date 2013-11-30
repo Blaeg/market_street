@@ -1,14 +1,14 @@
-var Hadean = window.Hadean || {};
+var MarketStreet = window.MarketStreet || {};
 
 // If we already have the Admin namespace don't override
-if (typeof Hadean.Admin == "undefined") {
-    Hadean.Admin = {};
+if (typeof MarketStreet.Admin == "undefined") {
+    MarketStreet.Admin = {};
 }
 
 // If we already have the purchaseOrder object don't override
-if (typeof Hadean.Admin.purchaseOrder == "undefined") {
+if (typeof MarketStreet.Admin.purchaseOrder == "undefined") {
 
-    Hadean.Admin.purchaseOrder = {
+    MarketStreet.Admin.purchaseOrder = {
         //test    : null,
         initialize      : function( ) {
           jQuery(".chzn-select").chosen();
@@ -26,7 +26,7 @@ if (typeof Hadean.Admin.purchaseOrder == "undefined") {
 
           jQuery('.select_variants').live('change', function(){
             //alert($(this).val());
-            Hadean.Admin.purchaseOrder.prefillCost(this);
+            MarketStreet.Admin.purchaseOrder.prefillCost(this);
             return false;
           });
         },
@@ -45,6 +45,6 @@ if (typeof Hadean.Admin.purchaseOrder == "undefined") {
     };
 
     jQuery(function() {
-      Hadean.Admin.purchaseOrder.initialize();
+      MarketStreet.Admin.purchaseOrder.initialize();
     });
 }

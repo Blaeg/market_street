@@ -1,4 +1,4 @@
-Hadean::Application.configure do
+MarketStreet::Application.configure do
   # Rails 4
   config.eager_load = false
 

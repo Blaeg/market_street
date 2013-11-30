@@ -10,9 +10,9 @@ jQuery(document).ready(function($) {
   });
 });
 
-var Hadean = window.Hadean || {};
+var MarketStreet = window.MarketStreet || {};
 
-Hadean.Fulfillment = {
+MarketStreet.Fulfillment = {
   captureInvoiceButton      : '#capture-invoice-button-',
   capturePartInvoiceButton  : '#capture-partial-invoice-button-',
   cancelInvoiceButton       : '#cancel-invoice-button-',
@@ -20,10 +20,10 @@ Hadean.Fulfillment = {
 
   initialize : function(invoiceId, order_id) {
 
-    var captureTag      = jQuery(Hadean.Fulfillment.captureInvoiceButton + invoiceId );
-    var capturePartTag  = jQuery(Hadean.Fulfillment.capturePartInvoiceButton + invoiceId);
-    var cancelTag       = jQuery(Hadean.Fulfillment.cancelInvoiceButton + invoiceId);
-    Hadean.Fulfillment.orderId = order_id;
+    var captureTag      = jQuery(MarketStreet.Fulfillment.captureInvoiceButton + invoiceId );
+    var capturePartTag  = jQuery(MarketStreet.Fulfillment.capturePartInvoiceButton + invoiceId);
+    var cancelTag       = jQuery(MarketStreet.Fulfillment.cancelInvoiceButton + invoiceId);
+    MarketStreet.Fulfillment.orderId = order_id;
 
     jQuery("#dialog").dialog({
       bgiframe: true,
@@ -37,7 +37,7 @@ Hadean.Fulfillment = {
             bind('click',
               function() {
                 // submit to collect all payments
-                Hadean.Fulfillment.captureInvoice(invoiceId);
+                MarketStreet.Fulfillment.captureInvoice(invoiceId);
               }
             );
 
@@ -55,7 +55,7 @@ Hadean.Fulfillment = {
               function() {
                 // submit to go to cancel order and payment
 
-                Hadean.Fulfillment.cancelInvoice(invoiceId);
+                MarketStreet.Fulfillment.cancelInvoice(invoiceId);
               }
             );
   },//END of INITIALIZE
@@ -69,7 +69,7 @@ Hadean.Fulfillment = {
                                     // Make an ajax request to cancel the invoice
                                     jQuery.ajax( {
                                       type : "PUT",
-                                      url : '/admin/fulfillment/orders/' + Hadean.Fulfillment.orderId ,
+                                      url : '/admin/fulfillment/orders/' + MarketStreet.Fulfillment.orderId ,
                                       data : {invoice_id : invoiceId, amount : 'all' } ,
                                       complete : function(htmlText) {
                                         if (htmlText.status == 200) {
@@ -107,7 +107,7 @@ Hadean.Fulfillment = {
                                     // Make an ajax request to cancel the invoice
                                     jQuery.ajax( {
                                       type : "DELETE",
-                                      url : '/admin/fulfillment/orders/' + Hadean.Fulfillment.orderId ,
+                                      url : '/admin/fulfillment/orders/' + MarketStreet.Fulfillment.orderId ,
                                       data : {invoice_id : invoiceId } ,
                                       complete : function(htmlText) {
                                         if (htmlText.status == 200) {
@@ -137,7 +137,7 @@ Hadean.Fulfillment = {
 
 jQuery(function() {
   jQuery.each(jQuery('.order-invoice'), function(index, obj){
-    Hadean.Fulfillment.initialize(jQuery(obj).data('invoice_id'), jQuery(obj).data('order_id'));
+    MarketStreet.Fulfillment.initialize(jQuery(obj).data('invoice_id'), jQuery(obj).data('order_id'));
   })
 
 });

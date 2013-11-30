@@ -89,7 +89,7 @@
   <%= javascript_include_tag "admin/fulfillment" %>
   <script>
     <% @order.invoices.each do |invoice| %>
-     // Hadean.Utility.registerOnLoadHandler(Hadean.Fulfillment.initialize(<%= invoice.id %>, <%= @order.id %> ));
+     // MarketStreet.Utility.registerOnLoadHandler(MarketStreet.Fulfillment.initialize(<%= invoice.id %>, <%= @order.id %> ));
     <% end %>
   </script>
 <% end %>

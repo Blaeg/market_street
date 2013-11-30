@@ -1,19 +1,19 @@
-var Hadean = window.Hadean || { };
-if (typeof Hadean.Product == "undefined") {
-    Hadean.Product = {};
+var MarketStreet = window.MarketStreet || { };
+if (typeof MarketStreet.Product == "undefined") {
+    MarketStreet.Product = {};
 }
 dd = null;
-if (typeof Hadean.Product.tabs == "undefined") {
-  Hadean.Product.tabs = {
+if (typeof MarketStreet.Product.tabs == "undefined") {
+  MarketStreet.Product.tabs = {
     newFormId : '#new_cart_item',
     addToCart : true,
 
     initialize      : function() {
       $('#product_tabs .section-container section ').click(function() {
-        setTimeout('Hadean.Product.tabs.updateProductTabs()', 100);
+        setTimeout('MarketStreet.Product.tabs.updateProductTabs()', 100);
       })
       $('#product_tabs .section-container .section').first().find('a').click()
-      Hadean.Product.tabs.updateProductTabs();
+      MarketStreet.Product.tabs.updateProductTabs();
     },
     updateProductTabs : function() {
       var heightOfTabContent = $('#product_tabs .section-container .section.active').height();
@@ -21,11 +21,11 @@ if (typeof Hadean.Product.tabs == "undefined") {
         $('#product_tabs .section-container').height(heightOfTabContent + 75);
       } else {
         $('#product_tabs .section-container').height(170);
-        setTimeout('Hadean.Product.tabs.updateProductTabs()', 200);
+        setTimeout('MarketStreet.Product.tabs.updateProductTabs()', 200);
       }
     }
   };
   jQuery(function() {
-    Hadean.Product.tabs.initialize();
+    MarketStreet.Product.tabs.initialize();
   });
 };

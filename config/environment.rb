@@ -3,8 +3,8 @@ require File.expand_path('../application', __FILE__)
 require File.expand_path('../../lib/printing/invoice_printer', __FILE__)
 
 # Initialize the rails application
-Hadean::Application.initialize!
-Hadean::Application.configure do
+MarketStreet::Application.initialize!
+MarketStreet::Application.configure do
   config.after_initialize do
     unless Settings.encryption_key
       raise "

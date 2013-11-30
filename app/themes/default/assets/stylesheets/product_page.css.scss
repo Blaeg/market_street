@@ -1,8 +1,8 @@
 @import "site/app_mixins";
 
-$hadean_black            : #242729;
-$hadean_gray_background  : #e8e8e8;
-$hadean_orange            : #c6481a;
+$MarketStreet_black            : #242729;
+$MarketStreet_gray_background  : #e8e8e8;
+$MarketStreet_orange            : #c6481a;
 
 $inline_error            : #8A1F11;
 $error_border            : #FBC2C4;
@@ -10,7 +10,7 @@ $error_background         : #FBE3E4;
 #content_wrapper {
   #product {
     font-family: "MyriadPro", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    color:$hadean_black;
+    color:$MarketStreet_black;
     .product_title_name {
       font-size:2.25em;
     }
@@ -66,7 +66,7 @@ $error_background         : #FBE3E4;
       span{font-size:1.5em;margin-right:10px;}
     }
     #product_your_customizations {
-      background-color:$hadean_gray_background;
+      background-color:$MarketStreet_gray_background;
       padding:10px;
     }
     .orange_custom_type_wrapper {
@@ -79,7 +79,7 @@ $error_background         : #FBE3E4;
         .orange_custom_type_title {
           display:inline-block;
           vertical-align: top;
-          color:$hadean_orange;
+          color:$MarketStreet_orange;
         }
       }
     }

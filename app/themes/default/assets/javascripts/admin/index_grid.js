@@ -1,6 +1,6 @@
-var Hadean = window.Hadean || {};
+var MarketStreet = window.MarketStreet || {};
 
-Hadean.AdminIndexForm = {
+MarketStreet.AdminIndexForm = {
   registerOnLoadHandler : function(callback) {
     jQuery(window).ready(callback);
   },
@@ -8,16 +8,16 @@ Hadean.AdminIndexForm = {
     this.formController = controller;
   }, 
   editSelection : function(id) {
-    window.location.href = Hadean.AdminIndexForm.formController+'/'+id+"/edit";
+    window.location.href = MarketStreet.AdminIndexForm.formController+'/'+id+"/edit";
   },
   showSelection : function(id) {
-    window.location.href = Hadean.AdminIndexForm.formController+'/'+id;
+    window.location.href = MarketStreet.AdminIndexForm.formController+'/'+id;
   },
   userSelection : function(id) {
     jQuery('#admin-user_id').val(id);  
     jQuery('#admin-user-form').submit();
   },
   newShipmentSelection : function(id) {
-    window.location.href = Hadean.AdminIndexForm.formController+'/'+id+"/shipments/new";
+    window.location.href = MarketStreet.AdminIndexForm.formController+'/'+id+"/shipments/new";
   }
 }

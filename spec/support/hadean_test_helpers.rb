@@ -1,4 +1,4 @@
-module Hadean
+module MarketStreet
   module TestHelpers
 
     def create_admin_user(args = {})

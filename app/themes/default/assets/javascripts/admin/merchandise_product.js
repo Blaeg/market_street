@@ -1,14 +1,14 @@
-var Hadean = window.Hadean || {};
+var MarketStreet = window.MarketStreet || {};
 
 
-Hadean.Utility = {
+MarketStreet.Utility = {
   registerOnLoadHandler : function(callback) {
     jQuery(window).ready(callback);
   }
 }
 
 
-Hadean.AdminMerchandiseProductForm = {
+MarketStreet.AdminMerchandiseProductForm = {
 
     productCheckboxesDiv  : '#product_properties',
     prototypeSelectId     : '#product_prototype_id',
@@ -18,12 +18,12 @@ Hadean.AdminMerchandiseProductForm = {
     initialize : function(product_Id) {
 
       this.productId  = product_Id;
-      var prototype       = jQuery(Hadean.AdminMerchandiseProductForm.prototypeSelectId);
+      var prototype       = jQuery(MarketStreet.AdminMerchandiseProductForm.prototypeSelectId);
       prototype.
               bind('change',
                 function() {
-                  Hadean.AdminMerchandiseProductForm.addProperties(
-                    jQuery(Hadean.AdminMerchandiseProductForm.prototypeSelectId + " option:selected").first().val()
+                  MarketStreet.AdminMerchandiseProductForm.addProperties(
+                    jQuery(MarketStreet.AdminMerchandiseProductForm.prototypeSelectId + " option:selected").first().val()
                   );
                 }
               );
@@ -32,16 +32,16 @@ Hadean.AdminMerchandiseProductForm = {
       if ( typeof id == 'undefined' || id == 0 ) {
         //  show all properties...
 $('#product_properties').children().fadeIn();
-        //jQuery(Hadean.AdminMerchandiseProductForm.productCheckboxesDiv).html('');
+        //jQuery(MarketStreet.AdminMerchandiseProductForm.productCheckboxesDiv).html('');
       }
       else {
         jQuery.ajax( {
            type : "GET",
            url : MerchProductForm.formController+'/'+id+"/add_properties",
-           data : { product_id : Hadean.AdminMerchandiseProductForm.productId },
+           data : { product_id : MarketStreet.AdminMerchandiseProductForm.productId },
            complete : function(json) {
              // open dialog with html
-             Hadean.AdminMerchandiseProductForm.refreshProductForm(json);
+             MarketStreet.AdminMerchandiseProductForm.refreshProductForm(json);
             // STOP  WAIT INDICATOR...
            },
            dataType : 'json'
@@ -68,4 +68,4 @@ $('#product_properties').children().fadeIn();
     }
 };
 
-MerchProductForm = Hadean.AdminMerchandiseProductForm
+MerchProductForm = MarketStreet.AdminMerchandiseProductForm

@@ -18,7 +18,7 @@ class Customer::RegistrationsController < ApplicationController
     # the User has not yet been activated
     if @user.save_without_session_maintenance
       @user.deliver_activation_instructions!
-      #cookies[:hadean_uid] = @user.access_token
+      #cookies[:MarketStreet_uid] = @user.access_token
       #session[:authenticated_at] = Time.now
       #cookies[:insecure] = false
       UserSession.new(@user.attributes)

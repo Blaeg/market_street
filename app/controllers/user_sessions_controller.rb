@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(user_params)
     if @user_session.save
-      cookies[:hadean_uid] = @user_session.record.access_token
+      cookies[:MarketStreet_uid] = @user_session.record.access_token
       session[:authenticated_at] = Time.now
       cookies[:insecure] = false
       ## if there is a cart make sure the user_id is correct
@@ -25,7 +25,7 @@ class UserSessionsController < ApplicationController
   def destroy
     current_user_session.destroy
     reset_session
-    cookies.delete(:hadean_uid)
+    cookies.delete(:MarketStreet_uid)
     redirect_to login_url, :notice => I18n.t('logout_successful')
   end
 

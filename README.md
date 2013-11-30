@@ -170,7 +170,7 @@ Finally uncomment the next two lines in `config/initializers/session_store.rb`
 
 ```ruby
 require 'action_dispatch/middleware/session/dalli_store'
-Hadean::Application.config.session_store :dalli_store, :key => '_hadean_session_ugrdr6765745ce4vy'
+MarketStreet::Application.config.session_store :dalli_store, :key => '_MarketStreet_session_ugrdr6765745ce4vy'
 ```
 
 ####To Turn On the Dalli Cache Store

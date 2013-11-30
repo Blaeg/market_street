@@ -1,12 +1,12 @@
-var Hadean = window.Hadean || {};
+var MarketStreet = window.MarketStreet || {};
 
 // If we already have the Admin namespace don't override
-if (typeof Hadean.Admin == "undefined") {
-    Hadean.Admin = {};
+if (typeof MarketStreet.Admin == "undefined") {
+    MarketStreet.Admin = {};
 }
 var dataSet = null;
-if (typeof Hadean.Admin.weeklySalesChart == "undefined") {
-  Hadean.Admin.weeklySalesChart = {
+if (typeof MarketStreet.Admin.weeklySalesChart == "undefined") {
+  MarketStreet.Admin.weeklySalesChart = {
     initialize      : function(){
       jQuery.ajax( {
          type : "GET",
@@ -14,8 +14,8 @@ if (typeof Hadean.Admin.weeklySalesChart == "undefined") {
          success : function(json) {
           // amountData = [];
           // $.each( dataSet, function(i, val) {  amountData.push( [val.date, val.amount] )})
-          Hadean.Admin.weeklySalesChart.createSalesGraph(json);
-          Hadean.Admin.weeklySalesChart.createEarningsGraph(json);
+          MarketStreet.Admin.weeklySalesChart.createSalesGraph(json);
+          MarketStreet.Admin.weeklySalesChart.createEarningsGraph(json);
          },
          dataType : 'json'
       });
@@ -54,6 +54,6 @@ if (typeof Hadean.Admin.weeklySalesChart == "undefined") {
     }
   };
   jQuery(function() {
-    Hadean.Admin.weeklySalesChart.initialize();
+    MarketStreet.Admin.weeklySalesChart.initialize();
   });
 }

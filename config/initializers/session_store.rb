@@ -1,4 +1,4 @@
-Hadean::Application.config.session_store :cookie_store, :key => '_ror_ecommerce_session_pIUHGFhsgbhsvgfshbdhgh456jb3hhy387u'
+MarketStreet::Application.config.session_store :cookie_store, :key => '_ror_ecommerce_session_pIUHGFhsgbhsvgfshbdhgh456jb3hhy387u'
 
 puts '
 ************************************************
@@ -24,4 +24,4 @@ puts '
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rake db:sessions:create")
-# Hadean::Application.config.session_store :active_record_store
+# MarketStreet::Application.config.session_store :active_record_store

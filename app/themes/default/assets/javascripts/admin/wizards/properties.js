@@ -1,14 +1,14 @@
-var Hadean = window.Hadean || {};
+var MarketStreet = window.MarketStreet || {};
 
 // If we already have the Admin namespace don't override
-if (typeof Hadean.Admin == "undefined") {
-    Hadean.Admin = {};
+if (typeof MarketStreet.Admin == "undefined") {
+    MarketStreet.Admin = {};
 }
 var kk = null;
 // If we already have the purchaseOrder object don't override
-if (typeof Hadean.Admin.properties == "undefined") {
+if (typeof MarketStreet.Admin.properties == "undefined") {
 
-    Hadean.Admin.properties = {
+    MarketStreet.Admin.properties = {
         //test    : null,
         initialize      : function( ) {
           // jQuery(".chzn-select").chosen();
@@ -17,6 +17,6 @@ if (typeof Hadean.Admin.properties == "undefined") {
     };
 
     jQuery(function() {
-      Hadean.Admin.properties.initialize();
+      MarketStreet.Admin.properties.initialize();
     });
 }

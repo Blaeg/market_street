@@ -1,10 +1,10 @@
-var Hadean = window.Hadean || { };
-if (typeof Hadean.Cart == "undefined") {
-    Hadean.Cart = {};
+var MarketStreet = window.MarketStreet || { };
+if (typeof MarketStreet.Cart == "undefined") {
+    MarketStreet.Cart = {};
 }
 dd = null;
-if (typeof Hadean.Cart.newForm == "undefined") {
-  Hadean.Cart.newForm = {
+if (typeof MarketStreet.Cart.newForm == "undefined") {
+  MarketStreet.Cart.newForm = {
     newFormId : '#new_cart_item',
     addToCart : true,
 
@@ -13,10 +13,10 @@ if (typeof Hadean.Cart.newForm == "undefined") {
           if (jQuery('#cart_item_variant_id').val() == '' ) { // Select to see if variant is selected in hidden field
             alert('Please click on a specific item to add.');
           } else
-          if (Hadean.Cart.newForm.addToCart) {
+          if (MarketStreet.Cart.newForm.addToCart) {
 
-            Hadean.Cart.newForm.addToCart = false;// ensure no double clicking
-            jQuery(Hadean.Cart.newForm.newFormId).submit();
+            MarketStreet.Cart.newForm.addToCart = false;// ensure no double clicking
+            jQuery(MarketStreet.Cart.newForm.newFormId).submit();
 
           }
         }
@@ -39,6 +39,6 @@ if (typeof Hadean.Cart.newForm == "undefined") {
     }
   };
   jQuery(function() {
-    Hadean.Cart.newForm.initialize();
+    MarketStreet.Cart.newForm.initialize();
   });
 };

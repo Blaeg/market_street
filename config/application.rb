@@ -8,7 +8,7 @@ require 'rails/all'
 # Bundler.require *Rails.groups(:assets => %w(development test)) if defined?(Bundler)
 Bundler.require(:default, Rails.env)
 
-module Hadean
+module MarketStreet
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -46,7 +46,7 @@ module Hadean
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
-
+    
     # Configure generators values
     config.generators do |g|
       g.test_framework  :rspec, :fixture => true

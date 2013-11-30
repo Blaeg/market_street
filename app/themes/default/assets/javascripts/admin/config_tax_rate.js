@@ -1,13 +1,13 @@
-var Hadean = window.Hadean || {};
+var MarketStreet = window.MarketStreet || {};
 
 
-Hadean.Utility = {
+MarketStreet.Utility = {
   registerOnLoadHandler : function(callback) {
     jQuery(window).ready(callback);
   }
 }
 
-Hadean.TaxRateForm = {
+MarketStreet.TaxRateForm = {
   stateSelect : '#tax_rate_state_id',
 
   initialize : function() {
@@ -15,7 +15,7 @@ Hadean.TaxRateForm = {
     jQuery(select_country).
             bind('change',
               function() {
-                Hadean.TaxRateForm.getState(jQuery(select_country).val());
+                MarketStreet.TaxRateForm.getState(jQuery(select_country).val());
               }
             );
   },
@@ -25,14 +25,14 @@ Hadean.TaxRateForm = {
          '/states',
          { country_id : id },
         function(json) {
-           Hadean.TaxRateForm.refreshStates(json);
+           MarketStreet.TaxRateForm.refreshStates(json);
          }
       );
     }
   },
   refreshStates : function(json) {
     var newOptions = json;
-    var select = jQuery(Hadean.TaxRateForm.stateSelect);
+    var select = jQuery(MarketStreet.TaxRateForm.stateSelect);
     var options = select.attr('options');
 
     jQuery('option', select).remove();// remove old options

@@ -1,4 +1,4 @@
-module Hadean
+module MarketStreet
   module TruncateHelper
 
     UNSEEDED_TABLES = [ "addresses",

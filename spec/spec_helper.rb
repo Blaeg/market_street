@@ -29,8 +29,8 @@ require "mocha/setup"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-include Hadean::TruncateHelper
-include Hadean::TestHelpers
+include MarketStreet::TruncateHelper
+include MarketStreet::TestHelpers
 include ActiveMerchant::Billing
 #include ActionDispatch::TestProcess
 
