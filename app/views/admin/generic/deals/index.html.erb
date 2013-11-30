@@ -1,10 +1,10 @@
 <div class="admin_title_header clearfix">
   <h3>Deals</h3>
-  <%= link_to "New Deal", new_admin_generic_deal_path, :class => "button" %>
+  <%= link_to "New Deal", new_admin_generic_deal_path, :class => "btn btn-primary" %>
 </div>
 
 <div class="admin_deals">
-  <table class="table table-striped">
+  <table class="table table-striped table-bordered">
     <thead>
     <tr class='odd'>
       <th  class='column1_header'><%= sortable 'buy_quantity', 'Buy Quantity' %></th>
