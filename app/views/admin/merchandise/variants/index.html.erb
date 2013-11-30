@@ -34,9 +34,7 @@
 
 <div id="admin_variants_page_wrapper">
   <div id="admin_variants_grid_wrapper" class='pretty_table'>
-
-
-      <table>
+      <table class="table table-striped table-bordered">
         <thead>
         <tr>
               <th><%= "product_name" %></th>
@@ -52,11 +50,8 @@
           </tr>
         <% end %>
       </table>
-
     <%= will_paginate @variants %>
-
   </div>
-
   <div id="admin_new_variant_button" class="admin_new_button last">
     <%= link_to "New Variant", new_admin_merchandise_product_variant_path(@product),
                                 :class  => "button green",
