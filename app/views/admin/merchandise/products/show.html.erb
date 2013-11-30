@@ -7,12 +7,12 @@
     <%= link_to 'Active', admin_merchandise_product_path(@product),
                           :method => :delete,
                           :data => {:confirm => "This will inactivate the product,  Are you sure?"},
-                          :class => 'button green-button' %>
+                          :class => 'btn btn-primary' %>
   <% else %>
     <%= link_to 'Not Active', activate_admin_merchandise_product_path(@product),
                               :method => 'PUT',
                               :data => {:confirm => "This will activate the product,  Are you sure?"},
-                              :class => 'button red-button' %>
+                              :class => 'btn btn-primary' %>
   <% end %>
 </span>
 
@@ -81,5 +81,5 @@
 </fieldset>
 
 <p style="margin-top: 30px">
-  <%= link_to 'All Products', admin_merchandise_products_path(), :class => 'button yellow'%>
+  <%= link_to 'All Products', admin_merchandise_products_path(), :class => 'btn btn-primary yellow'%>
 </p>
