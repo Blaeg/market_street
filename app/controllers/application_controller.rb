@@ -67,6 +67,12 @@ class ApplicationController < ActionController::Base
     cookies[:insecure] = false    
   end
 
+  # def current_user_id
+  #   return @current_user_id if defined?(@current_user_id)
+  #   @current_user_id = current_user_session && current_user_session.record && current_user_session.record.id
+  #end
+
+
   def session_cart
     return @session_cart if defined?(@session_cart)
     session_cart!
@@ -74,6 +80,7 @@ class ApplicationController < ActionController::Base
 
   # use this method if you want to force a SQL query to get the cart.
   def session_cart!
+    return unless current_user
     if cookies[:cart_id]
       @session_cart = Cart.includes(:shopping_cart_items).find_by_id(cookies[:cart_id])
       unless @session_cart
