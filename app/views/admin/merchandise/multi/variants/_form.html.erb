@@ -47,7 +47,7 @@
 <% @product.variants.each do |variant| %>
   <div class='span-6 three large-3 column ' >
     <%= form.fields_for :variants, variant do |ff|%>
-      <table class='span-6 ar-sidebar' style='width:240px;'>
+      <table class='table table-bordered table-striped' style='width:240px;'>
         <thead>
           <tr>
             <th colspan=2> <%= variant.sku %>  </th>
