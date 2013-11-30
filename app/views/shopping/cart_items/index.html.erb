@@ -1,5 +1,4 @@
 <div class="span12">
-  <h1> Shopping Cart</h1><br>
   <% if  @cart_items.blank? && @saved_cart_items.empty? %>
     <h2 style='text-align:center;'> <%= I18n.t(:nothing_in_cart) %></h2>
   <% elsif  @cart_items.blank? %>

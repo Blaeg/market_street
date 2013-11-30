@@ -1,8 +1,9 @@
 class Shopping::CartItemsController < Shopping::BaseController
+  add_breadcrumb "Home", :root_path
 
   # GET /shopping/cart_items
   def index
-    add_breadcrumb "Cart", :about_home_path
+    add_breadcrumb "Shopping Cart", :shopping_cart_items_path
     @cart_items       = session_cart.shopping_cart_items
     @saved_cart_items = session_cart.saved_cart_items
   end

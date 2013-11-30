@@ -9,8 +9,8 @@
 %body
   = render 'layouts/header/admin_header'
   .container-fluid
-    .row-fluid
-      = render 'shared/flash_message' if notice || alert            
+    = render 'layouts/header/alert_notice'
+    .row-fluid    
       .breadcrumb= render_breadcrumbs
       - if content_for?(:sidemenu)
         = yield :sidemenu         

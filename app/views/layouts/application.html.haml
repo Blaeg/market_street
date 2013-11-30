@@ -10,11 +10,10 @@
 %body
   = render 'layouts/header/header'
   .container
+    = render 'layouts/header/alert_notice'
     .row
-      = render 'shared/flash_message' if notice || alert
-      .span12
-        = render_breadcrumbs
-        = yield      
+      .breadcrumb= render_breadcrumbs
+      = yield      
     = render 'layouts/footer/footer'
   = render 'layouts/footer/google_analytics' unless @disable_ga
   = javascript_include_tag 'bootstrap-application'

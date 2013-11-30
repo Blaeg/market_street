@@ -10,8 +10,8 @@
 %body
   = render 'layouts/header/header'
   .container-fluid
+    = render 'layouts/header/alert_notice'
     .row
-      = render 'shared/flash_message' if notice || alert
       .span3= render 'layouts/two_columns/sidebar'
       .span11
         .breadcrumb= render_breadcrumbs

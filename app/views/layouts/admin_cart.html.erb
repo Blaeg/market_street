@@ -25,13 +25,7 @@
 </head>
 <body class="bp">
   <div class="container row">
-    <% if notice || alert %>
-    <div class="flash_messages">
-      <%= raw "<div data-alert class='alert-box warning'> #{notice} <a href='' class='close'>&times;</a>"  if notice %>
-      <%= raw "<div data-alert class='alert-box alert'> #{alert} <a href='' class='close'>&times;</a>"  if alert %>
-    </div>
-    <% end %>
-
+    <%= render 'layouts/header/alert_notice' %>
     <%= render :partial => 'shared/admin/header_bar' %>
 
     <div class='admin_main_content eight large-8 columns'>

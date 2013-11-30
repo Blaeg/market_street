@@ -1,5 +1,5 @@
 %ul.nav.pull-right
-  - if session_cart.shopping_cart_items.size > 0
+  - if session_cart and session_cart.shopping_cart_items.size > 0
     %li.dropdown
       = link_to "#", data: { toggle: 'dropdown'}, class: 'dropdown-toggle' do
         =fa_icon "caret-down", text: "Shopping Cart (#{session_cart.shopping_cart_items.size})", class: "pull-right"
