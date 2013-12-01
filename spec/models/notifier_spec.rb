@@ -1,6 +1,6 @@
 
 
-describe Notifier, "Signup Email" do
+describe UserMailer, "Signup Email" do
     #include EmailSpec::Helpers
     #include EmailSpec::Matchers
     #include ActionController::UrlWriter
@@ -10,7 +10,7 @@ describe Notifier, "Signup Email" do
       #"jojo@yahoo.com", "Jojo Binks"
       #[first_name.capitalize, last_name.capitalize ]
       @user  = create(:user, :email => 'myfake@email.com', :first_name => 'Dave', :last_name => 'Commerce')
-      @email = Notifier.signup_notification(@user.id)
+      @email = UserMailer.signup_notification(@user.id)
     end
 
     it "should be set to be delivered to the email passed in" do
@@ -31,7 +31,7 @@ describe Notifier, "Signup Email" do
 
 end
 
-describe Notifier, "#new_referral_credits" do
+describe UserMailer, "#new_referral_credits" do
   include Rails.application.routes.url_helpers
 
   before(:each) do
@@ -40,7 +40,7 @@ describe Notifier, "#new_referral_credits" do
     @referral_user  = create(:user,     :email => 'referral_user@email.com', :first_name => 'Dave', :last_name => 'referral')
 
     #@referral_user.stubs(:referree).returns(@referral)
-    @email = Notifier.new_referral_credits(@referring_user.id, @referral_user.id)
+    @email = UserMailer.new_referral_credits(@referring_user.id, @referral_user.id)
   end
   it "should be set to be delivered to the email passed in" do
     @email.should deliver_to("referring_user@email.com")
@@ -52,7 +52,7 @@ describe Notifier, "#new_referral_credits" do
 end
 
 
-describe Notifier, "#referral_invite(referral_id, inviter_id)" do
+describe UserMailer, "#referral_invite(referral_id, inviter_id)" do
   include Rails.application.routes.url_helpers
 
   before(:each) do
@@ -60,7 +60,7 @@ describe Notifier, "#referral_invite(referral_id, inviter_id)" do
     @referral       = create(:referral, :email => 'referral_user@email.com', :referring_user => @referring_user )
 
     #@referral_user.stubs(:referree).returns(@referral)
-    @email = Notifier.referral_invite(@referral.id, @referring_user.id)
+    @email = UserMailer.referral_invite(@referral.id, @referring_user.id)
   end
   it "should be set to be delivered to the email passed in" do
     @email.should deliver_to("referral_user@email.com")
@@ -71,7 +71,7 @@ describe Notifier, "#referral_invite(referral_id, inviter_id)" do
   end
 end
 
-describe Notifier, "#order_confirmation" do
+describe UserMailer, "#order_confirmation" do
     include Rails.application.routes.url_helpers
 
     before(:each) do
@@ -80,7 +80,7 @@ describe Notifier, "#order_confirmation" do
       @order        = create(:order, :email => 'myfake@email.com', :user => @user)
       @invoice        = create(:invoice, :order => @order)
       @order.stubs(:order_items).returns([@order_item])
-      @email = Notifier.order_confirmation(@order.id, @invoice.id)
+      @email = UserMailer.order_confirmation(@order.id, @invoice.id)
     end
 
     it "should be set to be delivered to the email passed in" do

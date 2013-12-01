@@ -185,12 +185,12 @@ describe User, "instance methods" do
 
   context ".deliver_activation_instructions!" do
     #pending "test for deliver_activation_instructions!"
-    #Notifier.signup_notification(self).deliver
+    #UserMailer.signup_notification(self).deliver
     # @order_item.order.expects(:calculate_totals).once
     it 'should call signup_notification and deliver' do
       sign_up_mock = mock()
-      #Notifier.stubs(:signup_notification).returns(sign_up_mock)
-      Notifier.expects(:signup_notification).once.returns(sign_up_mock)
+      #UserMailer.stubs(:signup_notification).returns(sign_up_mock)
+      UserMailer.expects(:signup_notification).once.returns(sign_up_mock)
       sign_up_mock.stubs(:deliver)
       sign_up_mock.expects(:deliver).once
       @user.deliver_activation_instructions!
@@ -268,7 +268,7 @@ describe User, 'private methods' do
   end
 
   context ".before_validation_on_create" do
-    #Notifier.expects(:signup_notification).once.returns(sign_up_mock)
+    #UserMailer.expects(:signup_notification).once.returns(sign_up_mock)
     it 'should assign the access_token' do
       user = build(:user)
       user.expects(:before_validation_on_create).once

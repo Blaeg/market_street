@@ -100,7 +100,7 @@ class Referral < ActiveRecord::Base
       self.applied = true
       self.skip_validate_has_not_signed_up_yet = true
       save!
-      Notifier.new_referral_credits(referring_user.id, referral_user.id).deliver rescue true
+      UserMailer.new_referral_credits(referring_user.id, referral_user.id).deliver rescue true
     end
   end
 
@@ -124,7 +124,7 @@ class Referral < ActiveRecord::Base
   end
   private
     def invite_referral
-      Notifier.referral_invite(self.id, referring_user_id).deliver
+      UserMailer.referral_invite(self.id, referring_user_id).deliver
     end
 
     def validate_has_not_signed_up_yet

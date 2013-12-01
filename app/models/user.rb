@@ -216,7 +216,7 @@ class User < ActiveRecord::Base
     if Settings.uses_resque_for_background_emails
       Resque.enqueue(Jobs::SendSignUpNotification, self.id)
     else
-      Notifier.signup_notification(self.id).deliver
+      UserMailer.signup_notification(self.id).deliver
     end
   end
 
@@ -278,7 +278,7 @@ class User < ActiveRecord::Base
     if Settings.uses_resque_for_background_emails
       Resque.enqueue(Jobs::SendPasswordResetInstructions, self.id)
     else
-      Notifier.password_reset_instructions(self.id).deliver rescue puts( 'do nothing...  dont blow up over a password reset email')
+      UserMailer.password_reset_instructions(self.id).deliver rescue puts( 'do nothing...  dont blow up over a password reset email')
     end
   end
 

@@ -1,12 +1,13 @@
-class Notifier < ActionMailer::Base
-  layout 'email'
-  default :from => "system@example.com"
+class UserMailer < ActionMailer::Base
+  default from: "admin@marketstreet.com"
 
-  # Simple Welcome mailer
-  # => CUSTOMIZE FOR YOUR OWN APP
-  #
-  # @param [user] user that signed up
-  # => user must respond to email_address_with_name and name
+  def welcome(user)
+    @user = user
+    @user_subscription = user_subscription
+    @url = 'http://www.marketstreet.com'
+    mail(to: @user_subscription.email, subject: 'Welcome to Market Street')    
+  end 
+
   def signup_notification(recipient_id)
     @recipient = User.find(recipient_id)
 
@@ -14,7 +15,7 @@ class Notifier < ActionMailer::Base
     #attachments['terms.pdf'] = {:content => generate_your_pdf_here() }
 
     mail(:to => @recipient.email_address_with_name,
-         :subject => "New account information") do |format|
+     :subject => "New account information") do |format|
       format.text { render :text => "Welcome!  #{@recipient.name} go to #{customer_activation_url(:a => @recipient.perishable_token )}" }
       format.html { render :text => "<h1>Welcome</h1> #{@recipient.name} <a href='#{customer_activation_url(:a => @recipient.perishable_token )}'>Click to Activate</a>" }
     end
@@ -26,7 +27,7 @@ class Notifier < ActionMailer::Base
     @url  = edit_customer_password_reset_url(:id => @user.perishable_token)
     @key  = UsersNewsletter.unsubscribe_key(@user.email)
     mail(:to => @user.email,
-         :subject => "Reset Password Instructions")
+     :subject => "Reset Password Instructions")
   end
 
   def new_referral_credits(referring_user_id, referral_user_id)
@@ -38,7 +39,7 @@ class Notifier < ActionMailer::Base
     @company_name   = company_name
 
     mail(:to => @user.email,
-         :subject => "Referral Credits have been Applied")
+     :subject => "Referral Credits have been Applied")
   end
 
   def order_confirmation(order_id, invoice_id)
@@ -49,7 +50,7 @@ class Notifier < ActionMailer::Base
     @url      = root_url
     @site_name = 'site_name'
     mail(:to => @order.email,
-         :subject => "Order Confirmation")
+     :subject => "Order Confirmation")
   end
 
   def referral_invite(referral_id, inviter_id)
@@ -58,15 +59,14 @@ class Notifier < ActionMailer::Base
     @url      = root_url
 
     mail(:to => @referral.email,
-         :subject => "Referral from #{@user.name}")
+     :subject => "Referral from #{@user.name}")
   end
 
   private
-    def phone_number
-      @phone_number   = I18n.t(:company_phone)
-    end
-    def company_name
-      @company_name   = I18n.t(:company)
-    end
-
+  def phone_number
+    @phone_number   = I18n.t(:company_phone)
+  end
+  def company_name
+    @company_name   = I18n.t(:company)
+  end
 end

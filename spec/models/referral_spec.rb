@@ -16,7 +16,7 @@ describe Referral do
       referral.save
       email_mock = mock()
       email_mock.stubs(:deliver)
-      Notifier.stubs(:new_referral_credits).returns(email_mock)
+      UserMailer.stubs(:new_referral_credits).returns(email_mock)
       referral.referral_program.expects(:give_credits).once
       referral.give_credits!
       referral.reload
