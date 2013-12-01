@@ -1,5 +1,3 @@
-
-
 describe UserMailer, "Signup Email" do
     #include EmailSpec::Helpers
     #include EmailSpec::Matchers
@@ -26,9 +24,8 @@ describe UserMailer, "Signup Email" do
     #end
 
     it "should have the correct subject" do
-      @email.should have_subject(/New account information/)
+      @email.should have_subject(/Welcome/)
     end
-
 end
 
 describe UserMailer, "#new_referral_credits" do
@@ -43,7 +40,7 @@ describe UserMailer, "#new_referral_credits" do
     @email = UserMailer.new_referral_credits(@referring_user.id, @referral_user.id)
   end
   it "should be set to be delivered to the email passed in" do
-    @email.should deliver_to("referring_user@email.com")
+    @email.should deliver_to("Dave Commerce <referring_user@email.com>")
   end
 
   it "should have the correct subject" do

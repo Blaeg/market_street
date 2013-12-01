@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
     @referral = Referral.find(referral_id)
     @url = root_url
 
-    mail(:to => @referral.email_address_with_name,
+    mail(:to => @referral.email,
          :subject => "Referral from #{@user.name}")
   end
 
@@ -43,7 +43,7 @@ class UserMailer < ActionMailer::Base
     @key      = UsersNewsletter.unsubscribe_key(@user.email)
     @url      = root_url
     @site_name = 'site_name'
-    mail(:to => @order.email_address_with_name,
+    mail(:to => @order.email,
      :subject => "Order Confirmation")
   end
 end
