@@ -186,12 +186,8 @@ class Order < ActiveRecord::Base
       new_invoice = create_invoice_transaction(credit_card, charge_amount, args, credited_amount)
       if new_invoice.succeeded?
         remove_user_store_credits
-
-        if Settings.uses_resque_for_background_emails
-          Resque.enqueue(Jobs::SendOrderConfirmation, self.id, new_invoice.id)
-        else
-          UserMailer.order_confirmation(self.id, new_invoice.id).deliver rescue puts( 'do nothing...  dont blow up over an order conf email')
-        end
+        #todo: move to after save
+        EmailWorker::SendOrderConfirmation.perform_async(self.id, new_invoice.id)                  
       end
       new_invoice
     end

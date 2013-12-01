@@ -208,18 +208,6 @@ class User < ActiveRecord::Base
     self.account = Account.first if account_id.nil?
   end
 
-  # email activation instructions after a user signs up
-  #
-  # @param  [ none ]
-  # @return [ none ]
-  def deliver_activation_instructions!
-    if Settings.uses_resque_for_background_emails
-      Resque.enqueue(Jobs::SendSignUpNotification, self.id)
-    else
-      UserMailer.signup_notification(self.id).deliver
-    end
-  end
-
   # name and email string for the user
   # ex. '"John Wayne" "jwayne@badboy.com"'
   #
@@ -271,15 +259,6 @@ class User < ActiveRecord::Base
     includes(:roles).first_name_filter(params[:first_name]).
                      last_name_filter(params[:last_name]).
                      email_filter(params[:email])
-  end
-
-  def deliver_password_reset_instructions!
-    self.reset_perishable_token!
-    if Settings.uses_resque_for_background_emails
-      Resque.enqueue(Jobs::SendPasswordResetInstructions, self.id)
-    else
-      UserMailer.password_reset_instructions(self.id).deliver rescue puts( 'do nothing...  dont blow up over a password reset email')
-    end
   end
 
   def number_of_finished_orders

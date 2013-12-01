@@ -183,20 +183,6 @@ describe User, "instance methods" do
     end
   end
 
-  context ".deliver_activation_instructions!" do
-    #pending "test for deliver_activation_instructions!"
-    #UserMailer.signup_notification(self).deliver
-    # @order_item.order.expects(:calculate_totals).once
-    it 'should call signup_notification and deliver' do
-      sign_up_mock = mock()
-      #UserMailer.stubs(:signup_notification).returns(sign_up_mock)
-      UserMailer.expects(:signup_notification).once.returns(sign_up_mock)
-      sign_up_mock.stubs(:deliver)
-      sign_up_mock.expects(:deliver).once
-      @user.deliver_activation_instructions!
-    end
-  end
-
   context ".email_address_with_name" do
     #"\"#{name}\" <#{email}>"
     it 'should show the persons name and email address' do

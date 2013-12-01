@@ -3,14 +3,15 @@ class Customer::PasswordResetsController < ApplicationController
     before_filter :load_user_using_perishable_token, :only => [ :edit, :update ]
 
     def new
-      @user = User.new
-      #render
+      @user = User.new      
     end
 
     def create
         @user = User.find_by_email(params[:user][:email])
         if @user
-          @user.deliver_password_reset_instructions!
+          @user.reset_perishable_token!
+          EmailWorker::SendPasswordResetInstructions.perform_async(@user.id)                      
+
           flash[:notice] = 'Instructions to reset your password have been emailed.'
           render :template => '/customer/password_resets/confirmation'
         else
@@ -20,8 +21,7 @@ class Customer::PasswordResetsController < ApplicationController
         end
     end
 
-    def edit
-      #render
+    def edit      
     end
 
     def update
@@ -44,5 +44,4 @@ class Customer::PasswordResetsController < ApplicationController
         redirect_to login_url and return
       end
     end
-
 end

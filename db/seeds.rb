@@ -45,7 +45,7 @@ end
 
 puts  "SEEDING PRODUCTS"
 @products = ProductType.all.map do |pt|
-  FactoryGirl.create_list(:product, 6, :with_properties, :with_images, :product_type => pt)
+  FactoryGirl.create_list(:product, 3, :with_properties, :with_images, :product_type => pt)
 end.flatten
 
 puts  "SEEDING VARIANTS"

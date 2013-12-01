@@ -22,7 +22,7 @@ class Admin::UsersController < Admin::BaseController
     @user = User.new(user_params)
     authorize! :create_users, current_user
     if @user.save
-      @user.deliver_activation_instructions!
+      EmailWorker::SendSignUpNotification.perform_async(@user.id)
       add_to_recent_user(@user)
       flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
       redirect_to admin_users_url

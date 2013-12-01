@@ -28,7 +28,6 @@ gem 'draper'
 gem 'json',           '~> 1.8.0'
 gem 'awesome_print'
 
-#gem "nifty-generators", :git => 'git://github.com/drhenner/nifty-generators.git'
 gem 'nokogiri',     '~> 1.5.0'
 gem 'paperclip',    '~> 3.0'
 gem 'prawn',        '~> 0.12.0'
@@ -39,9 +38,15 @@ gem 'rmagick',    :require => 'RMagick'
 
 gem 'rake', '~> 10.0.3'
 
-# gem 'resque', require: 'resque/server'
+#workers
+gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'slim'
+gem 'sidekiq'
+gem 'whenever', :require => false
 
 gem 'state_machine', '~> 1.2.0'
+
+#search
 gem 'sunspot_solr', '~> 2.0.0'
 gem 'sunspot_rails', '~> 2.0.0'
 gem 'will_paginate', '~> 3.0.4'
@@ -115,7 +120,10 @@ group :test do
   gem 'factory_girl', "~> 3.3.0"
   gem 'factory_girl_rails', "~> 3.3.0"
   gem 'mocha', '~> 0.13.3', :require => false
+  
   gem 'rspec-rails-mocha'
+  gem 'rspec-mocks'
+  gem 'rspec-sidekiq'
   
   gem 'email_spec'
   gem 'simplecov', :require => false

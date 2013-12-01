@@ -1,8 +1,8 @@
-module Worker    
-  class SendOrderConfirmation
+module EmailWorker
+  class SendSignUpNotification
     include Sidekiq::Worker
-    def self.perform(order_id, invoice_id)
-      UserMailer.order_confirmation(order_id, invoice_id).deliver
+    def self.perform(user_id)
+      UserMailer.signup_notification(user_id).deliver
     end
   end
 
@@ -13,10 +13,10 @@ module Worker
     end
   end
 
-  class SendSignUpNotification
+  class SendOrderConfirmation
     include Sidekiq::Worker
-    def self.perform(user_id)
-      UserMailer.signup_notification(user_id).deliver
+    def self.perform(order_id, invoice_id)
+      UserMailer.order_confirmation(order_id, invoice_id).deliver
     end
   end
 end

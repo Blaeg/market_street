@@ -23,6 +23,7 @@ module MarketStreet
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += %W(#{config.root}/app/models/ror_e_reports)
+    config.autoload_paths += %W(#{config.root}/app/workers)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -31,11 +32,7 @@ module MarketStreet
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # "Pacific Time (US & Canada)"
-    # 'Central Time (US & Canada)'
-    config.time_zone = 'Eastern Time (US & Canada)'
+    config.time_zone = 'Pacific Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -65,7 +62,7 @@ module MarketStreet
     #config.session_store = ::Ripple::SessionStore
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password,
+    config.filter_parameters += [ :password,
                                   :password_confirmation,
                                   :number,
                                   :cc_number,
@@ -75,12 +72,10 @@ module MarketStreet
                                   :verification_value]
     # access any Settings here
     config.after_initialize do
-
       Paperclip::Attachment.default_options[:s3_protocol]     = Settings.paperclip.s3_protocol
       Paperclip::Attachment.default_options[:s3_credentials]  = Settings.paperclip.s3_credentials.to_hash
       Paperclip::Attachment.default_options[:bucket]          = Settings.paperclip.bucket
       Paperclip::Attachment.default_options[:hash_secret]     = Settings.paperclip.hash_secret
-
     end
   end
 end
