@@ -356,7 +356,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0.0)
       websocket (~> 1.0.4)
-    sidekiq (2.17.0)
+    sidekiq (2.16.1)
       celluloid (>= 0.15.2)
       connection_pool (>= 1.0.0)
       json
@@ -512,7 +512,7 @@ DEPENDENCIES
   simple-navigation-bootstrap
   simple_form
   simplecov
-  sinatra (>= 1.3.0)
+  sinatra
   slim
   social-share-button
   state_machine (~> 1.2.0)

@@ -39,7 +39,7 @@ gem 'rmagick',    :require => 'RMagick'
 gem 'rake', '~> 10.0.3'
 
 #workers
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sinatra', require: false
 gem 'slim'
 gem 'sidekiq'
 gem 'whenever', :require => false

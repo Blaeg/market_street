@@ -1,19 +1,16 @@
-Hadean::Application.routes.draw do
+require 'sidekiq/web'
 
+MarketStreet::Application.routes.draw do
   resources :image_groups
-  # mount Resque::Server.new, at: "/resque"
-
-  namespace(:admin){ namespace(:customer_service){ resources :comments } }
-
+  #namespace(:admin){ namespace(:customer_service){ resources :comments } }
   resources :user_sessions, :only => [:new, :create, :destroy]
 
   get 'admin'   => 'admin/overviews#index'
   get 'login'   => 'user_sessions#new'
   delete 'logout'  => 'user_sessions#destroy'
   get 'signup'  => 'customer/registrations#new'
-  get 'admin/merchandise' => 'admin/merchandise/summary#index'
+  
   resources :products, :only => [:index, :show, :create]
-
   resources :wish_items,  :only => [:index, :destroy]
   resources :states,      :only => [:index]  
   resource :home, :only => [:index] do
@@ -72,6 +69,7 @@ Hadean::Application.routes.draw do
   end
 
   namespace :admin do
+    mount Sidekiq::Web => '/jobs'
     namespace :customer_service do
       resources :users do
         resources :comments
@@ -105,8 +103,7 @@ Hadean::Application.routes.draw do
             put :complete
           end
         end
-      end
-      #resources  :shipments
+      end      
     end
 
     namespace :history do

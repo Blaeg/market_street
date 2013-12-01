@@ -17,7 +17,7 @@ class Customer::RegistrationsController < ApplicationController
     # auto-login which can't happen here because
     # the User has not yet been activated
     if @user.save_without_session_maintenance
-      EmailWorker::SendSignUpNotification.perform_async(user_id)
+      EmailWorker::SendSignUpNotification.perform_async(@user.id)
       #cookies[:MarketStreet_uid] = @user.access_token
       #session[:authenticated_at] = Time.now
       #cookies[:insecure] = false
