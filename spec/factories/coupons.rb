@@ -8,7 +8,7 @@
 #:combine       =>  false
 FactoryGirl.define do
   factory :coupon do
-    type          "CouponValue"
+    type          "Coupons::CouponValue"
     code          "TEST COUPON"
     amount        "10.00"
     minimum_value "19.99"
@@ -19,7 +19,8 @@ FactoryGirl.define do
     expires_at  "2012-01-08 19:39:58"
   end
 
-  factory :coupon_percent, class: "CouponPercent" do
+  factory :coupon_percent, class: "Coupons::CouponPercent" do
+    type          "Coupons::CouponPercent"
     code          "TEST COUPON"
     amount        "10.00"
     minimum_value "19.99"
@@ -30,7 +31,8 @@ FactoryGirl.define do
     expires_at  "2012-01-08 19:39:58"
   end
 
-  factory :coupon_value, class: "CouponValue" do
+  factory :coupon_value, class: "Coupons::CouponValue" do
+    type          "Coupons::CouponValue"
     code          "TEST COUPON"
     amount        "10.00"
     minimum_value "19.99"
@@ -40,9 +42,4 @@ FactoryGirl.define do
     starts_at   "2011-01-08 19:39:58"
     expires_at  "2012-01-08 19:39:58"
   end
-  factory :coupon_one_time_percent, class: "CouponOneTimePercent" do
-    percent 10.0
-  end
-  factory :coupon_one_time_value, class: "CouponOneTimeValue" do
-  end
-end# Read about factories at http://github.com/thoughtbot/factory_girl
+end

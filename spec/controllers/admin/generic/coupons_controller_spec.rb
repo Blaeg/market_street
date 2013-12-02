@@ -36,7 +36,7 @@ describe Admin::Generic::CouponsController do
 
   it "create action should redirect when model is valid" do
     @coupon = create(:coupon_value)
-    CouponValue.any_instance.stubs(:valid?).returns(true)
+    Coupons::CouponValue.any_instance.stubs(:valid?).returns(true)
     attribs =  @coupon.attributes
     attribs.delete('type')
     post :create, :coupon => attribs, :c_type => 'CouponValue'
@@ -53,7 +53,7 @@ describe Admin::Generic::CouponsController do
     @coupon = create(:coupon)
     attribs =  @coupon.attributes
     attribs.delete('type')
-    CouponValue.any_instance.stubs(:valid?).returns(false)
+    Coupons::CouponValue.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @coupon.id, :coupon => attribs
     response.should render_template(:edit)
   end
@@ -62,7 +62,7 @@ describe Admin::Generic::CouponsController do
     @coupon = create(:coupon)
     attribs =  @coupon.attributes
     attribs.delete('type')
-    CouponValue.any_instance.stubs(:valid?).returns(true)
+    Coupons::CouponValue.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @coupon.id, :coupon => attribs
     response.should redirect_to(admin_generic_coupon_url(assigns[:coupon]))
   end

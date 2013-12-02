@@ -15,14 +15,13 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #
-
-class CouponValue < Coupon
-
-  validates :amount, :presence => true
-
-  private
-
-  def coupon_amount(item_prices)
-    amount
-  end
+module Coupons
+	class CouponValue < Coupon
+	  validates :amount, :presence => true
+	  
+	  private
+	  def coupon_amount(item_prices)
+	    amount
+	  end
+	end
 end
