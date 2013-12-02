@@ -112,13 +112,13 @@ class Invoice < ActiveRecord::Base
 
   def capture_authorized_order
     batch       = batches.first
-    batch.transactions.push(CreditCardReceivePayment.new_capture_authorized_payment(order.user, amount))
+    batch.transactions.push(Transactions::CreditCardReceivePayment.new_capture_authorized_payment(order.user, amount))
     batch.save
   end
 
   def capture_complete_order_without_authorization
     batch = self.batches.create()
-    batch.transactions.push(CreditCardCapture.new_capture_payment_directly(order.user, amount))
+    batch.transactions.push(Transactions::CreditCardCapture.new_capture_payment_directly(order.user, amount))
     batch.save
   end
 
@@ -126,7 +126,7 @@ class Invoice < ActiveRecord::Base
     order.complete!
     if batches.empty?
       batch = self.batches.create()
-      batch.transactions.push(CreditCardPayment.new_authorized_payment(order.user, amount))
+      batch.transactions.push(Transactions::CreditCardPayment.new_authorized_payment(order.user, amount))
       batch.save
     else
       raise error ###  something messed up I think
@@ -137,7 +137,7 @@ class Invoice < ActiveRecord::Base
     batch       = batches.first
     if batch# if not we never authorized the payment
       self.cancel!
-      batch.transactions.push(CreditCardCancel.new_cancel_authorized_payment(order.user, amount))
+      batch.transactions.push(Transactions::CreditCardCancel.new_cancel_authorized_payment(order.user, amount))
       batch.save
     end
   end
@@ -154,7 +154,7 @@ class Invoice < ActiveRecord::Base
 
   def complete_rma_return
     batch       = batches.first || self.batches.create()
-    batch.transactions.push(ReturnMerchandiseComplete.new_complete_rma(order.user, amount))
+    batch.transactions.push(Transactions::ReturnMerchandiseComplete.new_complete_rma(order.user, amount))
     batch.save
   end
 
