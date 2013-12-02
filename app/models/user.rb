@@ -30,11 +30,13 @@
 #
 
 class User < ActiveRecord::Base
+  include TransactionAccountable
+
   require_dependency 'user/states'
   include User::States
 
-  include TransactionAccountable
-  include UserCim
+  require_dependency 'user/user_cim'
+  include User::UserCim
 
   acts_as_authentic do |config|
     config.validate_email_field

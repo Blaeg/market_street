@@ -1,6 +1,6 @@
 require 'active_merchant'
 
-module UserCim
+module User::UserCim
 
 =begin
   #Override ActiveRecord create to add in create_cim_profile

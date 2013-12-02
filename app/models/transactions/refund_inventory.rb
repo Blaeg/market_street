@@ -8,7 +8,8 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+module Transactions
+	class RefundInventory < Transaction
 
-class RefundInventory < Transaction
-
+	end
 end

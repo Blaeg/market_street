@@ -42,7 +42,7 @@ class AccountingAdjustment < ActiveRecord::Base
   def refund_inventory
     now = Time.zone.now
     batch = self.batches.create()
-    transaction = RefundInventory.new()##  This is a type of transaction
+    transaction = Transactions::RefundInventory.new()##  This is a type of transaction
     credit = self.transaction_ledgers.new(:transaction_account_id => TransactionAccount::EXPENSE_ID,  :debit => 0,      :credit => amount, :period => "#{now.month}-#{now.year}")
     debit  = self.transaction_ledgers.new(:transaction_account_id => TransactionAccount::CASH_ID,     :debit => amount, :credit => 0,      :period => "#{now.month}-#{now.year}")
     transaction.transaction_ledgers.push(credit)

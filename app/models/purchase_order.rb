@@ -103,7 +103,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   def receive_order_from_credit
       batch = self.batches.create()
-      transaction = ReceivePurchaseOrder.new_expensed(self, total_cost)
+      transaction = Transactions::ReceivePurchaseOrder.new_expensed(self, total_cost)
       batch.transactions.push(transaction)
       batch.save
   end
@@ -112,12 +112,12 @@ class PurchaseOrder < ActiveRecord::Base
     now = Time.zone.now
     if self.batches.empty?
         batch = self.batches.create()
-        transaction = ReceivePurchaseOrder.new_direct_payment(self, total_cost, now)
+        transaction = Transactions::ReceivePurchaseOrder.new_direct_payment(self, total_cost, now)
         batch.transactions.push(transaction)
         batch.save
     else # thus we are paying after having received the item from credit
       batch       = batches.first
-      transaction = ReceivePurchaseOrder.new_expensed_payment(self, total_cost, now)
+      transaction = Transactions::ReceivePurchaseOrder.new_expensed_payment(self, total_cost, now)
       batch.transactions.push(transaction)
       batch.save
     end
