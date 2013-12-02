@@ -50,13 +50,10 @@ class User < ActiveRecord::Base
 
   before_validation :sanitize_data
   before_validation :before_validation_on_create, :on => :create
-  before_create :start_store_credits, :subscribe_to_newsletters
+  before_create :start_store_credits
   after_create  :set_referral_registered_at
 
   belongs_to :account
-
-  has_many    :users_newsletters
-  has_many    :newsletters, through: :users_newsletters
 
   has_many  :referrals, class_name: 'Referral', foreign_key: 'referring_user_id' # people you have tried to referred
   has_one   :referree,  class_name: 'Referral', foreign_key: 'referral_user_id' # person who referred you
@@ -299,11 +296,6 @@ class User < ActiveRecord::Base
 
   def password_required?
     self.crypted_password.blank?
-  end
-
-  def subscribe_to_newsletters
-    newsletter_ids = Newsletter.where(:autosubscribe => true).pluck(:id)
-    self.newsletter_ids = newsletter_ids
   end
 
   def user_profile

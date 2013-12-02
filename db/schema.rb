@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131125052243) do
+ActiveRecord::Schema.define(version: 20131202024742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,11 +221,6 @@ ActiveRecord::Schema.define(version: 20131125052243) do
 
   create_table "item_types", force: true do |t|
     t.string "name"
-  end
-
-  create_table "newsletters", force: true do |t|
-    t.string  "name",          null: false
-    t.boolean "autosubscribe", null: false
   end
 
   create_table "order_items", force: true do |t|
