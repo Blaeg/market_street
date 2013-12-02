@@ -34,7 +34,7 @@ describe Shopping::CouponsController do
 
   it "create action should redirect when model is valid" do
     create(:coupon_value, :code => 'qwerty' )
-    CouponValue.any_instance.stubs(:eligible?).returns(true)
+    Coupons::CouponValue.any_instance.stubs(:eligible?).returns(true)
     Shopping::CouponsController.any_instance.stubs(:update_order_coupon_id).returns(true)
     @controller.expects(:next_form_url).returns(shopping_orders_url)
     post :create, :coupon => {:code => 'qwerty' }
