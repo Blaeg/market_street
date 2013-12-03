@@ -17,7 +17,6 @@ class UserMailer < ActionMailer::Base
 
   def new_referral_credits(referring_user_id, referral_user_id)
     @user = User.find(referring_user_id)
-    @key = UsersNewsletter.unsubscribe_key(@user.email)
     @referral_user = User.find(referral_user_id)
     @url = root_url
     @phone_number = I18n.t(:company_phone)
@@ -40,7 +39,6 @@ class UserMailer < ActionMailer::Base
     @invoice  = Invoice.find(invoice_id)
     @order    = Order.includes(:user).find(order_id)
     @user     = @order.user
-    @key      = UsersNewsletter.unsubscribe_key(@user.email)
     @url      = root_url
     @site_name = 'site_name'
     mail(:to => @order.email,
