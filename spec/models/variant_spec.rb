@@ -4,8 +4,9 @@ describe Variant, " instance methods" do
   before(:each) do
     @variant = create(:variant)
   end
-  # OUT_OF_STOCK_QTY = 2
-  # LOW_STOCK_QTY    = 6
+  
+  # OUT_OF_STOCK_QTY = 0
+  # LOW_STOCK_QTY    = 2
   context ".sold_out?" do
     it 'should be sold out' do
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (100 - Variant::OUT_OF_STOCK_QTY))
@@ -18,28 +19,22 @@ describe Variant, " instance methods" do
       @variant    = create(:variant,   :inventory => inventory)
       @variant.sold_out?.should be_false
     end
-
   end
 
-
   context ".low_stock?" do
-      it 'should be low stock' do
-        inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (101 - Variant::OUT_OF_STOCK_QTY))
-        @variant    = create(:variant,   :inventory => inventory)
-        @variant.low_stock?.should be_true
-      end
+    it 'should be low stock' do
+      inventory = create( :inventory, :count_on_hand => 100, 
+                          :count_pending_to_customer => (100 - Variant::LOW_STOCK_QTY))
+      @variant = create(:variant,   :inventory => inventory)
+      @variant.low_stock?.should be_true
+    end
 
-      it 'should be low stock' do
-        inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (100 - Variant::LOW_STOCK_QTY))
-        @variant    = create(:variant,   :inventory => inventory)
-        @variant.low_stock?.should be_true
-      end
-
-      it 'should not be low stock' do
-        inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (99 - Variant::LOW_STOCK_QTY))
-        @variant    = create(:variant,   :inventory => inventory)
-        @variant.low_stock?.should be_false
-      end
+    it 'should not be low stock' do
+      inventory = create( :inventory, :count_on_hand => 100, 
+                          :count_pending_to_customer => (99 - Variant::LOW_STOCK_QTY))
+      @variant = create(:variant,   :inventory => inventory)
+      @variant.low_stock?.should be_false
+    end
   end
 
   context ".display_stock_status(start = '(', finish = ')')" do
@@ -101,25 +96,25 @@ describe Variant, " instance methods" do
     end
 
     it 'should return the products name' do
-        @variant.name = nil
-        @variant.product.name = 'product says hello'
-        @variant.product_name.should == 'product says hello'
+      @variant.name = nil
+      @variant.product.name = 'product says hello'
+      @variant.product_name.should == 'product says hello'
     end
 
     it 'should return the products name and subname' do
-        @variant.name = nil
-        @variant.product.name = 'product says hello'
-        @variant.stubs(:primary_property).returns  create(:variant_property, :description => 'pp_name')
-        @variant.product_name.should == 'product says hello - pp_name'
+      @variant.name = nil
+      @variant.product.name = 'product says hello'
+      @variant.stubs(:primary_property).returns  create(:variant_property, :description => 'pp_name')
+      @variant.product_name.should == 'product says hello - pp_name'
     end
   end
 
   context ".sub_name" do
     it 'should return the variants subname' do
-        @variant.name = nil
-        @variant.product.name = 'product says hello'
-        @variant.stubs(:primary_property).returns  create(:variant_property, :description => 'pp_name')
-        @variant.sub_name.should == 'pp_name'
+      @variant.name = nil
+      @variant.product.name = 'product says hello'
+      @variant.stubs(:primary_property).returns  create(:variant_property, :description => 'pp_name')
+      @variant.sub_name.should == 'pp_name'
     end
   end
 
@@ -262,14 +257,8 @@ describe Variant, "instance method" do
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (98))
       @variant    = create(:variant,   :inventory => inventory)
       @variant.quantity_purchaseable.should == 2 - Variant::OUT_OF_STOCK_QTY
-    end
-    it 'should be quantity_purchaseable by an admin' do
-      inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (98))
-      @variant    = create(:variant,   :inventory => inventory)
-      @variant.quantity_purchaseable(true).should == 2 - Variant::ADMIN_OUT_OF_STOCK_QTY
-    end
+    end    
   end
-
 end
 
 describe Variant, "#admin_grid(product, params = {})" do
