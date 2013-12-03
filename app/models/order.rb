@@ -386,7 +386,7 @@ class Order < ActiveRecord::Base
   # @param [none]
   # @return [Integer] all the variant_id's in the order
   def variant_ids
-    order_items.collect{|oi| oi.variant_id }
+    order_items.map(&:variant_id)
   end
 
 
@@ -452,7 +452,7 @@ class Order < ActiveRecord::Base
   # @param none
   # @return [Array] Array of prices to charge of all items before
   def item_prices
-    order_items.collect{|item| item.adjusted_price }
+    order_items.map(&:adjusted_price)
   end
 
   # Called before validation.  sets the email address of the user to the order's email address
