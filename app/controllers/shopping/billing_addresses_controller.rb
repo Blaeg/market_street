@@ -2,7 +2,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   helper_method :countries, :phone_types
   # GET /shopping/addresses
   def index
-    if session_cart.shopping_cart_items.empty?
+    if session_cart.cart_items.empty?
       flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')
       redirect_to products_url and return
     end

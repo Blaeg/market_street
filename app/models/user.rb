@@ -93,14 +93,10 @@ class User < ActiveRecord::Base
   has_many    :user_roles,                dependent: :destroy
   has_many    :roles,                     through: :user_roles
 
+  #cart
   has_many    :carts,                     dependent: :destroy
-
-  has_many    :cart_items
-  has_many    :shopping_cart_items, -> { where(active: true, item_type_id: ItemType::SHOPPING_CART_ID) }, class_name: 'CartItem'
-  has_many    :wish_list_items,     -> { where(active: true, item_type_id: ItemType::WISH_LIST_ID) },     class_name: 'CartItem'
-  has_many    :saved_cart_items,    -> { where(active: true, item_type_id: ItemType::SAVE_FOR_LATER) },   class_name: 'CartItem'
-  has_many    :purchased_items,     -> { where(active: true, item_type_id: ItemType::PURCHASED_ID) },     class_name: 'CartItem'
-  has_many    :deleted_cart_items,  -> { where( active: false) }, class_name: 'CartItem'
+  has_many    :wish_items,                dependent: :destroy
+  
   has_many    :payment_profiles
   has_many    :transaction_ledgers, as: :accountable
 
@@ -117,7 +113,6 @@ class User < ActiveRecord::Base
                           :uniqueness => true,##  This should be done at the DB this is too expensive in rails
                           :format   => { :with => CustomValidators::Emails.email_validator },
                           :length => { :maximum => 255 }
-  #validates :password,    :presence => { :if => :password_required? }, :confirmation => true
 
   accepts_nested_attributes_for :addresses, :user_roles
   accepts_nested_attributes_for :phones, :reject_if => lambda { |t| ( t['display_number'].gsub(/\D+/, '').blank?) }

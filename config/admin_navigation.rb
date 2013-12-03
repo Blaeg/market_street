@@ -27,7 +27,6 @@ SimpleNavigation::Configuration.run do |navigation|
     end
 
     primary.item :orders_tab, 'Order', admin_history_orders_path do |order|
-      order.item :create_order, 'Create Order', admin_shopping_carts_path
       order.item :orders, 'Orders', admin_history_orders_path
       order.item :shipments, 'Shipments', admin_fulfillment_shipments_path
       order.item :invoices, 'Invoices', admin_document_invoices_path

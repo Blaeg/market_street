@@ -12,7 +12,7 @@ describe Shopping::CouponsController do
     #stylist_cart
     @variant  = create(:variant)
 
-    create_cart(@cur_user, @cur_user, [@variant])
+    create_cart(@cur_user, [@variant])
 
     @address      = create(:address)
     @order        = create(:order, :ship_address_id => @address.id)

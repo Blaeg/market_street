@@ -41,14 +41,11 @@ module MarketStreet
       controller.stubs(:current_user).returns(user)
     end
 
-    def create_cart(customer, admin_user = nil, variants = [])
-      user = admin_user || customer
-      test_cart = Cart.create(:user_id => user.id, :customer_id => customer.id)
-
+    def create_cart(user = nil, variants = [])
+      test_cart = Cart.create(:user_id => user.id)
       variants.each do |variant|
-        test_cart.add_variant(variant.id, customer)
+        test_cart.add_variant(variant.id)
       end
-
       @controller.stubs(:session_cart).returns(test_cart)
     end
 

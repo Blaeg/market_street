@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131202024742) do
+ActiveRecord::Schema.define(version: 20131202082822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,29 +85,23 @@ ActiveRecord::Schema.define(version: 20131202024742) do
   end
 
   create_table "cart_items", force: true do |t|
-    t.integer  "user_id"
     t.integer  "cart_id"
-    t.integer  "variant_id",                  null: false
-    t.integer  "quantity",     default: 1
-    t.boolean  "active",       default: true
-    t.integer  "item_type_id",                null: false
+    t.integer  "variant_id",                null: false
+    t.integer  "quantity",   default: 1
+    t.boolean  "active",     default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id", using: :btree
-  add_index "cart_items", ["item_type_id"], name: "index_cart_items_on_item_type_id", using: :btree
-  add_index "cart_items", ["user_id"], name: "index_cart_items_on_user_id", using: :btree
   add_index "cart_items", ["variant_id"], name: "index_cart_items_on_variant_id", using: :btree
 
   create_table "carts", force: true do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "customer_id"
   end
 
-  add_index "carts", ["customer_id"], name: "index_carts_on_customer_id", using: :btree
   add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
@@ -218,10 +212,6 @@ ActiveRecord::Schema.define(version: 20131202024742) do
   end
 
   add_index "invoices", ["order_id"], name: "index_invoices_on_order_id", using: :btree
-
-  create_table "item_types", force: true do |t|
-    t.string "name"
-  end
 
   create_table "order_items", force: true do |t|
     t.decimal  "price",            precision: 8, scale: 2
@@ -743,5 +733,12 @@ ActiveRecord::Schema.define(version: 20131202024742) do
   add_index "variants", ["inventory_id"], name: "index_variants_on_inventory_id", using: :btree
   add_index "variants", ["product_id"], name: "index_variants_on_product_id", using: :btree
   add_index "variants", ["sku"], name: "index_variants_on_sku", using: :btree
+
+  create_table "wish_items", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "variant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

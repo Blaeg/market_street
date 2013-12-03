@@ -37,7 +37,6 @@ class Shopping::OrdersController < Shopping::BaseController
     address = @order.bill_address.cc_params
 
     if !@order.in_progress?
-      session_cart.mark_items_purchased(@order)
       flash[:error] = I18n.t('the_order_purchased')
       redirect_to myaccount_order_url(@order)
     elsif @credit_card.valid?
@@ -48,7 +47,6 @@ class Shopping::OrdersController < Shopping::BaseController
         if response.succeeded?
           expire_all_browser_cache
           ##  MARK items as purchased
-          session_cart.mark_items_purchased(@order)
           session[:last_order] = @order.number
           redirect_to( confirmation_shopping_order_url(@order) ) and return
         else

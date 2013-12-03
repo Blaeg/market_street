@@ -52,11 +52,8 @@ MarketStreet::Application.routes.draw do
       end
     end
 
-    resources  :cart_items do
-      member do
-        put :move_to
-      end
-    end
+    resources  :cart_items
+
     resource  :coupon, :only => [:show, :create]
 
     resources  :orders do

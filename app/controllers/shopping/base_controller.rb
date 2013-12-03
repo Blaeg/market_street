@@ -16,7 +16,7 @@ class Shopping::BaseController < ApplicationController
 
   def next_form(order)
     # if cart is empty
-    if session_cart.shopping_cart_items.empty?
+    if session_cart.cart_items.empty?
       flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')
       return products_url
     ## If we are insecure
@@ -66,7 +66,7 @@ class Shopping::BaseController < ApplicationController
     @session_order = current_user.orders.create(:number       => Time.now.to_i,
                                                 :ip_address   => request.env['REMOTE_ADDR'],
                                                 :bill_address => current_user.billing_address  )
-    add_new_cart_items(session_cart.shopping_cart_items)
+    add_new_cart_items(session_cart.cart_items)
     session[:order_id] = @session_order.id
   end
 

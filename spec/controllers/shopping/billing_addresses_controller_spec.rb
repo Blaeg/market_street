@@ -9,7 +9,7 @@ describe Shopping::BillingAddressesController do
     login_as(@cur_user)
 
     @variant  = create(:variant)
-    create_cart(@cur_user, @cur_user, [@variant])
+    create_cart(@cur_user, [@variant])
     @billing_address = create(:address, :addressable_id => @cur_user.id, :addressable_type => 'User')
   end
 

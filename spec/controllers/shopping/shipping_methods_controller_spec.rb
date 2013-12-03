@@ -12,7 +12,7 @@ describe Shopping::ShippingMethodsController do
     #stylist_cart
     @variant  = create(:variant)
 
-    create_cart(@cur_user, @cur_user, [@variant])
+    create_cart(@cur_user, [@variant])
 
     @address      = create(:address)
     @order        = create(:order, :ship_address_id => @address.id)
@@ -38,7 +38,7 @@ describe Shopping::ShippingMethodsController do
     #stylist_cart
     @variant  = create(:variant)
 
-    create_cart(@cur_user, @cur_user, [@variant])
+    create_cart(@cur_user, [@variant])
 
   end
   it "update action should render edit template when model is invalid" do

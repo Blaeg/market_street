@@ -13,35 +13,16 @@
 #
 # cart_id
 # product_id
-# item_type_id
 # quantity
 # Additionally the cart should only have the following field:
 #
-# user_id     (this is the stylist user_id in the admin area)
-# customer_id (for the customer facing site this == user_id)
-#
-#
-# Also note I am in favor of adding user_id to the cart_items table to keep queries more simple.
-#
-# One feature I added to the minimum model is the field item_type_id. item_type_id refers to a
-# model that just has a name field. The ItemTypes are as follows:
-#
-# shopping_cart
-# save_for_later
-# wish_list
-# purchased
-# deleted
-# admin_cart
+# user_id
 #
 # What this simple field in the DB does is allows you to have a wish list and save for later
 # functionality out of the box. Additionally you can WOW your marketing team by telling them
 # all the items a user has ever deleted out of their cart or purchased. If you ever need to create
 # a recommendation engine your cart will give you all the data you need.
 #
-# Now with this model, purchasing an item is simply taking the items that are in the cart and
-# have an item_type of shopping_cart and moving them to an order / order_items object.  Once
-# you purchase an order_item you change the cart_item.item_type to "purchased" with cart.mark_items_purchased(order)
-
 # _______________________
 
 
@@ -68,11 +49,6 @@
 # The when the item is removed from the cart instead of deleting the cart_item the item is
 # changed to active = false.  This allows you to see the state of the item when it was removed from the cart.
 #
-# == Save for later
-#
-# The when the item is marked for "save_for_later" in the cart now the state of the item is just changed to "save_for_later".
-# So adding it back to the cart is as easy as changing the state to "shopping_cart".
-#
 # Take a look at [This Blog Post](http://www.ror-e.com/posts/29-e-commerce-tips-1-2-the-shopping-cart) for more details.
 
 
@@ -94,13 +70,8 @@ class Cart < ActiveRecord::Base
   belongs_to  :user
   belongs_to  :customer, class_name: 'User'
   has_many    :cart_items
-  has_many    :shopping_cart_items, -> { where(active: true, item_type_id: ItemType::SHOPPING_CART_ID) },   class_name: 'CartItem'
-  has_many    :saved_cart_items,    -> { where( active: true, item_type_id: ItemType::SAVE_FOR_LATER_ID) }, class_name: 'CartItem'
-  has_many    :wish_list_items,     -> { where( active: true, item_type_id: ItemType::WISH_LIST_ID) },      class_name: 'CartItem'
-  has_many    :purchased_items,     -> { where( active: true, item_type_id: ItemType::PURCHASED_ID) },      class_name: 'CartItem'
-  has_many    :deleted_cart_items,  -> { where(active: false) }, class_name: 'CartItem'
-
-  accepts_nested_attributes_for :shopping_cart_items
+  
+  accepts_nested_attributes_for :cart_items
 
   # Call this method when you are checking out with the current cart items
   # => these will now be order.order_items
@@ -112,7 +83,7 @@ class Cart < ActiveRecord::Base
     if order.in_progress?
       order.order_items.map(&:destroy)
       order.order_items.reload
-      items_to_add(order, shopping_cart_items)
+      items_to_add(order, cart_items)
     end
     order
   end
@@ -120,25 +91,18 @@ class Cart < ActiveRecord::Base
   # Call this method when you want to add an item to the shopping cart
   #
   # @param [Integer, #read] variant id to add to the cart
-  # @param [User, #read] user that is adding something to the cart
   # @param [Integer, #optional] ItemType id that is being added to the cart
   # @return [CartItem] return the cart item that is added to the cart
-  def add_variant(variant_id, customer, qty = 1, cart_item_type_id = ItemType::SHOPPING_CART_ID, admin_purchase = false)
-    items = shopping_cart_items.where(variant_id: variant_id).to_a
-    variant = Variant.where(id: variant_id).first
-    quantity_to_purchase = variant.quantity_purchaseable_if_user_wants(qty.to_i, admin_purchase)
-    if admin_purchase && (quantity_to_purchase > 0)
-      cart_item = add_cart_items(items, quantity_to_purchase, customer, cart_item_type_id, variant_id)
-    elsif variant.sold_out?
-      cart_item = saved_cart_items.create(variant_id:   variant_id,
-                                          user:         customer,
-                                          item_type_id: ItemType::SAVE_FOR_LATER_ID,
-                                          quantity:     qty
-                                    ) if items.size < 1
+  def add_variant(variant_id, qty = 1)
+    item = cart_items.where(variant_id: variant_id).first
+    quantity_to_purchase = Variant.find(variant_id).quantity_purchaseable_by_user(qty.to_i)
+    return if quantity_to_purchase == 0
+    if item.nil? 
+      cart_items.create(variant_id: variant_id, 
+                        quantity: quantity_to_purchase)
     else
-      cart_item = add_cart_items(items, quantity_to_purchase, customer, cart_item_type_id, variant_id)
-    end
-    cart_item
+      item.update_attributes(:quantity => item.quantity + quantity_to_purchase)
+    end    
   end
 
 
@@ -148,8 +112,7 @@ class Cart < ActiveRecord::Base
   # @param [Integer, #read] variant id to add to the cart
   # @return [CartItem] return the cart item that is added to the cart
   def remove_variant(variant_id)
-    citems = self.cart_items.each {|ci| ci.inactivate! if variant_id.to_i == ci.variant_id }
-    return citems
+    cart_items.select{|ci|variant_id.to_i == ci.variant_id}.each {|ci| ci.inactivate!}  
   end
 
   # Call this method when you want to associate the cart with a user
@@ -162,38 +125,7 @@ class Cart < ActiveRecord::Base
     end
   end
 
-  # Call this method when you want to mark the items in the order as purchased
-  #   The CartItem will not delete.  Instead the item_type changes to purchased
-  #
-  # @param [Order]
-  def mark_items_purchased(order)
-    CartItem.where(id: (self.cart_item_ids + self.shopping_cart_item_ids).uniq).
-             where(variant_id: order.variant_ids).
-             update_all("item_type_id = #{ItemType::PURCHASED_ID}") if !order.variant_ids.empty?
-  end
-
   private
-  def update_shopping_cart(cart_item,customer, qty = 1)
-    if customer
-      self.shopping_cart_items.find(cart_item.id).update_attributes(:quantity => (cart_item.quantity + qty), :user_id => customer.id)
-    else
-      self.shopping_cart_items.find(cart_item.id).update_attributes(:quantity => (cart_item.quantity + qty))
-    end
-  end
-
-  def add_cart_items(items, qty, customer, cart_item_type_id, variant_id)
-    if items.size < 1
-      cart_item = shopping_cart_items.create(variant_id:   variant_id,
-                                             user:         customer,
-                                             item_type_id: cart_item_type_id,
-                                             quantity:     qty
-                                    )
-    else
-      cart_item = items.first
-      update_shopping_cart(cart_item,customer, qty)
-    end
-    cart_item
-  end
 
   def items_to_add(order, items)
     items.each do |item|

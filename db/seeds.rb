@@ -24,7 +24,6 @@ puts  "SEEDING CATALOG"
 ProductType.create_all
 Prototype.create_all
 PhoneType.create_all
-ItemType.create_all
 DealType.create_all
 Account.create_all
 TransactionAccount.create_all
@@ -45,7 +44,7 @@ end
 
 puts  "SEEDING PRODUCTS"
 @products = ProductType.all.map do |pt|
-  FactoryGirl.create_list(:product, 3, :with_properties, :with_images, :product_type => pt)
+  FactoryGirl.create_list(:product, 2, :with_properties, :with_images, :product_type => pt)
 end.flatten
 
 puts  "SEEDING VARIANTS"
