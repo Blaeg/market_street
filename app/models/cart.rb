@@ -68,7 +68,6 @@ class Cart < ActiveRecord::Base
   include Cart::Calculator
 
   belongs_to  :user
-  belongs_to  :customer, class_name: 'User'
   has_many    :cart_items
   
   accepts_nested_attributes_for :cart_items
@@ -94,25 +93,19 @@ class Cart < ActiveRecord::Base
   # @param [Integer, #optional] ItemType id that is being added to the cart
   # @return [CartItem] return the cart item that is added to the cart
   def add_variant(variant_id, qty = 1)
-    item = cart_items.where(variant_id: variant_id).first
+    cart_item = cart_items.where(variant_id: variant_id).first
     quantity_to_purchase = Variant.find(variant_id).quantity_purchaseable_by_user(qty.to_i)
     return if quantity_to_purchase == 0
-    if item.nil? 
+    if cart_item.nil? 
       cart_items.create(variant_id: variant_id, 
                         quantity: quantity_to_purchase)
     else
-      item.update_attributes(:quantity => item.quantity + quantity_to_purchase)
+      cart_item.update_attributes(:quantity => cart_item.quantity + quantity_to_purchase)
     end    
   end
 
-
-  # Call this method when you want to remove an item from the shopping cart
-  #   The CartItem will not delete.  Instead it is just inactivated
-  #
-  # @param [Integer, #read] variant id to add to the cart
-  # @return [CartItem] return the cart item that is added to the cart
   def remove_variant(variant_id)
-    cart_items.select{|ci|variant_id.to_i == ci.variant_id}.each {|ci| ci.inactivate!}  
+    cart_items.where(variant_id: variant_id).map(&:inactivate!)
   end
 
   # Call this method when you want to associate the cart with a user
