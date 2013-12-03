@@ -7,7 +7,7 @@ describe Coupon do
       @coupon_percent = build(:coupon_percent)
     end
 
-    it "should be valid " do
+    it "is valid " do
       @coupon_percent.should be_valid
     end
   end
@@ -17,7 +17,7 @@ describe Coupon do
       @coupon_value = build(:coupon_value)
     end
 
-    it "should be valid " do
+    it "is valid " do
       @coupon_value.should be_valid
     end
   end
@@ -29,19 +29,19 @@ describe Coupon do
     end
 
     context "value(item_prices)" do
-      it "should sum the prices for combine coupons" do
+      it "sum the prices for combine coupons" do
         @coupon_value.stubs(:combine).returns(true)
         @coupon_value.stubs(:qualified?).returns(true)
         @coupon_value.value([2.01, 9.00], @order).should == 5.00
       end
 
-      it "should return the max price for non-combine coupons" do
+      it "returns the max price for non-combine coupons" do
         @coupon_value.stubs(:combine).returns(false)
         @coupon_value.stubs(:qualified?).returns(true)
         @coupon_value.value([2.01, 9.00], @order).should == 5.00
       end
 
-      it "should return 0.00 for an order that doesnt qualify" do
+      it "returns 0.00 for an order that doesnt qualify" do
         @coupon_value.stubs(:combine).returns(true)
         @coupon_value.stubs(:qualified?).returns(false)
         @coupon_value.value([2.01, 9.00], @order).should == 0.00
@@ -50,21 +50,21 @@ describe Coupon do
 
     context "eligible?(at)" do
 
-      it "should return true" do
+      it "returns true" do
         order = create(:order)
         @coupon_value.stubs(:starts_at).returns(Time.now - 1.days)
         @coupon_value.stubs(:expires_at).returns(Time.now + 1.days)
         @coupon_value.eligible?(order).should be_true
       end
 
-      it "should return false" do
+      it "returns false" do
         order = create(:order)
         @coupon_value.stubs(:starts_at).returns(Time.now - 3.days)
         @coupon_value.stubs(:expires_at).returns(Time.now - 1.days)
         @coupon_value.eligible?(order).should be_false
       end
 
-      it "should return false" do
+      it "returns false" do
         order = create(:order)
         @coupon_value.stubs(:starts_at).returns(Time.now + 1.days)
         @coupon_value.stubs(:expires_at).returns(Time.now + 18.days)
@@ -75,20 +75,20 @@ describe Coupon do
     context "qualified?(item_prices, at)" do
       # item_prices.sum > minimum_value
 
-      it "should return true" do
+      it "returns true" do
         @coupon_value.stubs(:minimum_value).returns(10.00)
         @coupon_value.stubs(:eligible?).returns(true)
         @coupon_value.qualified?([2.01, 9.00], @order).should be_true
       end
 
-      it "should return false" do
+      it "returns false" do
         @coupon_value.stubs(:minimum_value).returns(20.00)
         @coupon_value.qualified?([2.01, 9.00], @order).should be_false
       end
     end
 
     context ".display_start_time" do
-      it "should return the start time formated" do
+      it "returns the start time formated" do
         if RUBY_VERSION == '1.9.2'
           @coupon_value.starts_at = Time.zone.parse('1/13/2011')
         else # 1.9.3 or greater
@@ -97,14 +97,14 @@ describe Coupon do
         @coupon_value.display_start_time.should == '01/13/2011'
       end
 
-      it "should return N/A" do
+      it "returns N/A" do
         @coupon_value.starts_at = nil
         @coupon_value.display_start_time.should == 'N/A'
       end
     end
 
     context ".display_expires_time" do
-      it "should return the expired time formated" do
+      it "returns the expired time formated" do
         if RUBY_VERSION == '1.9.2'
           @coupon_value.expires_at = Time.zone.parse('1/13/2011')
         else # 1.9.3 or greater
@@ -113,7 +113,7 @@ describe Coupon do
         @coupon_value.display_expires_time.should == '01/13/2011'
       end
 
-      it "should return N/A" do
+      it "returns N/A" do
         @coupon_value.expires_at = nil
         @coupon_value.display_expires_time.should == 'N/A'
       end
@@ -127,19 +127,19 @@ describe Coupon do
     end
 
     context "value(item_prices)" do
-      it "should sum the prices for combine coupons" do
+      it "sum the prices for combine coupons" do
         @coupon_percent.stubs(:combine).returns(true)
         @coupon_percent.stubs(:qualified?).returns(true)
         @coupon_percent.value([2.01, 9.00], @order).should == 1.10
       end
 
-      it "should return the max price for non-combine coupons" do
+      it "returns the max price for non-combine coupons" do
         @coupon_percent.stubs(:combine).returns(false)
         @coupon_percent.stubs(:qualified?).returns(true)
         @coupon_percent.value([2.01, 9.00], @order).should == 0.90
       end
 
-      it "should return 0.00 for an order that doesnt qualify" do
+      it "returns 0.00 for an order that doesnt qualify" do
         @coupon_percent.stubs(:combine).returns(true)
         @coupon_percent.stubs(:qualified?).returns(false)
         @coupon_percent.value([2.01, 9.00], @order).should == 0.00

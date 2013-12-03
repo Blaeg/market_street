@@ -6,7 +6,7 @@ describe TaxRate do
       @tax_rate = build(:tax_rate)
     end
   
-    it "should be valid with minimum attributes" do
+    it "is valid with minimum attributes" do
       @tax_rate.should be_valid
     end
   end

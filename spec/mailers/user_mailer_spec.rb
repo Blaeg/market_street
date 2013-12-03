@@ -11,19 +11,19 @@ describe UserMailer, "Signup Email" do
       @email = UserMailer.signup_notification(@user.id)
     end
 
-    it "should be set to be delivered to the email passed in" do
+    it "is set to be delivered to the email passed in" do
       @email.should deliver_to("Dave Commerce <myfake@email.com>")
     end
 
-    it "should contain the user's message in the mail body" do
+    it "contains the user's message in the mail body" do
       @email.should have_body_text(/Dave Commerce/)
     end
 
-    #it "should contain a link to the confirmation link" do
+    #it "contains a link to the confirmation link" do
     #  @email.should have_body_text(/#{confirm_account_url}/)
     #end
 
-    it "should have the correct subject" do
+    it "has the correct subject" do
       @email.should have_subject(/Welcome/)
     end
 end
@@ -39,11 +39,11 @@ describe UserMailer, "#new_referral_credits" do
     #@referral_user.stubs(:referree).returns(@referral)
     @email = UserMailer.new_referral_credits(@referring_user.id, @referral_user.id)
   end
-  it "should be set to be delivered to the email passed in" do
+  it "is set to be delivered to the email passed in" do
     @email.should deliver_to("Dave Commerce <referring_user@email.com>")
   end
 
-  it "should have the correct subject" do
+  it "has the correct subject" do
     @email.should have_subject(/Referral Credits have been Applied/)
   end
 end
@@ -59,11 +59,11 @@ describe UserMailer, "#referral_invite(referral_id, inviter_id)" do
     #@referral_user.stubs(:referree).returns(@referral)
     @email = UserMailer.referral_invite(@referral.id, @referring_user.id)
   end
-  it "should be set to be delivered to the email passed in" do
+  it "is set to be delivered to the email passed in" do
     @email.should deliver_to("referral_user@email.com")
   end
 
-  it "should have the correct subject" do
+  it "has the correct subject" do
     @email.should have_subject(/Referral from Dave/)
   end
 end
@@ -80,19 +80,19 @@ describe UserMailer, "#order_confirmation" do
       @email = UserMailer.order_confirmation(@order.id, @invoice.id)
     end
 
-    it "should be set to be delivered to the email passed in" do
+    it "is set to be delivered to the email passed in" do
       @email.should deliver_to("myfake@email.com")
     end
 
-    it "should contain the user's message in the mail body" do
+    it "contains the user's message in the mail body" do
       @email.should have_body_text(/Dave Commerce/)
     end
 
-    #it "should contain a link to the confirmation link" do
+    #it "contains a link to the confirmation link" do
     #  @email.should have_body_text(/#{confirm_account_url}/)
     #end
 
-    it "should have the correct subject" do
+    it "has the correct subject" do
       @email.should have_subject(/Order Confirmation/)
     end
 

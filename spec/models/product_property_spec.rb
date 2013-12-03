@@ -6,7 +6,7 @@ describe ProductProperty do
       @product_property = build(:product_property)
     end
     
-    it "should be valid with minimum attributes" do
+    it "is valid with minimum attributes" do
       @product_property.should be_valid
     end
   end

@@ -17,17 +17,17 @@ describe Deal do
 
     end
 
-    it 'should return 0.0' do
+    it 'returns 0.0' do
       @order.stubs(:order_items).returns([@order_item, @order_item2])
       Deal.best_qualifing_deal(@order).should == 0.0
     end
 
-    it 'should return 10.0"' do
+    it 'returns 10.0"' do
       @order_item3   = create(:order_item, :price => 25.0, :order => @order, :variant => @variant2)
       @order.stubs(:order_items).returns([@order_item, @order_item2, @order_item3])
       Deal.best_qualifing_deal(@order).should == 10.0 # $20.00 * 0.50
     end
-    it 'should return 11.50"' do
+    it 'returns 11.50"' do
       @order_item3   = create(:order_item, :price => 25.0, :order => @order, :variant => @variant)
       @order_item4   = create(:order_item, :price => 25.0, :order => @order, :variant => @variant2)
       @order.stubs(:order_items).returns([@order_item, @order_item2, @order_item3, @order_item4])
@@ -50,7 +50,7 @@ describe Deal do
 
     end
 
-    it 'should return 10.0"' do
+    it 'returns 10.0"' do
       @order_item3   = create(:order_item, :price => 25.0, :order => @order, :variant => @variant2)
       @order.stubs(:order_items).returns([@order_item, @order_item2, @order_item3])
       Deal.best_qualifing_deal(@order).should == 0.0 # $20.00 * 0.50
@@ -73,7 +73,7 @@ describe Deal do
 
     end
 
-    it 'should return 10.0"' do
+    it 'returns 10.0"' do
       @order_item3   = create(:order_item, :price => 25.0, :order => @order, :variant => @variant2)
       @order.stubs(:order_items).returns([@order_item, @order_item2, @order_item3])
       Deal.best_qualifing_deal(@order).should == 0.0 # $20.00 * 0.50
@@ -96,12 +96,12 @@ describe Deal do
 
     end
 
-    it 'should return 0.0' do
+    it 'returns 0.0' do
       @order.stubs(:order_items).returns([@order_item, @order_item2])
       Deal.best_qualifing_deal(@order).should == 0.0
     end
 
-    it 'should return 10.0"' do
+    it 'returns 10.0"' do
       @order_item3   = create(:order_item, :price => 25.0, :order => @order, :variant => @variant2)
       @order.stubs(:order_items).returns([@order_item, @order_item2, @order_item3])
       Deal.best_qualifing_deal(@order).should == 1.00 # $20.00 * 0.50

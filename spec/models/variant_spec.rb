@@ -8,13 +8,13 @@ describe Variant, " instance methods" do
   # OUT_OF_STOCK_QTY = 0
   # LOW_STOCK_QTY    = 2
   context ".sold_out?" do
-    it 'should be sold out' do
+    it 'is sold out' do
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (100 - Variant::OUT_OF_STOCK_QTY))
       @variant    = create(:variant,   :inventory => inventory)
       @variant.sold_out?.should be_true
     end
 
-    it 'should not be sold out' do
+    it 'is not sold out' do
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (99 - Variant::OUT_OF_STOCK_QTY))
       @variant    = create(:variant,   :inventory => inventory)
       @variant.sold_out?.should be_false
@@ -22,14 +22,14 @@ describe Variant, " instance methods" do
   end
 
   context ".low_stock?" do
-    it 'should be low stock' do
+    it 'is low stock' do
       inventory = create( :inventory, :count_on_hand => 100, 
                           :count_pending_to_customer => (100 - Variant::LOW_STOCK_QTY))
       @variant = create(:variant,   :inventory => inventory)
       @variant.low_stock?.should be_true
     end
 
-    it 'should not be low stock' do
+    it 'is not low stock' do
       inventory = create( :inventory, :count_on_hand => 100, 
                           :count_pending_to_customer => (99 - Variant::LOW_STOCK_QTY))
       @variant = create(:variant,   :inventory => inventory)
@@ -38,14 +38,14 @@ describe Variant, " instance methods" do
   end
 
   context ".display_stock_status(start = '(', finish = ')')" do
-    it 'should be low stock' do
+    it 'is low stock' do
 
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (100 - Variant::LOW_STOCK_QTY))
       @variant    = create(:variant,   :inventory => inventory)
       @variant.display_stock_status.should == '(Low Stock)'
     end
 
-    it 'should be sold out' do
+    it 'is sold out' do
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (100 - Variant::OUT_OF_STOCK_QTY))
       @variant    = create(:variant,   :inventory => inventory)
       @variant.display_stock_status.should == '(Sold Out)'
@@ -53,7 +53,7 @@ describe Variant, " instance methods" do
   end
 
   context ".product_tax_rate(state_id, tax_time = Time.now)" do
-    it 'should return the products tax rate for the given state' do
+    it 'returns the products tax rate for the given state' do
       tax_rate = create(:tax_rate)
       @variant.product.stubs(:tax_rate).returns(tax_rate)
       @variant.product_tax_rate(1).should == tax_rate
@@ -62,7 +62,7 @@ describe Variant, " instance methods" do
 
   context ".display_property_details(separator = '<br/>')" do
     # variant_properties.collect {|vp| [vp.property.display_name ,vp.description].join(separator) }
-    it 'should show all property details' do
+    it 'show all property details' do
       property      = create(:property)
       property.stubs(:display_name).returns('Color')
       variant_prop1 = create(:variant_property, :property => property, :description => 'red')
@@ -74,7 +74,7 @@ describe Variant, " instance methods" do
   end
 
   context ".property_details(separator = ': ')" do
-    it 'should show the property details' do
+    it 'show the property details' do
       property      = create(:property)
       property.stubs(:display_name).returns('Color')
       variant_prop1 = create(:variant_property, :property => property, :description => 'red')
@@ -83,25 +83,25 @@ describe Variant, " instance methods" do
       @variant.variant_properties.push(variant_prop2)
       @variant.property_details.should == ['Color: red', 'Color: blue']
     end
-    it 'should show the property details without properties' do
+    it 'show the property details without properties' do
       @variant.property_details.should == []
     end
   end
 
   context ".product_name" do
-    it 'should return the variant name' do
+    it 'returns the variant name' do
       @variant.name = 'helloo'
       @variant.product.name = 'product says hello'
       @variant.product_name.should == 'helloo'
     end
 
-    it 'should return the products name' do
+    it 'returns the products name' do
       @variant.name = nil
       @variant.product.name = 'product says hello'
       @variant.product_name.should == 'product says hello'
     end
 
-    it 'should return the products name and subname' do
+    it 'returns the products name and subname' do
       @variant.name = nil
       @variant.product.name = 'product says hello'
       @variant.stubs(:primary_property).returns  create(:variant_property, :description => 'pp_name')
@@ -110,7 +110,7 @@ describe Variant, " instance methods" do
   end
 
   context ".sub_name" do
-    it 'should return the variants subname' do
+    it 'returns the variants subname' do
       @variant.name = nil
       @variant.product.name = 'product says hello'
       @variant.stubs(:primary_property).returns  create(:variant_property, :description => 'pp_name')
@@ -119,7 +119,7 @@ describe Variant, " instance methods" do
   end
 
   context ".brand_name" do
-    it 'should return the variants subname' do
+    it 'returns the variants subname' do
       brand     = create(:brand, :name => 'Reabok')
       @product  = create(:product, brand: brand)
       @variant.stubs(:product).returns @product
@@ -128,7 +128,7 @@ describe Variant, " instance methods" do
   end
 
   context ".primary_property" do
-    it 'should return the primary property' do
+    it 'returns the primary property' do
       property      = create(:property)
       property2      = create(:property)
       property.stubs(:display_name).returns('Color')
@@ -139,7 +139,7 @@ describe Variant, " instance methods" do
       @variant.primary_property.should == variant_prop1
     end
 
-    it 'should return the primary property' do
+    it 'returns the primary property' do
       property      = create(:property)
       property2      = create(:property)
       property.stubs(:display_name).returns('Color')
@@ -153,7 +153,7 @@ describe Variant, " instance methods" do
   end
 
   context ".name_with_sku" do
-    it "should show name_with_sku" do
+    it "shows name_with_sku" do
       @variant.name = 'helloo'
       @variant.sku = '54321'
       @variant.name_with_sku.should == 'helloo: 54321'
@@ -161,13 +161,13 @@ describe Variant, " instance methods" do
   end
 
   context ".qty_to_add" do
-    it "should return 0 for qty_to_add" do
+    it "returns 0 for qty_to_add" do
       @variant.qty_to_add.should == 0
     end
   end
 
   context ".is_available?" do
-    it "should be available" do
+    it "is available" do
 
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 99)
       @variant    = create(:variant,   :inventory => inventory)
@@ -175,7 +175,7 @@ describe Variant, " instance methods" do
       @variant.is_available?.should be_true
     end
 
-    it "should not be available" do
+    it "is not available" do
 
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 100)
       @variant    = create(:variant,   :inventory => inventory)
@@ -185,7 +185,7 @@ describe Variant, " instance methods" do
   end
 
   context ".count_available(reload_variant = true)" do
-    it "should return count_available" do
+    it "returns count_available" do
 
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 99)
       @variant    = create(:variant,   :inventory => inventory)
@@ -195,7 +195,7 @@ describe Variant, " instance methods" do
   end
 
   context ".add_count_on_hand(num)" do
-    it "should update count_on_hand" do
+    it "updates count_on_hand" do
 
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 99)
       @variant    = create(:variant,   :inventory => inventory)
@@ -207,7 +207,7 @@ describe Variant, " instance methods" do
   end
 
   context ".subtract_count_on_hand(num)" do
-    it "should update count_on_hand" do
+    it "updates count_on_hand" do
 
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 99)
       @variant    = create(:variant,   :inventory => inventory)
@@ -219,7 +219,7 @@ describe Variant, " instance methods" do
   end
 
   context ".add_pending_to_customer(num)" do
-    it "should update count_on_hand" do
+    it "updates count_on_hand" do
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 99)
       @variant    = create(:variant,   :inventory => inventory)
       @variant.save
@@ -230,7 +230,7 @@ describe Variant, " instance methods" do
   end
 
   context ".subtract_pending_to_customer(num)" do
-    it "should update subtract_pending_to_customer" do
+    it "updates subtract_pending_to_customer" do
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 99)
       @variant    = create(:variant,   :inventory => inventory)
       @variant.save
@@ -241,7 +241,7 @@ describe Variant, " instance methods" do
   end
 
   context ".qty_to_add=(num)" do
-    it "should update count_on_hand with qty_to_add" do
+    it "updates count_on_hand with qty_to_add" do
 
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 50)
       @variant    = create(:variant,   :inventory => inventory)
@@ -253,7 +253,7 @@ end
 describe Variant, "instance method" do
 
   context ".quantity_purchaseable" do
-    it 'should be quantity_purchaseable' do
+    it 'is quantity_purchaseable' do
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => (98))
       @variant    = create(:variant,   :inventory => inventory)
       @variant.quantity_purchaseable.should == 2 - Variant::OUT_OF_STOCK_QTY
@@ -262,7 +262,7 @@ describe Variant, "instance method" do
 end
 
 describe Variant, "#admin_grid(product, params = {})" do
-  it "should return variants for a specific product" do
+  it "returns variants for a specific product" do
     product = create(:product)
     variant1 = create(:variant, :product => product)
     variant2 = create(:variant, :product => product)

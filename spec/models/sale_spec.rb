@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Sale, '#for(product_id, at)' do
-  it "should return sale" do
+  it "returns sale" do
     product = FactoryGirl.create(:product)
     new_sale = FactoryGirl.create(:sale,
                                   :product_id   => product.id,

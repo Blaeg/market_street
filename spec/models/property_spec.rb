@@ -6,7 +6,7 @@ describe Property do
       @property = build(:property)
     end
 
-    it "should be valid with minimum attributes" do
+    it "is valid with minimum attributes" do
       @property.should be_valid
     end
   end
@@ -18,19 +18,19 @@ describe Property, ".display_active" do
     @property = build(:property)
   end
 
-  it 'should display True if true' do
+  it 'displays True if true' do
     @property.active = true
     @property.display_active.should == 'True'
   end
 
-  it 'should display False if false' do
+  it 'displays False if false' do
     @property.active = false
     @property.display_active.should == 'False'
   end
 end
 
 describe Property, "#admin_grid(params = {})" do
-  it "should return Properties " do
+  it "returns Properties " do
     property1 = create(:property)
     property2 = create(:property)
     admin_grid = Property.admin_grid

@@ -6,12 +6,12 @@ describe Account do
       @account = build(:account)
     end
     
-    it "should be valid with minimum attributes" do
+    it "is valid with minimum attributes" do
       @account.should be_valid
     end
     
     Account.all.each do |acc_type|
-      it "should be valid" do 
+      it "is valid" do 
         acc_type.should be_valid
       end
     end

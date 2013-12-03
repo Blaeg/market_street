@@ -6,7 +6,7 @@ describe Transaction do
       @transaction = build(:transaction)
     end
     
-    it "should be valid with minimum attribues" do
+    it "is valid with minimum attribues" do
       @transaction.should be_valid
     end
     

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Referral do
   context ".give_credits!" do
-    it 'should apply credit to referral' do
+    it 'applies credit to referral' do
       referring_user = FactoryGirl.create(:user)
       referral_bonus    = FactoryGirl.create(:referral_bonus, :amount => 1000)
       referral_program  = FactoryGirl.create(:referral_program, :referral_bonus => referral_bonus)# refer 2 get $10
@@ -24,7 +24,7 @@ describe Referral do
     end
   end
 
-  it 'should set_referral_registered_at' do
+  it 'set_referral_registered_at' do
     referring_user = FactoryGirl.create(:user)
     referral_bonus    = FactoryGirl.create(:referral_bonus, :amount => 1000)
     referral_program  = FactoryGirl.create(:referral_program, :referral_bonus => referral_bonus)# refer 2 get $10

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Supplier, "#admin_grid(params = {})" do
-  it "should return Suppliers " do
+  it "returns Suppliers " do
     supplier1 = create(:supplier)
     supplier2 = create(:supplier)
     admin_grid = Supplier.admin_grid

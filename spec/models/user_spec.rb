@@ -6,7 +6,7 @@ describe User do
       @user = build(:user)
     end
 
-    it "should be valid with minimum attributes" do
+    it "is valid with minimum attributes" do
       @user.should be_valid
     end
 
@@ -14,7 +14,7 @@ describe User do
 
   context "Invalid User" do
 
-    it "should be valid without first_name" do
+    it "is valid without first_name" do
       @user = build(:user, :first_name => '')
       @user.should_not be_valid
     end
@@ -23,7 +23,7 @@ describe User do
 end
 
 describe User, ".name" do
-  it "should return the correct name" do
+  it "returns the correct name" do
     user = build(:user)
     #should_receive(:authenticate).with("password").and_return(true)
     user.stubs(:first_name).returns("Fred")
@@ -63,7 +63,7 @@ describe User, "instance methods" do
   end
 
   context ".active?" do
-    it 'should not be active' do
+    it 'is not active' do
       @user.state = 'canceled'
       @user.active?.should be_false
       @user.state = 'inactive'
@@ -73,24 +73,24 @@ describe User, "instance methods" do
   end
 
   context ".display_active" do
-    it 'should not be active' do
+    it 'is not active' do
       @user.state = 'canceled'
       @user.display_active.should == 'false'
     end
 
-    it 'should not be active' do
+    it 'is not active' do
       @user.state = 'inactive'
       @user.display_active.should == 'false'
     end
 
-    it 'should be active' do
+    it 'is active' do
       @user.state = 'active'
       @user.display_active.should == 'true'
     end
   end
 
   context ".current_cart" do
-    it 'should use the last cart' do
+    it 'use the last cart' do
       cart1 = @user.carts.new
       cart1.save
       cart2 = @user.carts.new
@@ -100,7 +100,7 @@ describe User, "instance methods" do
   end
 
   context ".might_be_interested_in_these_products" do
-    it 'should find products' do
+    it 'find products' do
       product = create(:product)
       @user.might_be_interested_in_these_products.include?(product).should be_true
     end
@@ -110,23 +110,23 @@ describe User, "instance methods" do
 
   context ".billing_address" do
     # default_billing_address ? default_billing_address : default_shipping_address
-    it 'should return nil if you dont have an address' do
+    it 'returns nil if you dont have an address' do
       #add = create(:address, :addressable => @user, :default => true)
       @user.billing_address.should be_nil
     end
 
-    it 'should use your shipping address if you dont have a default billing address' do
+    it 'use your shipping address if you dont have a default billing address' do
       add = create(:address, :addressable => @user, :default => true)
       @user.billing_address.should == add
     end
 
-    it 'should use your default billing address if you have one available' do
+    it 'use your default billing address if you have one available' do
       add = create(:address, :addressable => @user, :default => true)
       bill_add = create(:address, :addressable => @user, :billing_default => true)
       @user.billing_address.should == bill_add
     end
 
-    it 'should return the first address if not defaults are set' do
+    it 'returns the first address if not defaults are set' do
       #add = create(:address, :addressable => @user, :default => true)
       add = create(:address, :addressable => @user)
       @user.billing_address.should == add
@@ -135,18 +135,18 @@ describe User, "instance methods" do
 
   context ".shipping_address" do
     # default_billing_address ? default_billing_address : default_shipping_address
-    it 'should return nil if you dont have an address' do
+    it 'returns nil if you dont have an address' do
       #add = create(:address, :addressable => @user, :default => true)
       @user.shipping_address.should be_nil
     end
 
-    it 'should use your default shipping address if you have one available' do
+    it 'use your default shipping address if you have one available' do
       add = create(:address, :addressable => @user, :default => true)
       bill_add = create(:address, :addressable => @user, :billing_default => true)
       @user.shipping_address.should == add
     end
 
-    it 'should return the first address if not defaults are set' do
+    it 'returns the first address if not defaults are set' do
       #add = create(:address, :addressable => @user, :default => true)
       add = create(:address, :addressable => @user)
       @user.shipping_address.should == add
@@ -156,19 +156,19 @@ describe User, "instance methods" do
   context ".registered_user?" do
     # registered?
 
-    it 'should not be a registered user' do
+    it 'is not a registered user' do
       @user.state = 'active'
       @user.registered_user?.should be_true
     end
 
-    it 'should not be a registered user' do
+    it 'is not a registered user' do
       @user.state = 'canceled'
       @user.registered_user?.should be_false
     end
   end
 
   context ".sanitize_data" do
-    it "should sanitize data" do
+    it "sanitize data" do
       @user.email           = ' bad@email.com '
       @user.first_name      = ' bAd NamE '
       @user.last_name       = ' lastnamE '
@@ -185,7 +185,7 @@ describe User, "instance methods" do
 
   context ".email_address_with_name" do
     #"\"#{name}\" <#{email}>"
-    it 'should show the persons name and email address' do
+    it 'show the persons name and email address' do
       @user.email       = 'myfake@email.com'
       @user.first_name  = 'Dave'
       @user.last_name   = 'Commerce'
@@ -199,7 +199,7 @@ describe User, "instance methods" do
 
   context ".merchant_description" do
     # [name, default_shipping_address.try(:address_lines)].compact.join(', ')
-    it 'should show the name and address lines' do
+    it 'show the name and address lines' do
       address = create(:address, :address1 => 'Line one street', :address2 => 'Line two street')
       @user.first_name = 'First'
       @user.last_name  = 'Second'
@@ -208,7 +208,7 @@ describe User, "instance methods" do
       @user.merchant_description.should == 'First Second, Line one street, Line two street'
     end
 
-    it 'should show the name and address lines without address2' do
+    it 'show the name and address lines without address2' do
       address = create(:address, :address1 => 'Line one street', :address2 => nil)
       @user.first_name = 'First'
       @user.last_name  = 'Second'
@@ -222,7 +222,7 @@ end
 
 describe User, 'store_credit methods' do
   context '.start_store_credits' do
-    it 'should create store_credit object on create' do
+    it 'create store_credit object on create' do
       user = create(:user)
       user.store_credit.should_not be_nil
       user.store_credit.id.should_not be_nil
@@ -238,12 +238,12 @@ describe User, 'private methods' do
   end
 
   context ".password_required?" do
-    it 'should require a password if the crypted password is blank' do
+    it 'require a password if the crypted password is blank' do
       @user.crypted_password = nil
       @user.send(:password_required?).should be_true
     end
 
-    it 'should not require a password if the crypted password is present' do
+    it 'does not require a password if the crypted password is present' do
       @user.crypted_password = 'blah'
       @user.send(:password_required?).should be_false
     end
@@ -255,12 +255,12 @@ describe User, 'private methods' do
 
   context ".before_validation_on_create" do
     #UserMailer.expects(:signup_notification).once.returns(sign_up_mock)
-    it 'should assign the access_token' do
+    it 'assign the access_token' do
       user = build(:user)
       user.expects(:before_validation_on_create).once
       user.save
     end
-    it 'should assign the access_token' do
+    it 'assign the access_token' do
       @user.save
       @user.access_token.should_not be_nil
     end
@@ -268,7 +268,7 @@ describe User, 'private methods' do
 
   context ".user_profile" do
     #{:merchant_customer_id => self.id, :email => self.email, :description => self.merchant_description}
-    it 'should return a hash of user info' do
+    it 'returns a hash of user info' do
       @user.save
       profile = @user.send(:user_profile)
       profile.keys.include?(:merchant_customer_id).should be_true
@@ -279,7 +279,7 @@ describe User, 'private methods' do
 end
 
 describe User, "#admin_grid(params = {})" do
-  it "should return users " do
+  it "returns users " do
     User.any_instance.stubs(:start_store_credits).returns(true)  ## simply speed up tests, no reason to have store_credit object
     user1 = create(:user)
     user2 = create(:user)

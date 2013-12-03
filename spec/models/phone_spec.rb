@@ -6,7 +6,7 @@ describe Phone do
       @phone = build(:phone)
     end
     
-    it "should be valid with minimum attributes" do
+    it "is valid with minimum attributes" do
       @phone.should be_valid
     end
     

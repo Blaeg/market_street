@@ -11,11 +11,11 @@ describe PrototypeProperty do
       @prototype_property = build(:prototype_property)
     end
 
-    it "should be valid with minimum attributes" do
+    it "is valid with minimum attributes" do
       @prototype_property.should be_valid
     end
 
-    it "should not be valid without property_id" do
+    it "is not valid without property_id" do
       @prototype_property.property_id = nil
       @prototype_property.should_not be_valid
     end

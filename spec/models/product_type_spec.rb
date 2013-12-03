@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProductType, '#admin_grid(params = {})' do
-  it "should return ProductTypes " do
+  it "returns ProductTypes " do
     product_type1 = create(:product_type)
     product_type2 = create(:product_type)
     admin_grid = ProductType.admin_grid

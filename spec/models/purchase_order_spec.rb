@@ -5,13 +5,13 @@ describe PurchaseOrder do
     @purchase_order = build(:purchase_order)
   end
 
-  it "should be valid with minimum attribues" do
+  it "is valid with minimum attribues" do
     @purchase_order.should be_valid
   end
 end
 
 describe PurchaseOrder, ".display_received" do
-  it "should return Yes when true" do
+  it "returns Yes when true" do
     order = build(:purchase_order)
     order.stubs(:is_received).returns(true)
 
@@ -20,7 +20,7 @@ describe PurchaseOrder, ".display_received" do
 end
 
 describe PurchaseOrder, ".display_received" do
-  it "should return No when false" do
+  it "returns No when false" do
     order = build(:purchase_order)
     order.stubs(:is_received).returns(false)
 
@@ -29,7 +29,7 @@ describe PurchaseOrder, ".display_received" do
 end
 
 describe PurchaseOrder, ".display_estimated_arrival_on" do
-  it "should return the correct name" do
+  it "returns the correct name" do
     order = build(:purchase_order)
     now = Time.now
     order.stubs(:estimated_arrival_on).returns(now.to_date)
@@ -39,7 +39,7 @@ describe PurchaseOrder, ".display_estimated_arrival_on" do
 end
 
 describe PurchaseOrder, ".supplier_name" do
-  it "should return the correct name" do
+  it "returns the correct name" do
     order = build(:purchase_order)
     supplier = build(:supplier)
     supplier.stubs(:name).returns("Supplier Test")
@@ -56,22 +56,22 @@ describe PurchaseOrder, 'instance methods' do
   end
 
   context ".receive_po=(answer)" do
-    it 'should call receive_variants' do
+    it 'calls receive_variants' do
       @purchase_order.expects(:receive_variants).once
       @purchase_order.receive_po=('1')
     end
 
-    it 'should call receive_variants' do
+    it 'calls receive_variants' do
       @purchase_order.expects(:receive_variants).once
       @purchase_order.receive_po=('true')
     end
 
-    it 'should not call receive_variants' do
+    it 'does not call receive_variants' do
       @purchase_order.expects(:receive_variants).never
       @purchase_order.receive_po=('0')
     end
 
-    it 'should not call receive_variants' do
+    it 'does not call receive_variants' do
       @purchase_order.state = 'received'
       @purchase_order.expects(:receive_variants).never
       @purchase_order.receive_po=('1')
@@ -79,31 +79,31 @@ describe PurchaseOrder, 'instance methods' do
   end
 
   context ".receive_po" do
-    it 'should return true if state is received' do
+    it 'returns true if state is received' do
       @purchase_order.state = PurchaseOrder::RECEIVED
       @purchase_order.receive_po.should be_true
     end
 
-    it 'should return false if state is not received' do
+    it 'returns false if state is not received' do
       @purchase_order.state = PurchaseOrder::PENDING
       @purchase_order.receive_po.should be_false
     end
   end
 
   context ".display_tracking_number" do
-    it 'should display N/A if the tracking number is nil' do
+    it 'displays N/A if the tracking number is nil' do
       @purchase_order.tracking_number = nil
       @purchase_order.display_tracking_number.should == 'N/A'
     end
   end
 
   #context '.total_cost' do
-  #  it 'should return the total'
+  #  it 'returns the total'
   #end
 end
 
 describe PurchaseOrder, ".pay_for_order" do
-  it 'should pay for the order ' do
+  it 'pay for the order ' do
     purchase_order = create(:purchase_order, :state => 'pending', :total_cost => 20.32)
     purchase_order.pay_for_order.should be_true
     purchase_order.transaction_ledgers.size.should == 2
@@ -135,14 +135,14 @@ describe PurchaseOrder, ".pay_for_order" do
 end
 
 describe PurchaseOrder, ".receive_variants" do
-  it 'should receive PO_varaints ' do
+  it 'receive PO_varaints ' do
     purchase_order = create(:purchase_order, :state => 'pending')
     purchase_order.purchase_order_variants.push(create(:purchase_order_variant, :purchase_order => purchase_order, :is_received => false))
     PurchaseOrderVariant.any_instance.expects(:receive!).once
     purchase_order.receive_variants
   end
 
-  it 'should not receive PO_varaints ' do
+  it 'does not receive PO_varaints ' do
     purchase_order = create(:purchase_order, :state => 'pending')
     purchase_order.purchase_order_variants.push(create(:purchase_order_variant, :purchase_order => purchase_order, :is_received => true))
     PurchaseOrderVariant.any_instance.expects(:receive!).never
@@ -151,7 +151,7 @@ describe PurchaseOrder, ".receive_variants" do
 end
 
 describe PurchaseOrder, "#admin_grid(params = {})" do
-  it "should return users " do
+  it "returns users " do
     purchase_order1 = create(:purchase_order)
     purchase_order2 = create(:purchase_order)
     admin_grid = PurchaseOrder.admin_grid
@@ -162,7 +162,7 @@ describe PurchaseOrder, "#admin_grid(params = {})" do
 end
 
 describe PurchaseOrder, "#receiving_admin_grid(params = {})" do
-  it "should return PurchaseOrders " do
+  it "returns PurchaseOrders " do
     purchase_order1 = create(:purchase_order)
     purchase_order1.state = PurchaseOrder::RECEIVED
     purchase_order1.save

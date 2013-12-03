@@ -6,7 +6,7 @@ describe VariantSupplier do
       @variant_supplier = build(:variant_supplier)
     end
     
-    it "should be valid with minimum attributes" do
+    it "is valid with minimum attributes" do
       @variant_supplier.should be_valid
     end
     

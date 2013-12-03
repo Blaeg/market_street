@@ -6,7 +6,7 @@ describe TransactionLedger do
       @transaction_ledger = create(:transaction_ledger)
     end
     
-    it "should be valid with minimum attribues" do
+    it "is valid with minimum attribues" do
       @transaction_ledger.should be_valid
     end    
   end  

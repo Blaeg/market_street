@@ -6,7 +6,7 @@ describe Batch do
       @batch = build(:batch)
     end
     
-    it "should be valid with minimum attribues" do
+    it "is valid with minimum attribues" do
       @batch.should be_valid
     end
     

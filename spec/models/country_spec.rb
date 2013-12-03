@@ -18,17 +18,17 @@ describe Country do
 
   context ".abbreviation_name(append_name = )" do
 
-    it 'should return the correct string with no params' do
+    it 'returns the correct string with no params' do
       @country.abbreviation_name.should == 'US - United States'
     end
 
-    it 'should return the correct string with  params' do
+    it 'returns the correct string with  params' do
       @country.abbreviation_name('JJJ').should == 'US - United States JJJ'
     end
   end
 
   context ".abbrev_and_name" do
-    it 'should return the correct string' do
+    it 'returns the correct string' do
       @country.abbrev_and_name.should == 'US - United States'
     end
   end

@@ -6,7 +6,7 @@ describe Brand do
       @brand = build(:brand)
     end
     
-    it "should be valid with minimum attribues" do
+    it "is valid with minimum attribues" do
       @brand.should be_valid
     end
     

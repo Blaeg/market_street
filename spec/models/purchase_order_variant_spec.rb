@@ -8,27 +8,27 @@ describe PurchaseOrderVariant, "instance methods" do
   end
 
   context ".receive!" do
-    it 'should call receive if true' do
+    it 'calls receive if true' do
       @purchase_order_variant.receive!
       @purchase_order_variant.variant.inventory.count_on_hand.should == 110
     end
 
-    it 'should mark purchase order complete' do
+    it 'marks purchase order complete' do
       @purchase_order_variant.purchase_order.expects(:mark_as_complete).once
       @purchase_order_variant.receive!
     end
   end
 
   context ".receive_po=(answer)" do
-    it 'should call receive if true' do
+    it 'calls receive if true' do
       @purchase_order_variant.expects(:receive!).once
       @purchase_order_variant.receive_po=('true')
     end
-    it 'should call receive if 1' do
+    it 'calls receive if 1' do
       @purchase_order_variant.expects(:receive!).once
       @purchase_order_variant.receive_po=('1')
     end
-    it 'should call receive if 0' do
+    it 'calls receive if 0' do
       @purchase_order_variant.expects(:receive!).never
       @purchase_order_variant.receive_po=('0')
     end
@@ -36,12 +36,12 @@ describe PurchaseOrderVariant, "instance methods" do
 
   context ".receive_po" do
     #is_received
-    it 'should be true' do
+    it 'is true' do
       @purchase_order_variant.is_received = true
       @purchase_order_variant.receive_po.should be_true
     end
 
-    it 'should call receive if 0' do
+    it 'calls receive if 0' do
       @purchase_order_variant.is_received = false
       @purchase_order_variant.receive_po.should be_false
     end

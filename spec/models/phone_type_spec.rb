@@ -4,7 +4,7 @@ describe PhoneType do
   describe "Seed data" do
     
     PhoneType.all.each do |phone_type|
-      it "should be valid" do 
+      it "is valid" do 
         phone_type.should be_valid
       end
     end

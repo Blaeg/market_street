@@ -8,29 +8,29 @@ describe Order, "instance methods" do
   end
 
   context ".name" do
-    it 'should return the users name' do
+    it 'returns the users name' do
       @order.name.should == 'Freddy Boy'
     end
   end
 
   context ".display_completed_at(format = :us_date)" do
-    it 'should return the completed date in us format' do
+    it 'returns the completed date in us format' do
       @order.stubs(:completed_at).returns(Time.zone.parse('2010-03-20 14:00:00'))
       @order.display_completed_at.should == '03/20/2010'
     end
 
-    it 'should return "Not Finished."' do
+    it 'returns "Not Finished."' do
       @order.stubs(:completed_at).returns(nil)
       @order.display_completed_at.should == "Not Finished."
     end
   end
 
   context ".first_invoice_amount" do
-    it 'should return ""' do
+    it 'returns ""' do
       @order.stubs(:completed_invoices).returns([])
       @order.first_invoice_amount.should == ""
     end
-    it 'should return "Not Finished."' do
+    it 'returns "Not Finished."' do
       @invoice = create(:invoice, :amount => 13.49)
       @order.stubs(:completed_invoices).returns([@invoice])
       @order.first_invoice_amount.should == 13.49
@@ -38,7 +38,7 @@ describe Order, "instance methods" do
   end
 
   context ".cancel_unshipped_order(invoice)" do
-    it 'should return ""' do
+    it 'returns ""' do
       @invoice = create(:invoice, :amount => 13.49)
       @order = create(:order)
       @invoice.stubs(:cancel_authorized_payment).returns(true)
@@ -48,12 +48,12 @@ describe Order, "instance methods" do
   end
 
   context ".status" do
-    it 'should return "payment_declined"' do
+    it 'returns "payment_declined"' do
       @invoice = create(:invoice, :state => 'payment_declined')
       @order.stubs(:invoices).returns([@invoice])
       @order.status.should == 'payment_declined'
     end
-    it 'should return "not processed"' do
+    it 'returns "not processed"' do
       @order.stubs(:invoices).returns([])
       @order.status.should == 'not processed'
     end
@@ -61,7 +61,7 @@ describe Order, "instance methods" do
 
   context ".@order.credited_total" do
 
-    it 'should calculate credited_total' do
+    it 'calculate credited_total' do
       @order.stubs(:calculate_totals).returns( true )
       @order.stubs(:calculated_at).returns(nil)
       tax_rate = create(:tax_rate, :percentage => 10.0 )
@@ -81,7 +81,7 @@ describe Order, "instance methods" do
       @order.credited_total.should == 102.12
     end
 
-    it 'should calculate credited_total' do
+    it 'calculate credited_total' do
       @order.stubs(:calculate_totals).returns( true )
       @order.stubs(:calculated_at).returns(nil)
       order_item = create(:order_item, :total => 5.52 )
@@ -97,7 +97,7 @@ describe Order, "instance methods" do
   end
 
   context ".@order.remove_user_store_credits" do
-    it 'should remove store_credits.amount' do
+    it 'remove store_credits.amount' do
       @order.stubs(:calculate_totals).returns( true )
       @order.stubs(:calculated_at).returns(nil)
       order_item = create(:order_item, :total => 5.52 )
@@ -113,7 +113,7 @@ describe Order, "instance methods" do
       store_credit.amount.should == 0.0
     end
 
-    it 'should calculate credited_total with a coupon' do
+    it 'calculate credited_total with a coupon' do
       user = create(:user)
       coupon = create(:coupon, :amount => 15.00, :expires_at => (Time.zone.now + 1.days), :starts_at => (Time.zone.now - 1.days) )
       order = create(:order, :user => user, :coupon => coupon)
@@ -142,7 +142,7 @@ describe Order, "instance methods" do
       order.credited_total.should == 117.48
     end
 
-    it 'should remove store_credits.amount' do
+    it 'remove store_credits.amount' do
       @order.stubs(:calculate_totals).returns( true )
       @order.stubs(:calculated_at).returns(nil)
       tax_rate = create(:tax_rate, :percentage => 10.0 )
@@ -165,7 +165,7 @@ describe Order, "instance methods" do
   end
 
   context ".capture_invoice(invoice)" do
-    it 'should return an payment object' do
+    it 'returns an payment object' do
       ##  Create fake admin_cart object in memcached
       @invoice  = create(:invoice)
       payment   = @order.capture_invoice(@invoice)
@@ -182,7 +182,7 @@ describe Order, "instance methods" do
   #  end
   #end
   context ".create_invoice(credit_card, charge_amount, args)" do
-    it 'should return an create_invoice on success' do
+    it 'returns an create_invoice on success' do
       UserMailer_mock = mock()
       UserMailer_mock.stubs(:deliver)
       UserMailer.stubs(:order_confirmation).returns(UserMailer_mock)
@@ -203,7 +203,7 @@ describe Order, "instance methods" do
       invoice.class.to_s.should == 'Invoice'
       invoice.state.should      == 'authorized'
     end
-    it 'should return an create_invoice on failure' do
+    it 'returns an create_invoice on failure' do
       cc_params = {
         :brand               => 'visa',
         :number             => '2',
@@ -227,7 +227,7 @@ describe Order, "instance methods" do
   context ".create_invoice_transaction(credit_card, charge_amount, args)"
 
   context ".order_complete!" do
-    it  "should set completed_at and update the state" do
+    it  "set completed_at and update the state" do
       @order.stubs(:update_inventory).returns(true)
       @order.completed_at = nil
       @order.order_complete!
@@ -237,7 +237,7 @@ describe Order, "instance methods" do
   end
 
   context ".update_tax_rates" do
-    it 'should set the beginning address id after find' do
+    it 'set the beginning address id after find' do
       order_item = create(:order_item)
       tax_rate   = create(:tax_rate, :percentage => 5.5 )
       @order.ship_address_id = create(:address).id
@@ -249,7 +249,7 @@ describe Order, "instance methods" do
   end
 
   context ".calculate_totals(force = false)" do
-    it 'should set the beginning address id after find' do
+    it 'set the beginning address id after find' do
       #@order.stubs(:calculated_at).returns(nil)
       order_item = create(:order_item)
       @order.stubs(:order_items).returns([order_item])
@@ -263,7 +263,7 @@ describe Order, "instance methods" do
 #shipping_charges
 
   context ".find_total(force = false)" do
-    it 'should calculate the order totals with shipping charges' do
+    it 'calculate the order totals with shipping charges' do
       @order.stubs(:calculate_totals).returns( true )
       @order.stubs(:calculated_at).returns(nil)
       tax_rate = create(:tax_rate, :percentage => 10.0 )
@@ -280,14 +280,14 @@ describe Order, "instance methods" do
   end
 
   context ".ready_to_checkout?" do
-    it 'should be ready to checkout' do
+    it 'is ready to checkout' do
       order_item = create(:order_item )
       order_item.stubs(:ready_to_calculate?).returns(true)
       @order.stubs(:order_items).returns([order_item, order_item])
       @order.ready_to_checkout?.should == true
     end
 
-    it 'should not be ready to checkout' do
+    it 'is not ready to checkout' do
       order_item = create(:order_item )
       order_item.stubs(:ready_to_calculate?).returns(false)
       @order.stubs(:order_items).returns([order_item, order_item])
@@ -296,7 +296,7 @@ describe Order, "instance methods" do
   end
 
   context ".shipping_charges" do
-    it 'should return one shippoing rate that all items fall under' do
+    it 'returns one shippoing rate that all items fall under' do
         order_item = create(:order_item )
         ShippingRate.any_instance.stubs(:individual?).returns(false)
         ShippingRate.any_instance.stubs(:rate).returns(1.01)
@@ -306,7 +306,7 @@ describe Order, "instance methods" do
         @order.shipping_charges.should == 1.01
     end
 
-    it 'should return one shipping rate that all items fall under' do
+    it 'returns one shipping rate that all items fall under' do
         order_item = create(:order_item )
         ShippingRate.any_instance.stubs(:individual?).returns(true)
         ShippingRate.any_instance.stubs(:rate).returns(1.01)
@@ -318,7 +318,7 @@ describe Order, "instance methods" do
   end
 
   context ".add_items(variant, quantity, state_id = nil)" do
-    it 'should add a new variant to order items ' do
+    it 'adds a new variant to order items ' do
       variant = create(:variant)
       order_items_size = @order.order_items.size
       @order.add_items(variant, 2)
@@ -327,7 +327,7 @@ describe Order, "instance methods" do
   end
 
   context ".remove_items(variant, final_quantity)" do
-    it 'should remove variant from order items ' do
+    it 'remove variant from order items ' do
       variant = create(:variant)
       @order.add_items(variant, 3)
       expect(@order.reload.order_items.size).to eq(1)
@@ -338,13 +338,13 @@ describe Order, "instance methods" do
 
   context ".set_email" do
     #self.email = user.email if user_id
-    it 'should set the email address if there is a user_id' do
+    it 'set the email address if there is a user_id' do
       @order.email = nil
       @order.send(:set_email)
       @order.email.should_not be_nil
       @order.email.should == @order.user.email
     end
-    it 'should not set the email address if there is a user_id' do
+    it 'does not set the email address if there is a user_id' do
       @order.email = nil
       @order.user_id = nil
       @order.send(:set_email)
@@ -353,12 +353,12 @@ describe Order, "instance methods" do
   end
 
   context ".set_number" do
-    it 'should set number' do
+    it 'set number' do
       @order.send(:set_number)
       @order.number.should == (Order::NUMBER_SEED + @order.id).to_s(Order::CHARACTERS_SEED)
     end
 
-    it 'should set number not to be nil' do
+    it 'set number not to be nil' do
       order = build(:order)
       order.send(:set_number)
       order.number.should_not be_nil
@@ -366,7 +366,7 @@ describe Order, "instance methods" do
   end
 
   context ".set_order_number" do
-    it 'should set number ' do
+    it 'set number ' do
       order = create(:order)
       order.number = nil
       order.send(:set_order_number)
@@ -375,7 +375,7 @@ describe Order, "instance methods" do
   end
 
   context ".save_order_number" do
-    it 'should set number and save' do
+    it 'set number and save' do
       order = create(:order)
       order.number = nil
       order.send(:save_order_number).should be_true
@@ -385,7 +385,7 @@ describe Order, "instance methods" do
 
   context ".update_inventory" do
     #self.order_items.each {|item| item.variant.add_pending_to_customer(1) }
-    it 'should call add_pending_to_customer for each variant' do
+    it 'calls add_pending_to_customer for each variant' do
       variant     = mock()#create(:variant )
       order_item  = create(:order_item)
       order_item.stubs(:variant).returns(variant)
@@ -397,7 +397,7 @@ describe Order, "instance methods" do
 
   context ".variant_ids" do
     #order_items.collect{|oi| oi.variant_id }
-    it 'should return each  variant_id' do
+    it 'returns each  variant_id' do
       variant     = create(:variant )
       order_item  = create(:order_item)
       order_item.stubs(:variant_id).returns(variant.id)
@@ -408,25 +408,25 @@ describe Order, "instance methods" do
 
   context ".has_shipment?" do
     #shipments_count > 0
-    it 'should return false' do
+    it 'returns false' do
       @order.has_shipment?.should be_false
     end
-    it 'should return true' do
+    it 'returns true' do
       create(:shipment, :order => @order)
       Order.find(@order.id).has_shipment?.should be_true
     end
   end
 
   context ".create_shipments_with_order_item_ids(order_item_ids)" do
-    it "should return false if there aren't any ids" do
+    it "returns false if there aren't any ids" do
       @order_item = FactoryGirl.create(:order_item, :order => @order)
       @order.create_shipments_with_order_item_ids([]).should be_false
     end
-    it "should return false if the ids cant be shipped" do
+    it "returns false if the ids cant be shipped" do
       @order_item = FactoryGirl.create(:order_item, :order => @order, :state => 'unpaid')
       @order.create_shipments_with_order_item_ids([@order_item.id]).should be_false
     end
-    it "should return true if the ids can be shipped" do
+    it "returns true if the ids can be shipped" do
       @order_item = FactoryGirl.build(:order_item, :order => @order)
       @order_item.state = 'paid'
       @order_item.save
@@ -436,7 +436,7 @@ describe Order, "instance methods" do
 
   context '.item_prices' do
 
-    it 'should return an Array of prices' do
+    it 'returns an Array of prices' do
       order_item1 = create(:order_item, :order => @order, :price => 2.01)
       order_item2 = create(:order_item, :order => @order, :price => 9.00)
       @order.stubs(:order_items).returns([order_item1, order_item2])
@@ -449,12 +449,12 @@ describe Order, "instance methods" do
 
   context '.coupon_amount' do
 
-    it 'should return 0.0 for no coupon' do
+    it 'returns 0.0 for no coupon' do
       @order.stubs(:coupon_id).returns(nil)
       @order.coupon_amount.should == 0.0
     end
 
-    it 'should return call coupon.value' do
+    it 'returns call coupon.value' do
       coupon  = create(:coupon_value)
       order   = create(:order, :coupon => coupon)
       order.stubs(:coupon_id).returns(2)
@@ -475,7 +475,7 @@ describe Order, "Without VAT" do
   end
 
   context ".tax_charges" do
-    it 'should return one tax_charges for all order items' do
+    it 'returns one tax_charges for all order items' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       tax_rate5 = create(:tax_rate, :percentage => 5.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
@@ -487,7 +487,7 @@ describe Order, "Without VAT" do
   end
 
   context ".total_tax_charges" do
-    it 'should return one tax_charges for all order items' do
+    it 'returns one tax_charges for all order items' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       tax_rate5 = create(:tax_rate, :percentage => 5.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
@@ -508,7 +508,7 @@ describe Order, "With VAT" do
   end
 
   context ".tax_charges" do
-    it 'should return one tax_charges for all order items' do
+    it 'returns one tax_charges for all order items' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       tax_rate5 = create(:tax_rate, :percentage => 5.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
@@ -520,7 +520,7 @@ describe Order, "With VAT" do
   end
 
   context ".total_tax_charges" do
-    it 'should return one tax_charges for all order items' do
+    it 'returns one tax_charges for all order items' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       tax_rate5 = create(:tax_rate, :percentage => 5.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
@@ -533,7 +533,7 @@ describe Order, "With VAT" do
 end
 
 describe Order, "#find_myaccount_details" do
-  it 'should return have invoices and completed_invoices associations' do
+  it 'returns have invoices and completed_invoices associations' do
     @order = create(:order)
     @order.completed_invoices.should == []
     @order.invoices.should == []
@@ -541,7 +541,7 @@ describe Order, "#find_myaccount_details" do
 end
 
 describe Order, "#id_from_number(num)" do
-  it 'should return the order id' do
+  it 'returns the order id' do
     order     = create(:order)
     order_id  = Order.id_from_number(order.number)
     order_id.should == order.id
@@ -549,7 +549,7 @@ describe Order, "#id_from_number(num)" do
 end
 
 describe Order, "#find_by_number(num)" do
-  it 'should find the order by number' do
+  it 'find the order by number' do
     order = create(:order)
     find_order = Order.find_by_number(order.number)
     find_order.id.should == order.id
@@ -558,7 +558,7 @@ end
 
 
 describe Order, "#find_finished_order_grid(params = {})" do
-  it "should return finished Orders " do
+  it "returns finished Orders " do
     order1 = create(:order, :completed_at => nil)
     order2 = create(:order, :completed_at => Time.now)
     admin_grid = Order.find_finished_order_grid
@@ -569,7 +569,7 @@ describe Order, "#find_finished_order_grid(params = {})" do
 end
 
 describe Order, "#fulfillment_grid(params = {})" do
-  it "should return Orders " do
+  it "returns Orders " do
     order1 = create(:order, :shipped => false)
     order2 = create(:order, :shipped => true)
     admin_grid = Order.fulfillment_grid

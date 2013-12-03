@@ -32,25 +32,25 @@ describe Cart, " instance methods" do
       @order = create(:in_progress_order)
     end
     
-    it 'should add item to in_progress orders' do
+    it 'adds item to in_progress orders' do
       @cart.add_items_to_checkout(@order)
       @order.order_items.size.should == 2      
     end
     
-    it 'should keep items already in order to in_progress orders' do
+    it 'keeps items already in order to in_progress orders' do
       @cart.add_items_to_checkout(@order)
       @cart.add_items_to_checkout(@order)
       @order.order_items.size.should == 2
     end
     
-    it 'should add only needed items already in order to in_progress orders' do
+    it 'adds only needed items already in order to in_progress orders' do
       @cart.add_items_to_checkout(@order)
       @cart.cart_items.push(create(:cart_item))
       @cart.add_items_to_checkout(@order)
       @order.order_items.size.should == 3     
     end
     
-    it 'should remove items not in cart to in_progress orders' do
+    it 'remove items not in cart to in_progress orders' do
       @cart.cart_items.push(create(:cart_item))
       @cart.add_items_to_checkout(@order) ##
       @order.order_items.size.should == 3 
@@ -61,7 +61,7 @@ describe Cart, " instance methods" do
   end
   
   context ".save_user(u)" do
-    it 'should assign the user to the cart' do
+    it 'assign the user to the cart' do
       user = create(:user)
       @cart.save_user(user)
       @cart.user.should == user
@@ -104,9 +104,9 @@ end
 
 describe Cart, ".remove_variant" do
   let(:cart) {create(:cart_with_two_items)}
-  it 'should inactivate variant in cart' do
+  it 'inactivate variant in cart' do
     variant_id = cart.cart_items.first.variant_id
     cart.remove_variant(variant_id)
-    expect(cart.cart_items.first.active).to be_false    
+    expect(cart.cart_items.first).to be_active
   end
 end

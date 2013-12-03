@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ReferralBonus do
   context "give_credits(user)" do
-    it 'should give store credits to the user' do
+    it 'gives store credits to the user' do
       user              = FactoryGirl.create(:user)
       referral_bonus    = FactoryGirl.create(:referral_bonus, :amount => 1000)
       beginning_credits = user.store_credit_amount

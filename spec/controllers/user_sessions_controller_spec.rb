@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UserSessionsController do
   describe "#create" do
     context "when login fails" do
-      it "should display a message with login failure and render the login template" do
+      it "displays a message with login failure and render the login template" do
         post :create, :user_session => {:email => 'test@test.com'}
         flash[:alert].should == I18n.t('login_failure')
         response.should redirect_to login_url
@@ -19,7 +19,7 @@ describe UserSessionsController do
       subject.stubs(:current_user_session).returns(user)
     end
 
-    it "should display a message with logout success and render the login template" do
+    it "displays a message with logout success and render the login template" do
       post :destroy
       flash[:notice].should == I18n.t('logout_successful')
       response.should redirect_to login_url

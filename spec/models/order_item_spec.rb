@@ -9,19 +9,19 @@ describe OrderItem, "instance methods" do
   end
 
   context ".shipped?" do
-    it 'should return true if there is a shipment_id' do
+    it 'returns true if there is a shipment_id' do
       @order_item.shipment_id = 1
       @order_item.shipped?.should be_true
     end
 
-    it 'should return false if there is a shipment_id' do
+    it 'returns false if there is a shipment_id' do
       @order_item.shipment_id = nil
       @order_item.shipped?.should be_false
     end
   end
 
   context ".sale_price(at)" do
-    it 'should return the price - % discount ' do
+    it 'returns the price - % discount ' do
       product = FactoryGirl.create(:product)
       variant = FactoryGirl.create(:variant, :product => product)
       new_sale = FactoryGirl.create(:sale,
@@ -42,19 +42,19 @@ describe OrderItem, "instance methods" do
 
   context ".shipping_method" do
     #shipping_rate.shipping_method
-    it 'should return the shipping method' do
+    it 'returns the shipping method' do
       @order_item.shipping_method.should == @order_item.shipping_rate.shipping_method
     end
   end
 
   context ".shipping_method_id" do
-    it 'should return the shipping method id' do
+    it 'returns the shipping method id' do
       @order_item.shipping_method_id.should == @order_item.shipping_rate.shipping_method_id
     end
   end
 
   context ".calculate_order" do
-    it 'should calculate order once after calling method twice' do
+    it 'calculate order once after calling method twice' do
       order     = mock()
       @order_item.stubs(:ready_to_calculate?).returns(true)
       @order_item.stubs(:order).returns(order)
@@ -67,7 +67,7 @@ describe OrderItem, "instance methods" do
   end
 
   context ".set_order_calculated_at_to_nil" do
-    it 'should return the shipping method id' do
+    it 'returns the shipping method id' do
       @order_item.order.calculated_at = Time.now
       @order_item.set_order_calculated_at_to_nil
       @order_item.order.calculated_at.should == nil
@@ -75,19 +75,19 @@ describe OrderItem, "instance methods" do
   end
 
   context ".ready_to_calculate?" do
-    it 'should be ready to calculate if we know the shipping rate and tax rate' do
+    it 'is ready to calculate if we know the shipping rate and tax rate' do
       @order_item.shipping_rate_id = 1
       @order_item.tax_rate_id = 1
       @order_item.ready_to_calculate?.should be_true
     end
 
-    it 'should not be ready to calculate if we dont know the shipping rate ' do
+    it 'is not ready to calculate if we dont know the shipping rate ' do
       @order_item.shipping_rate_id = nil
       @order_item.tax_rate_id = 1
       @order_item.ready_to_calculate?.should be_false
     end
 
-    it 'should not be ready to calculate if we know the tax rate' do
+    it 'is not ready to calculate if we know the tax rate' do
       @order_item.shipping_rate_id = 1
       @order_item.tax_rate_id = nil
       @order_item.ready_to_calculate?.should be_false
@@ -100,7 +100,7 @@ describe OrderItem, "Without VAT" do
     Settings.vat = false
   end
   context ".calculate_total(coupon = nil)" do
-    it 'should calculate_total' do
+    it 'calculate_total' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
       order_item.calculate_total
@@ -109,7 +109,7 @@ describe OrderItem, "Without VAT" do
   end
 
   context ".tax_charge" do
-    it 'should return tax_charge' do
+    it 'returns tax_charge' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
       order_item.tax_charge.should == 2.00
@@ -117,7 +117,7 @@ describe OrderItem, "Without VAT" do
   end
 
   context ".amount_of_charge_is_vat" do
-    it 'should return tax_charge' do
+    it 'returns tax_charge' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
       order_item.amount_of_charge_is_vat.should == 0.00
@@ -125,7 +125,7 @@ describe OrderItem, "Without VAT" do
   end
 
   context ".amount_of_charge_without_vat" do
-    it 'should return tax_charge' do
+    it 'returns tax_charge' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
       order_item.amount_of_charge_without_vat.should == 20.00
@@ -137,7 +137,7 @@ describe OrderItem, "With VAT" do
     Settings.vat = true
   end
   context ".calculate_total(coupon = nil)" do
-    it 'should calculate_total' do
+    it 'calculate_total' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
       order_item.calculate_total
@@ -146,7 +146,7 @@ describe OrderItem, "With VAT" do
   end
 
   context ".tax_charge" do
-    it 'should return tax_charge' do
+    it 'returns tax_charge' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
       order_item.tax_charge.should == 0.00
@@ -154,7 +154,7 @@ describe OrderItem, "With VAT" do
   end
 
   context ".amount_of_charge_is_vat" do
-    it 'should return tax_charge' do
+    it 'returns tax_charge' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
       order_item.amount_of_charge_is_vat.should == 1.82
@@ -162,7 +162,7 @@ describe OrderItem, "With VAT" do
   end
 
   context ".amount_of_charge_without_vat" do
-    it 'should return tax_charge' do
+    it 'returns tax_charge' do
       tax_rate = create(:tax_rate, :percentage => 10.0)
       order_item = create(:order_item, :tax_rate => tax_rate, :price => 20.00)
       order_item.amount_of_charge_without_vat.should == 18.18

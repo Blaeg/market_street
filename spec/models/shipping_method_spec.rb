@@ -6,7 +6,7 @@ describe ShippingMethod do
       @shipping_method = build(:shipping_method)
     end
     
-    it "should be valid with minimum attributes" do
+    it "is valid with minimum attributes" do
       @shipping_method.should be_valid
     end
   end

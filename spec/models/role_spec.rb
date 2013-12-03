@@ -5,7 +5,7 @@ describe Role do
   describe "Valid Seed data" do
 
     Role.all.each do |role|
-      it "should be valid" do
+      it "is valid" do
         role.should be_valid
       end
     end

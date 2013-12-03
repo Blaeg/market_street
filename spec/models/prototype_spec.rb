@@ -5,13 +5,13 @@ describe Prototype do
     @prototype = build(:prototype)
   end
 
-  it "should be valid with minimum attribues" do
+  it "is valid with minimum attribues" do
     @prototype.should be_valid
   end
 end
 
 describe Prototype, "#admin_grid(params = {})" do
-  it "should return Prototypes " do
+  it "returns Prototypes " do
     prototype1 = create(:prototype)
     prototype2 = create(:prototype)
     admin_grid = Prototype.admin_grid

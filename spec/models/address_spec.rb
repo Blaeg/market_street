@@ -7,7 +7,7 @@ describe Address do
       @address = build(:address)
     end
 
-    it "should be valid with minimum attribues" do
+    it "is valid with minimum attribues" do
       @address.should be_valid
     end
   end
@@ -31,13 +31,13 @@ describe Address, "methods" do
   end
 
   context ".name" do
-    it 'should return the correct string with no params' do
+    it 'returns the correct string with no params' do
       @address.name.should == 'Perez Hilton'
     end
   end
 
   context ".inactive!" do
-    it 'should inactivate the address' do
+    it 'inactivate the address' do
       @address.save
       @address.inactive!
       @address.active.should be_false
@@ -46,7 +46,7 @@ describe Address, "methods" do
 
   context ".address_attributes" do
     #attributes.delete_if {|key, value| ["id", 'updated_at', 'created_at'].any?{|k| k == key }}
-    it 'should return all the address attributes except id, updated and created_at' do
+    it 'returns all the address attributes except id, updated and created_at' do
       @address.save
       attributes = @address.address_attributes
       attributes['id'].should be_nil
@@ -57,7 +57,7 @@ describe Address, "methods" do
   end
 
   context ".cc_params" do
-    it 'should return the params needed by the credit card vaults' do
+    it 'returns the params needed by the credit card vaults' do
       cc_params = @address.cc_params
       cc_params[:name].should    == 'Perez Hilton'
       cc_params[:address1].should == '7th street'
@@ -69,7 +69,7 @@ describe Address, "methods" do
   end
 
   context '.full_address_array' do
-    it 'should return an array of address lines and name' do
+    it 'returns an array of address lines and name' do
       @address.full_address_array.should == ['Perez Hilton','7th street','Fredville, CA 13156']
     end
   end
@@ -77,7 +77,7 @@ describe Address, "methods" do
   context ".address_lines" do
     # def address_lines(join_chars = ', ')
     # [address1, address2].delete_if{|add| add.blank?}.join(join_chars)
-    it 'should display the address lines' do
+    it 'displays the address lines' do
       @address.address_lines.should == '7th street'
       @address.address2 = 'test'
       @address.address_lines.should == '7th street, test'
@@ -86,21 +86,21 @@ describe Address, "methods" do
   end
 
   context ".state_abbr_name" do
-    it 'should display the state_abbr_name' do
+    it 'displays the state_abbr_name' do
       @address.state_abbr_name.should == @address.state.abbreviation
     end
   end
 
   describe Address, ".city_state_name" do
     #[city, state_abbr_name].join(', ')
-    it 'should display the state_abbr_name' do
+    it 'displays the state_abbr_name' do
       @address.city_state_name.should == "Fredville, #{@address.state.abbreviation}"
     end
   end
 
   describe Address, ".city_state_zip" do
     #[city_state_name, zip_code].join(' ')
-    it 'should display the city_state_zip' do
+    it 'displays the city_state_zip' do
       @address.city_state_zip.should == "Fredville, #{@address.state.abbreviation} 13156"
     end
   end
@@ -137,7 +137,7 @@ describe Address, "#save" do
     @address  = FactoryGirl.create(:address, :addressable => @user)
   end
 
-  it "should only the last default address should be the default address" do
+  it "only the last default address should be the default address" do
     @address3   = FactoryGirl.create(:address)
     @address3.default = true
     @address3.save

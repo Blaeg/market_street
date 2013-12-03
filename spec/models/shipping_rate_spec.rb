@@ -7,13 +7,13 @@ describe ShippingRate, 'instance methods' do
 
   context ".individual?" do
     # shipping_rate_type_id == ShippingRateType::INDIVIDUAL_ID
-    it "should return true" do
+    it "returns true" do
       ship_rate_type = ShippingRateType.find_by_name('Individual')
       @shipping_rate.shipping_rate_type = ship_rate_type
       @shipping_rate.individual?.should be_true
     end
 
-    it "should return true" do
+    it "returns true" do
       ship_rate_type = ShippingRateType.find_by_name('Order')
       @shipping_rate.shipping_rate_type = ship_rate_type
       @shipping_rate.individual?.should be_false
@@ -21,7 +21,7 @@ describe ShippingRate, 'instance methods' do
   end
 
   context ".name" do
-    it "should return the name" do
+    it "returns the name" do
       ship_rate_type = ShippingRateType.find_by_name('Individual')
       @shipping_rate.shipping_rate_type = ship_rate_type
       shipping_method = create(:shipping_method, :name => 'shipname')
@@ -32,7 +32,7 @@ describe ShippingRate, 'instance methods' do
 
   context ".sub_name" do
     # '(' + [shipping_rate_type.name, rate ].join(' - ') + ')'
-    it "should return the sub_name" do
+    it "returns the sub_name" do
       ship_rate_type = ShippingRateType.find_by_name('Individual')
       @shipping_rate.shipping_rate_type = ship_rate_type
       @shipping_rate.sub_name.should == '(Individual - 5.5)'
@@ -41,13 +41,13 @@ describe ShippingRate, 'instance methods' do
 
   context ".name_with_rate" do
     # [shipping_method.name, number_to_currency(rate)].join(' - ')
-    it "should return the name_with_rate" do
+    it "returns the name_with_rate" do
       shipping_method = create(:shipping_method, :name => 'shipname')
       @shipping_rate.shipping_method = shipping_method
       @shipping_rate.stubs(:individual?).returns(false)
       @shipping_rate.name_with_rate.should == 'shipname - $5.50'
     end
-    it "should return the name_with_rate" do
+    it "returns the name_with_rate" do
       shipping_method = create(:shipping_method, :name => 'shipname')
       @shipping_rate.shipping_method = shipping_method
       @shipping_rate.stubs(:individual?).returns(true)

@@ -9,17 +9,17 @@ describe State, " methods" do
 
   context ".abbreviation_name(append_name = )" do
 
-    it 'should return the correct string with no params' do
+    it 'returns the correct string with no params' do
       @state.abbreviation_name.should == 'CA - California'
     end
 
-    it 'should return the correct string with  params' do
+    it 'returns the correct string with  params' do
       @state.abbreviation_name('JJJ').should == 'CA - California JJJ'
     end
   end
 
   context ".abbrev_and_name" do
-    it 'should return the correct string' do
+    it 'returns the correct string' do
       @state.abbrev_and_name.should == 'CA - California'
     end
   end
@@ -41,11 +41,11 @@ describe State, "class methods" do
       @states = FactoryGirl.create_list(:state, 2, :country => @country)
     end
 
-    it 'should return an array of States' do
+    it 'returns an array of States' do
       @states.first.class.should        == State
     end
 
-    it 'should states with country id == country_id' do
+    it 'states with country id == country_id' do
       @states.first.country_id.should == @country.id
     end
   end
