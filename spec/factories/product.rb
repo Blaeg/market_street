@@ -23,7 +23,7 @@ FactoryGirl.define do
 
     trait(:with_images) do
       after(:create) do |p|
-        4.times do 
+        2.times do 
           p.images.push(create(:image, :imageable => p))
         end
       end

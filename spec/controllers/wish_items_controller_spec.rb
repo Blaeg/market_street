@@ -23,7 +23,7 @@ describe WishItemsController do
 
   it "destroy action should render index template" do
     delete :destroy, :id => @wish_item.id
-    expect(WishItem.where(@wish_item.id)).to be_empty
+    expect(WishItem.where(id: @wish_item.id)).to be_empty
     response.should render_template(:index)
   end
 end

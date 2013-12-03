@@ -67,6 +67,10 @@ class Variant < ActiveRecord::Base
     end
   end
 
+  def quantity_purchaseable
+    quantity_available - OUT_OF_STOCK_QTY
+  end
+
   def quantity_purchaseable_by_user(quantity_desired)
     [quantity_available, quantity_desired].min
   end

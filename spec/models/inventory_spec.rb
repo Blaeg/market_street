@@ -21,8 +21,8 @@ describe Inventory do
 
     it 'should not save inventory below out_of_stock limit' do
       inventory = FactoryGirl.build(:inventory,
-      :count_on_hand       =>      10,
-      :count_pending_to_customer => 11 - Variant::OUT_OF_STOCK_QTY)
+                                    :count_on_hand => 10,
+                                    :count_pending_to_customer => 11 - Variant::OUT_OF_STOCK_QTY)
       inventory.valid?.should == true
       inventory.save.should be_true
     end

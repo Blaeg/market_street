@@ -1,24 +1,24 @@
 require 'spec_helper'
 
 describe Cart, ".sub_total" do
-  # shopping_cart_items.inject(0) {|sum, item| item.total + sum}
+  # cart_items.inject(0) {|sum, item| item.total + sum}
   
   before(:each) do
     @cart = create(:cart_with_two_5_dollar_items)
   end
   
-  it "should calculate subtotal correctly" do
+  it "calculates subtotal correctly" do
     @cart.sub_total.should == 10.00
   end
 
-  it "should give the number of cart items" do
-    @cart.number_of_shopping_cart_items.should == 2
+  it "gives the number of cart items" do
+    @cart.number_of_cart_items.should == 2
   end
 
-  it "should give the number of cart items" do
+  it "gives the number of cart items" do
     variant = FactoryGirl.create(:variant)
-    @cart.add_variant(variant.id, @cart.user, 2)
-    @cart.number_of_shopping_cart_items.should == 4
+    @cart.add_variant(variant.id, 2)
+    @cart.number_of_cart_items.should == 4
   end
 end
 
@@ -27,17 +27,7 @@ describe Cart, " instance methods" do
     @cart = create(:cart_with_two_5_dollar_items)
   end
 
-  #  items_to_add_or_destroy is exersized within add_items_to_checkout
-  #describe Cart, ".items_to_add_or_destroy" do
-  #   "this method is tested within add_items_to_checkout method"
-  #end
-  #  update_shopping_cart is exersized within add_items_to_checkout
-  #describe Cart, ".update_shopping_cart(cart_item,customer)" do
-  #  pending "test for update_cart(cart_item,customer)"
-  #end
-  
-  context " add_items_to_checkout" do
-    
+  context " add_items_to_checkout" do    
     before(:each) do
       @order = create(:in_progress_order)
     end
@@ -55,13 +45,13 @@ describe Cart, " instance methods" do
     
     it 'should add only needed items already in order to in_progress orders' do
       @cart.add_items_to_checkout(@order)
-      @cart.shopping_cart_items.push(create(:cart_item))
+      @cart.cart_items.push(create(:cart_item))
       @cart.add_items_to_checkout(@order)
       @order.order_items.size.should == 3     
     end
     
     it 'should remove items not in cart to in_progress orders' do
-      @cart.shopping_cart_items.push(create(:cart_item))
+      @cart.cart_items.push(create(:cart_item))
       @cart.add_items_to_checkout(@order) ##
       @order.order_items.size.should == 3 
       cart = create(:cart_with_two_5_dollar_items)
@@ -71,91 +61,52 @@ describe Cart, " instance methods" do
   end
   
   context ".save_user(u)" do
-    #pending "test for save_user(u)"
     it 'should assign the user to the cart' do
       user = create(:user)
       @cart.save_user(user)
       @cart.user.should == user
     end
   end
-  
 end
 
-describe Cart, '' do
-  
-  before(:each) do
-    @cart = create(:cart_with_two_items)
-  end
-  
-  context 'mark_items_purchased(order)' do
-    it 'should mark cart items as purchased' do
-      
-      order = create(:order)
-      order.stubs(:variant_ids).returns(@cart.cart_items.collect{|ci| ci.variant_id})
-      @cart.mark_items_purchased(order)
-      @cart.cart_items.each do |ci|
-        ci.reload.item_type_id.should == ItemType::PURCHASED_ID
-      end
-    end
-    
-    it 'should not mark cart items as purchased if it isnt in the order' do
-      
-      order = create(:order)
-      order.stubs(:variant_ids).returns([])
-      @cart.mark_items_purchased(order)
-      @cart.cart_items.each do |ci|
-        ci.reload.item_type_id.should_not == ItemType::PURCHASED_ID
-      end
-    end
-  end
-end
-
-describe Cart, ".add_variant" do
+describe Cart, "add_variant" do
   # need to stub variant.sold_out? and_return(false)
   before(:each) do
     @cart = create(:cart_with_two_5_dollar_items)
     @variant = create(:variant)
   end
   
-  it 'should add variant to cart' do
-    Variant.any_instance.stubs(:sold_out?).returns(false)
-    cart_item_size = @cart.shopping_cart_items.size
-    @cart.add_variant(@variant.id, @cart.user)
-    @cart.shopping_cart_items.size.should == cart_item_size + 1
+  it 'adds variant to cart' do
+    Variant.any_instance.stubs(:quantity_available).returns(10)
+    expect{@cart.add_variant(@variant.id)}.to change{
+      @cart.cart_items.size
+    }.by(1)
   end
-  
-  it 'should add quantity of variant to cart' do
-    Variant.any_instance.stubs(:sold_out?).returns(false)
-    cart_item_size = @cart.shopping_cart_items.size
-    @cart.add_variant(@variant.id, @cart.user)
-    @cart.add_variant(@variant.id, @cart.user)
-    @cart.cart_items.each do |item|
-      #puts "#{item.variant_id} : #{@variant.id}  (#{item.quantity})"
+
+  it 'adds quantity of variant to cart' do
+    Variant.any_instance.stubs(:quantity_available).returns(10)
+    cart_item_size = @cart.cart_items.size
+    @cart.add_variant(@variant.id)
+    @cart.add_variant(@variant.id)
+    @cart.reload.cart_items.each do |item|
       item.quantity.should == 2 if item.variant_id == @variant.id
     end
-    
-    @cart.shopping_cart_items.size.should == cart_item_size + 1
+    @cart.cart_items.size.should == cart_item_size + 1
   end
-  
-  it 'should add quantity of variant to saved_cart_items if out of stock' do
-    Variant.any_instance.stubs(:sold_out?).returns(true)
-    cart_item_size = @cart.shopping_cart_items.size
-    @cart.add_variant(@variant.id, nil)
-    
-    @cart.shopping_cart_items.size.should == cart_item_size
-    @cart.saved_cart_items.size.should == 1
+
+  it 'adds quantity of variant if out of stock' do
+    Variant.any_instance.stubs(:quantity_available).returns(0)
+    expect{@cart.add_variant(@variant.id)}.to change {
+      @cart.reload.cart_items.size
+    }.by(0)
   end
 end
 
 describe Cart, ".remove_variant" do
+  let(:cart) {create(:cart_with_two_items)}
   it 'should inactivate variant in cart' do
-    @cart = create(:cart_with_two_items)
-    variant_ids =  @cart.cart_items.collect {|ci| ci.variant.id }
-    @cart.remove_variant(variant_ids.first)
-    @cart.cart_items.each do |ci|
-      ci.active.should be_false if ci.variant.id == variant_ids.first
-    end
+    variant_id = cart.cart_items.first.variant_id
+    cart.remove_variant(variant_id)
+    expect(cart.cart_items.first.active).to be_false    
   end
 end
-
-
