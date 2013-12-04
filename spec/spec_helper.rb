@@ -23,14 +23,12 @@ require 'rspec/rails'
 
 require "email_spec"
 require "mocha/setup"
-#require 'capybara/rspec'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 include MarketStreet::TruncateHelper
 include MarketStreet::TestHelpers
 include ActiveMerchant::Billing
-#include ActionDispatch::TestProcess
 
 require "authlogic/test_case"
 include Authlogic::TestCase
@@ -51,21 +49,29 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
 
+    Role::create_all
+
     Country::create_usa    
     FactoryGirl.create(:state)
 
-    Account::create_all
-    AddressType::create_all
-    DealType::create_all
-    PhoneType::create_all
-    ReferralProgram::create_all
-    ReferralType::create_all
-    ReturnCondition::create_all
-    ReturnReason::create_all
-    Role::create_all
-    ShippingZone::create_all
-    ShippingRateType::create_all 
-    TransactionAccount::create_all
+    PhoneType.create_all
+    DealType.create_all
+    Account.create_all
+    TransactionAccount.create_all
+    ReferralBonus.create_all
+    ReferralProgram.create_all
+    ReferralType.create_all
+
+    AddressType.create_all
+    ShippingMethod.create_all
+    ShippingRateType.create_all
+    ShippingZone.create_all
+    ReturnReason.create_all
+    ReturnCondition.create_all
+
+    ShippingMethod.all.each do |sm|
+      FactoryGirl.create(:shipping_rate, shipping_method: sm)      
+    end
   end
 
   config.before(:each) do

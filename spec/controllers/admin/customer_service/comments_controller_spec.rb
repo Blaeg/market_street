@@ -6,7 +6,7 @@ describe Admin::CustomerService::CommentsController do
   before(:each) do
     activate_authlogic
     @customer = FactoryGirl.create(:user)
-    @user = create_admin_user
+    @user = FactoryGirl.create(:admin_user)
     login_as(@user)
     @order = create(:order)
   end

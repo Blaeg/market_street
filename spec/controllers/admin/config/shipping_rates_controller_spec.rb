@@ -6,7 +6,7 @@ describe Admin::Config::ShippingRatesController do
   before(:each) do
     activate_authlogic
 
-    @user = create_super_admin_user
+    @user = FactoryGirl.create(:super_admin_user)
     login_as(@user)
   end
 
@@ -31,7 +31,7 @@ describe Admin::Config::ShippingRatesController do
 
   it "new action should render new template" do
     get :new
-    response.should redirect_to(new_admin_config_shipping_method_url)
+    response.should render_template(:new)
   end
 
   it "new action should render new template" do

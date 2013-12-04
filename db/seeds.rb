@@ -29,6 +29,7 @@ Account.create_all
 TransactionAccount.create_all
 ReferralBonus.create_all
 ReferralProgram.create_all
+ReferralType.create_all
 
 puts  "SEEDING SHIPPING"
 AddressType.create_all

@@ -6,9 +6,8 @@ describe Admin::Config::CountriesController do
 
   before(:each) do
     FactoryGirl.create(:country)
-    
     activate_authlogic
-    @user = create_super_admin_user
+    @user = FactoryGirl.create(:super_admin_user)
     login_as(@user)
   end
 

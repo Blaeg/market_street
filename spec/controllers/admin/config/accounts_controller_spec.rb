@@ -5,8 +5,7 @@ describe Admin::Config::AccountsController do
 
   before(:each) do
     activate_authlogic
-
-    @user = create_super_admin_user
+    @user = FactoryGirl.create(:super_admin_user)
     login_as(@user)
   end
 
