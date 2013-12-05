@@ -6,41 +6,34 @@ describe ShippingRate, 'instance methods' do
   end
 
   context ".individual?" do
-    # shipping_rate_type_id == ShippingRateType::INDIVIDUAL_ID
     it "returns true" do
-      ship_rate_type = ShippingRateType.find_by_name('Individual')
-      @shipping_rate.shipping_rate_type = ship_rate_type
+      @shipping_rate.shipping_rate_type = 'INDIVIDUAL'
       @shipping_rate.individual?.should be_true
     end
 
     it "returns true" do
-      ship_rate_type = ShippingRateType.find_by_name('Order')
-      @shipping_rate.shipping_rate_type = ship_rate_type
+      @shipping_rate.shipping_rate_type = 'ORDER'
       @shipping_rate.individual?.should be_false
     end
   end
 
   context ".name" do
     it "returns the name" do
-      ship_rate_type = ShippingRateType.find_by_name('Individual')
-      @shipping_rate.shipping_rate_type = ship_rate_type
+      @shipping_rate.shipping_rate_type = 'INDIVIDUAL'
       shipping_method = create(:shipping_method, :name => 'shipname')
       @shipping_rate.shipping_method = shipping_method
-      @shipping_rate.name.should == 'shipname, (Individual - 5.5)'
+      @shipping_rate.name.should == 'shipname, (INDIVIDUAL - 5.5)'
     end
   end
 
   context ".sub_name" do
-    # '(' + [shipping_rate_type.name, rate ].join(' - ') + ')'
     it "returns the sub_name" do
-      ship_rate_type = ShippingRateType.find_by_name('Individual')
-      @shipping_rate.shipping_rate_type = ship_rate_type
-      @shipping_rate.sub_name.should == '(Individual - 5.5)'
+      @shipping_rate.shipping_rate_type = 'INDIVIDUAL'
+      @shipping_rate.sub_name.should == '(INDIVIDUAL - 5.5)'
     end
   end
 
   context ".name_with_rate" do
-    # [shipping_method.name, number_to_currency(rate)].join(' - ')
     it "returns the name_with_rate" do
       shipping_method = create(:shipping_method, :name => 'shipname')
       @shipping_rate.shipping_method = shipping_method

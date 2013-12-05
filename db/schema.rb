@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131202082822) do
+ActiveRecord::Schema.define(version: 20131204074815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,15 +36,7 @@ ActiveRecord::Schema.define(version: 20131202082822) do
     t.datetime "updated_at"
   end
 
-  create_table "address_types", force: true do |t|
-    t.string "name",        limit: 64, null: false
-    t.string "description"
-  end
-
-  add_index "address_types", ["name"], name: "index_address_types_on_name", using: :btree
-
   create_table "addresses", force: true do |t|
-    t.integer  "address_type_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "addressable_type",                  null: false
@@ -63,6 +55,7 @@ ActiveRecord::Schema.define(version: 20131202082822) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "country_id"
+    t.string   "address_type"
   end
 
   add_index "addresses", ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
@@ -145,25 +138,18 @@ ActiveRecord::Schema.define(version: 20131202082822) do
   add_index "coupons", ["code"], name: "index_coupons_on_code", using: :btree
   add_index "coupons", ["expires_at"], name: "index_coupons_on_expires_at", using: :btree
 
-  create_table "deal_types", force: true do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "deals", force: true do |t|
     t.integer  "buy_quantity",    null: false
     t.integer  "get_percentage"
-    t.integer  "deal_type_id",    null: false
     t.integer  "product_type_id", null: false
     t.integer  "get_amount"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "deal_type"
   end
 
   add_index "deals", ["buy_quantity"], name: "index_deals_on_buy_quantity", using: :btree
-  add_index "deals", ["deal_type_id"], name: "index_deals_on_deal_type_id", using: :btree
   add_index "deals", ["product_type_id"], name: "index_deals_on_product_type_id", using: :btree
 
   create_table "image_groups", force: true do |t|
@@ -296,21 +282,16 @@ ActiveRecord::Schema.define(version: 20131202082822) do
 
   add_index "payments", ["invoice_id"], name: "index_payments_on_invoice_id", using: :btree
 
-  create_table "phone_types", force: true do |t|
-    t.string "name", null: false
-  end
-
   create_table "phones", force: true do |t|
-    t.integer  "phone_type_id"
     t.string   "number",                         null: false
     t.string   "phoneable_type",                 null: false
     t.integer  "phoneable_id",                   null: false
     t.boolean  "primary",        default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "phone_type"
   end
 
-  add_index "phones", ["phone_type_id"], name: "index_phones_on_phone_type_id", using: :btree
   add_index "phones", ["phoneable_id"], name: "index_phones_on_phoneable_id", using: :btree
   add_index "phones", ["phoneable_type"], name: "index_phones_on_phoneable_type", using: :btree
 
@@ -428,10 +409,6 @@ ActiveRecord::Schema.define(version: 20131202082822) do
 
   add_index "referral_programs", ["referral_bonus_id"], name: "index_referral_programs_on_referral_bonus_id", using: :btree
 
-  create_table "referral_types", force: true do |t|
-    t.string "name", null: false
-  end
-
   create_table "referrals", force: true do |t|
     t.boolean  "applied",             default: false
     t.datetime "clicked_at"
@@ -439,7 +416,6 @@ ActiveRecord::Schema.define(version: 20131202082822) do
     t.string   "name"
     t.datetime "purchased_at"
     t.integer  "referral_program_id",                 null: false
-    t.integer  "referral_type_id",                    null: false
     t.integer  "referral_user_id"
     t.integer  "referring_user_id",                   null: false
     t.datetime "registered_at"
@@ -450,7 +426,6 @@ ActiveRecord::Schema.define(version: 20131202082822) do
 
   add_index "referrals", ["email"], name: "index_referrals_on_email", using: :btree
   add_index "referrals", ["referral_program_id"], name: "index_referrals_on_referral_program_id", using: :btree
-  add_index "referrals", ["referral_type_id"], name: "index_referrals_on_referral_type_id", using: :btree
   add_index "referrals", ["referral_user_id"], name: "index_referrals_on_referral_user_id", using: :btree
   add_index "referrals", ["referring_user_id"], name: "index_referrals_on_referring_user_id", using: :btree
 
@@ -540,23 +515,18 @@ ActiveRecord::Schema.define(version: 20131202082822) do
     t.datetime "updated_at"
   end
 
-  create_table "shipping_rate_types", force: true do |t|
-    t.string "name", null: false
-  end
-
   create_table "shipping_rates", force: true do |t|
-    t.integer  "shipping_method_id",                                           null: false
-    t.decimal  "rate",                  precision: 8, scale: 2, default: 0.0,  null: false
-    t.integer  "shipping_rate_type_id",                                        null: false
-    t.decimal  "minimum_charge",        precision: 8, scale: 2, default: 0.0,  null: false
+    t.integer  "shipping_method_id",                                        null: false
+    t.decimal  "rate",               precision: 8, scale: 2, default: 0.0,  null: false
+    t.decimal  "minimum_charge",     precision: 8, scale: 2, default: 0.0,  null: false
     t.integer  "position"
-    t.boolean  "active",                                        default: true
+    t.boolean  "active",                                     default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "shipping_rate_type"
   end
 
   add_index "shipping_rates", ["shipping_method_id"], name: "index_shipping_rates_on_shipping_method_id", using: :btree
-  add_index "shipping_rates", ["shipping_rate_type_id"], name: "index_shipping_rates_on_shipping_rate_type_id", using: :btree
 
   create_table "shipping_zones", force: true do |t|
     t.string "name", null: false
@@ -680,15 +650,6 @@ ActiveRecord::Schema.define(version: 20131202082822) do
   add_index "users", ["last_name"], name: "index_users_on_last_name", using: :btree
   add_index "users", ["perishable_token"], name: "index_users_on_perishable_token", unique: true, using: :btree
   add_index "users", ["persistence_token"], name: "index_users_on_persistence_token", unique: true, using: :btree
-
-  create_table "users_newsletters", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "newsletter_id"
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "users_newsletters", ["newsletter_id"], name: "index_users_newsletters_on_newsletter_id", using: :btree
-  add_index "users_newsletters", ["user_id"], name: "index_users_newsletters_on_user_id", using: :btree
 
   create_table "variant_properties", force: true do |t|
     t.integer "variant_id",                  null: false

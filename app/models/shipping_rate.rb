@@ -5,7 +5,7 @@
 #  id                    :integer(4)      not null, primary key
 #  shipping_method_id    :integer(4)      not null
 #  rate                  :decimal(8, 2)   default(0.0), not null
-#  shipping_rate_type_id :integer(4)      not null
+#  shipping_rate_type    :string
 #  minimum_charge        :decimal(8, 2)   default(0.0), not null
 #  position              :integer(4)
 #  active                :boolean(1)      default(TRUE)
@@ -15,15 +15,15 @@
 
 class ShippingRate < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
-
+  SHIPPING_RATE_TYPES = %w(INDIVIDUAL ORDER)
+  
   belongs_to :shipping_method
-  belongs_to :shipping_rate_type
   has_many   :products
 
   validates  :rate,                   :presence => true, :numericality => true
   validates  :shipping_method_id,     :presence => true
-  validates  :shipping_rate_type_id,  :presence => true
-  
+  validates  :shipping_rate_type,     :inclusion => SHIPPING_RATE_TYPES
+
   scope :with_these_shipping_methods, lambda { |shipping_method_ids|
           where("shipping_rates.shipping_method_id IN (?)", shipping_method_ids)
         }
@@ -35,7 +35,7 @@ class ShippingRate < ActiveRecord::Base
   # @param [none]
   # @return [ Boolean ]
   def individual?
-    shipping_rate_type_id == ShippingRateType::INDIVIDUAL_ID
+    shipping_rate_type == 'INDIVIDUAL'
   end
 
   # the shipping method name, shipping zone and sub_name
@@ -47,13 +47,8 @@ class ShippingRate < ActiveRecord::Base
     [shipping_method.name, sub_name].join(', ')
   end
 
-  # the shipping rate type and $$$ rate  separated by ' - '
-  # ex. 'Individual - 5.50'
-  #
-  # @param [none]
-  # @return [ String ]
   def sub_name
-    '(' + [shipping_rate_type.name, rate ].join(' - ') + ')'
+    '(' + [shipping_rate_type, rate ].join(' - ') + ')'
   end
 
   # the shipping method name, and $$$ rate

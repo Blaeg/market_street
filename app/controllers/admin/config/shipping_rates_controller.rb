@@ -6,7 +6,7 @@ class Admin::Config::ShippingRatesController < Admin::Config::BaseController
       flash[:notice] = 'You need a Shipping Method before you create a shipping rate.'
       redirect_to admin_config_shipping_methods_url
     else
-      @shipping_rates = ShippingRate.includes([:shipping_method, :shipping_rate_type])
+      @shipping_rates = ShippingRate.includes(:shipping_method)
     end
   end
 
@@ -63,11 +63,11 @@ class Admin::Config::ShippingRatesController < Admin::Config::BaseController
   private
 
   def allowed_params
-    params.require(:shipping_rate).permit(:shipping_method_id, :rate, :shipping_rate_type_id, :minimum_charge, :position, :active)
+    params.require(:shipping_rate).permit(:shipping_method_id, :rate, :shipping_rate_type, :minimum_charge, :position, :active)
   end
 
   def form_info
-    @shipping_rate_types  = ShippingRateType.all.map{|srt| [srt.name, srt.id]}
+    @shipping_rate_types  = ShippingRate::SHIPPING_RATE_TYPES.map{|srt| [srt, srt]}
     @shipping_methods     = ShippingMethod.all.map{|sm| [sm.descriptive_name, sm.id]}    
   end
 end

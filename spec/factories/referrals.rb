@@ -15,7 +15,6 @@ FactoryGirl.define do
     referring_user      { |c| c.association(:user) }
     referral_program    { |c| c.association(:referral_program) }
     referral_user       { |c| c.association(:user) }
-    referral_type_id         ReferralType::DIRECT_WEB_FORM_ID
 
     registered_at "2013-04-14 20:40:44"
     sent_at       "2013-04-14 20:40:44"

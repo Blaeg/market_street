@@ -15,7 +15,7 @@
 # Table name: addresses
 #
 #  id                :integer(4)      not null, primary key
-#  address_type_id   :integer(4)
+#  address_type      :stirng
 #  first_name        :string(255)
 #  last_name         :string(255)
 #  addressable_type  :string(255)     not null
@@ -36,13 +36,13 @@
 #
 
 class Address < ActiveRecord::Base
+  ADDRESS_TYPES = %w(BILLING SHIPPING)
 
-  belongs_to  :state
-  belongs_to  :country
-  belongs_to  :address_type
-  belongs_to  :addressable, :polymorphic => true
-  has_many     :phones, :as => :phoneable
-  has_many     :shipments
+  belongs_to :state
+  belongs_to :country
+  belongs_to :addressable, :polymorphic => true
+  has_many :phones, :as => :phoneable
+  has_many :shipments
 
   validates :first_name,  :presence => true,
                           :format   => { :with => CustomValidators::Names.name_validator },       :length => { :maximum => 25 }
@@ -53,8 +53,8 @@ class Address < ActiveRecord::Base
                           :format   => { :with => CustomValidators::Names.name_validator },       :length => { :maximum => 75 }
   validates :state_id,      :presence => true,  :if => Proc.new { |address| Settings.require_state_in_address}
   validates :country_id,    :presence => true,  :if => Proc.new { |address| !Settings.require_state_in_address}
-  #validates :state_name,  :presence => true,  :if => Proc.new { |address| address.state_id.blank?   }
   validates :zip_code,    :presence => true,       :length => { :minimum => 5, :maximum => 12 }
+  validates :address_type, :inclusion => ADDRESS_TYPES
   before_validation :sanitize_data
 
   attr_accessor :replace_address_id # if you are updating an address set this field.

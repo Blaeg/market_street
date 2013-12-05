@@ -45,15 +45,11 @@ class Admin::Generic::DealsController < Admin::Generic::BaseController
   private
 
     def allowed_params
-      params.require(:deal).permit(:buy_quantity, :get_percentage, :deal_type_id, :product_type_id, :get_amount, :deleted_at)
+      params.require(:deal).permit(:buy_quantity, :get_percentage, :deal_type, :product_type_id, :get_amount, :deleted_at)
     end
 
     def product_types
       @select_product_types     ||= ProductType.all.collect{|pt| [pt.name, pt.id]}
-    end
-
-    def deal_types
-      @select_deal_types     ||= DealType.all.collect{|pt| [pt.name, pt.id]}
     end
 
     def sort_column

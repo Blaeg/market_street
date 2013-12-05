@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :deal do
       buy_quantity  3
       get_percentage 50
-      deal_type     { |c| c.association(:deal_type) }
+      deal_type     '$OFF'
       product_type  { |c| c.association(:product_type) }
       get_amount   nil
     end

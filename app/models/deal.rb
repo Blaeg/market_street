@@ -20,7 +20,7 @@
 #  id              :integer          not null, primary key
 #  buy_quantity    :integer          not null
 #  get_percentage  :integer
-#  deal_type_id    :integer          not null
+#  deal_type       :string           not null
 #  product_type_id :integer          not null
 #  get_amount      :integer
 #  deleted_at      :datetime
@@ -29,13 +29,14 @@
 #
 
 class Deal < ActiveRecord::Base
+  DEAL_TYPES = %w(%OFF $OFF)
 
   validates :buy_quantity,            :presence => true
   validates :get_percentage,          :presence => true, :if => :get_amount_is_blank?
   validates :product_type_id,         :presence => true
   validates :get_amount,              :presence => true, :if => :get_percentage_is_blank?
+  validates :deal_type, :inclusion => DEAL_TYPES
 
-  belongs_to :deal_type
   belongs_to :product_type
 
   def self.best_qualifing_deal(order)

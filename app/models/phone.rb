@@ -3,7 +3,7 @@
 # Table name: phones
 #
 #  id             :integer(4)      not null, primary key
-#  phone_type_id  :integer(4)
+#  phone_type     :string(255)
 #  number         :string(255)     not null
 #  phoneable_type :string(255)     not null
 #  phoneable_id   :integer(4)      not null
@@ -14,13 +14,14 @@
 
 class Phone < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
-  belongs_to :phone_type
+  PHONE_TYPES = %w(MOBILE HOME WORK OTHER)
+  
   belongs_to :phoneable, :polymorphic => true
 
-  validates :phone_type_id,  :presence => true
-  validates :number,  :presence => true, :numericality => true,
-  :format   => { :with => CustomValidators::Numbers.phone_number_validator },
-  :length   => { :maximum => 25 }
+  validates :phone_type, :inclusion => PHONE_TYPES
+  validates :number, :presence => true, :numericality => true,
+            :format => { :with => CustomValidators::Numbers.phone_number_validator },
+            :length => { :maximum => 25 }
 
   before_validation :sanitize_data
   after_save        :default_phone_check

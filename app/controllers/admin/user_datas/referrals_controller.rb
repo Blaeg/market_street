@@ -17,7 +17,6 @@ class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
   def create
     @referring_user = User.find_by_email(params[:referring_user_email])
     @referral = Referral.new(allowed_params)
-    @referral.referral_type_id = ReferralType::ADMIN_WEB_FORM_ID
     @referral.skip_validate_has_not_signed_up_yet = true
     if @referring_user
       @referral.referring_user_id = @referring_user.id

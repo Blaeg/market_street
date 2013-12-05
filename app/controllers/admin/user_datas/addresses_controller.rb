@@ -85,7 +85,7 @@ class Admin::UserDatas::AddressesController < Admin::UserDatas::BaseController
     end
 
     def sort_column
-      Address.column_names.include?(params[:sort]) ? params[:sort] : "address_type_id"
+      Address.column_names.include?(params[:sort]) ? params[:sort] : "address_type"
     end
 
     def sort_direction

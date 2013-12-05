@@ -9,39 +9,41 @@
     <thead>
       <tr class='odd'>
 
-          <th>Address</th>
-          <th>Default</th>
-          <th>Active</th>
-          <th></th>
-          <th></th>
-          <th></th>
+        <th>Address</th>
+        <th>Default</th>
+        <th>Active</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-    <% for address in @addresses %>
+      <% @addresses.each do |address| %>
       <tr  class='<%= cycle("odd", "")%>'>
-
-          <td>
-            <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => address} %>
-          </td>
-          <td><%= address.default %></td>
-          <td><%= address.active %></td>
-          <td><%= link_to 'View', [:admin, :user_datas, customer, address] %></td>
         <td>
-          <% if address.active %>
-            <%= link_to "edit", edit_admin_user_datas_user_address_path(customer, address) %></td>
-          <% end %>
-        <td>
-          <% if address.active %>
-            <%= link_to "inactivate", [:admin, :user_datas, customer, address], data: { confirm: 'Are you sure?' }, :method => :delete %>
-          <% end %>
+          <%= render :partial => '/shared/compact_address', 
+                    :locals => {:shopping_address => address} %>
         </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-</div>
+        <td><%= address.default %></td>
+        <td><%= address.active %></td>
+        <td><%= link_to 'View', [:admin, :user_datas, customer, address] %></td>
+        <td>
+          <% if address.active %>
+            <%= link_to "edit", edit_admin_user_datas_user_address_path(customer, address) %>
+          <% end %>
+        </td>        
+          <td>
+            <% if address.active %>
+              <%= link_to "inactivate", [:admin, :user_datas, customer, address], 
+                                      data: { confirm: 'Are you sure?' }, :method => :delete %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-<%= will_paginate @addresses %>
+  <%= will_paginate @addresses %>
 
-<p><%= link_to "New Address", new_admin_user_datas_user_address_path(customer), :class => 'button' %></p>
+  <p><%= link_to "New Address", new_admin_user_datas_user_address_path(customer), :class => 'button' %></p>

@@ -30,8 +30,8 @@
             <%= phone_f.text_field :display_number %>
           </div>
           <div class=" six columns">
-            <%= phone_f.label :phone_type_id, 'Type' %>
-            <%= phone_f.select :phone_type_id, phone_types %>
+            <%= phone_f.label :phone_type, 'Type' %>
+            <%= phone_f.select :phone_type, ::Phone::PHONE_TYPES %>
           </div>
         <% end %>
       </div>

@@ -23,18 +23,13 @@ Role.create_all
 puts  "SEEDING CATALOG"
 ProductType.create_all
 Prototype.create_all
-PhoneType.create_all
-DealType.create_all
 Account.create_all
 TransactionAccount.create_all
 ReferralBonus.create_all
 ReferralProgram.create_all
-ReferralType.create_all
 
 puts  "SEEDING SHIPPING"
-AddressType.create_all
 ShippingMethod.create_all
-ShippingRateType.create_all
 ShippingZone.create_all
 ReturnReason.create_all
 ReturnCondition.create_all

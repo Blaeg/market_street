@@ -9,8 +9,8 @@
     <%= f.number_field :get_percentage %>
   </li>
   <li class="field">
-    <%= f.label :deal_type_id %>
-    <%= f.select :deal_type_id, deal_types, :include_blank => true %>
+    <%= f.label :deal_type %>
+    <%= f.select :deal_type, Deal::DEAL_TYPES, :include_blank => true %>
   </li>
   <li class="field">
     <%= f.label :product_type_id %>
