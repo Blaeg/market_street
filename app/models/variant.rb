@@ -22,6 +22,9 @@
 #
 
 class Variant < ActiveRecord::Base
+  require_dependency 'variant/pricing_manager'
+  include Variant::PricingManager
+
   require_dependency 'variant/availability_manager'
   include Variant::AvailabilityManager
 
@@ -63,45 +66,6 @@ class Variant < ActiveRecord::Base
     Rails.cache.fetch("variant-image_urls-#{self}-#{image_size}", :expires_in => 3.hours) do
       image_group ? image_group.image_urls(image_size) : product.image_urls(image_size)
     end
-  end
-
-  def active?
-    deleted_at.nil? || deleted_at > Time.zone.now
-  end
-
-  # This is a form helper to inactivate a variant
-  def inactivate=(val)
-    self.deleted_at = Time.zone.now if !deleted_at && (val && (val == '1' || val.to_s == 'true'))
-  end
-
-  def inactivate
-    deleted_at ? true : false
-  end
-
-  # price times the tax %
-  #
-  # @param [TaxRate]
-  # @return [Decimal]
-  def total_price(tax_rate)
-    ((1 + tax_percentage(tax_rate)) * price)
-  end
-
-  # get the percent tax rate for the tax rate
-  #
-  # @param [TaxRate]
-  # @return [Decimal] tax rate percentage
-  def tax_percentage(tax_rate)
-    tax_rate ? tax_rate.tax_percentage : 0.0
-  end
-
-  # gives you the tax rate for the give state_id and the time.
-  #  Tax rates can change from year to year so Time is a factor
-  #
-  # @param [Integer] state.id
-  # @param [Optional Time] Time now if no value is passed in
-  # @return [TaxRate] TaxRate for the state at a given time
-  def product_tax_rate(state_id, tax_time = Time.now)
-    product.tax_rate(state_id, tax_time)
   end
 
   # returns an array of the display name and description of all the variant properties

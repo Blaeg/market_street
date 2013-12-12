@@ -2,6 +2,19 @@ module Variant::AvailabilityManager
   OUT_OF_STOCK_QTY        = 0
   LOW_STOCK_QTY           = 2
 
+  def active?
+    deleted_at.nil? || deleted_at > Time.zone.now
+  end
+
+  # This is a form helper to inactivate a variant
+  def inactivate=(val)
+    self.deleted_at = Time.zone.now if !deleted_at && (val && (val == '1' || val.to_s == 'true'))
+  end
+
+  def inactivate
+    deleted_at ? true : false
+  end
+
   def quantity_purchaseable
     quantity_available - OUT_OF_STOCK_QTY
   end
