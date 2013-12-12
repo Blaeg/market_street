@@ -33,6 +33,24 @@ class Product < ActiveRecord::Base
 
   attr_accessor :available_shipping_rates # these the the shipping rates per the shipping address on the order
 
+  scope :active, -> { where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now) }
+  
+  scope :available_at_lt_filter, lambda do |available_at_lt| 
+    where("products.available_at < ?", available_at_lt) if available_at_lt.present?
+  end
+  
+  scope :available_at_gt_filter, lambda do |available_at_gt| 
+    where("products.available_at > ?", available_at_gt) if available_at_gt.present?
+  end
+  
+  scope :product_type_filter, lambda do |product_type_id| 
+    where("products.product_type_id = ?", product_type_id) if product_type_id.present?
+  end
+
+  scope :name_filter, lambda do |name| 
+    where("products.name LIKE ?", "#{name}%") if name.present?
+  end
+    
   belongs_to :product_type
   belongs_to :prototype
   belongs_to :shipping_rate
@@ -42,13 +60,9 @@ class Product < ActiveRecord::Base
   has_many :properties,         through: :product_properties
 
   has_many :variants
-  has_many :images, -> {order(:position)},
-                    as:        :imageable,
-                    dependent: :destroy
+  has_many :images, -> {order(:position)}, as: :imageable, dependent: :destroy
 
-  has_many :active_variants, -> { where(deleted_at: nil) },
-    class_name: 'Variant'
-
+  has_many :active_variants, -> { where(deleted_at: nil) }, class_name: 'Variant'
 
   before_validation :sanitize_data
   before_validation :not_active_on_create!, :on => :create
@@ -70,20 +84,6 @@ class Product < ActiveRecord::Base
     active_variants.detect{|v| v.master } || active_variants.first
   end
 
-  # gives you the tax rate for the give state_id and the time.
-  #  Tax rates can change from year to year so Time is a factor
-  #
-  # @param [Integer] state.id
-  # @param [Optional Time] Time now if no value is passed in
-  # @return [TaxRate] TaxRate for the state at a given time
-  def tax_rate(region_id, time = Time.zone.now)
-    TaxRate.for_region(region_id).at(time).active.order('start_date DESC').first
-  end
-
-  # Image that is featured for your product
-  #
-  # @param [Optional Symbol] the size of the image expected back
-  # @return [String] name of the file to show from the public folder
   def featured_image(image_size = :small)
     Rails.cache.fetch("Product-featured_image-#{id}-#{image_size}", :expires_in => 3.hours) do
       images.first ? images.first.photo.url(image_size) : "no_image_#{image_size.to_s}.jpg"
@@ -134,12 +134,6 @@ class Product < ActiveRecord::Base
     product ? product : includes(:images).where(['products.deleted_at IS NULL']).first
   end
 
-  def self.active
-    where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now)
-    #  Add this line if you want the available_at to function
-    #where("products.available_at IS NULL OR products.available_at >= ?", Time.zone.now)
-  end
-
   def active(at = Time.zone.now)
     deleted_at.nil? || deleted_at >= at
   end
@@ -176,38 +170,6 @@ class Product < ActiveRecord::Base
 
   private
 
-    def self.available_at_lt_filter(available_at_lt)
-      if available_at_lt.present?
-        where("products.available_at < ?", available_at_lt)
-      else
-        all
-      end
-    end
-
-    def self.available_at_gt_filter(available_at_gt)
-      if available_at_gt.present?
-        where("products.available_at > ?", available_at_gt)
-      else
-        all
-      end
-    end
-    
-    def self.product_type_filter(product_type_id)
-      if product_type_id.present?
-        where("products.product_type_id = ?", product_type_id)
-      else
-        all
-      end
-    end
-
-    def self.name_filter(name)
-      if name.present?
-        where("products.name LIKE ?", "#{name}%")
-      else
-        all
-      end
-    end
-
     def self.deleted_at_filter(active_state)
       if active_state
         active
@@ -217,6 +179,7 @@ class Product < ActiveRecord::Base
         all
       end
     end
+
     def create_content
       self.description = BlueCloth.new(self.description_markup).to_html unless self.description_markup.blank?
     end

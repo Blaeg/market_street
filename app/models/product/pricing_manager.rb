@@ -25,4 +25,8 @@ module Product::PricingManager
   def price_range?
     !(price_range.first == price_range.last)
   end
+
+  def tax_rate(region_id, time = Time.zone.now)
+    TaxRate.for_region(region_id).at(time).active.order('start_date DESC').first
+  end
 end
