@@ -88,15 +88,7 @@ class Order < ActiveRecord::Base
   NUMBER_SEED     = 1001001001000
   CHARACTERS_SEED = 21
 
-  
-
-  # user name on the order
-  #
-  # @param [none]
-  # @return [String] user name on the order
-  def name
-    self.user.name
-  end
+  delegate :name, :to => :user
 
   def transaction_time
     calculated_at || Time.zone.now
@@ -204,10 +196,6 @@ class Order < ActiveRecord::Base
     update_inventory
   end
 
-  def all_order_items_have_a_shipping_rate?
-    !order_items.any?{ |item| item.shipping_rate_id.nil? }
-  end
-
   # This returns a hash where product_type_id is the key and an Array of prices are the values.
   #   This method is specifically used for Deal.rb
   #
@@ -254,19 +242,6 @@ class Order < ActiveRecord::Base
 
   def remove_user_store_credits
     user.store_credit.remove_credit(amount_to_credit) if amount_to_credit > 0.0
-  end
-
-  # all the shipping rate to apply to the order
-  #
-  # @param [none]
-  # @return [Array] array of shipping rates that will be charged, it will return the same
-  #                 shipping rate more than once if it can be charged more than once
-  def shipping_rates(items = nil)
-    items ||= OrderItem.order_items_in_cart(self.id)
-    rates = items.inject([]) do |rates, item|
-      rates << item.shipping_rate if item.shipping_rate.individual? || !rates.include?(item.shipping_rate)
-      rates
-    end
   end
 
   def create_shipments_with_order_item_ids(order_item_ids)
@@ -418,27 +393,6 @@ class Order < ActiveRecord::Base
   def save_order_number
     set_order_number
     save
-  end
-
-  # Called before save.  If the ship address changes the tax rate for all the order items needs to change appropriately
-  #
-  # article.title  #=> "Title"
-  # article.title = "New Title"
-  # article.title_changed? #=> true
-  # @param none
-  # @return [none]
-  def update_tax_rates
-    if ship_address_id_changed?
-      # set_beginning_values
-      tax_time = completed_at? ? completed_at : Time.zone.now
-      order_items.each do |item|
-        rate = item.variant.product.tax_rate(self.ship_address.state_id, tax_time)
-        if rate && item.tax_rate_id != rate.id
-          item.tax_rate = rate
-          item.save
-        end
-      end
-    end
   end
 
   def create_invoice_transaction(credit_card, charge_amount, args, credited_amount = 0.0)

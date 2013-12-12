@@ -22,6 +22,9 @@
 #
 
 class Variant < ActiveRecord::Base
+  require_dependency 'variant/availability_manager'
+  include Variant::AvailabilityManager
+
   has_many :variant_suppliers
   has_many :suppliers,         :through => :variant_suppliers
 
@@ -52,9 +55,6 @@ class Variant < ActiveRecord::Base
             :count_pending_to_customer=,
             :count_pending_from_supplier=, :to => :inventory, :allow_nil => false
 
-  OUT_OF_STOCK_QTY        = 0
-  LOW_STOCK_QTY           = 2
-
   def featured_image(image_size = :small)
     image_urls(image_size).first
   end
@@ -63,18 +63,6 @@ class Variant < ActiveRecord::Base
     Rails.cache.fetch("variant-image_urls-#{self}-#{image_size}", :expires_in => 3.hours) do
       image_group ? image_group.image_urls(image_size) : product.image_urls(image_size)
     end
-  end
-
-  def quantity_purchaseable
-    quantity_available - OUT_OF_STOCK_QTY
-  end
-
-  def quantity_purchaseable_by_user(quantity_desired)
-    [quantity_available, quantity_desired].min
-  end
-
-  def quantity_available
-    (count_on_hand - count_pending_to_customer)
   end
 
   def active?
@@ -88,39 +76,6 @@ class Variant < ActiveRecord::Base
 
   def inactivate
     deleted_at ? true : false
-  end
-
-  # returns true if the stock level is above or == the out of stock level
-  #
-  # @param [none]
-  # @return [Boolean]
-  def sold_out?
-    (quantity_available) <= OUT_OF_STOCK_QTY
-  end
-
-  # returns true if the stock level is above or == the low stock level
-  #
-  # @param [none]
-  # @return [Boolean]
-  def low_stock?
-    (quantity_available) <= LOW_STOCK_QTY
-  end
-
-  # returns "(Sold Out)" or "(Low Stock)" or "" depending on if the variant is out of stock / low stock or has enough stock.
-  #
-  # @param [Optional String]
-  # @param [Optional String]
-  # @return [String]
-  def display_stock_status(start = '(', finish = ')')
-    return "#{start}Sold Out#{finish}"  if sold_out?
-    return "#{start}Low Stock#{finish}" if low_stock?
-    ''
-  end
-
-  def stock_status
-    return "sold_out"  if sold_out?
-    return "low_stock" if low_stock?
-    "available"
   end
 
   # price times the tax %
@@ -208,91 +163,6 @@ class Variant < ActiveRecord::Base
     [product_name, sku].compact.join(': ')
   end
 
-  # returns true or false based on if the count_available is above 0
-  #
-  # @param [Integer] number of variants to subtract
-  # @return [Boolean]
-  def is_available?
-    count_available > 0
-  end
-
-  # returns number available to purchase
-  #
-  # @param [Boolean] reload the object from the DB
-  # @return [Integer] number available to purchase
-  def count_available(reload_variant = true)
-    self.reload if reload_variant
-    count_on_hand - count_pending_to_customer
-  end
-
-  # with SQL math add to count_on_hand attribute
-  #
-  # @param [Integer] number of variants to add
-  # @return [none]
-  def add_count_on_hand(num)
-    ### don't lock if we have plenty of stock.
-    if low_stock?
-      inventory.lock!
-        self.inventory.count_on_hand = inventory.count_on_hand + num.to_i
-      inventory.save!
-    else
-      sql = "UPDATE inventories SET count_on_hand = (#{num} + count_on_hand) WHERE id = #{self.inventory.id}"
-      ActiveRecord::Base.connection.execute(sql)
-    end
-  end
-
-  # with SQL math subtract to count_on_hand attribute
-  #
-  # @param [Integer] number of variants to subtract
-  # @return [none]
-  def subtract_count_on_hand(num)
-    add_count_on_hand((num.to_i * -1))
-  end
-
-  # with SQL math add to count_pending_to_customer attribute
-  #
-  # @param [Integer] number of variants to add
-  # @return [none]
-  def add_pending_to_customer(num = 1)
-    ### don't lock if we have plenty of stock.
-    if low_stock?
-      # If the stock is low lock the inventory.  This ensures
-      inventory.lock!
-      self.inventory.count_pending_to_customer = inventory.count_pending_to_customer.to_i + num.to_i
-      inventory.save!
-    else
-      sql = "UPDATE inventories SET count_pending_to_customer = (#{num} + count_pending_to_customer) WHERE id = #{self.inventory.id}"
-      ActiveRecord::Base.connection.execute(sql)
-    end
-  end
-
-  # with SQL math subtract to count_pending_to_customer attribute
-  #
-  # @param [Integer] number of variants to subtract
-  # @return [none]
-  def subtract_pending_to_customer(num)
-    add_pending_to_customer((num.to_i * -1))
-  end
-
-  # in the admin form qty_to_add to the count on hand
-  #
-  # @param [Integer] number of variants to add or subtract (negative sign is subtract)
-  # @return [none]
-  def qty_to_add=(num)
-    ###  TODO this method needs a history of who did what
-    inventory.lock!
-    self.inventory.count_on_hand = inventory.count_on_hand.to_i + num.to_i
-    inventory.save!
-  end
-
-  # method used by forms to set the initial qty_to_add for variants
-  #
-  # @param [none]
-  # @return [Integer] 0
-  def qty_to_add
-    0
-  end
-
   # paginated results from the admin Variant grid
   #
   # @param [Variant]
@@ -324,5 +194,4 @@ class Variant < ActiveRecord::Base
     def create_inventory
       self.inventory = Inventory.create({:count_on_hand => 0, :count_pending_to_customer => 0, :count_pending_from_supplier => 0}) unless inventory_id
     end
-
 end

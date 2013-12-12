@@ -23,6 +23,9 @@
 class VariantRequiredError < StandardError; end
 
 class Product < ActiveRecord::Base
+  require_dependency 'product/pricing_manager'
+  include Product::PricingManager
+
   extend FriendlyId
   friendly_id :permalink, use: :finders
 
@@ -93,14 +96,6 @@ class Product < ActiveRecord::Base
     end
   end
 
-  # Price of cheapest variant
-  #
-  # @param [none] the size of the image expected back
-  # @return [Decimal] price
-  def price
-    active_variants.present? ? price_range.first : raise( VariantRequiredError )
-  end
-
   # in the admin form this is the method called when the form is submitted, The method sets
   # the product_keywords attribute to an array of these values
   #
@@ -116,33 +111,6 @@ class Product < ActiveRecord::Base
   # @return [String] product_keywords separated by comma
   def set_keywords
     product_keywords ? product_keywords.join(', ') : ''
-  end
-
-  # range of the product prices in plain english
-  #
-  # @param [Optional String] separator between the low and high price
-  # @return [String] Low price + separator + High price
-  def display_price_range(j = ' to ')
-    price_range.join(j)
-  end
-
-  # range of the product prices (Just teh low and high price) as an array
-  #
-  # @param [none]
-  # @return [Array] [Low price, High price]
-  def price_range
-    return @price_range if @price_range
-    return @price_range = ['N/A', 'N/A'] if active_variants.empty?
-    @price_range = active_variants.minmax {|a,b| a.price <=> b.price }.map(&:price)
-  end
-
-  # Answers if the product has a price range or just one price.
-  #   if there is more than one price returns true
-  #
-  # @param [none]
-  # @return [Boolean] true == there is more than one price
-  def price_range?
-    !(price_range.first == price_range.last)
   end
 
   # Solr searching for products
@@ -285,28 +253,3 @@ class Product < ActiveRecord::Base
                             ].join(': ')
     end
 end
-
-## If you want to use SOLR search uncomment the following:
-=begin
-    Product.class_eval do
-      searchable do
-        text    :name, :default_boost => 2
-        text      :product_keywords#, :multiple => true
-        text      :description
-        time      :deleted_at
-      end
-
-      def self.standard_search(args, params = {})
-        params[:rows] ||= 15
-        params[:page] ||= 1
-        Product.search(:include => [:properties, :images]) do
-          keywords(args)
-          any_of do
-            with(:deleted_at).greater_than(Time.zone.now)
-            with(:deleted_at, nil)
-          end
-          paginate :page => params[:page].to_i, :per_page => params[:rows].to_i
-        end
-      end
-    end
-=end
