@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204074815) do
+ActiveRecord::Schema.define(version: 20131212081911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -447,32 +447,20 @@ ActiveRecord::Schema.define(version: 20131204074815) do
   add_index "return_authorizations", ["order_id"], name: "index_return_authorizations_on_order_id", using: :btree
   add_index "return_authorizations", ["user_id"], name: "index_return_authorizations_on_user_id", using: :btree
 
-  create_table "return_conditions", force: true do |t|
-    t.string "label"
-    t.string "description"
-  end
-
   create_table "return_items", force: true do |t|
     t.integer  "return_authorization_id",                 null: false
     t.integer  "order_item_id",                           null: false
-    t.integer  "return_condition_id"
-    t.integer  "return_reason_id"
     t.boolean  "returned",                default: false
     t.integer  "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "return_condition"
+    t.string   "return_reason"
   end
 
   add_index "return_items", ["order_item_id"], name: "index_return_items_on_order_item_id", using: :btree
   add_index "return_items", ["return_authorization_id"], name: "index_return_items_on_return_authorization_id", using: :btree
-  add_index "return_items", ["return_condition_id"], name: "index_return_items_on_return_condition_id", using: :btree
-  add_index "return_items", ["return_reason_id"], name: "index_return_items_on_return_reason_id", using: :btree
   add_index "return_items", ["updated_by"], name: "index_return_items_on_updated_by", using: :btree
-
-  create_table "return_reasons", force: true do |t|
-    t.string "label"
-    t.string "description"
-  end
 
   create_table "roles", force: true do |t|
     t.string "name", limit: 30, null: false

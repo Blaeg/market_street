@@ -31,8 +31,6 @@ ReferralProgram.create_all
 puts  "SEEDING SHIPPING"
 ShippingMethod.create_all
 ShippingZone.create_all
-ReturnReason.create_all
-ReturnCondition.create_all
 
 ShippingMethod.all.each do |sm|
   FactoryGirl.create(:shipping_rate, shipping_method: sm)      

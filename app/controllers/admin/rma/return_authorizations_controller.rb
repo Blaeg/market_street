@@ -91,8 +91,8 @@ private
   end
 
   def form_info
-    @return_conditions  = ReturnCondition.select_form
-    @return_reasons     = ReturnReason.select_form
+    @return_conditions  = ReturnItem.select_conditions_form
+    @return_reasons     = ReturnItem.select_reasons_form
   end
 
   def load_info
