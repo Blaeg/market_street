@@ -35,21 +35,21 @@ class Product < ActiveRecord::Base
 
   scope :active, -> { where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now) }
   
-  scope :available_at_lt_filter, lambda do |available_at_lt| 
+  scope :available_at_lt_filter, (lambda { |available_at_lt| 
     where("products.available_at < ?", available_at_lt) if available_at_lt.present?
-  end
+  })
   
-  scope :available_at_gt_filter, lambda do |available_at_gt| 
+  scope :available_at_gt_filter, (lambda {|available_at_gt| 
     where("products.available_at > ?", available_at_gt) if available_at_gt.present?
-  end
+  })
   
-  scope :product_type_filter, lambda do |product_type_id| 
+  scope :product_type_filter, (lambda {|product_type_id| 
     where("products.product_type_id = ?", product_type_id) if product_type_id.present?
-  end
+  })
 
-  scope :name_filter, lambda do |name| 
+  scope :name_filter, (lambda {|name| 
     where("products.name LIKE ?", "#{name}%") if name.present?
-  end
+  })
     
   belongs_to :product_type
   belongs_to :prototype
