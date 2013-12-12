@@ -1,9 +1,4 @@
 module Order::Calculator
-  # calculates the total price of the order
-  # this method will set sub_total and total for the order even if the order is not ready for final checkout
-  #
-  # @param [none] the param is not used right now
-  # @return [none]  Sets sub_total and total for the object
   def find_total(force = false)
   	calculate_totals if self.calculated_at.nil? || order_items.any? {|item| (item.updated_at > self.calculated_at) }
   	self.deal_time ||= Time.zone.now
@@ -22,63 +17,117 @@ module Order::Calculator
   	self.sub_total = self.total
   end
 
-  def taxed_amount
-  	(get_taxed_total - total).round_at( 2 )
+  def calculate_totals
+    # if calculated at is nil then this order hasn't been calculated yet
+    # also if any single item in the order has been updated, the order needs to be re-calculated
+    if any_order_item_needs_to_be_calculated? && all_order_items_are_ready_to_calculate?
+      calculate_each_order_items_total
+      sub_total = total
+      self.total = total + shipping_charges
+      self.calculated_at = Time.zone.now
+      save
+    end
   end
 
-  def get_taxed_total
-  	taxed_total || find_total
-  end
-
-  # Turns out in order to determine the order.total_price correctly (to include coupons and deals and all the items)
-  #     it is much easier to multiply the tax times to whole order's price.  This should work for most use cases.  It
-  #     is rare that an order going to one location would ever need 2 tax rates
-  #
-  # For now this method will just look at the first item's tax rate.  In the future tax_rate_id will move to the order object
-  #
-  # @param none
-  # @return [Float] tax rate  10.5% === 10.5
-  def order_tax_percentage
-  	(!order_items.blank? && order_items.first.tax_rate.try(:percentage)) ? order_items.first.tax_rate.try(:percentage) : 0.0
-  end
-
-  # amount the coupon reduces the value of the order
-  #
-  # @param [none]
-  # @return [Float] amount the coupon reduces the value of the order
   def coupon_amount
   	coupon_id ? coupon.value(item_prices, self) : 0.0
   end
 
-  # called when creating the invoice.  This does not change the store_credit amount
-  #
-  # @param [none]
-  # @return [Float] amount that the order is charged after store credit is applyed
   def credited_total
   	(find_total - amount_to_credit).round_at( 2 )
   end
 
-  # amount to credit based off the user store credit
-  #
-  # @param [none]
-  # @return [Float] amount to remove from store credit
   def amount_to_credit
   	[find_total, user.store_credit.amount].min.to_f.round_at( 2 )
   end
 
-  # all the tax charges to apply to the order
-  #
-  # @param [none]
-  # @return [Array] array of tax charges that will be charged
+  def all_order_items_have_a_shipping_rate?
+    !order_items.any?{ |item| item.shipping_rate_id.nil? }
+  end
+
+  #TAX
+  def taxed_amount
+    (get_taxed_total - total).round_at( 2 )
+  end
+
+  def get_taxed_total
+    taxed_total || find_total
+  end
+
+  def order_tax_percentage
+    (!order_items.blank? && order_items.first.tax_rate.try(:percentage)) ? order_items.first.tax_rate.try(:percentage) : 0.0
+  end
+
   def tax_charges
   	order_items.map {|item| item.tax_charge }
   end
 
-  # sum of all the tax charges to apply to the order
-  #
-  # @param [none]
-  # @return [Decimal]
   def total_tax_charges
   	tax_charges.sum
+  end
+
+  def update_tax_rates
+    if ship_address_id_changed?
+      # set_beginning_values
+      tax_time = completed_at? ? completed_at : Time.zone.now
+      order_items.each do |item|
+        rate = item.variant.product.tax_rate(self.ship_address.state_id, tax_time)
+        if rate && item.tax_rate_id != rate.id
+          item.tax_rate = rate
+          item.save
+        end
+      end
+    end
+  end
+
+  #SHIPPING
+  def shipping_charges(items = nil)
+    return @order_shipping_charges if defined?(@order_shipping_charges)
+    @order_shipping_charges = shipping_rates(items).inject(0.0) {|sum, shipping_rate|  sum + shipping_rate.rate  }
+  end
+
+  def display_shipping_charges
+    items = OrderItem.order_items_in_cart(self.id)
+    return 'TBD' if items.any?{|i| i.shipping_rate_id.nil? }
+    shipping_charges(items)
+  end
+
+  def shipping_rates(items = nil)
+    items ||= OrderItem.order_items_in_cart(self.id)
+    rates = items.inject([]) do |rates, item|
+      rates << item.shipping_rate if item.shipping_rate.individual? || !rates.include?(item.shipping_rate)
+      rates
+    end
+  end
+
+  private 
+
+  def any_order_item_needs_to_be_calculated?
+    calculated_at.nil? || (order_items.any? {|item| (item.updated_at > self.calculated_at) })
+  end
+
+  def all_order_items_are_ready_to_calculate?
+    order_items.all? {|item| item.ready_to_calculate? }
+  end
+
+  def calculate_each_order_items_total(force = false)
+    self.total = 0.0
+    tax_time = completed_at? ? completed_at : Time.zone.now
+    order_items.each do |item|
+      if (calculated_at.nil? || item.updated_at > self.calculated_at)
+        item.tax_rate = item.variant.product.tax_rate(self.ship_address.state_id, tax_time)
+        item.calculate_total
+        item.save
+      end
+      self.total = total + item.total
+    end
+  end
+
+  # prices to charge of all items before taxes and coupons and shipping
+  #
+  # @param none
+  # @return [Array] Array of prices to charge of all items before
+  def item_prices
+    order_items.map(&:adjusted_price)
   end
 end

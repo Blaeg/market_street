@@ -204,27 +204,6 @@ class Order < ActiveRecord::Base
     update_inventory
   end
 
-  # This method will go to every order_item and calculate the total for that item.
-  #
-  # if calculated at is set this order does not need to be calculated unless
-  # any single item in the order has been updated since the order was calculated
-  #
-  # Also if any item is not ready to calculate then dont calculate
-  #
-  # @param [none] the param is not used right now
-  # @return [none]
-  def calculate_totals
-    # if calculated at is nil then this order hasn't been calculated yet
-    # also if any single item in the order has been updated, the order needs to be re-calculated
-    if any_order_item_needs_to_be_calculated? && all_order_items_are_ready_to_calculate?
-      calculate_each_order_items_total
-      sub_total = total
-      self.total = total + shipping_charges
-      self.calculated_at = Time.zone.now
-      save
-    end
-  end
-
   def all_order_items_have_a_shipping_rate?
     !order_items.any?{ |item| item.shipping_rate_id.nil? }
   end
@@ -275,21 +254,6 @@ class Order < ActiveRecord::Base
 
   def remove_user_store_credits
     user.store_credit.remove_credit(amount_to_credit) if amount_to_credit > 0.0
-  end
-
-  # calculates the total shipping charges for all the items in the cart
-  #
-  # @param [none]
-  # @return [Decimal] amount of the shipping charges
-  def shipping_charges(items = nil)
-    return @order_shipping_charges if defined?(@order_shipping_charges)
-    @order_shipping_charges = shipping_rates(items).inject(0.0) {|sum, shipping_rate|  sum + shipping_rate.rate  }
-  end
-
-  def display_shipping_charges
-    items = OrderItem.order_items_in_cart(self.id)
-    return 'TBD' if items.any?{|i| i.shipping_rate_id.nil? }
-    shipping_charges(items)
   end
 
   # all the shipping rate to apply to the order
@@ -381,10 +345,6 @@ class Order < ActiveRecord::Base
     self.order_items.each { |item| item.variant.add_pending_to_customer }
   end
 
-  # variant ids in the order.
-  #
-  # @param [none]
-  # @return [Integer] all the variant_id's in the order
   def variant_ids
     order_items.map(&:variant_id)
   end
@@ -425,36 +385,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-  def any_order_item_needs_to_be_calculated?
-    calculated_at.nil? || (order_items.any? {|item| (item.updated_at > self.calculated_at) })
-  end
-
-  def all_order_items_are_ready_to_calculate?
-    order_items.all? {|item| item.ready_to_calculate? }
-  end
-
-  def calculate_each_order_items_total(force = false)
-    self.total = 0.0
-    tax_time = completed_at? ? completed_at : Time.zone.now
-    order_items.each do |item|
-      if (calculated_at.nil? || item.updated_at > self.calculated_at)
-        item.tax_rate = item.variant.product.tax_rate(self.ship_address.state_id, tax_time)
-        item.calculate_total
-        item.save
-      end
-      self.total = total + item.total
-    end
-  end
-
-  # prices to charge of all items before taxes and coupons and shipping
-  #
-  # @param none
-  # @return [Array] Array of prices to charge of all items before
-  def item_prices
-    order_items.map(&:adjusted_price)
-  end
-
   # Called before validation.  sets the email address of the user to the order's email address
   #
   # @param none
