@@ -1,5 +1,5 @@
 <div class="span12">
-  <% if  @cart_items.blank? && @saved_cart_items.empty? %>
+  <% if  @cart_items.blank? && @cart_items.empty? %>
     <h2 style='text-align:center;'> <%= I18n.t(:nothing_in_cart) %></h2>
   <% elsif  @cart_items.blank? %>
     <h2 style='text-align:center;'> <%= I18n.t(:only_items_saved_for_later) %></h2>
@@ -78,10 +78,10 @@
         </div>
 
         <div class="row">
-          <div class="span5">
+          <div class="span6">
             <%= cart_form.submit 'Update', :class => 'btn btn-primary' %>          
           </div>      
-          <div class="span5">
+          <div class="span6">
             <%= cart_form.submit 'Checkout', {:checkout => 1, :class => 'btn btn-primary pull-right'} %> 
           </div>
         </div>
