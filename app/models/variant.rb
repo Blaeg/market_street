@@ -44,8 +44,7 @@ class Variant < ActiveRecord::Base
   validates :sku,         :presence => true,       :length => { :maximum => 255 }
 
   accepts_nested_attributes_for :variant_properties#, :inventory
-  delegate  :brand, :to => :product, :allow_nil => true
-
+  
   delegate  :count_on_hand,
             :count_pending_to_customer,
             :count_pending_from_supplier,
@@ -186,14 +185,9 @@ class Variant < ActiveRecord::Base
     primary_property ? "#{primary_property.description}" : ''
   end
 
-  # returns the brand's name or a blank string
-  #  ex: obj.brand_name => 'Nike'
-  #
-  # @param [none]
-  # @return [String]
-  def brand_name
-    product.brand_name
-  end
+  # def brand_name
+  #   product.brand_name
+  # end
 
   # The variant has many properties.  but only one is the primary property
   #  this will return the primary property.  (good for primary info)

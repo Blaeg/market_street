@@ -118,15 +118,6 @@ describe Variant, " instance methods" do
     end
   end
 
-  context ".brand_name" do
-    it 'returns the variants subname' do
-      brand     = create(:brand, :name => 'Reabok')
-      @product  = create(:product, brand: brand)
-      @variant.stubs(:product).returns @product
-      @variant.brand_name.should == 'Reabok'
-    end
-  end
-
   context ".primary_property" do
     it 'returns the primary property' do
       property      = create(:property)

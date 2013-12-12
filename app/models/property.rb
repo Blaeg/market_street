@@ -1,4 +1,5 @@
 class Property < ActiveRecord::Base
+  BASIC = ['brand', 'color', 'material', 'size']
 
   has_many :prototype_properties
   has_many :prototypes, :through => :prototype_properties
@@ -38,4 +39,9 @@ class Property < ActiveRecord::Base
   def display_active
     active? ? 'True' : 'False'
   end  
+
+  def self.create_basic
+    BASIC.each {|b| find_or_create_by(identifing_name: b, 
+                                      display_name: b.capitalize) }
+  end
 end

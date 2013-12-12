@@ -18,7 +18,6 @@
 #  updated_at           :datetime
 #  description_markup   :text
 #  active               :boolean(1)      default(FALSE)
-#  brand_id             :integer(4)
 #
 
 class VariantRequiredError < StandardError; end
@@ -31,7 +30,6 @@ class Product < ActiveRecord::Base
 
   attr_accessor :available_shipping_rates # these the the shipping rates per the shipping address on the order
 
-  belongs_to :brand
   belongs_to :product_type
   belongs_to :prototype
   belongs_to :shipping_rate
@@ -190,14 +188,10 @@ class Product < ActiveRecord::Base
     active
   end
 
-  # returns the brand's name or a blank string
-  #  ex: obj.brand_name => 'Nike'
-  #
-  # @param [none]
-  # @return [String]
-  def brand_name
-    brand_id ? brand.name : ''
-  end
+  # def brand_name
+  #   brand_id ? brand.name : ''
+  # end
+
   # paginated results from the admin products grid
   #
   # @param [Optional params]

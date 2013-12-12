@@ -5,7 +5,6 @@ class Admin::Merchandise::Wizards::ProductsController < Admin::Merchandise::Wiza
     else
       form_info
       @product = Product.new
-      @product.brand_id         = session[:product_wizard][:brand_id]
       @product.product_type_id  = session[:product_wizard][:product_type_id]      
     end
   end
@@ -25,7 +24,7 @@ class Admin::Merchandise::Wizards::ProductsController < Admin::Merchandise::Wiza
   private
 
   def allowed_params
-    params.require(:product).permit(:name, :description, :product_keywords, :set_keywords, :product_type_id, :prototype_id, :permalink, :available_at, :deleted_at, :meta_keywords, :meta_description, :featured, :description_markup, :brand_id)
+    params.require(:product).permit(:name, :description, :product_keywords, :set_keywords, :product_type_id, :prototype_id, :permalink, :available_at, :deleted_at, :meta_keywords, :meta_description, :featured, :description_markup)
   end
 
   def form_info
@@ -35,6 +34,5 @@ class Admin::Merchandise::Wizards::ProductsController < Admin::Merchandise::Wiza
       @all_properties           = Property.find(session[:product_wizard][:property_ids])
     end
     @select_product_types     = ProductType.all.collect{|pt| [pt.name, pt.id]}
-    @brands        = Brand.order(:name).collect {|ts| [ts.name, ts.id]}
   end
 end

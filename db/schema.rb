@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131212081911) do
+ActiveRecord::Schema.define(version: 20131212091908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,10 +72,6 @@ ActiveRecord::Schema.define(version: 20131212081911) do
 
   add_index "batches", ["batchable_id"], name: "index_batches_on_batchable_id", using: :btree
   add_index "batches", ["batchable_type"], name: "index_batches_on_batchable_type", using: :btree
-
-  create_table "brands", force: true do |t|
-    t.string "name"
-  end
 
   create_table "cart_items", force: true do |t|
     t.integer  "cart_id"
@@ -332,11 +328,9 @@ ActiveRecord::Schema.define(version: 20131212081911) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description_markup"
-    t.integer  "brand_id"
     t.integer  "shipping_method_id"
   end
 
-  add_index "products", ["brand_id"], name: "index_products_on_brand_id", using: :btree
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
   add_index "products", ["name"], name: "index_products_on_name", using: :btree
   add_index "products", ["permalink"], name: "index_products_on_permalink", unique: true, using: :btree

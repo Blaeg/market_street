@@ -27,7 +27,6 @@
       <b>
         <%= link_to item.variant.product_name, product_path(item.variant.product) %>
       </b>
-      <%=  item.variant.brand_name.blank? ? '' : ['-', item.variant.brand_name].join(' ') %><br/>
       <%= item.variant.display_stock_status('', '') %>
       <br/>
     </div>
