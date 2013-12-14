@@ -3,7 +3,7 @@ class Admin::Reports::WeeklyChartsController < Admin::Reports::BaseController
   before_filter :set_time_range
   layout 'admin_charts'
   def index
-    @sales_data = RorEReports::Sales.new(start_time, number_of_data_points)
+    @sales_data = Reports::Sales.new(start_time, number_of_data_points)
   end
 
   private
