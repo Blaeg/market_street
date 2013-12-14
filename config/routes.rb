@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 MarketStreet::Application.routes.draw do
+  mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
+  
   resources :image_groups
   #namespace(:admin){ namespace(:customer_service){ resources :comments } }
   resources :user_sessions, :only => [:new, :create, :destroy]

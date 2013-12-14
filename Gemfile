@@ -72,6 +72,8 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 
+gem 'rails_admin'
+
 group :development do
   gem 'capistrano', '~> 3.0.1', require: false
   #gem 'capistrano-unicorn', require: false  
