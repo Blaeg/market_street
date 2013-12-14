@@ -1,5 +1,5 @@
 require 'chronic'
-module RorEReports
+module Reports
   class Accounting
     def initialize(start_time, end_time)
       @start_time = start_time

@@ -1,6 +1,6 @@
 require 'chronic'
 
-module RorEReports
+module Reports
   class Orders
     def initialize(start__time, end__time)
       @start_time = start__time

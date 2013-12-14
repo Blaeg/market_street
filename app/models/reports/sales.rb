@@ -1,6 +1,6 @@
 require 'chronic'
 
-module RorEReports
+module Reports
   class Sales
     def initialize(start_time, number_of_weeks)
       @start_time = start_time
