@@ -6,28 +6,25 @@
 <% end %>
 
 <h1> Reports </h1>
-
 <div class='row'>
-  <div class=' twelve large-12 '>
-    <div class='panel'>
-      <div class='row'>
-        <div class=' six large-6 column'>
-          <h4 > Start <%= I18n.localize(start_time,  :format => :us_time) %> </h4>
-        </div>
-        <div class=' six large-6 column'>
-          <h4 > End <%= I18n.localize(end_time,  :format => :us_time) %> </h4>
-        </div>
+  <div class='span12'>
+    <div class='row'>
+      <div class='span6 column'>
+        <h4 > Start <%= I18n.localize(start_time,  :format => :us_time) %> </h4>
       </div>
-      <ul class='vertical-list long'>
-        <li><label># of cart items added</label><%= @final_number_of_cart_items - @beginning_number_of_cart_items %></li>
-        <li><label>Total # of cart items</label><%= @final_number_of_cart_items %></li>
-        <li><label># of Orders      </label><%= @orders_report.quantity        %></li>
-      </ul>
+      <div class='span6 column'>
+        <h4 > End <%= I18n.localize(end_time,  :format => :us_time) %> </h4>
+      </div>
     </div>
+    <ul class='vertical-list long'>
+      <li><label># of cart items added</label><%= @final_number_of_cart_items - @beginning_number_of_cart_items %></li>
+      <li><label>Total # of cart items</label><%= @final_number_of_cart_items %></li>
+      <li><label># of Orders      </label><%= @orders_report.quantity        %></li>
+    </ul>    
   </div>
 </div>
 <div class='row'>
-  <div class=' three large-3 column'>
+  <div class='span3 column'>
     <div class='panel'>
     <h4>Accounting </h4>
     <ul>
@@ -38,7 +35,7 @@
     </ul>
     </div>
   </div>
-  <div class='three large-3 column'>
+  <div class='span3 column'>
     <div class='panel'>
     <h4>Orders </h4>
     <ul>
@@ -47,7 +44,7 @@
     </ul>
     </div>
   </div>
-  <div class=' three large-3 column'>
+  <div class=' span3 column'>
     <div class='panel'>
     <h4>Customers </h4>
     <ul>
@@ -64,7 +61,7 @@
     </ul>
     </div>
   </div>
-  <div id='' class=' three large-3 column'>
+  <div id='' class='span3 column'>
     <div class='panel graceful'>
       <h4>Filter </h4>
       <%= form_tag(  admin_reports_overview_path(),

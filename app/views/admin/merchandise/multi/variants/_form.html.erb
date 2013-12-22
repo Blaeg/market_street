@@ -1,6 +1,6 @@
 <%= form.fields_for :variants, Variant.new(product_id: @product.id), child_index: "new_variants" do |ff| %>
   <div id='variants_fields_template' style='display:none;'>
-    <div class='span-6 three large-3  columns new_variant_container'  style='float: left;' >
+    <div class='span-6 span3  columns new_variant_container'  style='float: left;' >
       <table class='span-6 ar-sidebar' style='width:240px;' >
         <tr>
           <td></td>
@@ -45,7 +45,7 @@
 <% end %>
 
 <% @product.variants.each do |variant| %>
-  <div class='span-6 three large-3 column ' >
+  <div class='span-6 span3 column ' >
     <%= form.fields_for :variants, variant do |ff|%>
       <table class='table table-bordered table-striped' style='width:240px;'>
         <thead>

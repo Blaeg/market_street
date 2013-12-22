@@ -3,7 +3,7 @@
   <b>Shipment for <%= link_to @order.user.name, admin_user_path(@order.user) %></b>
 </div>
 <div class='clear'></div>
-<div id='order-shipment-items' class='four large-4 column'>
+<div id='order-shipment-items' class='span4 column'>
   <div class='panel'>
     <h4>Order Items</h4>
     <% @order.order_items.each_with_index do |item,i| %>
@@ -34,7 +34,7 @@
     <% end %>
   </div>
 </div>
-<div class=' four large-4 column' >
+<div class=' span4 column' >
   <div class='panel'>
     <h4>Shipping address</h4>
     <div class='well'>
@@ -42,13 +42,13 @@
     </div>
   </div>
 </div>
-<div id="shipment-details-box" class=' four large-4 column'>
+<div id="shipment-details-box" class=' span4 column'>
     <%= render :partial => 'admin/fulfillment/orders/shipment_details', :locals => {:order => @order} %>
 </div>
 <div class='clearfix'></div>
 
 <div class='row'>
-  <div class=' six large-6 ' style='text-align:left;'>
+  <div class='span6 ' style='text-align:left;'>
     <div class='panel'>
       <h4>Invoice</h4>
       <% @order.invoices.each do |invoice| %>
@@ -60,7 +60,7 @@
       <% end %>
     </div>
   </div>
-  <div class=' six large-6 column'>
+  <div class='span6 column'>
     <b>Return Merchandise Authorization:</b>
     <div class=' panel'>
       <% if @order.return_authorizations.size > 0 %>

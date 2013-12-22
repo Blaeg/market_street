@@ -3,19 +3,19 @@
 <div class='clearfix'>
   <%= form_tag(shopping_shipping_method_path(session_order.id), html: {class: 'custom'}, method: :put) do -%>
     <% @order_items.each do |item| %>
-      <div class='column float-left ten large-10 line_items_blue last'>
-          <div class='nine large-9 clearfix panel'>
-              <div class='six large-6 columns'>
+      <div class='column float-left span10 line_items_blue last'>
+          <div class='span9 clearfix panel'>
+              <div class='span6 columns'>
                 <%= image_tag(item.variant.product.featured_image(:mini)) %>
                 <%= item.variant.product.name %> Quantity: <%= item.quantity %>
               </div>
-              <div class='five large-5 columns last' style='text-align:left;'>
+              <div class='span5 columns last' style='text-align:left;'>
                 <%= raw item.variant.display_property_details %>
               </div>
           </div>          
       </div>
     <% end %>
-    <div class='ten large-10 clearfix offset-by-two'>
+    <div class='span10 clearfix offset-by-two'>
       <%= submit_tag 'continue', :class => 'button' %>
     </div>
 

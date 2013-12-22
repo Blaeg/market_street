@@ -19,7 +19,7 @@
     <%# @product.product_properties.each do |product_property| %>
 
         <%= f.fields_for :product_properties do |product_property_form|%>
-          <div class="variant_form left six large-6 last" style='margin-bottom:20px;'>
+          <div class="variant_form left span6 last" style='margin-bottom:20px;'>
             <%= render :partial => 'product_property', :locals => {:product_property_form => product_property_form } %>
           </div>
         <% end %>

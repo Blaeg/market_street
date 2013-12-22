@@ -1,7 +1,7 @@
 <h3> <%= @user.name %> </h3>
 <%= link_to "Edit #{@user.name}", edit_admin_user_path(@user), class: 'tiny success button' %>
 <div class='row'>
-  <div class='four large-4 column'>
+  <div class='span4 column'>
     <div class='panel'>
       <h4>Orders</h4>
       <% @user.finished_orders.sort_by{|o| o.completed_at}.reverse!.each do |order| %>
@@ -14,7 +14,7 @@
       <% end %>
     </div>
   </div>
-  <div class='four large-4 column', style='padding-left:0px;'>
+  <div class='span4 column', style='padding-left:0px;'>
     <div class='panel'>
       <h4>Shipments</h4>
       <% @user.shipments.each do |shipment| %>
@@ -50,7 +50,7 @@
       <% end %>
     </div>
   </div>
-  <div class='four large-4 column', style='padding-left:0px;'>
+  <div class='span4 column', style='padding-left:0px;'>
     <div class='panel', style='margin-left:1px;'>
       <h4>Notes</h4>
       <% @user.comments.each do |comment| %>

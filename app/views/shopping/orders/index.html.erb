@@ -2,7 +2,7 @@
   <%= stylesheet_link_tag 'tables.css' %>
 <% end %>
 <div id='order-wrapper' class='twelve'>
-  <div class='seven large-7 columns'>
+  <div class='span7 columns'>
     <h1>Order Summary</h1>
 
     <div id='order-items-summary'>
@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <div class='pretty_table five large-5 columns last'>
+  <div class='pretty_table span5 columns last'>
     <table>
       <thead>
         <tr class='odd'>
@@ -90,12 +90,12 @@
       </div>
 <div class='clear'></div>
       <div class='row'>
-        <div class="field six large-6 column">
+        <div class="field span6 column">
           <%= label_tag 'First' %>
            <%= text_field_tag(:first_name, @credit_card.first_name) %>
         </div>
 
-        <div class="field six large-6 column">
+        <div class="field span6 column">
           <%= label_tag :last_name, 'Last' %>
            <%= text_field_tag(:last_name, @credit_card.last_name) %>
         </div>
@@ -106,12 +106,12 @@
           <%= label_tag 'Number'%>
            <%= text_field_tag(:number, @credit_card.number ,:class => ' disableAutoComplete', :autocomplete => "off") %>
         </div>
-        <div class="field three large-3 column">
+        <div class="field span3 column">
           <%= label_tag :verification_value, 'VCC'%>
            <%= text_field_tag(:verification_value, @credit_card.verification_value ,:class => 'disableAutoComplete', :autocomplete => "off") %>
         </div>
       </div>
-      <div class='twelve large-12 clearfix custom'>
+      <div class='span12 clearfix custom'>
         <div class='row'>
 
           <div class="field column large-6">
