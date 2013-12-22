@@ -50,7 +50,7 @@
           </tr>
         <% end %>
       </table>
-    <%= will_paginate @variants %>
+    <%= paginate @variants %>
   </div>
   <div id="admin_new_variant_button" class="admin_new_button last">
     <%= link_to "New Variant", new_admin_merchandise_product_variant_path(@product),

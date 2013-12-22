@@ -4,7 +4,7 @@ class Admin::Generic::SalesController < Admin::Generic::BaseController
   helper_method :sort_column, :sort_direction, :products
   def index
     @sales = Sale.order(sort_column + " " + sort_direction).
-                                              paginate(:page => pagination_page, :per_page => pagination_rows)
+              page(pagination_page).per(pagination_rows)
   end
 
   def show

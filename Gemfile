@@ -49,7 +49,7 @@ gem 'state_machine', '~> 1.2.0'
 #search
 gem 'sunspot_solr', '~> 2.0.0'
 gem 'sunspot_rails', '~> 2.0.0'
-gem 'will_paginate', '~> 3.0.4'
+gem 'kaminari'
 gem 'zurb-foundation', '~> 4.3.2'
 
 # UI components

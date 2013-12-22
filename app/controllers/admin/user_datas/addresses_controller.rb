@@ -5,7 +5,7 @@ class Admin::UserDatas::AddressesController < Admin::UserDatas::BaseController
                 :select_states
   def index
     @addresses = customer.addresses.order(sort_column + " " + sort_direction).
-                         paginate(:page => pagination_page, :per_page => pagination_rows)
+                         page(pagination_page).per(pagination_rows)
   end
 
   def show

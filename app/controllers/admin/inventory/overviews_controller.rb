@@ -3,7 +3,7 @@ class Admin::Inventory::OverviewsController < Admin::BaseController
   def index
     @products = Product.active.order("#{params[:sidx]} #{params[:sord]}").
                         includes({:variants => [{:variant_properties => :property}, :inventory]}).
-                        paginate(:page => pagination_page, :per_page => pagination_rows)
+                        page(pagination_page).per(pagination_rows)
 
   end
 

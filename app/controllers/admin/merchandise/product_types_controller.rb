@@ -3,7 +3,7 @@ class Admin::Merchandise::ProductTypesController < Admin::BaseController
   respond_to :html, :json
   def index
     @product_types = ProductType.admin_grid(params).order(sort_column + " " + sort_direction).
-                                              paginate(:page => pagination_page, :per_page => pagination_rows)
+                                              page(pagination_page).per(pagination_rows)
   end
 
   def show

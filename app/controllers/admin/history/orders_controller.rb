@@ -1,7 +1,8 @@
 class Admin::History::OrdersController < Admin::BaseController
   # GET /admin/history/orders
   def index
-    @orders = Order.find_finished_order_grid(params).paginate(:page => pagination_page, :per_page => pagination_rows)
+    @orders = Order.find_finished_order_grid(params).
+                page(pagination_page).per(pagination_rows)
   end
 
   # GET /admin/history/orders/1

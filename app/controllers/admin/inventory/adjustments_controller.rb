@@ -4,7 +4,7 @@ class Admin::Inventory::AdjustmentsController < Admin::BaseController
   end
 
   def index
-    @products = Product.paginate(:page => pagination_page, :per_page => pagination_rows)
+    @products = Product.page(pagination_page).per(pagination_rows)
   end
 
   def edit

@@ -121,7 +121,7 @@ class Product < ActiveRecord::Base
   def self.standard_search(args, params = {:page => 1, :per_page => 15})
       Product.includes( [:properties, :images]).active.
               where(['products.name LIKE ? OR products.meta_keywords LIKE ?', "%#{args}%", "%#{args}%"]).
-              paginate(params)
+              page(params[:page]).per(params[:per_page])
   end
 
   # This returns the first featured product in the database,

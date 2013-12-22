@@ -4,7 +4,7 @@ class Admin::Merchandise::VariantsController < Admin::BaseController
   def index
     @product = Product.find(params[:product_id])
     @variants = @product.variants.admin_grid(@product, params).order(sort_column + " " + sort_direction).
-                                              paginate(:page => pagination_page, :per_page => pagination_rows)
+                                              page(pagination_page).per(pagination_rows)
   end
 
   def show
