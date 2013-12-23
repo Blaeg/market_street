@@ -1,53 +1,40 @@
 <%= render :partial => '/admin/merchandise/sub_header'%>
 
 <% content_for :sidemenu do %>
-
-  <div class='admin_filters'>
-    <%= form_tag admin_merchandise_products_path, :method => 'get', :id => "products_search" do %>
-      <label>Name</label>
-      <%= text_field_tag :name, params[:name] %>
-
-      <label>Product Type</label>
-      <%= select_tag "product_type_id", options_from_collection_for_select(product_types, "id", "name"), :include_blank => true %>
-
-      <div style="text-align:center; margin-top: 15px">
-        <%= submit_tag "Search", :name => nil, :class => 'btn' %>
-      </div>
-      </p>
-      <div id="order_hidden">
-        <%= hidden_field_tag :direction, params[:direction] %>
-        <%= hidden_field_tag :sort, params[:sort] %>
-      </div>
-    <% end %>
-    <div class='clearfix'></div>
-  </div>
+<div class="span2">
+  <%= search_form_for @q, url: admin_merchandise_products_path do |f| %>
+    <%= f.label :name_cont %>
+    <%= f.text_field :name_cont, class: 'span12'%>
+    <%= f.label :product_type_name_cont %>
+    <%= f.text_field :product_type_name_cont, class: 'span12' %>
+    <%= f.submit(:class => "btn btn-primary") %>       
+  <% end %>
+  <%= link_to "New Product", new_admin_merchandise_product_path, :class => "btn" %>
+</div>
 <% end %>
 
-<div class='admin_title_header'>
-  <h3>Products</h3>
-  <%= link_to "New Product", new_admin_merchandise_product_path, :class => "btn btn-primary", :id => "new_product_button" %>  
-</div>
-<div class="admin_products">
+<div class="span9"> 
   <table class="table table-striped table-bordered">
     <thead>
-    <tr class='odd'>
-        <th class='column1_header'><%= sortable "name" %></th>
+    <tr>
+        <th>Name</th>
         <th>Active</th>
-        <th><%= 'Product Type' %></th>
+        <th>Product Type</th>
         <th></th>
         <th></th>
     </tr>
     </thead>
     <% @products.each do |product| %>
-      <tr class='<%= cycle("odd", "")%>'>
-        <td><%= link_to product.name, edit_admin_merchandise_product_path(product) %></td>
-        <td><%=  product.available? ? 'Yes' : 'No' %></td>
-        <td><%=  product.product_type.name %></td>
+      <tr>
+        <td>
+          <%= link_to product.name, edit_admin_merchandise_product_path(product) %>
+        </td>
+        <td><%= product.available? ? 'Yes' : 'No' %></td>
+        <td><%= product.product_type.name %></td>
         <td><%= link_to "Edit Variants",  edit_admin_merchandise_multi_product_variant_path(product) %></td>
         <td><%= link_to "Show",  admin_merchandise_product_path(product) %></td>
       </tr>
     <% end %>
   </table>
-
   <%= paginate @products %>
 </div>

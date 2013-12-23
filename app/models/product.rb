@@ -150,24 +150,6 @@ class Product < ActiveRecord::Base
     active
   end
 
-  # def brand_name
-  #   brand_id ? brand.name : ''
-  # end
-
-  # paginated results from the admin products grid
-  #
-  # @param [Optional params]
-  # @param [Optional Boolean] the state of the product you are searching (active == true)
-  # @return [ Array[Product] ]
-  def self.admin_grid(params = {}, active_state = nil)
-    grid = includes(:variants).
-                deleted_at_filter(active_state)#.
-                # name_filter(params[:name]).
-                # product_type_filter( params[:product_type_id] ).
-                # available_at_gt_filter(params[:available_at_gt]).
-                # available_at_lt_filter(params[:available_at_lt])
-  end
-
   private
 
     def self.deleted_at_filter(active_state)

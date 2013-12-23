@@ -1,13 +1,13 @@
 class Admin::Merchandise::ProductsController < Admin::BaseController
-  add_breadcrumb "Products", :admin_products_path
+  add_breadcrumb "Products", :admin_merchandise_products_path
   helper_method :sort_column, :sort_direction, :product_types
   respond_to :html, :json
   authorize_resource
 
   def index
-    params[:page] ||= 1
-    @products = Product.admin_grid(params).order(sort_column + " " + sort_direction).
-    page(pagination_page).per(pagination_rows)
+    @q = Product.search(params[:q])
+    @products = @q.result.order(sort_column + " " + sort_direction).
+                  page(pagination_page).per(pagination_rows)
   end
 
   def show
@@ -120,5 +120,4 @@ class Admin::Merchandise::ProductsController < Admin::BaseController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
-
 end
