@@ -4,8 +4,9 @@ class Admin::Inventory::SuppliersController < Admin::BaseController
   respond_to :json, :html
 
   def index
-    @suppliers = Supplier.admin_grid(params).order(sort_column + " " + sort_direction).
-                                              page(pagination_page).per(pagination_rows)
+    @q = Supplier.search(params[:q])
+    @suppliers = @q.result.order(sort_column + " " + sort_direction).
+                page(pagination_page).per(pagination_rows)    
   end
 
   def new
