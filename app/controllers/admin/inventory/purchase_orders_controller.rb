@@ -3,8 +3,9 @@ class Admin::Inventory::PurchaseOrdersController < Admin::BaseController
   helper_method :sort_column, :sort_direction
   # GET /purchase_orders
   def index
-    @purchase_orders = PurchaseOrder.admin_grid(params).order(sort_column + " " + sort_direction).
-                                                        page(pagination_page).per(pagination_rows)
+    @q = PurchaseOrder.search(params[:q])
+    @purchase_orders = @q.result.order(sort_column + " " + sort_direction).
+                          page(pagination_page).per(pagination_rows)
 
   end
 

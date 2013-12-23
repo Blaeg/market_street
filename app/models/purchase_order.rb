@@ -123,18 +123,6 @@ class PurchaseOrder < ActiveRecord::Base
     end
   end
 
-  # paginated results from the admin PurchaseOrder grid
-  #
-  # @param [Optional params]
-  # @return [ Array[PurchaseOrder] ]
-  def self.admin_grid(params = {})
-    grid = includes(:supplier)
-    grid = grid.where("suppliers.name LIKE ?",                  "#{params[:supplier_name]}%")   if params[:supplier_name].present?
-    grid = grid.where("purchase_orders.invoice_number LIKE ?",  "#{params[:invoice_number]}%")  if params[:invoice_number].present?
-    grid = grid.where("purchase_orders.tracking_number LIKE ?", "#{params[:tracking_number]}%") if params[:tracking_number].present?
-    grid
-  end
-
   # paginated results from the admin PurchaseOrder grid for PO to receive
   #
   # @param [Optional params]
