@@ -1,38 +1,30 @@
 <%= render :partial => '/admin/merchandise/sub_header'%>
 
 <% content_for :sidemenu do %>
-  <div class='admin_filters'>
-    <%= form_tag admin_merchandise_prototypes_path, :method => 'get', :id => "products_search" do %>
-      <%= hidden_field_tag :direction, params[:direction] %>
-      <%= hidden_field_tag :sort, params[:sort] %>
-
-      <label>Name</label>
-      <%= text_field_tag :name, params[:name] %>
-      <div style="text-align:center">
-        <%= submit_tag "Search", :name => nil, :class => 'button red-button' %>
-      </div>
+  <div class="span2">
+    <%= search_form_for @q, url: admin_merchandise_prototypes_path do |f| %>
+      <%= f.label :name_cont %>
+      <%= f.text_field :name_cont, class: 'span12'%>
+      <%= f.submit(:class => "btn btn-primary") %>       
     <% end %>
+    <%= link_to "New Prototype", new_admin_merchandise_prototype_path, :class => "btn" %>
   </div>
 <% end %>
 
-<div class='admin_title_header'>
-  <h3>Prototypes</h3>
-  <%= link_to "New Prototype", new_admin_merchandise_prototype_path, :class  => "button"%>
-</div>
-
-<div class="admin_prototypes">
+<div class="span9">
   <table class="table table-striped table-bordered">
     <thead>
-    <tr class='odd'>
-      <th class='column1_header'><%= sortable "name" %></th>
+    <tr>
+      <th><%= sortable "name" %></th>
     </tr>
     </thead>
     <% @prototypes.each do |prototype| %>
-      <tr class='<%= cycle("odd", "")%>'>
-        <td><%= link_to prototype.name, edit_admin_merchandise_prototype_path(prototype) %></td>
+      <tr>
+        <td>
+          <%= link_to prototype.name, edit_admin_merchandise_prototype_path(prototype) %>
+        </td>
       </tr>
     <% end %>
   </table>
-
   <%= paginate @prototypes %>
 </div>

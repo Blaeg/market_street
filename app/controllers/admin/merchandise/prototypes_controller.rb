@@ -3,8 +3,9 @@ class Admin::Merchandise::PrototypesController < Admin::BaseController
   helper_method :sort_column, :sort_direction
   respond_to :html, :json
   def index
-    @prototypes = Prototype.admin_grid(params).order(sort_column + " " + sort_direction).
-                                              page(pagination_page).per(pagination_rows)
+    @q = Prototype.search(params[:q])
+    @prototypes = @q.result.order(sort_column + " " + sort_direction).
+                      page(pagination_page).per(pagination_rows)
   end
 
   def new
