@@ -3,8 +3,9 @@ class Admin::Merchandise::PropertiesController < Admin::BaseController
   helper_method :sort_column, :sort_direction
   respond_to :html, :json
   def index
-    @properties = Property.admin_grid(params).order(sort_column + " " + sort_direction).
-                                              page(pagination_page).per(pagination_rows)
+    @q = Property.search(params[:q])
+    @properties = @q.result.order(sort_column + " " + sort_direction).
+                    page(pagination_page).per(pagination_rows)
   end
 
   def new
