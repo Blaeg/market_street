@@ -1,10 +1,15 @@
 class Admin::Document::InvoicesController < Admin::BaseController
+  add_breadcrumb "Invoice", :admin_document_invoices_path
+  
   helper_method :sort_column, :sort_direction
   include InvoicePrinter
 
   def index
-    @invoices = Invoice.includes([:order]).admin_grid(params).order(sort_column + " " + sort_direction).
-                  page(pagination_page).per(pagination_rows)
+    @q = Invoice.search(params[:q])
+    @invoices = @q.result.includes([:order]).
+                  order(sort_column + " " + sort_direction).
+                  page(pagination_page).
+                  per(pagination_rows)
   end
 
   def show
@@ -16,7 +21,6 @@ class Admin::Document::InvoicesController < Admin::BaseController
     respond_to do |format|
       format.html
       format.pdf do
-        #prawnto :prawn=>{:skip_page_creation=>true}
         send_data print_form(@invoice).render, :filename => "invoice_#{@invoice.number}.pdf", :type => 'application/pdf'
       end
     end

@@ -56,3 +56,6 @@ puts  "SEEDING VARIANTS"
 end
 
 puts  "SEEDING ORDERS"
+FactoryGirl.create_list(:order, 10)
+
+FactoryGirl.create_list(:invoice, 5)

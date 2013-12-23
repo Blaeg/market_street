@@ -1,4 +1,6 @@
 class Admin::BaseController < ApplicationController
+  add_breadcrumb "Admin", :admin_document_invoices_path
+
   helper_method :recent_admin_users
   layout 'admin'
 
