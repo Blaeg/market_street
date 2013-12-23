@@ -50,7 +50,7 @@ gem 'state_machine', '~> 1.2.0'
 gem 'sunspot_solr', '~> 2.0.0'
 gem 'sunspot_rails', '~> 2.0.0'
 gem 'kaminari'
-gem 'zurb-foundation', '~> 4.3.2'
+gem "ransack"
 
 # UI components
 gem 'simple_form'

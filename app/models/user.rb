@@ -245,16 +245,6 @@ class User < ActiveRecord::Base
     includes([:default_billing_address, :default_shipping_address, :account])
   end
 
-  # paginated results from the admin User grid
-  #
-  # @param [Optional params]
-  # @return [ Array[User] ]
-  def self.admin_grid(params = {})
-    includes(:roles).first_name_filter(params[:first_name]).
-                     last_name_filter(params[:last_name]).
-                     email_filter(params[:email])
-  end
-
   def number_of_finished_orders
     finished_orders.count
   end

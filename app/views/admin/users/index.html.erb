@@ -1,36 +1,23 @@
-<h3>Users</h3>
-
 <% content_for :sidemenu do %>
-  <div style="text-align:right">
-    <%= link_to "New User", new_admin_user_path, :class => "button", :id => "new_user_button" %>
-  </div>
-  <div class="admin_filters">
-    <%= form_tag admin_users_path, :method => 'get', :id => "users_search" do %>
-      <label>First Name</label>
-      <%= text_field_tag :first_name, params[:first_name] %>
-
-      <label>Last Name</label>
-      <%= text_field_tag :last_name, params[:last_name] %>
-
-      <label>Email</label>
-      <%= text_field_tag :email, params[:email] %>
-
-      <div style='text-align:center'>
-        <%= submit_tag "Search", :name => nil, :class => "button" %>
-      </div>
-      <div id="users">
-        <%= render 'users' %>
-      </div>
+  <div class="span2">
+    <%= search_form_for @q, url: admin_users_path do |f| %>
+      <%= f.label :first_name_cont %>
+      <%= f.text_field :first_name_cont, class: 'span12'%>
+      <%= f.label :last_name_cont %>
+      <%= f.text_field :last_name_cont, class: 'span12' %>
+      <%= f.label :email_cont %>
+      <%= f.text_field(:email_cont, class: 'span12')%>
+      <%= f.submit(:class => "btn btn-primary") %>       
     <% end %>
+    <%= link_to "New User", new_admin_user_path, :class => "btn" %>
   </div>
 <% end %>
 
-
-<div class="admin_users">
+<div class="span9">
   <table class="table table-bordered table-striped">
     <thead>
     <tr class='odd'>
-      <th  class='column1_header'><%= sortable "first_name" %></th>
+      <th><%= sortable "first_name" %></th>
       <th><%= sortable "last_name" %></th>
       <th><%= sortable "email" %></th>
       <th>Status</th>
@@ -48,4 +35,3 @@
 
   <%= paginate @users %>
 </div>
-

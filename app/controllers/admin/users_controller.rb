@@ -1,10 +1,11 @@
 class Admin::UsersController < Admin::BaseController
+  add_breadcrumb "Users", :admin_users_path
   helper_method :sort_column, :sort_direction
 
   def index
     authorize! :view_users, current_user
-    @users = User.admin_grid(params).order(sort_column + " " + sort_direction).
-                                    page(pagination_page).per(pagination_rows)
+    @q = User.search(params[:q])
+    @users = @q.result(distinct: true).page(params[:page])    
   end
 
   def show

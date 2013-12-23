@@ -19,6 +19,7 @@ Role.create_all
 
 @admin = FactoryGirl.create(:super_admin_user, :with_address, 
   first_name: 'Alex', last_name: 'Chen', email: "alex@market.com")
+FactoryGirl.create_list(:user, 10)
 
 puts  "SEEDING CATALOG"
 ProductType.create_all
