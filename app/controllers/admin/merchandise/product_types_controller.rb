@@ -1,9 +1,12 @@
 class Admin::Merchandise::ProductTypesController < Admin::BaseController
+  add_breadcrumb "Product Types", :admin_merchandise_product_types_path
   helper_method :sort_column, :sort_direction
   respond_to :html, :json
   def index
-    @product_types = ProductType.admin_grid(params).order(sort_column + " " + sort_direction).
-                                              page(pagination_page).per(pagination_rows)
+    @q = ProductType.search(params[:q])
+    @product_types = @q.result.page(params[:page]).
+              order(sort_column + " " + sort_direction).
+              page(pagination_page).per(pagination_rows)    
   end
 
   def show

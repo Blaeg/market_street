@@ -1,4 +1,5 @@
 class Admin::Merchandise::ProductsController < Admin::BaseController
+  add_breadcrumb "Products", :admin_products_path
   helper_method :sort_column, :sort_direction, :product_types
   respond_to :html, :json
   authorize_resource

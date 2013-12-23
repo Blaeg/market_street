@@ -1,4 +1,5 @@
 class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
+  add_breadcrumb "Return Authorizations", :admin_rma_return_authorizations_path
   helper_method :sort_column, :sort_direction
   # GET /return_authorizations
   def index

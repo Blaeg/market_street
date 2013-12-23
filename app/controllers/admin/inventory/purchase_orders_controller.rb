@@ -1,4 +1,5 @@
 class Admin::Inventory::PurchaseOrdersController < Admin::BaseController
+  add_breadcrumb "Purchase Order", :admin_inventory_purchase_orders_path
   helper_method :sort_column, :sort_direction
   # GET /purchase_orders
   def index

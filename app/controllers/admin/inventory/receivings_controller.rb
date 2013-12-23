@@ -1,4 +1,5 @@
 class Admin::Inventory::ReceivingsController < Admin::BaseController
+  add_breadcrumb "Receiving", :admin_inventory_receivings_path
   helper_method :sort_column, :sort_direction
   def index
     # by default find all POs that are not received

@@ -215,17 +215,10 @@ class Invoice < ActiveRecord::Base
     end
   end
 
-  def self.admin_grid(args)
-    if args[:order_number].present?
-      with_order_number(args[:order_number])
-    else
-      all
-    end
-  end
-
   def self.with_order_number(order_number)
     where("orders.number = ?", order_number)
   end
+  
   private
 
   def unique_order_number

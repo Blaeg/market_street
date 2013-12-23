@@ -1,4 +1,5 @@
 class Admin::Merchandise::PropertiesController < Admin::BaseController
+  add_breadcrumb "Properties", :admin_merchandise_properties_path
   helper_method :sort_column, :sort_direction
   respond_to :html, :json
   def index

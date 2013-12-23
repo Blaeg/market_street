@@ -1,4 +1,5 @@
 class Admin::Merchandise::VariantsController < Admin::BaseController
+  add_breadcrumb "Variants", :admin_merchandise_variants_path
   helper_method :sort_column, :sort_direction
   respond_to :html, :json
   def index

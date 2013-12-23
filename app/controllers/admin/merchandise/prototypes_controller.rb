@@ -1,4 +1,5 @@
 class Admin::Merchandise::PrototypesController < Admin::BaseController
+  add_breadcrumb "Prototypes", :admin_merchandise_prototypes_path
   helper_method :sort_column, :sort_direction
   respond_to :html, :json
   def index

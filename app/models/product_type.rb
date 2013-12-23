@@ -8,16 +8,6 @@ class ProductType < ActiveRecord::Base
 
   TYPES = ['Table', 'Chair', 'Rug', 'Art', 'Lamp']
 
-  # paginated results from the admin ProductType grid
-  #
-  # @param [Optional params]
-  # @return [ Array[ProductType] ]
-  def self.admin_grid(params = {})
-    grid = ProductType
-    grid = grid.where("product_types.name LIKE ?", "#{params[:name]}%")              if params[:name].present?
-    grid
-  end
-
   def self.create_all
     TYPES.each do |t|
       find_or_create_by(:name => t, :active => true)

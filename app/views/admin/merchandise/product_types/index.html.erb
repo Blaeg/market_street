@@ -1,40 +1,28 @@
 <%= render :partial => '/admin/merchandise/sub_header'%>
-
 <% content_for :sidemenu do %>
-
-  <div class='admin_filters'>
-    <%= form_tag admin_merchandise_product_types_path, method: 'get', id: "product_types_search" do %>
-      <%= hidden_field_tag :direction, params[:direction] %>
-      <%= hidden_field_tag :sort, params[:sort] %>
-
-      <label>Name</label>
-      <%= text_field_tag :name, params[:name] %>
-      <div style='text-align:center'>
-        <%= submit_tag "Search", name: nil, class: 'button red-button' %>
-      </div>
-    <% end %>
-    <div class='clearfix'></div>
-  </div>
+<div class="span2">
+  <%= search_form_for @q, url: admin_merchandise_product_types_path do |f| %>
+  <%= f.label :name_cont %>
+  <%= f.text_field :name_cont, class: 'span12'%>
+  <%= f.submit(:class => "btn btn-primary") %>       
+  <% end %>
+  <%= link_to "New Type", new_admin_merchandise_product_type_path, class: "btn" %>  
+</div>
 <% end %>
 
-<div class='admin_title_header'>
-  <h3>Product Types</h3>
-  <%= link_to "New Type", new_admin_merchandise_product_type_path, class: "button" %>
-</div>
-
-<div class="admin_product_types">
-  <table class="table table-striped table-bordered">
-    <thead>
-    <tr class='odd'>
-      <th class='column1_header' ><%= sortable "name" %></th>
-    </tr>
-    </thead>
-    <% @product_types.each do |product_type| %>
-      <tr class='<%= cycle("odd", "")%>'>
-        <td><%= link_to product_type.name, edit_admin_merchandise_product_type_path(product_type) %></td>
-      </tr>
-    <% end %>
-  </table>
-
-  <%= paginate @product_types %>
+<div class="span9">
+  <div class="admin_product_types">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th><%= sortable "name" %></th>
+        </tr>
+      </thead>
+      <% @product_types.each do |product_type| %>
+        <tr class='<%= cycle("odd", "")%>'>
+          <td><%= link_to product_type.name, edit_admin_merchandise_product_type_path(product_type) %></td>
+        </tr>
+      <% end %>
+    </table>  
+  </div>
 </div>
