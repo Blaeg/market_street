@@ -14,31 +14,27 @@
 </div>
 
 <% if @order.order_items.size > 0 %>
-
-  <div class=' six column'>
-  <b>Items</b>
-    <div  id='order-items'
-          class=' panel '>
-
-            <% @order.order_items.each do |item| %>
-              <%= item.variant.product_name %> <%= number_to_currency item.total %><br/>
-            <% end %>
+  <div class='six column'>
+    <b>Items</b>
+    <div id='order-items' class=' panel '>
+      <% @order.order_items.each do |item| %>
+        <%= item.variant.product_name %> <%= number_to_currency item.total %><br/>
+      <% end %>
     </div>
   </div>
-
 <% end %>
-<div class=' six column'>
+
+<div class='six column'>
   <b>Shipping Address</b>
-  <div  id='order-address'
-        class='panel '>
-            <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %>
-            <br>
-            <p><%= link_to 'Change Address', admin_history_order_addresses_path(@order), :class => 'button green' %> <br>
-            (This will not change the shipments that have already been placed)</p>
+  <div id='order-address' class='panel '>
+    <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %><br>
+    <p><%= link_to 'Change Address', admin_history_order_addresses_path(@order), 
+      :class => 'btn green' %> <br>
+      (This will not change the shipments that have already been placed)</p>
   </div>
 </div>
 
-<div class=' six column '>
+<div class='six column '>
   <b>Shipments:</b>
   <% @order.shipments.each do |shipment| %>
       <div  id='order-shipment-items'
@@ -57,7 +53,7 @@
 </div>
 
 
-<div class=' span-7 six column'>
+<div class=' span7 six column'>
   <b>Invoices:</b>
   <% @order.invoices.each do |invoice| %>
       <div  id='order-invoices'
@@ -72,17 +68,15 @@
   <% end %>
 </div>
 
-<div class=' six column'>
+<div class='six column'>
   <b>Return Merchandise Authorization:</b>
   <div class=' panel'>
     <% if @order.return_authorizations.size > 0 %>
        <%= link_to 'View RMAs', admin_rma_order_return_authorizations_path(@order),
-                                :class => 'button ' %>
-       <br/><br/>
+                                :class => 'btn ' %>       
     <% else %>
       <%= link_to 'Create RMA', new_admin_rma_order_return_authorization_path(@order),
-                                :class => 'button ' %>
+                                :class => 'btn ' %>
     <% end %>
   </div>
 </div>
-<%#= link_to 'Edit', edit_admin_history_order_path(@order) %>

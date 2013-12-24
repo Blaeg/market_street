@@ -22,7 +22,7 @@
 </fieldset>
 
 <% if current_user.super_admin? %>
-  <fieldset id="admin-password" class='span-12'>
+  <fieldset id="admin-password" class='span12'>
     <p>Leave blank if you don't want to change the password.</p>
     <ul>
       <li>
@@ -39,7 +39,7 @@
   <fieldset>
     <legend>User Roles</legend>
     <% @all_roles.each do |role| %>
-      <div class="property_form left span-9 last">
+      <div class="property_form left span9 last">
         <% checked = @user.id && @user.roles.include?(role)%>
         <%= check_box_tag "user[role_ids][]", role.id, checked %>
         <%= role.name %>

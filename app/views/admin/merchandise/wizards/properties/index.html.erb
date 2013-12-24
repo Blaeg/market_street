@@ -1,3 +1,7 @@
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'chosen.css' %>
+<% end %>
+
 <%= render :partial => '/admin/merchandise/wizards/sub_header'%>
 
 <% if  @properties.empty? %>
@@ -15,7 +19,7 @@
                     :style    => 'overflow:scroll; width: 350px',
                     'data-placeholder' => 'Choose Properties' %>
   </div>
-  <%= product_form.submit 'Use Properties', :class => 'button' %>
+  <%= product_form.submit 'Use Properties', :class => 'btn' %>
 <% end %>
 
 <% unless  @properties.empty? %>
@@ -23,7 +27,7 @@
   <p>If all the you want properties don't exist, create it now.</p>
 <% end %>
 <%= form_for @property, :url => admin_merchandise_wizards_properties_path do |property_form| %>
-  <%= render :partial =>  'form', :locals => {:form => property_form}  %>
+  <%= render :partial => 'form', :locals => {:form => property_form}  %>
 <% end %>
 
 <% unless  @prototypes.empty? %>
@@ -34,16 +38,10 @@
       <div class='span6 column <%= cycle '', '', 'last' %>'>
         <label><%= prototype.name %></label>
         <%= button_to 'Use', admin_merchandise_wizards_prototype_path(prototype),
-                      :class => 'button spade inline-block',
-                      :method => :put %>
+                      :class => 'btn spade inline-block', :method => :put %>
       </div>
-
     <% end %>
   </div>
-<% end %>
-
-<% content_for :head do -%>
-  <%= stylesheet_link_tag 'chosen.css' %>
 <% end %>
 
 <% content_for :below_body do -%>

@@ -4,5 +4,6 @@
   <%= render :partial => 'form', :locals => {:f => f} %>
 <% end %>
 
-<%= link_to "Order's Shipments", admin_fulfillment_shipments_path(:order_id => @order.number), :class => 'button' %>
-<%= link_to "Back to Order", edit_admin_fulfillment_order_path(@order), :class => 'button' %>
+<%= link_to "Order's Shipments", admin_fulfillment_shipments_path(:order_id => @order.number), :class => 'btn' %>
+<%= link_to "Back to Order", edit_admin_fulfillment_order_path(@order), 
+	:class => 'btn' %>

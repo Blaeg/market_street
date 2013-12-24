@@ -1,6 +1,4 @@
-
 <h3> Change <%= customer.name.possessive %> Store Credit </h3>
-
 <ul>
   <li>
     <label>Current Amount:</label>
@@ -10,6 +8,6 @@
 
 <%= form_for customer, :url => admin_user_datas_user_store_credits_path( customer ) do |f| %>
   <%=  render :partial => 'form', :locals => {:f => f} %>
-  <div class="actions"><%= f.submit 'Update' , :class => 'button' %></div>
+  <div class="actions"><%= f.submit 'Update' , :class => 'btn' %></div>
 <% end %>
 

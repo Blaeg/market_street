@@ -40,10 +40,10 @@
     <% if @return_authorization.authorized? %>
       <%= link_to 'Cancel RMA',
                   edit_admin_rma_order_return_authorization_path(@order, @return_authorization),
-                  :class => 'button heart', :method => :delete, :data => {:confirm => "Are you sure, you want to Cancel?"} %>
+                  :class => 'btn heart', :method => :delete, :data => {:confirm => "Are you sure, you want to Cancel?"} %>
       <%= button_to 'Receive RMA',
                   complete_admin_rma_order_return_authorization_path(@order, @return_authorization),
-                  :class => 'button green', :data => {:confirm => "Are you sure, you want to Receive?"}, :method => :put %>
+                  :class => 'btn green', :data => {:confirm => "Are you sure, you want to Receive?"}, :method => :put %>
     <% end %>
   </div>
 
@@ -51,13 +51,13 @@
     <% if @return_authorization.authorized? %>
       <%= link_to 'Edit RMA',
                   edit_admin_rma_order_return_authorization_path(@order, @return_authorization),
-                  :class => 'button heart'%>
+                  :class => 'btn heart'%>
     <% end %>
     <%= link_to 'Order Info',
                 admin_history_order_path(@order),
-                :class => 'button spade' %>
+                :class => 'btn spade' %>
     <%= link_to 'All RMAs for this Order.',
                 admin_rma_order_return_authorizations_path(@order),
-                :class => 'button heart' %>
+                :class => 'btn heart' %>
   </div>
 </div>

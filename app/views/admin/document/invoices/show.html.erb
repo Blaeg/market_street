@@ -1,19 +1,16 @@
 <h1> Invoice for Order(<%= @invoice.order.number %>) </h1>
-
 <p>
   <strong>Amount:</strong>
   <%= @invoice.amount %>
 </p>
-
 <p>
   <strong>Status:</strong>
   <%= @invoice.state %>
 </p>
-
 <p>
-  <%= link_to "View PDF", admin_document_invoice_path(@invoice, :format => 'pdf'), :class => 'button' %>
+  <%= link_to "View PDF", admin_document_invoice_path(@invoice, :format => 'pdf'), 
+  	:class => 'btn' %>
 </p>
-
 <p>
-  <%= link_to "View All", admin_document_invoices_path, :class => 'button' %>
+  <%= link_to "View All", admin_document_invoices_path, :class => 'btn' %>
 </p>

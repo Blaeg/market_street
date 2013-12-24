@@ -1,7 +1,6 @@
   <% if @address.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@address.errors.count, "error") %> prohibited this shipping address from being saved:</h2>
-
       <ul>
       <% @address.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -72,6 +71,6 @@
   </div>
 
   <div class="actions column">
-    <%= f.submit 'Submit', :class => 'button' %>
+    <%= f.submit 'Submit', :class => 'btn' %>
   </div>
 <div class='clearfix'></div>

@@ -23,14 +23,14 @@
       <% if item.paid? && !item.shipped? %>
         <%= link_to 'Ship Individually!',
                     admin_fulfillment_partial_order_shipments_path( @order, :order_item_ids => [item.id]),
-                    :method => 'POST', :class => 'button' %>
+                    :method => 'POST', :class => 'btn' %>
       <% end %>
     <% end %>
 
     <% if @order.paid? && @order.order_items.any?(&:unshipped?) %>
       <%= link_to 'New Shipment',
                     new_admin_fulfillment_partial_order_shipment_path( @order ),
-                    :class => 'button' %>
+                    :class => 'btn' %>
     <% end %>
   </div>
 </div>
@@ -65,11 +65,11 @@
     <div class=' panel'>
       <% if @order.return_authorizations.size > 0 %>
          <%= link_to 'View RMAs', admin_rma_order_return_authorizations_path(@order),
-                                  :class => 'button ' %>
+                                  :class => 'btn ' %>
          <br/><br/>
       <% else %>
         <%= link_to 'Create RMA', new_admin_rma_order_return_authorization_path(@order),
-                                  :class => 'button ' %>
+                                  :class => 'btn ' %>
       <% end %>
     </div>
   </div>
@@ -86,10 +86,5 @@
 <% end %>
 
 <% content_for :bottom do -%>
-  <%= javascript_include_tag "admin/fulfillment" %>
-  <script>
-    <% @order.invoices.each do |invoice| %>
-     // MarketStreet.Utility.registerOnLoadHandler(MarketStreet.Fulfillment.initialize(<%= invoice.id %>, <%= @order.id %> ));
-    <% end %>
-  </script>
+  <%= javascript_include_tag "admin/fulfillment" %>  
 <% end %>

@@ -27,8 +27,6 @@
   </li>
 </ul>
 <p>
-  <%#  YOU SHOULD NOT EDIT THIS..  OLD ORDERS WILL NO LONGER CALCULATE CORRECTLY.  set Deleted_at and create a new promotion %>
-  <%#= link_to "Edit", edit_admin_generic_deal_path(@deal), :class => 'button' %> |
   <%= link_to "Destroy", [:admin, :generic, @deal], :data => {:confirm => 'Are you sure?'}, :method => :delete, :class => 'btn btn-primary' %> |
   <%= link_to "View All", admin_generic_deals_path, :class => 'btn btn-primary' %>
 </p>

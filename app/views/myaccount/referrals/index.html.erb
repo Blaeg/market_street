@@ -12,12 +12,10 @@
     <%= form_for @referral, :url => myaccount_referrals_path(@referral) do |f| %>
       <%=  render :partial => 'form', :locals => {:f => f} %>
       <div class="right-actions">
-        <%= f.submit 'Invite', :class => 'button dark-orange-button' %>
+        <%= f.submit 'Invite', :class => 'btn' %>
       </div>
     <% end %>
-
     <% if @referrals.empty? %>
-
     <% else %>
       <div id="admin_referral_grid_wrapper" class='referral_table'>
         <table>
@@ -31,9 +29,10 @@
           <tbody>
           <% for referral in @referrals %>
             <tr>
-                <td><%= referral.name %>        </td>
-                <td><%= referral.email %>       </td>
-                <td><%= referral.display_status %> (<%= referral.display_formatted_status_date %>)</td>
+                <td><%= referral.name %></td>
+                <td><%= referral.email %></td>
+                <td><%= referral.display_status %> 
+                (<%= referral.display_formatted_status_date %>)</td>
             </tr>
           <% end %>
           </tbody>

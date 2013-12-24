@@ -19,11 +19,6 @@
     <%= f.label :restocking_fee %><br />
     <%= f.text_field :restocking_fee %>
   </div>
-
-
-
-
-
   <div id="return_items" class=' large-6'>
     <% @order.order_items.each do |item| %>
       <div  id='image_<%= item.id %>'
@@ -44,7 +39,6 @@
     <%= f.hidden_field :user_id %>
     <%= f.hidden_field :created_by %>
 
-
   <div class='column float-left'>
     <%= f.fields_for :comments do |comment_form|%>
       <%= comment_form.hidden_field :user_id %>
@@ -57,5 +51,5 @@
   </div>
 
   <div class="actions">
-    <%= f.submit 'Submit', :class => 'button' %>
+    <%= f.submit 'Submit', :class => 'btn' %>
   </div>

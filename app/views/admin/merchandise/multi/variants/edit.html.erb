@@ -5,17 +5,16 @@
 <%= form_for @product, url:  admin_merchandise_multi_product_variant_path(@product),
                        html: { class: '' }  do |form| %>
   <div id='variants_container' class='row'>
-    <%= render :partial => '/admin/merchandise/multi/variants/form', locals: { form: form }%>
+    <%= render partial: '/admin/merchandise/multi/variants/form', locals:{form: form} %>
   </div>
   <div class='clearfix'></div>
   <div class=" generic_submit_button">
-    <%= link_to("New Variant", "javascript:void(0);", class: "add_variant_child btn btn-primary", "data-association" => :variants) %>
-    <%= submit_tag "Update",
-                    class:  "btn btn-primary",
-                    id:     "update_product_button" %>
-    <%= link_to 'Back to Product',     admin_merchandise_product_path(@product), class: 'btn' %>
+    <%= link_to("New Variant", "#", class: "add_variant_child btn btn-primary", 
+      "data-association" => :variants) %>
+    <%= submit_tag "Update", class:  "btn btn-primary", id: "update_product_button" %>
+    <%= link_to 'Back to Product', admin_merchandise_product_path(@product), 
+      class: 'btn' %>
   </div>
-
 <% end %>
 
 <% content_for :bottom do -%>

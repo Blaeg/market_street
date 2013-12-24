@@ -1,8 +1,6 @@
 <%= render :partial => '/admin/merchandise/sub_header'%>
-
 <h3>Product: <%= @product.name %></h3>
-
-<span style='color:<%= @product.active ? "#3A3" : "#C33" %>; float:right; margin-top: -45px'>
+<span>
   <% if @product.available? %>
     <%= link_to 'Active', admin_merchandise_product_path(@product),
                           :method => :delete,
@@ -41,7 +39,7 @@
   <% end %>
 </fieldset>
 
-<fieldset id="admin-product-properties" class='span-12'>
+<fieldset id="admin-product-properties" class='span12'>
   <legend>Variants</legend>
 
   <% if @product.variants.size == 0 %>

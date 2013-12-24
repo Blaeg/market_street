@@ -25,11 +25,11 @@
       <div class="field">
 
         <%= f.fields_for :phones do |phone_f| %>
-          <div class=" six columns">
+          <div class="span6 columns">
             <%= phone_f.label :display_number, 'Primary Phone' %>
             <%= phone_f.text_field :display_number %>
           </div>
-          <div class=" six columns">
+          <div class="span6 columns">
             <%= phone_f.label :phone_type, 'Type' %>
             <%= phone_f.select :phone_type, ::Phone::PHONE_TYPES %>
           </div>
@@ -106,7 +106,7 @@
   </div>
 
   <div class="actions column">
-    <%= f.submit 'Save & Continue', :class => 'button  bottom20' %>
+    <%= f.submit 'Save & Continue', :class => 'btn  bottom20' %>
     <% unless current_page?(shopping_billing_addresses_path) %>
       <%= link_to 'Back', shopping_billing_addresses_path, :class => 'secondary button' %>
     <% end %>
