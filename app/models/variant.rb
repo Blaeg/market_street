@@ -127,35 +127,25 @@ class Variant < ActiveRecord::Base
     [product_name, sku].compact.join(': ')
   end
 
-  # paginated results from the admin Variant grid
-  #
-  # @param [Variant]
-  # @param [Optional params]
-  # @return [ Array[Variant] ]
-  def self.admin_grid(product, params = {})
-    where({:variants => { product_id: product.id} }).
-      includes(:product).
-      product_name_filter(params[:product_name]).
-      sku_filter(params[:sku])
+  private
+  
+  def self.sku_filter(sku)
+    if sku.present?
+      where(['sku LIKE ? ', "#{sku}%"])
+    else
+      all
+    end
+  end
+  
+  def self.product_name_filter(product_name)
+    if product_name.present?
+      where({:products => {:name => product_name}})
+    else
+      all
+    end
   end
 
-  private
-    def self.sku_filter(sku)
-      if sku.present?
-        where(['sku LIKE ? ', "#{sku}%"])
-      else
-        all
-      end
-    end
-    def self.product_name_filter(product_name)
-      if product_name.present?
-        where({:products => {:name => product_name}})
-      else
-        all
-      end
-    end
-
-    def create_inventory
-      self.inventory = Inventory.create({:count_on_hand => 0, :count_pending_to_customer => 0, :count_pending_from_supplier => 0}) unless inventory_id
-    end
+  def create_inventory
+    self.inventory = Inventory.create({:count_on_hand => 0, :count_pending_to_customer => 0, :count_pending_from_supplier => 0}) unless inventory_id
+  end
 end
