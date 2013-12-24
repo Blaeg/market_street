@@ -85,14 +85,3 @@ describe ReturnAuthorization, "#find_by_number(num)" do
     find_return_authorization.id.should == return_authorization.id
   end
 end
-
-describe ReturnAuthorization, '#admin_grid(params)' do
-  it "returns Return Authorizations " do
-    return_authorization1 = create(:return_authorization)
-    return_authorization2 = create(:return_authorization)
-    admin_grid = ReturnAuthorization.admin_grid
-    admin_grid.size.should == 2
-    admin_grid.include?(return_authorization1).should be_true
-    admin_grid.include?(return_authorization2).should be_true
-  end
-end

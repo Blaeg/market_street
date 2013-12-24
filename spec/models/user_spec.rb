@@ -277,15 +277,3 @@ describe User, 'private methods' do
     end
   end
 end
-
-describe User, "#admin_grid(params = {})" do
-  it "returns users " do
-    User.any_instance.stubs(:start_store_credits).returns(true)  ## simply speed up tests, no reason to have store_credit object
-    user1 = create(:user)
-    user2 = create(:user)
-    admin_grid = User.admin_grid
-    admin_grid.size.should == 2
-    admin_grid.include?(user1).should be_true
-    admin_grid.include?(user2).should be_true
-  end
-end

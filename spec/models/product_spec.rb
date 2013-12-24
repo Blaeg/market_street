@@ -167,29 +167,5 @@ describe Product, "class methods" do
 
   context "#featured" do
     pending "test for featured"
-  end
-
-  context "#admin_grid(params = {}, active_state = nil)" do
-
-    it "returns Products " do
-      product1 = FactoryGirl.create(:product)
-      product2 = FactoryGirl.create(:product)
-      product1.activate!
-      product2.activate!
-      admin_grid = Product.admin_grid({}, true)
-      admin_grid.size.should == 2
-      admin_grid.include?(product1).should be_true
-      admin_grid.include?(product2).should be_true
-    end
-    it "returns deleted Products " do
-      product1 = FactoryGirl.create(:product)
-      product2 = FactoryGirl.create(:product) 
-      admin_grid = Product.admin_grid({}, nil)
-      
-      admin_grid.size.should == 2
-
-      admin_grid.include?(product1).should be_true
-      admin_grid.include?(product2).should be_true
-    end
-  end
+  end  
 end
