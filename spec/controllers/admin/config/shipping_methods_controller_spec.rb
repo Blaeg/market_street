@@ -1,4 +1,4 @@
-require  'spec_helper'
+require 'spec_helper'
 
 describe Admin::Config::ShippingMethodsController do
   render_views

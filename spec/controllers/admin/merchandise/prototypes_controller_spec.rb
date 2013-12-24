@@ -1,4 +1,4 @@
-require  'spec_helper'
+require 'spec_helper'
 
 describe Admin::Merchandise::PrototypesController do
   render_views

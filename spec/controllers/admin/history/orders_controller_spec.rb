@@ -1,4 +1,4 @@
-require  'spec_helper'
+require 'spec_helper'
 
 describe Admin::History::OrdersController do
   render_views

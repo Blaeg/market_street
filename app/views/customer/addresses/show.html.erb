@@ -1,0 +1,12 @@
+<div class='span9 columns'>
+  <h3> Address </h3>
+  <p>
+    <%= render :partial => '/shared/compact_address', 
+    	:locals => { :shopping_address => @address } %>
+  </p>
+  <p>
+    <%= link_to "Edit", edit_customer_address_path(@address), :class => 'btn' %> |
+    <%= link_to "Destroy", customer_address_path(@address), :data => { :confirm => 'Are you sure?'}, :method => :delete, :class => 'btn' %> |
+    <%= link_to "View All", customer_addresses_path, :class => 'btn' %>
+  </p>
+</div>

@@ -2,16 +2,12 @@ require 'sidekiq/web'
 
 MarketStreet::Application.routes.draw do
   mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
-  get 'admin'   => 'admin/overviews#index'
+  get 'admin' => 'admin/overviews#index'
 
-  resources :user_sessions, :only => [:new, :create, :destroy]
-
-  get 'login'   => 'user_sessions#new'
-  delete 'logout'  => 'user_sessions#destroy'
-  get 'signup'  => 'customer/registrations#new'
+  get 'login' => 'customer/user_sessions#new'
+  delete 'logout' => 'customer/user_sessions#destroy'
+  get 'signup' => 'customer/registrations#new'
   
-  resources :products, :only => [:index, :show, :create]
-  resources :wish_items,  :only => [:index, :destroy]
   resources :states,      :only => [:index]  
   resource  :unsubscribe, :only => :show
 
@@ -20,11 +16,12 @@ MarketStreet::Application.routes.draw do
 
   root :to => "home#index"
 
-  resources :registrations,   :only => [:index, :new, :create]
-  resource  :password_reset,  :only => [:new, :create, :edit, :update]
-  resource  :activation,      :only => [:show]
-  
-  namespace :myaccount do
+  namespace :customer do
+    resources :user_sessions, :only => [:new, :create, :destroy]
+    resources :registrations,   :only => [:index, :new, :create]
+    resource  :password_reset,  :only => [:new, :create, :edit, :update]
+    resource  :activation,      :only => [:show]
+
     resources :orders, :only => [:index, :show]
     resources :addresses
     resources :credit_cards
@@ -33,7 +30,13 @@ MarketStreet::Application.routes.draw do
     resource  :overview, :only => [:show, :edit, :update]
   end
 
+  namespace :catalog do
+    resources :products, :only => [:index, :show, :create]
+  end
+
   namespace :shopping do
+    resources :wish_items,  :only => [:index, :destroy]
+
     resources  :addresses do
       member do
         put :select_address
@@ -201,5 +204,4 @@ MarketStreet::Application.routes.draw do
       resources :invoices
     end
   end
-
 end

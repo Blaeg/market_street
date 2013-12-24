@@ -1,4 +1,4 @@
-require  'spec_helper'
+require 'spec_helper'
 
 describe Admin::Merchandise::Wizards::PropertiesController do
   render_views

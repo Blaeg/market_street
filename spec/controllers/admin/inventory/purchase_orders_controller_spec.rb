@@ -1,4 +1,4 @@
-require  'spec_helper'
+require 'spec_helper'
 
 describe Admin::Inventory::PurchaseOrdersController do
   render_views

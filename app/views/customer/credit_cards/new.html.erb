@@ -1,0 +1,9 @@
+<div class='span9 columns'>
+  <h3> New Credit Card </h3>
+
+  <%= form_for(@credit_card, :url => customer_credit_cards_path(@credit_card)) do |f| %>
+    <%= render :partial => 'form', :locals => {:f => f} %>
+  <% end %>
+
+  <%= link_to 'Back to List', customer_credit_cards_path, :class => 'btn' %>
+</div>

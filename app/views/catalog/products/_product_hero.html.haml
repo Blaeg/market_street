@@ -1,0 +1,10 @@
+%li.span5
+  .thumbnail
+    = link_to image_tag(product.featured_image(:medium)), catalog_product_path(product), 
+    	title: product.name
+    .caption
+      %h5= link_to product.name[0..20], catalog_product_path(product)
+      %p 
+        .span1= product.price_label
+        = link_to fa_icon("heart"), '#'
+        = link_to fa_icon("shopping-cart"), '#'

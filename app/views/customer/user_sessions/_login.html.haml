@@ -1,0 +1,14 @@
+#login.span5.well
+  %h3 Welcome Back
+  = form_for @user_session, :as => :user_session, :url => customer_user_sessions_path(@user_session), :html => {:class => 'span12'} do |form|
+    %fieldset
+      .control-group
+        = form.label :email, 'Email'
+        = form.email_field :email        
+      .control-group
+        = form.label :email, 'Password'
+        = form.password_field :password        
+      = form.submit "Sign In", :class => 'btn btn-primary'
+      %br
+      = link_to 'forgot password?', new_customer_password_reset_path()
+    
