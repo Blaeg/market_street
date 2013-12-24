@@ -1,9 +1,7 @@
 class Admin::Merchandise::Multi::VariantsController < Admin::BaseController
   helper_method :image_groups
   def edit
-    @product = Product.includes(:properties,:product_properties, 
-                                {:prototype => :properties}).find(params[:product_id])
-    form_info    
+    @product = Product.find(params[:product_id])        
   end
 
   def update
@@ -12,7 +10,6 @@ class Admin::Merchandise::Multi::VariantsController < Admin::BaseController
       flash[:notice] = "Successfully updated variants"
       redirect_to admin_merchandise_product_url(@product)
     else
-      form_info
       render :action => :edit
     end
   end
@@ -25,8 +22,5 @@ class Admin::Merchandise::Multi::VariantsController < Admin::BaseController
 
   def image_groups
     @image_groups ||= ImageGroup.where(:product_id => @product).map{|i| [i.name, i.id]}
-  end
-
-  def form_info
-  end
+  end  
 end

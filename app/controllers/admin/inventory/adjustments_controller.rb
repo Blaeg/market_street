@@ -13,8 +13,6 @@ class Admin::Inventory::AdjustmentsController < Admin::BaseController
 
   def update
     @variant = Variant.find(params[:id])
-    ###  the reason will effect accounting
-    #    if the item is refunded by the supplier the accounting will be reflected
     if params[:refund].present? && params[:variant][:qty_to_add].present?
       if params[:refund].to_f > 0.0
         AccountingAdjustment.adjust_stock(@variant.inventory, params[:variant][:qty_to_add].to_i, params[:refund].to_f)
@@ -37,6 +35,4 @@ class Admin::Inventory::AdjustmentsController < Admin::BaseController
   def allowed_params
     params.require(:variant).permit(:qty_to_add)
   end
-
 end
-
