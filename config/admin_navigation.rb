@@ -4,12 +4,12 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.dom_class = 'nav'
     primary.auto_highlight = true
     primary.item :catalog_tab, 'Catalog', '#' do |catalog|
-      catalog.item :products, 'Products', admin_merchandise_products_path
-      catalog.item :properties, 'Properties', admin_merchandise_properties_path 
-      catalog.item :product_types, 'Product Types', admin_merchandise_product_types_path 
-      catalog.item :prototypes, 'Prototypes', admin_merchandise_prototypes_path
-      catalog.item :image_groups, 'Image Groups', admin_merchandise_image_groups_path
-      catalog.item :brands, 'Brands', admin_merchandise_brands_path
+      catalog.item :products, 'Products', admin_catalog_products_path
+      catalog.item :properties, 'Properties', admin_catalog_properties_path 
+      catalog.item :product_types, 'Product Types', admin_catalog_product_types_path 
+      catalog.item :prototypes, 'Prototypes', admin_catalog_prototypes_path
+      catalog.item :image_groups, 'Image Groups', admin_catalog_image_groups_path
+      catalog.item :brands, 'Brands', admin_catalog_brands_path
     end
 
     primary.item :inventory_tab, 'Inventory', admin_inventory_overviews_path do |inventory|

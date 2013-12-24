@@ -1,0 +1,9 @@
+<%= render :partial => '/admin/catalog/wizards/sub_header'%>
+<h3>New Product</h3>
+
+<%= form_for(@product, :url => admin_catalog_wizards_products_path()) do |f| %>
+  <%= render :partial => 'form', :locals => {:form => f} %>
+  <%= submit_tag "Create", :class  => "btn" %>
+<% end %>
+
+<div class='clearfix'></div>

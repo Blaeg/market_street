@@ -33,7 +33,7 @@ if (typeof MarketStreet.Admin.purchaseOrder == "undefined") {
         prefillCost : function(obj) {
           jQuery.ajax( {
              type : "GET",
-             url : "/admin/merchandise/products/"+ 0 +"/variants/"+ $(obj).val(),
+             url : "/admin/catalog/products/"+ 0 +"/variants/"+ $(obj).val(),
              complete : function(json) {
               variant = JSON.parse(json.responseText).variant;
               variant.cost;

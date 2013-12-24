@@ -6,10 +6,10 @@ module ApplicationHelper
 =begin
 EXAMPLE USAGE!!
   <% form.fields_for :properties do |property_form| %>
-    <%= render :partial => '/admin/merchandise/add_property', :locals => { :f => property_form } %>
+    <%= render :partial => '/admin/catalog/add_property', :locals => { :f => property_form } %>
   <% end %>
   <p><%= add_child_link "New Property", :properties %></p>
-  <%= new_child_fields_template(form, :properties, :partial => '/admin/merchandise/add_property')%>
+  <%= new_child_fields_template(form, :properties, :partial => '/admin/catalog/add_property')%>
 =end
 
   def sortable(column, title = nil)

@@ -1,0 +1,40 @@
+<%= render :partial => '/admin/catalog/sub_header'%>
+
+<% content_for :sidemenu do %>
+<div class="span2">
+  <%= search_form_for @q, url: admin_catalog_products_path do |f| %>
+    <%= f.label :name_cont %>
+    <%= f.text_field :name_cont, class: 'span12'%>
+    <%= f.label :product_type_name_cont %>
+    <%= f.text_field :product_type_name_cont, class: 'span12' %>
+    <%= f.submit(:class => "btn btn-primary") %>       
+  <% end %>
+  <%= link_to "New Product", new_admin_catalog_product_path, :class => "btn" %>
+</div>
+<% end %>
+
+<div class="span9"> 
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Active</th>
+        <th>Product Type</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <% @products.each do |product| %>
+      <tr>
+        <td>
+          <%= link_to product.name, edit_admin_catalog_product_path(product) %>
+        </td>
+        <td><%= product.available? ? 'Yes' : 'No' %></td>
+        <td><%= product.product_type.name %></td>
+        <td><%= link_to "Edit Variants",  edit_admin_catalog_multi_product_variant_path(product) %></td>
+        <td><%= link_to "Show",  admin_catalog_product_path(product) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate @products %>
+</div>

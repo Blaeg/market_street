@@ -1,0 +1,15 @@
+<%= render :partial => '/admin/catalog/sub_header'%>
+
+<h3>Images for '<%= @product.name %>'</h3>
+
+<% @product.images.each do |image| %>
+	<label><%= image.photo_file_name %></label>
+  <%= image_tag image.photo.url(:small) %>
+<% end %>
+
+<p style="margin-top: 30px">
+	<%= link_to 'Edit Images', edit_admin_catalog_images_product_path(@product), 
+		:class  => "btn"%>
+	<%= link_to 'Product Details', admin_catalog_product_path(@product), 
+		:class => "btn"%>
+</p>

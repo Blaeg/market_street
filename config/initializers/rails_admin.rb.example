@@ -2725,7 +2725,7 @@ RailsAdmin.config do |config|
 
   # config.model 'Transactions::ReturnMerchandiseComplete' do
 
-  #   # You can copy this to a 'rails_admin do ... end' block inside your transactions/return_merchandise_complete.rb model definition
+  #   # You can copy this to a 'rails_admin do ... end' block inside your transactions/return_catalog_complete.rb model definition
 
   #   # Found associations:
 

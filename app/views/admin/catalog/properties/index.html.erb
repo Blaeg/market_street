@@ -1,0 +1,34 @@
+<%= render :partial => '/admin/catalog/sub_header'%>
+
+<% content_for :sidemenu do %>
+  <div class="span2">
+    <%= search_form_for @q, url: admin_catalog_properties_path do |f| %>
+      <%= f.label :identifing_name_cont %>
+      <%= f.text_field :identifing_name_cont, class: 'span12'%>
+      <%= f.label :display_name_cont %>
+      <%= f.text_field :display_name_cont, class: 'span12' %>
+      <%= f.submit(:class => "btn btn-primary") %>       
+    <% end %>
+    <%= link_to "New Property", new_admin_catalog_property_path, :class => "btn" %>
+  </div>
+<% end %>
+
+<div class="span9">
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th><%= sortable 'identifing_name',"ID name" %></th>
+        <th><%= sortable "display_name" %></th>
+        <th>Active</th>
+    </tr>
+    </thead>
+    <% @properties.each do |property| %>
+      <tr>
+        <td><%= link_to property.identifing_name, edit_admin_catalog_property_path(property) %></td>
+        <td><%= property.display_name %></td>
+        <td><%= property.display_active %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate @properties %>
+</div>

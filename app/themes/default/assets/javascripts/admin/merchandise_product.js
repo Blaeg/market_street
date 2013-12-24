@@ -12,7 +12,7 @@ MarketStreet.AdminMerchandiseProductForm = {
 
     productCheckboxesDiv  : '#product_properties',
     prototypeSelectId     : '#product_prototype_id',
-    formController        : '/admin/merchandise/products',
+    formController        : '/admin/catalog/products',
     productId             : null,
 
     initialize : function(product_Id) {

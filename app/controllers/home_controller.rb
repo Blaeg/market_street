@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     
     unless @featured_product
       if current_user && current_user.admin?
-        redirect_to admin_merchandise_products_url
+        redirect_to admin_catalog_products_url
       else
         redirect_to login_url
       end

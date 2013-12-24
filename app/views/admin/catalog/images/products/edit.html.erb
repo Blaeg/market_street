@@ -1,0 +1,14 @@
+<%= render :partial => '/admin/catalog/sub_header'%>
+
+<h3>Add Product Images</h3>
+<%= form_for @product, :url => admin_catalog_images_product_path(@product), 
+	:multipart => true do |form| %>
+  <%= render :partial => '/admin/catalog/images/products/form', 
+  	:locals => {:form => form} %>
+  <%= submit_tag "Create", :class  => "btn" %>
+<% end %>
+
+<%= link_to 'View Images', admin_catalog_images_product_path(@product), 
+	:class  => "btn"%>
+<%= link_to 'Product Details', admin_catalog_product_path(@product), 
+	:class  => "btn" %>

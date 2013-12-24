@@ -1,0 +1,8 @@
+<% content_for :sidemenu do -%>
+  <ul>
+      <li><%= link_to 'Brand', admin_catalog_wizards_brands_path %></li>
+      <li><%= link_to 'Product Type', admin_catalog_wizards_product_types_path %></li>
+      <li><%= link_to 'Properties', admin_catalog_wizards_properties_path %></li>
+      <li><%= link_to 'Product', new_admin_catalog_wizards_product_path unless next_wizard_form %></li>
+  </ul>
+<% end %>

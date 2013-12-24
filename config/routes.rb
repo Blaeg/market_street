@@ -158,7 +158,7 @@ MarketStreet::Application.routes.draw do
       resources :adjustments
     end
 
-    namespace :merchandise do
+    namespace :catalog do
       namespace :images do
         resources :products
       end
