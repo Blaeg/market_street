@@ -333,19 +333,6 @@ class Order < ActiveRecord::Base
     shipments_count > 0
   end
 
-  # paginated results from the admin order fulfillment grid
-  #
-  # @param [Optional params]
-  # @return [ Array[Order] ]
-  def self.fulfillment_grid(params = {})
-    grid = Order.includes([:user]).where({ :orders => {:shipped => false }} ).where("orders.completed_at IS NOT NULL")
-    grid = grid.where({:active => true })                     unless  params[:show_all].present? && params[:show_all] == 'true'
-    grid = grid.where("orders.number LIKE ?", "#{params[:number]}%")  if params[:number].present?
-    grid = grid.where("orders.shipped = ?", true)                     if (params[:shipped].present? && params[:shipped] == 'true')
-    grid = grid.where("orders.email LIKE ?", "#{params[:email]}%")    if params[:email].present?
-    grid
-  end
-
   private
   # Called before validation.  sets the email address of the user to the order's email address
   #

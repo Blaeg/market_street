@@ -1,26 +1,19 @@
 <% content_for :sidemenu do %>
   <div class="span2">
-    <%= form_tag admin_fulfillment_orders_path, :id => "orders_search" do %>
-      <p>
-        <ul class=' search_boxes'>
-          <li><%= label_tag 'Number' %> <%= text_field_tag :number, params[:number] %></li>
-          <li><%= label_tag 'Email' %>  <%= text_field_tag :email, params[:email] %></li>
-          <li><%= label_tag 'shipped' %>  <%= check_box_tag :shipped, 'true', params[:shipped] == 'true' %></li>
-        </ul>
-        <div style='text-align:center'>
-          <%= submit_tag "Search", :name => nil, :class => 'btn red-button' %>
-        </div>
-      </p>
-      <div id="order_hidden">
-        <%= hidden_field_tag :direction, params[:direction] %>
-        <%= hidden_field_tag :sort, params[:sort] %>
-      </div>
-    <% end %>
-    <div class='clearfix'></div>
+    <%= search_form_for @q, url: admin_fulfillment_orders_path do |f| %>
+      <%= f.label :user_first_name_cont %>
+      <%= f.text_field :user_first_name_cont, class: 'span12'%>
+      <%= f.label :user_last_name_cont %>
+      <%= f.text_field :user_last_name_cont, class: 'span12'%>
+      <%= f.label :number_cont %>
+      <%= f.text_field :number_cont, class: 'span12'%>
+      <%= f.label :email_cont %>
+      <%= f.text_field :email_cont, class: 'span12' %>
+      <%= f.submit(:class => "btn btn-primary") %>       
+    <% end %>    
   </div>
 <% end %>
 
-<h3>Shipping Orders</h3>
 <div class="span9">
   <table class="table table-striped table-bordered">
     <thead>

@@ -1,10 +1,13 @@
 class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
+  add_breadcrumb "Shipping Orders", :admin_fulfillment_orders_path
   helper_method :sort_column, :sort_direction
-  # GET /admin/fulfillment/orders
+  
   def index
-    @orders = Order.fulfillment_grid(params).order(sort_column + " " + sort_direction).
+    @q = Order.search(params[:q])
+    @orders = @q.result.where({ :orders => {:shipped => false }} ).
+                where("orders.completed_at IS NOT NULL").
+                order(sort_column + " " + sort_direction).
                 page(pagination_page).per(pagination_rows)
-
   end
 
   # GET /admin/fulfillment/orders/1
@@ -76,12 +79,7 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
   def sort_column
     Order.column_names.include?(params[:sort]) ? params[:sort] : "number"
   end
-
-  def pagination_rows
-    params[:rows] ||= 25
-    params[:rows].to_i
-  end
-
+  
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
