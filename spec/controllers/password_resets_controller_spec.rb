@@ -21,7 +21,7 @@ describe PasswordResetsController do
     User.any_instance.stubs(:valid?).returns(true)
     User.any_instance.stubs(:find_by_email).returns(@user)
     post :create, :user => {:email => @user.email}
-    #response.should render_template('/customer/password_resets/confirmation')
+    expect(response).to render_template('password_resets/confirmation')
   end
 
   it "edit action should render edit template" do
@@ -43,5 +43,4 @@ describe PasswordResetsController do
     put :update, :id => @user.perishable_token, :user => {:password => 'testPWD123', :password_confirmation => 'testPWD123'}
     response.should redirect_to(login_url)
   end
-
 end
