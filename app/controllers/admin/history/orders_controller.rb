@@ -1,11 +1,12 @@
 class Admin::History::OrdersController < Admin::BaseController
-  # GET /admin/history/orders
+  add_breadcrumb "Order History", :admin_history_orders_path
+    
   def index
-    @orders = Order.find_finished_order_grid(params).
-                page(pagination_page).per(pagination_rows)
+    @q = Order.search(params[:q])
+    @orders = @q.result.where("orders.completed_at IS NOT NULL").
+                page(pagination_page).per(pagination_rows)          
   end
 
-  # GET /admin/history/orders/1
   def show
     @order = Order.includes([:ship_address, :invoices,
                              {:shipments => :shipping_method},

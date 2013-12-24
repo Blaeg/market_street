@@ -333,19 +333,6 @@ class Order < ActiveRecord::Base
     shipments_count > 0
   end
 
-  # paginated results from the admin orders that are completed grid
-  #
-  # @param [Optional params]
-  # @return [ Array[Order] ]
-  def self.find_finished_order_grid(params = {})
-    grid = Order.includes([:user]).where("orders.completed_at IS NOT NULL")
-    grid = grid.where("orders.shipments_count > ?", 0)               if params[:shipped].present? && params[:shipped] == 'true'
-    grid = grid.where("orders.shipments_count = ?", 0)               if params[:shipped].present? && params[:shipped] == 'false'
-    grid = grid.where("orders.number LIKE ?", "#{params[:number]}%")  if params[:number].present?
-    grid = grid.where("orders.email LIKE ?", "#{params[:email]}%")    if params[:email].present?
-    grid = grid.order("#{params[:sidx]} #{params[:sord]}")
-  end
-
   # paginated results from the admin order fulfillment grid
   #
   # @param [Optional params]
