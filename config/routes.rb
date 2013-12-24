@@ -2,11 +2,10 @@ require 'sidekiq/web'
 
 MarketStreet::Application.routes.draw do
   mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
-  
-  resources :image_groups
+  get 'admin'   => 'admin/overviews#index'
+
   resources :user_sessions, :only => [:new, :create, :destroy]
 
-  get 'admin'   => 'admin/overviews#index'
   get 'login'   => 'user_sessions#new'
   delete 'logout'  => 'user_sessions#destroy'
   get 'signup'  => 'customer/registrations#new'
@@ -14,14 +13,10 @@ MarketStreet::Application.routes.draw do
   resources :products, :only => [:index, :show, :create]
   resources :wish_items,  :only => [:index, :destroy]
   resources :states,      :only => [:index]  
-  resource :home, :only => [:index] do
-    collection do 
-      get :about
-      get :terms
-    end
-  end
-
   resource  :unsubscribe, :only => :show
+
+  get 'about' => 'home#about', as: :about_home
+  get 'terms' => 'home#terms', as: :terms_home
 
   root :to => "home#index"
 
@@ -65,7 +60,9 @@ MarketStreet::Application.routes.draw do
     end
     resources  :shipping_methods
   end
-
+  
+  resources :image_groups
+  
   namespace :admin do
     mount Sidekiq::Web => '/jobs'
     namespace :customer_service do
