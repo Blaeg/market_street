@@ -22,7 +22,7 @@ MarketStreet::Application.routes.draw do
     end
   end
 
-  resource  :unsubscribe,       :only => :show
+  resource  :unsubscribe, :only => :show
 
   root :to => "home#index"
 

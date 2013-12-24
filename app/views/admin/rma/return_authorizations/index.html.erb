@@ -1,26 +1,19 @@
 <%= render :partial => '/admin/rma/sub_header'%>
-<h2>RMAs</h2>
-
 <% content_for :sidemenu do %>
-  <div class='span2'>
-    <%= form_tag admin_rma_order_return_authorizations_path(@order), :method => 'get', :id => "products_search" do %>
-      <ul class=' search_boxes'>
-        <li><%= label_tag 'RMA #' %> <%= text_field_tag :number, params[:number] %></li>
-        <li><%= label_tag 'Status' %> <%= text_field_tag :state, params[:state] %></li>
-      </ul>
-      <div style='text-align:center'>
-        <%= submit_tag "Search", :name => nil, :class => 'btn red-button' %>
-      </div>
-      <div id="order_hidden">
-        <%= hidden_field_tag :direction, params[:direction] %>
-        <%= hidden_field_tag :sort, params[:sort] %>
-      </div>
-    <% end %>
-    <div class='clearfix'></div>
+  <div class="span2">
+    <%= search_form_for @q, url: admin_rma_order_return_authorizations_path do |f| %>
+      <%= f.label :number_cont %>
+      <%= f.text_field :number_cont, class: 'span12'%>
+      <%= f.label :state_eq %>
+      <%= f.text_field :state_eq, class: 'span12' %>
+      <%= f.submit(:class => "btn btn-primary") %>       
+    <% end %>    
+    <%= link_to 'Back to Order', admin_history_order_path(@order), class: 'btn' %>
   </div>
 <% end %>
 
 <div class="span9">
+  
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -41,7 +34,4 @@
       </tr>
     <% end %>
   </table>
-<%= paginate @return_authorizations %>
 </div>
-
-<%= link_to 'Order Info', admin_history_order_path(@order), :class => 'btn' %>

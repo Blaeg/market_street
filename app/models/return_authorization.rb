@@ -136,29 +136,8 @@ class ReturnAuthorization < ActiveRecord::Base
     find(id_from_number(num))##  now we can search by id which should be much faster
   end
 
-  # paginated results from the admin return authorization grid
-  #
-  # @param [Optional params]
-  # @return [ Array[ReturnAuthorization] ]
-  def self.admin_grid(params = {})
-
-    params[:page] ||= 1
-    params[:rows] ||= SETTINGS[:admin_grid_rows]
-
-    grid = includes([:return_items, :order, :user])#paginate({:page => params[:page]})
-
-    grid = grid.where("return_authorizations.number LIKE ?",  "#{params[:number]}%")        if params[:number].present?
-    grid = grid.where("orders.order_number LIKE ?",           "#{params[:order_number]}%")  if params[:order_number].present?
-    grid = grid.where("return_authorizations.state LIKE ?",      params[:state])               if params[:state].present?
-    grid
-  end
-
   private
 
-  # rma validation, if the rma amount is less than the restocking fee why would anyone return an item
-  #
-  # @param [none]
-  # @return [none]
   def ensure_refund_is_larger_than_restocking
     if restocking_fee && restocking_fee >= amount
       self.errors.add(:amount, "The amount must be larger than the restocking fee.")
