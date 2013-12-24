@@ -555,26 +555,3 @@ describe Order, "#find_by_number(num)" do
     find_order.id.should == order.id
   end
 end
-
-
-describe Order, "#find_finished_order_grid(params = {})" do
-  it "returns finished Orders " do
-    order1 = create(:order, :completed_at => nil)
-    order2 = create(:order, :completed_at => Time.now)
-    admin_grid = Order.find_finished_order_grid
-    admin_grid.size.should == 1
-    admin_grid.include?(order1).should be_false
-    admin_grid.include?(order2).should be_true
-  end
-end
-
-describe Order, "#fulfillment_grid(params = {})" do
-  it "returns Orders " do
-    order1 = create(:order, :shipped => false)
-    order2 = create(:order, :shipped => true)
-    admin_grid = Order.fulfillment_grid
-    admin_grid.size.should == 1
-    admin_grid.include?(order1).should be_true
-    admin_grid.include?(order2).should be_false
-  end
-end

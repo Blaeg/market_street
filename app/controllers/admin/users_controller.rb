@@ -1,11 +1,14 @@
 class Admin::UsersController < Admin::BaseController
   add_breadcrumb "Users", :admin_users_path
   helper_method :sort_column, :sort_direction
-
+  
   def index
     authorize! :view_users, current_user
     @q = User.search(params[:q])
-    @users = @q.result(distinct: true).page(params[:page])    
+    @users = @q.result(distinct: true).
+                order(sort_column + " " + sort_direction).
+                page(pagination_page).
+                per(pagination_rows)                  
   end
 
   def show
@@ -52,6 +55,10 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  def default_sort_column
+    'users.first_name'
+  end
+
   private
 
   def user_params
@@ -61,13 +68,5 @@ class Admin::UsersController < Admin::BaseController
   def form_info
     @all_roles = Role.all
     @states    = ['inactive', 'active', 'canceled']
-  end
-
-  def sort_column
-    User.column_names.include?(params[:sort]) ? params[:sort] : "first_name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
+  end  
 end

@@ -57,6 +57,6 @@ puts  "SEEDING ORDERS"
 FactoryGirl.create_list(:order, 5)
 puts  "SEEDING INVOICES"
 FactoryGirl.create_list(:invoice, 5)
-puts  "SEEDING PURCHASE ORDERS
+puts  "SEEDING PURCHASE ORDERS"
 FactoryGirl.create_list(:purchase_order, 5)
 FactoryGirl.create_list(:supplier, 5)

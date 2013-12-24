@@ -35,10 +35,5 @@ class Admin::BaseController < ApplicationController
     elsif !current_user || !current_user.admin?
       redirect_to root_url
     end
-  end
-
-  def pagination_rows
-    params[:rows] ||= 25
-    params[:rows].to_i
-  end
+  end  
 end

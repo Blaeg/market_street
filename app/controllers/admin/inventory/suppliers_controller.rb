@@ -6,7 +6,7 @@ class Admin::Inventory::SuppliersController < Admin::BaseController
   def index
     @q = Supplier.search(params[:q])
     @suppliers = @q.result.order(sort_column + " " + sort_direction).
-                page(pagination_page).per(pagination_rows)    
+    page(pagination_page).per(pagination_rows)    
   end
 
   def new
@@ -42,17 +42,13 @@ class Admin::Inventory::SuppliersController < Admin::BaseController
     respond_with(@supplier)
   end
 
-private
+  def default_sort_column
+    "suppliers.id"
+  end
+
+  private
 
   def allowed_params
     params.require(:supplier).permit(:name, :email)
-  end
-
-  def sort_column
-    Supplier.column_names.include?(params[:sort]) ? params[:sort] : "id"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

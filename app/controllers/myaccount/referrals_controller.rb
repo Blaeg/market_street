@@ -25,21 +25,17 @@ class Myaccount::ReferralsController < Myaccount::BaseController
     end
   end
 
+  def default_sort_column
+    "referrals.name"
+  end
+
   private
 
-    def allowed_params
-      params.require(:referral).permit(:email, :name)
-    end
+  def allowed_params
+    params.require(:referral).permit(:email, :name)
+  end
 
-    def selected_myaccount_tab(tab)
-      tab == 'referrals'
-    end
-
-    def sort_column
-      Referral.column_names.include?(params[:sort]) ? params[:sort] : "name"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  def selected_myaccount_tab(tab)
+    tab == 'referrals'
+  end  
 end

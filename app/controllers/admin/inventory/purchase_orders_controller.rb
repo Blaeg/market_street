@@ -59,8 +59,12 @@ class Admin::Inventory::PurchaseOrdersController < Admin::BaseController
     @purchase_order.destroy
     redirect_to(admin_inventory_purchase_orders_url)
   end
-  private
+  
+  def default_sort_column
+    "purchase_orders.id"
+  end  
 
+  private
 
   def allowed_params
     params.require(:purchase_order).permit(:supplier_id, :invoice_number, :tracking_number, :notes, :receive_po, :ordered_at, :estimated_arrival_on, :created_at, :updated_at, :total_cost)
@@ -69,14 +73,5 @@ class Admin::Inventory::PurchaseOrdersController < Admin::BaseController
   def form_info
     @select_suppliers = Supplier.all.collect{|s| [s.name, s.id]}
     @select_variants  = Variant.includes(:product).collect {|v| [v.name_with_sku, v.id]}
-  end
-
-  def sort_column
-    return 'suppliers.name' if params[:sort] == 'supplier_name'
-    PurchaseOrder.column_names.include?(params[:sort]) ? params[:sort] : "id"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
+  end  
 end

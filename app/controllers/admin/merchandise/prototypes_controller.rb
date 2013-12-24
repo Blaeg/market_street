@@ -54,18 +54,14 @@ class Admin::Merchandise::PrototypesController < Admin::BaseController
 
     redirect_to :action => :index
   end
+
+  def default_sort_column
+    "prototypes.name"
+  end
+
   private
 
   def allowed_params
     params.require(:prototype).permit( :name, :active, :property_ids )
-  end
-
-  def sort_column
-    Prototype.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-
+  end 
 end

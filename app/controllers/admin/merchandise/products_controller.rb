@@ -95,6 +95,10 @@ class Admin::Merchandise::ProductsController < Admin::BaseController
     redirect_to admin_merchandise_product_url(@product)
   end
 
+  def default_sort_column
+    "products.name"
+  end  
+
   private
 
   def allowed_params
@@ -111,13 +115,5 @@ class Admin::Merchandise::ProductsController < Admin::BaseController
 
   def product_types
     @product_types ||= ProductType.all
-  end
-
-  def sort_column
-    Product.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

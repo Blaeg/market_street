@@ -26,6 +26,10 @@ class Admin::CustomerService::CommentsController < Admin::CustomerService::BaseC
     end
   end
 
+  def default_sort_column
+    "comments.note"
+  end  
+
   private
 
   def allowed_params
@@ -34,12 +38,5 @@ class Admin::CustomerService::CommentsController < Admin::CustomerService::BaseC
 
   def customer
     @customer ||= User.find(params[:user_id])
-  end
-  def sort_column
-    Comment.column_names.include?(params[:sort]) ? params[:sort] : "note"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

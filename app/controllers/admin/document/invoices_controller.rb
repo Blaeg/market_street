@@ -32,12 +32,7 @@ class Admin::Document::InvoicesController < Admin::BaseController
     redirect_to admin_document_invoices_url
   end
 
-  private
-    def sort_column
-      Invoice.column_names.include?(params[:sort]) ? params[:sort] : "invoices.id"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  def default_sort_column
+    "invoices.id"
+  end
 end

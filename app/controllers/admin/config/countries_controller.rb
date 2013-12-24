@@ -25,13 +25,7 @@ class Admin::Config::CountriesController < Admin::Config::BaseController
     redirect_to admin_config_countries_url, :notice => "Successfully inactivated country."
   end
 
-  private
-
-    def sort_column
-      Country.column_names.include?(params[:sort]) ? params[:sort] : "name"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  def default_sort_column
+    "countries.name"
+  end
 end

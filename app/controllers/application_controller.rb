@@ -43,6 +43,14 @@ class ApplicationController < ActionController::Base
     params[:rows].to_i
   end
 
+  def sort_column
+    params[:sort] ? params[:sort] : self.default_sort_column
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
   def require_user
     redirect_to login_url and store_return_location and return unless current_user
   end

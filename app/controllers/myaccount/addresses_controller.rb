@@ -84,6 +84,7 @@ class Myaccount::AddressesController < Myaccount::BaseController
   def selected_myaccount_tab(tab)
     tab == 'address'
   end
+  
   def countries
     @countries ||= Country.active
   end

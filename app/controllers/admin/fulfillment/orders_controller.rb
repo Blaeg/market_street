@@ -76,11 +76,8 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
 
   protected
 
-  def sort_column
-    Order.column_names.include?(params[:sort]) ? params[:sort] : "number"
+  def default_sort_column
+    "number"
   end
-  
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
+
 end

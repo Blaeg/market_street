@@ -1,11 +1,11 @@
 class Admin::UserDatas::AddressesController < Admin::UserDatas::BaseController
   helper_method :sort_column, 
-                :sort_direction, 
-                :customer, 
-                :select_states
+  :sort_direction, 
+  :customer, 
+  :select_states
   def index
     @addresses = customer.addresses.order(sort_column + " " + sort_direction).
-                         page(pagination_page).per(pagination_rows)
+    page(pagination_page).per(pagination_rows)
   end
 
   def show
@@ -69,26 +69,21 @@ class Admin::UserDatas::AddressesController < Admin::UserDatas::BaseController
     redirect_to admin_user_datas_user_addresses_url(customer), :notice => "Successfully inactivated address."
   end
 
+  def default_sort_column
+    "address_type"
+  end    
+
   private
 
+  def allowed_params
+    params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :billing_default, :country_id)
+  end
 
-    def allowed_params
-      params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :billing_default, :country_id)
-    end
+  def customer
+    @customer ||= User.includes(:addresses).find(params[:user_id])
+  end
 
-    def customer
-      @customer ||= User.includes(:addresses).find(params[:user_id])
-    end
-
-    def select_states
-      @select_states ||= State.form_selector
-    end
-
-    def sort_column
-      Address.column_names.include?(params[:sort]) ? params[:sort] : "address_type"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  def select_states
+    @select_states ||= State.form_selector
+  end
 end

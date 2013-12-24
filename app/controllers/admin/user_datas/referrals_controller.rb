@@ -2,7 +2,7 @@ class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
   helper_method :sort_column, :sort_direction, :referral_types, :referral_programs
   def index
     @referrals = Referral.order(sort_column + " " + sort_direction).
-                          page(pagination_page).per(pagination_rows)
+    page(pagination_page).per(pagination_rows)
   end
 
   def show
@@ -10,8 +10,7 @@ class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
   end
 
   def new
-    @referral = Referral.new
-    form_info
+    @referral = Referral.new    
   end
 
   def create
@@ -33,7 +32,6 @@ class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
       if @referral.save
         redirect_to [:admin, :user_datas, @referral], :notice => "Successfully created referral."
       else
-        form_info
         render :new
       end
     else
@@ -43,8 +41,7 @@ class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
   end
 
   def edit
-    @referral = Referral.find(params[:id])
-    form_info
+    @referral = Referral.find(params[:id])    
   end
 
   def update
@@ -52,7 +49,6 @@ class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
     if @referral.update_attributes(allowed_params)
       redirect_to [:admin, :user_datas, @referral], :notice  => "Successfully updated referral."
     else
-      form_info
       render :edit
     end
   end
@@ -70,31 +66,23 @@ class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
     redirect_to admin_user_datas_referrals_url, :notice => "Successfully destroyed referral."
   end
 
+  def default_sort_column
+    "referrals.name"    
+  end
+
   private
 
-    def allowed_params
-      params.require(:referral).permit(:email, :name, :referral_program_id)
-    end
+  def allowed_params
+    params.require(:referral).permit(:email, :name, :referral_program_id)
+  end
 
-    def form_info
+  def referral_programs
+    return @referral_programs if @referral_programs
+    @referral_programs = ReferralProgram.all.map{|u| [u.name, u.id]}
+  end
 
-    end
-
-    def referral_programs
-      return @referral_programs if @referral_programs
-      @referral_programs = ReferralProgram.all.map{|u| [u.name, u.id]}
-    end
-
-    def referral_types
-      return @referral_types if @referral_types
-      @referral_types = ReferralType.all.map{|u| [u.name, u.id]}
-    end
-
-    def sort_column
-      Referral.column_names.include?(params[:sort]) ? params[:sort] : "name"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  def referral_types
+    return @referral_types if @referral_types
+    @referral_types = ReferralType.all.map{|u| [u.name, u.id]}
+  end
 end

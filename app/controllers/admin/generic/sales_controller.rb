@@ -43,21 +43,17 @@ class Admin::Generic::SalesController < Admin::Generic::BaseController
     redirect_to admin_generic_sales_url, :notice => "Successfully destroyed sale."
   end
 
+  def default_sort_column
+    "sales.product_id"
+  end    
+
   private
 
-    def allowed_params
-      params.require(:sale).permit(:product_id, :percent_off, :starts_at, :ends_at)
-    end
+  def allowed_params
+    params.require(:sale).permit(:product_id, :percent_off, :starts_at, :ends_at)
+  end
 
-    def products
-      @products ||= Product.select([:id, :name]).map{|p| [p.name, p.id]}
-    end
-
-    def sort_column
-      Sale.column_names.include?(params[:sort]) ? params[:sort] : "product_id"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  def products
+    @products ||= Product.select([:id, :name]).map{|p| [p.name, p.id]}
+  end
 end

@@ -56,17 +56,13 @@ class Admin::Merchandise::VariantsController < Admin::BaseController
     @product = Product.find(params[:product_id])
   end
 
+  def default_sort_column
+    "variants.id"
+  end
+
   private
 
   def allowed_params
     params.require(:variant).permit(:sku, :name, :price, :cost, :deleted_at, :master, :inventory_id )
-  end
-
-  def sort_column
-    Variant.column_names.include?(params[:sort]) ? params[:sort] : "id"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
+  end  
 end

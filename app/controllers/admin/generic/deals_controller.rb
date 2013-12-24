@@ -42,21 +42,17 @@ class Admin::Generic::DealsController < Admin::Generic::BaseController
     redirect_to admin_generic_deals_url, :notice => "Successfully deleted deal."
   end
 
+  def default_sort_column
+    "deals.buy_quantity"
+  end    
+
   private
 
-    def allowed_params
-      params.require(:deal).permit(:buy_quantity, :get_percentage, :deal_type, :product_type_id, :get_amount, :deleted_at)
-    end
+  def allowed_params
+    params.require(:deal).permit(:buy_quantity, :get_percentage, :deal_type, :product_type_id, :get_amount, :deleted_at)
+  end
 
-    def product_types
-      @select_product_types     ||= ProductType.all.collect{|pt| [pt.name, pt.id]}
-    end
-
-    def sort_column
-      Deal.column_names.include?(params[:sort]) ? params[:sort] : "buy_quantity"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  def product_types
+    @select_product_types     ||= ProductType.all.collect{|pt| [pt.name, pt.id]}
+  end    
 end

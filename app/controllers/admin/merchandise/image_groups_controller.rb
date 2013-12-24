@@ -4,7 +4,7 @@ class Admin::Merchandise::ImageGroupsController < Admin::BaseController
   helper_method :sort_column, :sort_direction, :products
   def index
     @image_groups = ImageGroup.order(sort_column + " " + sort_direction).
-                                     page(pagination_page).per(pagination_rows)
+    page(pagination_page).per(pagination_rows)
   end
 
   def show
@@ -37,21 +37,19 @@ class Admin::Merchandise::ImageGroupsController < Admin::BaseController
     end
   end
 
+  def default_sort_column
+    "image_groups.name"
+  end    
+  
   private
 
-    def allowed_params
-      params.require(:image_group).permit!
-    end
+  def allowed_params
+    params.require(:image_group).permit!
+  end
 
-    def products
-      @products ||= Product.all.map{|p|[p.name, p.id]}
-    end
+  def products
+    @products ||= Product.all.map{|p|[p.name, p.id]}
+  end
 
-    def sort_column
-      ImageGroup.column_names.include?(params[:sort]) ? params[:sort] : "name"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  
 end

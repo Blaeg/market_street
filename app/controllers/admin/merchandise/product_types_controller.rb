@@ -5,8 +5,8 @@ class Admin::Merchandise::ProductTypesController < Admin::BaseController
   def index
     @q = ProductType.search(params[:q])
     @product_types = @q.result.page(params[:page]).
-              order(sort_column + " " + sort_direction).
-              page(pagination_page).per(pagination_rows)    
+    order(sort_column + " " + sort_direction).
+    page(pagination_page).per(pagination_rows)    
   end
 
   def show
@@ -55,6 +55,10 @@ class Admin::Merchandise::ProductTypesController < Admin::BaseController
     redirect_to :action => :index
   end
 
+  def default_sort_column
+    "product_types.name"
+  end  
+  
   private
 
   def allowed_params
@@ -63,13 +67,5 @@ class Admin::Merchandise::ProductTypesController < Admin::BaseController
 
   def form_info
     @product_types = ProductType.all
-  end
-
-  def sort_column
-    ProductType.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

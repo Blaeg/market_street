@@ -74,6 +74,10 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
     end
   end
   
+  def default_sort_column
+    "return_authorizations.id"
+  end  
+
   private
   
   def current_order
@@ -90,14 +94,5 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
   def form_info
     @return_conditions  = ReturnItem.select_conditions_form
     @return_reasons     = ReturnItem.select_reasons_form
-  end
-
-  def sort_column
-    return 'users.last_name' if params[:sort] == 'user_name'
-    ReturnAuthorization.column_names.include?(params[:sort]) ? params[:sort] : "id"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end
