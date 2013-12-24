@@ -47,8 +47,6 @@ puts  "SEEDING VARIANTS"
 @products.each do |p|
   p.activate!
   variant = FactoryGirl.create(:variant, product: p)
-  
-  puts  "SEEDING VARIANT PROPERTIES"
   p.properties.each do |pp|
     variant_property = FactoryGirl.create(:variant_property, :variant => variant, :property => pp)
     variant.variant_properties.push(variant_property)    
@@ -57,6 +55,8 @@ end
 
 puts  "SEEDING ORDERS"
 FactoryGirl.create_list(:order, 5)
+puts  "SEEDING INVOICES"
 FactoryGirl.create_list(:invoice, 5)
+puts  "SEEDING PURCHASE ORDERS
 FactoryGirl.create_list(:purchase_order, 5)
 FactoryGirl.create_list(:supplier, 5)

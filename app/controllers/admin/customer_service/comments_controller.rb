@@ -1,5 +1,5 @@
 class Admin::CustomerService::CommentsController < Admin::CustomerService::BaseController
-  add_breadcrumb "Comments", :admin_customer_service_comments_path
+  add_breadcrumb "Comments", :admin_customer_service_user_comments_path
   helper_method :sort_column, :sort_direction, :customer
 
   def index
