@@ -23,6 +23,7 @@ require 'rspec/rails'
 
 require "email_spec"
 require "mocha/setup"
+require "factory_girl_rails"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 

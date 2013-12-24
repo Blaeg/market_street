@@ -9,8 +9,9 @@ gem 'pg'
 gem 'actionpack-page_caching'
 gem "activemerchant", '~> 1.29.3'#, :lib => 'active_merchant'
 gem "american_date"
-# Use https if you are pushing to HEROKU
-gem 'authlogic',          git: 'https://github.com/binarylogic/authlogic.git'
+
+##  NOTE: run the test before upgrading to the tagged version. It has had several deprecation warnings.
+gem 'authlogic', github: 'binarylogic/authlogic', ref: 'e4b2990d6282f3f7b50249b4f639631aef68b939'
 
 gem "asset_sync"
 gem 'awesome_nested_set', '~> 3.0.0.rc.1'
@@ -22,21 +23,23 @@ gem 'chronic'
 
 gem 'dynamic_form'
 gem 'jbuilder'
-gem "friendly_id"
 gem 'draper'
-
+gem "friendly_id",    '~> 5.0.1'#, :git => "git@github.com:FriendlyId/friendly_id.git", :branch => 'rails4'
+gem "jquery-rails"
+gem 'jquery-ui-rails'
 gem 'json',           '~> 1.8.0'
 gem 'awesome_print'
 
-gem 'nokogiri',     '~> 1.5.0'
+gem 'nokogiri',     '~> 1.6.0'
 gem 'paperclip',    '~> 3.0'
 gem 'prawn',        '~> 0.12.0'
 
-gem "rails3-generators", git: "https://github.com/neocoin/rails3-generators.git"
+gem "rails3-generators", "~> 1.0.0"
+#git: "https://github.com/neocoin/rails3-generators.git"
 gem "rails_config"
 gem 'rmagick',    :require => 'RMagick'
 
-gem 'rake', '~> 10.0.3'
+gem 'rake', '~> 10.1'
 
 #workers
 gem 'sinatra', require: false
@@ -97,8 +100,6 @@ group :development do
   gem 'pry-byebug', :platforms => [:mingw_20, :mri_20, :ruby_20]
   gem 'pry-rails'
   gem 'pry-nav'
-  #gem 'guard-livereload', require: false
-
   gem 'yard'
   gem 'RedCloth'
   gem 'guard-livereload', require: false
@@ -110,6 +111,7 @@ group :test, :development do
   
   gem "faker"
   gem "forgery"
+  gem 'launchy'
 end
 
 group :test do
