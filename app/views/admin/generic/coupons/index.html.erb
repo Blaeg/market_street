@@ -5,7 +5,7 @@
 <div class="admin_coupons">
   <table class="table table-striped table-bordered">
     <thead>
-    <tr class='odd'>
+    <tr>
       <th class='column1_header'>Code</th>
       <th>Type</th>
       <th>Starts at</th>
@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <% for coupon in @coupons %>
-      <tr class='<%= cycle("odd", "")%>'>
+      <tr>
         <td>
           <%= link_to coupon.code, admin_generic_coupon_path(coupon), :style => "#{(coupon.expires_at <= Time.zone.now) ? 'color:#F65566' : ''}" %>
         </td>

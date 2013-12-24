@@ -1,4 +1,6 @@
 class Admin::Config::CountriesController < Admin::Config::BaseController
+  add_breadcrumb "Countries", :admin_config_countries_path
+
   helper_method :sort_column, :sort_direction
   def index
     @countries = Country.order(sort_column + " " + sort_direction)

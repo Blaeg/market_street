@@ -1,4 +1,6 @@
 class Admin::Config::AccountsController < Admin::Config::BaseController
+  add_breadcrumb "Accounts", :admin_config_accounts_path
+  
   # GET /accounts
   def index
     @accounts = Account.all

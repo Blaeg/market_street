@@ -1,5 +1,6 @@
 class Admin::Config::ShippingMethodsController < Admin::Config::BaseController
-  # GET /admin/config/shipping_methods
+  add_breadcrumb "Shipping Methods", :admin_config_shipping_methods_path
+  
   def index
     @shipping_methods = ShippingMethod.all
   end

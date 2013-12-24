@@ -1,4 +1,5 @@
 class Admin::Config::TaxRatesController < Admin::Config::BaseController
+  add_breadcrumb "Tax Rate", :admin_config_tax_rates_path
   helper_method :countries
 
   # GET /admin/config/tax_rates

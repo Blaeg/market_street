@@ -6,8 +6,8 @@
 <div class="admin_deals">
   <table class="table table-striped table-bordered">
     <thead>
-    <tr class='odd'>
-      <th  class='column1_header'><%= sortable 'buy_quantity', 'Buy Quantity' %></th>
+    <tr>
+      <th class='column1_header'><%= sortable 'buy_quantity', 'Buy Quantity' %></th>
       <th>Get Percentage</th>
       <th>Deal Type</th>
       <th>Product Type</th>
@@ -19,7 +19,7 @@
     </thead>
     <tbody>
     <% for deal in @deals %>
-      <tr  class='<%= cycle("odd", "")%>'>
+      <tr>
 
           <td><%= link_to deal.buy_quantity, [:admin, :generic, deal] %></td>
           <td><%= deal.get_percentage %></td>

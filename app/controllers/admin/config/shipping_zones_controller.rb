@@ -1,5 +1,6 @@
 class Admin::Config::ShippingZonesController < Admin::Config::BaseController
-  # GET /admin/config/shipping_zones
+  add_breadcrumb "Shipping Zones", :admin_config_shipping_zones_path
+  
   def index
     @shipping_zones = ShippingZone.all
   end

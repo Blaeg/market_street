@@ -1,5 +1,6 @@
 class Admin::Config::ShippingRatesController < Admin::Config::BaseController
-  # GET /shipping_rates
+  add_breadcrumb "Shipping Rate", :admin_config_shipping_rates_path
+  
   def index
     form_info
     if @shipping_methods.empty?

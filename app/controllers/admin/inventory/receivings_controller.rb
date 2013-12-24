@@ -1,10 +1,11 @@
 class Admin::Inventory::ReceivingsController < Admin::BaseController
-  add_breadcrumb "Receiving", :admin_inventory_receivings_path
+  add_breadcrumb "Purchase Orders to be Received", :admin_inventory_receivings_path
   helper_method :sort_column, :sort_direction
+
   def index
-    # by default find all POs that are not received
-    @purchase_orders = PurchaseOrder.receiving_admin_grid(params).order(sort_column + " " + sort_direction).
-                                                        page(pagination_page).per(pagination_rows)
+    @q = PurchaseOrder.search(params[:q])
+    @purchase_orders = @q.result.order(sort_column + " " + sort_direction).
+                              page(pagination_page).per(pagination_rows)
   end
 
   def edit
@@ -23,18 +24,10 @@ class Admin::Inventory::ReceivingsController < Admin::BaseController
     end
   end
 
-  def show
-  end
-
-private
+  private
 
   def allowed_params
     params.require(:purchase_order).permit(:invoice_number, :tracking_number, :notes, :receive_po)
-  end
-
-  def pagination_rows
-    params[:rows] ||= 25
-    params[:rows].to_i
   end
 
   def sort_column

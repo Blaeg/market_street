@@ -7,16 +7,16 @@
 <div id="image_group_grid_wrapper" class='pretty_table'>
   <table class="table table-striped table-bordered">
     <thead>
-      <tr class='odd'>
+      <tr>
 
-          <th  class='column1_header'><%= sortable 'name', 'Name' %></th>
+          <th class='column1_header'><%= sortable 'name', 'Name' %></th>
           <th>Product</th>
           <th></th>
       </tr>
     </thead>
     <tbody>
     <% for image_group in @image_groups %>
-      <tr  class='<%= cycle("odd", "")%>'>
+      <tr>
           <td><%= link_to image_group.name, [:admin, :merchandise, image_group] %></td>
           <td><%= image_group.product.name %></td>
         <td><%= link_to "edit", edit_admin_merchandise_image_group_path(image_group) %></td>

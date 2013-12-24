@@ -16,7 +16,7 @@
 <div class="span9">
   <table class="table table-bordered table-striped">
     <thead>
-    <tr class='odd'>
+    <tr>
       <th><%= sortable "first_name" %></th>
       <th><%= sortable "last_name" %></th>
       <th><%= sortable "email" %></th>
@@ -24,7 +24,7 @@
     </tr>
     </thead>
     <% @users.each do |user| %>
-      <tr class='<%= cycle("odd", "")%>'>
+      <tr>
         <td><%= link_to user.first_name, admin_user_path(user) %></td>
         <td><%= user.last_name %></td>
         <td><%= user.email %></td>

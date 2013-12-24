@@ -1,31 +1,22 @@
 <% content_for :sidemenu do %>
-  <div class='admin_filters'>
-    <%= form_tag admin_inventory_receivings_path, :method => 'get', :id => "purchase_orders_search" do %>
-      <%= hidden_field_tag :direction, params[:direction] %>
-      <%= hidden_field_tag :sort, params[:sort] %>
-
-      <label>Supplier Name</label>
-      <%= text_field_tag :supplier_name, params[:supplier_name] %>
-
-      <label>Invoice Number</label>
-      <%= text_field_tag :invoice_number, params[:invoice_number] %>
-
-      <label>Tracking Number</label>
-      <%= text_field_tag :tracking_number, params[:tracking_number] %>
-
-      <div style='text-align:center'>
-        <%= submit_tag "Search", :name => nil, :class => 'btn red-button' %>
-      </div>
+  <div class="span2">
+    <%= search_form_for @q, url: admin_inventory_receivings_path do |f| %>
+      <%= f.label :supplier_name_cont %>
+      <%= f.text_field :supplier_name_cont, class: 'span12'%>
+      <%= f.label :invoice_number_cont %>
+      <%= f.text_field :invoice_number_cont, class: 'span12' %>
+      <%= f.label :tracking_number_cont %>
+      <%= f.text_field(:tracking_number_cont, class: 'span12')%>
+      <%= f.submit(:class => "btn btn-primary") %>       
     <% end %>
+    <%= link_to "New User", new_admin_user_path, :class => "btn" %>
   </div>
 <% end %>
 
-<h3>Purchase Orders to be Received</h3>
-
-<div class="admin_purchase_orders">
+<div class="span9">
   <table class="table table-striped table-bordered">
     <thead>
-    <tr class='odd'>
+    <tr>
       <th class='column1_header'><%= sortable "supplier_name" %></th>
       <th><%= sortable "invoice_number" %></th>
       <th><%= sortable "tracking_number" %></th>
@@ -34,7 +25,7 @@
     </tr>
     </thead>
     <% @purchase_orders.each do |order| %>
-      <tr class='<%= cycle("odd", "")%>'>
+      <tr>
         <td><%= link_to order.supplier_name, edit_admin_inventory_receiving_path(order) %></td>
         <td><%= order.invoice_number %></td>
         <td><%= order.tracking_number %></td>
@@ -43,6 +34,5 @@
       </tr>
     <% end %>
   </table>
-
   <%= paginate @purchase_orders %>
 </div>

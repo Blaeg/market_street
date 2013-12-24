@@ -149,16 +149,3 @@ describe PurchaseOrder, ".receive_variants" do
     purchase_order.receive_variants
   end
 end
-
-describe PurchaseOrder, "#receiving_admin_grid(params = {})" do
-  it "returns PurchaseOrders " do
-    purchase_order1 = create(:purchase_order)
-    purchase_order1.state = PurchaseOrder::RECEIVED
-    purchase_order1.save
-    purchase_order2 = create(:purchase_order)
-    admin_grid = PurchaseOrder.receiving_admin_grid
-    admin_grid.size.should == 1
-    admin_grid.include?(purchase_order1).should be_false
-    admin_grid.include?(purchase_order2).should be_true
-  end
-end

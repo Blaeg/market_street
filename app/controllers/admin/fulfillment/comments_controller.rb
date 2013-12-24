@@ -1,4 +1,5 @@
 class Admin::Fulfillment::CommentsController < Admin::Fulfillment::BaseController
+  add_breadcrumb "Comments", :admin_fulfillment_order_comments_path  
   helper_method :order
 
   def index

@@ -1,9 +1,7 @@
 class Admin::BaseController < ApplicationController
-  add_breadcrumb "Admin", :admin_document_invoices_path
-
+  add_breadcrumb "Admin", :admin_overviews_path
   helper_method :recent_admin_users
   layout 'admin'
-
   before_filter :verify_admin
 
   private
@@ -39,4 +37,8 @@ class Admin::BaseController < ApplicationController
     end
   end
 
+  def pagination_rows
+    params[:rows] ||= 25
+    params[:rows].to_i
+  end
 end

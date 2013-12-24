@@ -1,10 +1,10 @@
 <% content_for :head do -%>
   <%= stylesheet_link_tag 'tables.css' %>
 <% end %>
+
 <div id='order-wrapper' class='twelve'>
   <div class='span7 columns'>
     <h1>Order Summary</h1>
-
     <div id='order-items-summary'>
       <% i = 1 %>
       <% @order.order_items.group_by(&:variant_id).each do |variant_id, items| %>
@@ -35,7 +35,7 @@
   <div class='pretty_table span5 columns last'>
     <table>
       <thead>
-        <tr class='odd'>
+        <tr>
           <th class='column1_header'>
             Item
           </th><th>Price:</th><th>Price + Tax</th>
@@ -46,7 +46,7 @@
           <td><%= item.variant.product.name %></td><td><%= number_to_currency item.price %></td><td><%= number_to_currency item.total %></td>
         </tr>
       <% end %>
-      <tr class='odd'>
+      <tr>
         <td></td><td>Sub-total:</td><td><%= number_to_currency @order.sub_total %></td>
       </tr>
       <tr>
@@ -66,7 +66,7 @@
         <td></td><td>Tax:</td><td><%= number_to_currency @order.taxed_amount %></td>
       </tr>
       <% if @order.amount_to_credit && @order.amount_to_credit > 0.0 %>
-        <tr class='odd'>
+        <tr>
           <td></td>
           <td>Credits:</td><td></td>
           <td><%= number_to_currency @order.amount_to_credit %></td>
@@ -81,15 +81,12 @@
     </table>
     <div>
   </div>
-    <%= form_tag( shopping_order_path(@order),
-                                  method: :put,
-                                  html:  {class: 'custom'},
-                                  id:    'purchase_order') do  %>
-
+    <%= form_tag( shopping_order_path(@order), method: :put,
+      html:  {class: 'custom'}, id: 'purchase_order') do  %>
       <div class="field ">
         <%= label_tag  :name %>
       </div>
-<div class='clear'></div>
+    <div class='clear'></div>
       <div class='row'>
         <div class="field span6 column">
           <%= label_tag 'First' %>
@@ -131,8 +128,6 @@
           </div>
         </div>
       </div>
-
-
       <%= submit_tag 'Complete Order', :class => 'btn btn-success' %>
     <% end %>
   </div>

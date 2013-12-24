@@ -121,18 +121,5 @@ class PurchaseOrder < ActiveRecord::Base
       batch.transactions.push(transaction)
       batch.save
     end
-  end
-
-  # paginated results from the admin PurchaseOrder grid for PO to receive
-  #
-  # @param [Optional params]
-  # @return [ Array[PurchaseOrder] ]
-  def self.receiving_admin_grid(params = {})
-    grid = where(['purchase_orders.state != ?', PurchaseOrder::RECEIVED])#.where("suppliers.name = ?", params[:name])
-    grid = grid.includes([:supplier, :purchase_order_variants])
-    grid = grid.where("suppliers.name LIKE ?",                  "#{params[:supplier_name]}%")   if params[:supplier_name].present?
-    grid = grid.where("purchase_orders.invoice_number LIKE ?",  "#{params[:invoice_number]}%")  if params[:invoice_number].present?
-    grid = grid.where("purchase_orders.tracking_number LIKE ?", "#{params[:tracking_number]}%") if params[:tracking_number].present?
-    grid
-  end
+  end  
 end

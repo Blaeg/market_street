@@ -2,7 +2,6 @@
   <%= javascript_include_tag 'admin/countries' %>
 <% end %>
 
-<h1> Countries </h1>
 <p>
   Select other countries below to activate them:
   <%= select_tag "countries_select", options_from_collection_for_select(@countries, "id", "name") %>
@@ -10,15 +9,15 @@
 </p>
 <div id="admin_country_grid_wrapper">
   <table class="table table-striped table-bordered">
-    <tr class='odd'>
-        <th  class='column1_header'><%= sortable 'name', 'Name' %></th>
+    <tr>
+        <th class='column1_header'><%= sortable 'name', 'Name' %></th>
         <th>Abbreviation</th>
         <th>Active</th>
         <th></th>
     </tr>
     <tbody>
     <% for country in @active_countries %>
-      <tr  class='<%= cycle("odd", "")%>'>
+      <tr>
           <td><%= country.name %></td>
           <td><%= country.abbreviation %></td>
           <td><%= link_to "InActivate", [:admin, :config, country], :data => { :confirm => 'Are you sure?' }, :method => :delete %></td>

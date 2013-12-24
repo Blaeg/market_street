@@ -4,7 +4,7 @@
   <% @products.each do |product| %>
     <table class="table table-striped table-bordered">
       <thead>
-        <tr  class='odd'>
+        <tr>
           <th colspan='3' class='column1_header' >
             <%= product.name %></th>
           <th>
@@ -19,7 +19,7 @@
 
       <tbody>
         <% product.variants.each do |variant|%>
-          <tr class='<%= cycle("odd", "")%>'>
+          <tr>
             <td><%= variant.sku %></td>
             <td><%= variant.price %></td>
             <td><%= variant.count_on_hand %></td>

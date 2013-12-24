@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <% @product_types.each do |product_type| %>
-        <tr class='<%= cycle("odd", "")%>'>
+        <tr>
           <td><%= link_to product_type.name, edit_admin_merchandise_product_type_path(product_type) %></td>
         </tr>
       <% end %>

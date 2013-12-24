@@ -1,5 +1,7 @@
 class Admin::CustomerService::CommentsController < Admin::CustomerService::BaseController
+  add_breadcrumb "Comments", :admin_customer_service_comments_path
   helper_method :sort_column, :sort_direction, :customer
+
   def index
     @comments = customer.comments.order(sort_column + " " + sort_direction).
                   page(pagination_page).per(pagination_rows)                                  
@@ -26,18 +28,18 @@ class Admin::CustomerService::CommentsController < Admin::CustomerService::BaseC
 
   private
 
-    def allowed_params
-      params.require(:comment).permit(:note)
-    end
+  def allowed_params
+    params.require(:comment).permit(:note)
+  end
 
-    def customer
-      @customer ||= User.find(params[:user_id])
-    end
-    def sort_column
-      Comment.column_names.include?(params[:sort]) ? params[:sort] : "note"
-    end
+  def customer
+    @customer ||= User.find(params[:user_id])
+  end
+  def sort_column
+    Comment.column_names.include?(params[:sort]) ? params[:sort] : "note"
+  end
 
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
 end

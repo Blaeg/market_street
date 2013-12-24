@@ -17,19 +17,20 @@
       </thead>
     </tr>
     <% for referral in @referrals %>
-      <tr class='<%= cycle("odd", "")%>'>
-
-          <td><%= link_to referral.name, [:admin, :user_datas, referral] %></td>
-          <td><%= referral.email %></td>
-          <td><%= referral.referring_user.name %></td>
-          <td><%= referral.referral_program.name %></td>
-          <td><%= referral.referral_user.try(:name) %></td>
-          <td><%= referral.sent_at %></td>
-          <td><%= referral.registered_at %></td>
-          <td><%= referral.purchased_at %></td>
-          <td><%= referral.applied %></td>
-        <%#= link_to "", edit_admin_user_datas_referral_path(referral), :class => 'ss_sprite ss_application_edit' %>
-        <td><%= link_to "", [:admin, :user_datas, referral], :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'ss_sprite ss_cross' %></td>
+      <tr>
+        <td><%= link_to referral.name, [:admin, :user_datas, referral] %></td>
+        <td><%= referral.email %></td>
+        <td><%= referral.referring_user.name %></td>
+        <td><%= referral.referral_program.name %></td>
+        <td><%= referral.referral_user.try(:name) %></td>
+        <td><%= referral.sent_at %></td>
+        <td><%= referral.registered_at %></td>
+        <td><%= referral.purchased_at %></td>
+        <td><%= referral.applied %></td>
+        <td>
+          <%= link_to "", [:admin, :user_datas, referral], :class => 'ss_sprite ss_cross',
+            :data => { :confirm => "Are you sure?" }, :method => :delete %>
+          </td>
       </tr>
     <% end %>
   </table>

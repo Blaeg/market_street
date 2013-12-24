@@ -1,6 +1,6 @@
 class Admin::Fulfillment::ShipmentsController < Admin::Fulfillment::BaseController
-  # GET /admin/fulfillment/shipments
-  # GET /admin/fulfillment/shipments.xml
+  add_breadcrumb "Shipments", :admin_fulfillment_shipments_path  
+  
   def index
     @shipments = Shipment.includes([:order, {:order_items => {:variant => :product} }])
     if params[:order_id].present?
