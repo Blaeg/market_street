@@ -1,4 +1,4 @@
-class Customer::ActivationsController < ApplicationController
+class ActivationsController < ApplicationController
 
   # This method should be an "update method" but
   # I imagine some email clients will have a hard time with this.

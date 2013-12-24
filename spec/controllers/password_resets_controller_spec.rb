@@ -1,6 +1,6 @@
 require  'spec_helper'
 
-describe Customer::PasswordResetsController do
+describe PasswordResetsController do
   render_views
 
   it "new action should render new template" do

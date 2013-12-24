@@ -1,4 +1,4 @@
-class Customer::RegistrationsController < ApplicationController
+class RegistrationsController < ApplicationController
 
   def index
     redirect_to :action => :new
@@ -33,8 +33,8 @@ class Customer::RegistrationsController < ApplicationController
 
   protected
 
-    def allowed_params
-      params.require(:user).permit(:password, :password_confirmation, :first_name, :last_name, :email)
-    end
+  def allowed_params
+    params.require(:user).permit(:password, :password_confirmation, :first_name, :last_name, :email)
+  end
 
 end

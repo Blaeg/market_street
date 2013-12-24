@@ -20,12 +20,10 @@ MarketStreet::Application.routes.draw do
 
   root :to => "home#index"
 
-  namespace :customer do
-    resources :registrations,   :only => [:index, :new, :create]
-    resource  :password_reset,  :only => [:new, :create, :edit, :update]
-    resource  :activation,      :only => [:show]
-  end
-
+  resources :registrations,   :only => [:index, :new, :create]
+  resource  :password_reset,  :only => [:new, :create, :edit, :update]
+  resource  :activation,      :only => [:show]
+  
   namespace :myaccount do
     resources :orders, :only => [:index, :show]
     resources :addresses
