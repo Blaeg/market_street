@@ -35,7 +35,7 @@ class Customer::ReferralsController < Customer::BaseController
     params.require(:referral).permit(:email, :name)
   end
 
-  def selected_myaccount_tab(tab)
+  def selected_customer_tab(tab)
     tab == 'referrals'
   end  
 end

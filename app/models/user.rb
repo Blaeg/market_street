@@ -17,7 +17,6 @@
 #  last_name         :string(255)
 #  email             :string(255)
 #  state             :string(255)
-#  account_id        :integer(4)
 #  customer_cim_id   :string(255)
 #  password_salt     :string(255)
 #  crypted_password  :string(255)
@@ -54,8 +53,6 @@ class User < ActiveRecord::Base
   before_validation :before_validation_on_create, :on => :create
   before_create :start_store_credits
   after_create  :set_referral_registered_at
-
-  belongs_to :account
 
   has_many  :referrals, class_name: 'Referral', foreign_key: 'referring_user_id' # people you have tried to referred
   has_one   :referree,  class_name: 'Referral', foreign_key: 'referral_user_id' # person who referred you
@@ -196,10 +193,7 @@ class User < ActiveRecord::Base
   def sanitize_data
     self.email      = self.email.strip.downcase       unless email.blank?
     self.first_name = self.first_name.strip.capitalize  unless first_name.nil?
-    self.last_name  = self.last_name.strip.capitalize   unless last_name.nil?
-
-    ## CHANGE THIS IF YOU HAVE DIFFERENT ACCOUNT TYPES
-    self.account = Account.first if account_id.nil?
+    self.last_name  = self.last_name.strip.capitalize   unless last_name.nil?    
   end
 
   # name and email string for the user
@@ -229,20 +223,12 @@ class User < ActiveRecord::Base
     [name, default_shipping_address.try(:address_lines)].compact.join(', ')
   end
 
-  # Find users that have signed up for the subscription
-  #
-  # @params [ none ]
-  # @return [ Arel ]
-  def self.find_subscription_users
-    where('account_id NOT IN (?)', Account::FREE_ACCOUNT_IDS )
-  end
-
   # include addresses in Find
   #
   # @params [ none ]
   # @return [ Arel ]
   def include_default_addresses
-    includes([:default_billing_address, :default_shipping_address, :account])
+    includes([:default_billing_address, :default_shipping_address])
   end
 
   def number_of_finished_orders

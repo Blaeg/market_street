@@ -532,7 +532,7 @@ describe Order, "With VAT" do
   end
 end
 
-describe Order, "#find_myaccount_details" do
+describe Order, "#find_customer_details" do
   it 'returns have invoices and completed_invoices associations' do
     @order = create(:order)
     @order.completed_invoices.should == []

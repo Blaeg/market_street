@@ -144,7 +144,7 @@ class Order < ActiveRecord::Base
     where({:orders => { :state => ['complete', 'paid']}})
   end
 
-  def self.find_myaccount_details
+  def self.find_customer_details
     includes([:completed_invoices, :invoices])
   end
 

@@ -48,7 +48,7 @@ class Customer::CreditCardsController < Customer::BaseController
     params.require(:credit_card).permit(:address_id, :month, :year, :cc_type, :first_name, :last_name, :card_name)
   end
 
-  def selected_myaccount_tab(tab)
+  def selected_customer_tab(tab)
     tab == 'credit_cards'
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131214101030) do
+ActiveRecord::Schema.define(version: 20131225054828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,15 +26,6 @@ ActiveRecord::Schema.define(version: 20131214101030) do
   end
 
   add_index "accounting_adjustments", ["adjustable_id"], name: "index_accounting_adjustments_on_adjustable_id", using: :btree
-
-  create_table "accounts", force: true do |t|
-    t.string   "name",                                                  null: false
-    t.string   "account_type",                                          null: false
-    t.decimal  "monthly_charge", precision: 8, scale: 2, default: 0.0,  null: false
-    t.boolean  "active",                                 default: true, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "addresses", force: true do |t|
     t.string   "first_name"
@@ -627,7 +618,6 @@ ActiveRecord::Schema.define(version: 20131214101030) do
     t.string   "last_name"
     t.string   "email"
     t.string   "state"
-    t.integer  "account_id"
     t.string   "customer_cim_id"
     t.string   "password_salt"
     t.string   "crypted_password"

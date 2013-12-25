@@ -24,7 +24,6 @@ FactoryGirl.create_list(:user, 10)
 puts  "SEEDING CATALOG"
 ProductType.create_all
 Prototype.create_all
-Account.create_all
 Property::create_basic
 TransactionAccount.create_all
 ReferralBonus.create_all

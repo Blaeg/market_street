@@ -55,7 +55,6 @@ RSpec.configure do |config|
     Country::create_usa    
     FactoryGirl.create(:state)
 
-    Account.create_all
     Property::create_basic
     TransactionAccount.create_all
     ReferralBonus.create_all

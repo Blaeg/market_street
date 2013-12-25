@@ -7,17 +7,17 @@
 
   <div id='myaccount-header-menu'>
     <ul  class=" side-nav">
-      <li <%= selected_myaccount_tab('address') ? 'class=active' : '' %>>
+      <li <%= selected_customer_tab('address') ? 'class=active' : '' %>>
         <%= link_to 'Addresses', customer_addresses_path() %></li>
-      <li <%= selected_myaccount_tab('credit_cards') ? 'class=active' : '' %>>
+      <li <%= selected_customer_tab('credit_cards') ? 'class=active' : '' %>>
         <%= link_to 'Credit Cards', customer_credit_cards_path() %></li>
-      <li <%= selected_myaccount_tab('orders') ? 'class=active' : '' %>>
+      <li <%= selected_customer_tab('orders') ? 'class=active' : '' %>>
         <%= link_to 'Orders', customer_orders_path() %>
       </li>
-      <li <%= selected_myaccount_tab('profile') ? 'class=active' : '' %>>
+      <li <%= selected_customer_tab('profile') ? 'class=active' : '' %>>
         <%= link_to 'Profile', customer_overview_path() %>
       </li>
-      <li <%= selected_myaccount_tab('referrals') ? 'class=active' : '' %>>
+      <li <%= selected_customer_tab('referrals') ? 'class=active' : '' %>>
         <%= link_to 'Referrals', customer_referrals_path() %>
       </li>
 

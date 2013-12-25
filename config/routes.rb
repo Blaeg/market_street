@@ -133,7 +133,6 @@ MarketStreet::Application.routes.draw do
       resources :users
     end
     namespace :config do
-      resources :accounts
       resources :countries, :only => [:index, :update, :destroy]
       resources :overviews
       resources :shipping_rates
