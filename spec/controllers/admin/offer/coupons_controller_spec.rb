@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::Generic::CouponsController do
+describe Admin::Offer::CouponsController do
   render_views
 
   before(:each) do
@@ -40,7 +40,7 @@ describe Admin::Generic::CouponsController do
     attribs =  @coupon.attributes
     attribs.delete('type')
     post :create, :coupon => attribs, :c_type => 'CouponValue'
-    response.should redirect_to(admin_generic_coupon_url(assigns[:coupon]))
+    response.should redirect_to(admin_offer_coupon_url(assigns[:coupon]))
   end
 
   it "edit action should render edit template" do
@@ -64,13 +64,13 @@ describe Admin::Generic::CouponsController do
     attribs.delete('type')
     Coupons::CouponValue.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @coupon.id, :coupon => attribs
-    response.should redirect_to(admin_generic_coupon_url(assigns[:coupon]))
+    response.should redirect_to(admin_offer_coupon_url(assigns[:coupon]))
   end
 
   it "destroy action should destroy model and redirect to index action" do
     @coupon = create(:coupon)
     delete :destroy, :id => @coupon.id
-    response.should redirect_to(admin_generic_coupons_url)
+    response.should redirect_to(admin_offer_coupons_url)
     Coupon.exists?(@coupon.id).should be_false
   end
 end

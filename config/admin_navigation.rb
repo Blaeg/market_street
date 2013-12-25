@@ -20,10 +20,10 @@ SimpleNavigation::Configuration.run do |navigation|
       inventory.item :adjusments, 'Adjustments', admin_inventory_adjustments_path 
     end
 
-    primary.item :offer_tab ,"Offer", admin_generic_coupons_path do |offer|        
-      offer.item :coupons, 'Coupons', admin_generic_coupons_path
-      offer.item :deals,'Deals', admin_generic_deals_path
-      offer.item :sales, 'Sales', admin_generic_sales_path
+    primary.item :offer_tab ,"Offer", admin_offer_coupons_path do |offer|        
+      offer.item :coupons, 'Coupons', admin_offer_coupons_path
+      offer.item :deals,'Deals', admin_offer_deals_path
+      offer.item :sales, 'Sales', admin_offer_sales_path
     end
 
     primary.item :orders_tab, 'Order', admin_history_orders_path do |order|

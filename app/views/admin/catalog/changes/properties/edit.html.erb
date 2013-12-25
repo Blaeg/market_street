@@ -4,7 +4,7 @@
 
 <%= form_for(@product, :url => admin_catalog_changes_product_property_path(@product.id)) do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
-  <div class=" generic_submit_button">
+  <div class=" offer_submit_button">
     <%= f.submit "Update", :class  => "btn", 
     	:id => "update_product_properties_button" %>
     <%= link_to "Back to Product", admin_catalog_product_path(@product), 

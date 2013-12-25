@@ -4,7 +4,7 @@
 <%= form_for @variant, :url  => admin_catalog_product_variant_path(@product, @variant), :html => {:class => ''}  do |form| %>
 <%= render :partial => '/admin/catalog/variants/form', 
 	:locals => {:form => form}%>
-<div class=" generic_submit_button">
+<div class=" offer_submit_button">
   <%= submit_tag "Update", :class  => "btn", :id => "create_variant_button" %>
 </div>
 <% end %>

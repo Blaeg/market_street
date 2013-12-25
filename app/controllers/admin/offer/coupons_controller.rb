@@ -1,4 +1,4 @@
-class Admin::Generic::CouponsController < Admin::Generic::BaseController
+class Admin::Offer::CouponsController < Admin::Offer::BaseController
   def index
     @coupons = Coupon.all
   end
@@ -18,7 +18,7 @@ class Admin::Generic::CouponsController < Admin::Generic::BaseController
     @coupon.errors.add(:base, 'please select coupon type') if params[:c_type].blank?
     if @coupon.errors.size == 0 && @coupon.save
       flash[:notice] = "Successfully created coupon."
-      redirect_to admin_generic_coupon_url(@coupon)
+      redirect_to admin_offer_coupon_url(@coupon)
     else
       form_info
       render :action => 'new'
@@ -34,7 +34,7 @@ class Admin::Generic::CouponsController < Admin::Generic::BaseController
       @coupon = Coupon.find(params[:id])
     if @coupon.update_attributes(allowed_params)
       flash[:notice] = "Successfully updated coupon."
-      redirect_to admin_generic_coupon_url(@coupon)
+      redirect_to admin_offer_coupon_url(@coupon)
     else
       form_info
       render :action => 'edit'
@@ -45,7 +45,7 @@ class Admin::Generic::CouponsController < Admin::Generic::BaseController
     @coupon = Coupon.find(params[:id])
     @coupon.destroy
     flash[:notice] = "Successfully destroyed coupon."
-    redirect_to admin_generic_coupons_url
+    redirect_to admin_offer_coupons_url
   end
 
   private

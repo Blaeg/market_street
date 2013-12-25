@@ -1,9 +1,4 @@
-<% content_for :head do -%>
-
-<% end %>
-
 <h1> Sales </h1>
-
 <div id="admin_sale_grid_wrapper" class='pretty_table'>
   <table class="table table-striped table-bordered">
     <tr>
@@ -19,12 +14,12 @@
     <% for sale in @sales %>
       <tr>
 
-          <td><%= link_to sale.product_id, [:admin, :generic, sale] %></td>
+          <td><%= link_to sale.product_id, [:admin, :offer, sale] %></td>
           <td><%= sale.percent_off %></td>
           <td><%= sale.starts_at %></td>
           <td><%= sale.ends_at %></td>
-        <td><%= link_to "edit", edit_admin_generic_sale_path(sale) %></td>
-        <td><%= link_to "inactivate", [:admin, :generic, sale], :data => { :confirm => 'Are you sure?' }, :method => :delete %></td>
+        <td><%= link_to "edit", edit_admin_offer_sale_path(sale) %></td>
+        <td><%= link_to "inactivate", [:admin, :offer, sale], :data => { :confirm => 'Are you sure?' }, :method => :delete %></td>
       </tr>
     <% end %>
     </tbody>
@@ -33,4 +28,4 @@
 
 <%= paginate @sales %>
 
-<p><%= link_to "New Sale", new_admin_generic_sale_path, :class => 'btn btn-primary' %></p>
+<p><%= link_to "New Sale", new_admin_offer_sale_path, :class => 'btn btn-primary' %></p>

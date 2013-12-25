@@ -1,6 +1,6 @@
 <div class="admin_title_header clearfix">
   <h3>Deals</h3>
-  <%= link_to "New Deal", new_admin_generic_deal_path, :class => "btn btn-primary" %>
+  <%= link_to "New Deal", new_admin_offer_deal_path, :class => "btn btn-primary" %>
 </div>
 
 <div class="admin_deals">
@@ -21,7 +21,7 @@
     <% for deal in @deals %>
       <tr>
 
-          <td><%= link_to deal.buy_quantity, [:admin, :generic, deal] %></td>
+          <td><%= link_to deal.buy_quantity, [:admin, :offer, deal] %></td>
           <td><%= deal.get_percentage %></td>
           <td><%= deal.deal_type %></td>
           <td><%= deal.product_type.name %></td>
@@ -29,8 +29,8 @@
           <td><%= deal.deleted_at %></td>
         <td>
         <%#  YOU SHOULD NOT EDIT THIS..  OLD ORDERS WILL NO LONGER CALCULATE CORRECTLY.  set Deleted_at and create a new promotion %>
-        <%#= link_to "edit", edit_admin_generic_deal_path(deal) %></td>
-        <td><%= link_to "delete", [:admin, :generic, deal], :data => {:confirm => 'Are you sure?'}, :method => :delete %></td>
+        <%#= link_to "edit", edit_admin_offer_deal_path(deal) %></td>
+        <td><%= link_to "delete", [:admin, :offer, deal], :data => {:confirm => 'Are you sure?'}, :method => :delete %></td>
       </tr>
     <% end %>
     </tbody>

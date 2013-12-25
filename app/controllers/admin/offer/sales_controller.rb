@@ -1,6 +1,6 @@
 # Use this model to create 20% off sales for any given product
 
-class Admin::Generic::SalesController < Admin::Generic::BaseController
+class Admin::Offer::SalesController < Admin::Offer::BaseController
   helper_method :sort_column, :sort_direction, :products
   def index
     @sales = Sale.order(sort_column + " " + sort_direction).
@@ -18,7 +18,7 @@ class Admin::Generic::SalesController < Admin::Generic::BaseController
   def create
     @sale = Sale.new(allowed_params)
     if @sale.save
-      redirect_to [:admin, :generic, @sale], :notice => "Successfully created sale."
+      redirect_to [:admin, :offer, @sale], :notice => "Successfully created sale."
     else
       render :new
     end
@@ -31,7 +31,7 @@ class Admin::Generic::SalesController < Admin::Generic::BaseController
   def update
     @sale = Sale.find(params[:id])
     if @sale.update_attributes(allowed_params)
-      redirect_to [:admin, :generic, @sale], :notice  => "Successfully updated sale."
+      redirect_to [:admin, :offer, @sale], :notice  => "Successfully updated sale."
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Admin::Generic::SalesController < Admin::Generic::BaseController
   def destroy
     @sale = Sale.find(params[:id])
     @sale.destroy
-    redirect_to admin_generic_sales_url, :notice => "Successfully destroyed sale."
+    redirect_to admin_offer_sales_url, :notice => "Successfully destroyed sale."
   end
 
   def default_sort_column

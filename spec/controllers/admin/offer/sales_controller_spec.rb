@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::Generic::SalesController do
+describe Admin::Offer::SalesController do
   # fixtures :all
   render_views
   before(:each) do
@@ -37,7 +37,7 @@ describe Admin::Generic::SalesController do
     sale = FactoryGirl.build(:sale)
     Sale.any_instance.stubs(:valid?).returns(true)
     post :create, :sale => sale.attributes.except('id', 'created_at', 'updated_at')
-    response.should redirect_to(admin_generic_sale_url(assigns[:sale]))
+    response.should redirect_to(admin_offer_sale_url(assigns[:sale]))
   end
 
   it "edit action should render edit template" do
@@ -57,13 +57,13 @@ describe Admin::Generic::SalesController do
     sale = FactoryGirl.create(:sale)
     Sale.any_instance.stubs(:valid?).returns(true)
     put :update, :id => sale.id, :sale => sale.attributes.except('id', 'created_at', 'updated_at')
-    response.should redirect_to(admin_generic_sale_url(assigns[:sale]))
+    response.should redirect_to(admin_offer_sale_url(assigns[:sale]))
   end
 
   it "destroy action should destroy model and redirect to index action" do
     sale = FactoryGirl.create(:sale)
     delete :destroy, :id => sale.id
-    response.should redirect_to(admin_generic_sales_url)
+    response.should redirect_to(admin_offer_sales_url)
     Sale.exists?(sale.id).should be_false
   end
 end

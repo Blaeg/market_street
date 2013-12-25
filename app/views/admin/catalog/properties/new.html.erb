@@ -9,7 +9,7 @@
 
 <%= form_for @property, :url  => admin_catalog_properties_path do |form| %>
   <%= render :partial => '/admin/catalog/properties/form', :locals => {:form => form } %>
-  <div class=" generic_submit_button">
+  <div class=" offer_submit_button">
     <%= submit_tag "Create", :class => "button", :id => "create_property_button" %>
   </div>
 <% end %>

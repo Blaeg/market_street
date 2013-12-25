@@ -1,6 +1,6 @@
 <div class="admin_title_header clearfix">
   <h3>Coupons</h3>
-  <%= link_to "New Coupon", new_admin_generic_coupon_path, :class => 'btn btn-primary' %>
+  <%= link_to "New Coupon", new_admin_offer_coupon_path, :class => 'btn btn-primary' %>
 </div>
 <div class="admin_coupons">
   <table class="table table-striped table-bordered">
@@ -16,12 +16,12 @@
     <% for coupon in @coupons %>
       <tr>
         <td>
-          <%= link_to coupon.code, admin_generic_coupon_path(coupon), :style => "#{(coupon.expires_at <= Time.zone.now) ? 'color:#F65566' : ''}" %>
+          <%= link_to coupon.code, admin_offer_coupon_path(coupon), :style => "#{(coupon.expires_at <= Time.zone.now) ? 'color:#F65566' : ''}" %>
         </td>
         <td><%= coupon.type %></td>
         <td><%= coupon.display_start_time %></td>
         <td><%= coupon.display_expires_time %></td>
-        <td><%= link_to "Edit", edit_admin_generic_coupon_path(coupon) %></td>
+        <td><%= link_to "Edit", edit_admin_offer_coupon_path(coupon) %></td>
       </tr>
     <% end %>
   </table>

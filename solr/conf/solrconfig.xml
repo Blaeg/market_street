@@ -309,7 +309,7 @@
       compressed text fields.
     -->
     <enableLazyFieldLoading>true</enableLazyFieldLoading>
-    <!-- Example of a generic cache.  These caches may be accessed by name
+    <!-- Example of a offer cache.  These caches may be accessed by name
          through SolrIndexSearcher.getCache(),cacheLookup(), and cacheInsert().
          The purpose is to enable easy caching of user/application level data.
          The regenerator argument should be specified as an implementation

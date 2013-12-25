@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::Generic::DealsController do
+describe Admin::Offer::DealsController do
   # fixtures :all
   render_views
 
@@ -38,7 +38,7 @@ describe Admin::Generic::DealsController do
     deal = FactoryGirl.build(:deal)
     Deal.any_instance.stubs(:valid?).returns(true)
     post :create, :deal => deal.attributes.except('id', 'deleted_at', 'created_at', 'updated_at')
-    response.should redirect_to(admin_generic_deal_url(assigns[:deal]))
+    response.should redirect_to(admin_offer_deal_url(assigns[:deal]))
   end
 
   it "edit action should render edit template" do
@@ -58,13 +58,13 @@ describe Admin::Generic::DealsController do
     deal = create(:deal)
     Deal.any_instance.stubs(:valid?).returns(true)
     put :update, :id => deal.id, :deal => deal.attributes.except('id', 'deleted_at', 'created_at', 'updated_at')
-    response.should redirect_to(admin_generic_deal_url(assigns[:deal]))
+    response.should redirect_to(admin_offer_deal_url(assigns[:deal]))
   end
 
   it "destroy action should destroy model and redirect to index action" do
     deal = create(:deal)
     delete :destroy, :id => deal.id
-    response.should redirect_to(admin_generic_deals_url)
+    response.should redirect_to(admin_offer_deals_url)
     Deal.find(deal.id).deleted_at.should_not be_nil
   end
 end

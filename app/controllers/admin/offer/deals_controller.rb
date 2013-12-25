@@ -1,4 +1,4 @@
-class Admin::Generic::DealsController < Admin::Generic::BaseController
+class Admin::Offer::DealsController < Admin::Offer::BaseController
   helper_method :sort_column, :sort_direction, :product_types,:deal_types
   def index
     @deals = Deal.order(sort_column + " " + sort_direction).
@@ -16,7 +16,7 @@ class Admin::Generic::DealsController < Admin::Generic::BaseController
   def create
     @deal = Deal.new(allowed_params)
     if @deal.save
-      redirect_to [:admin, :generic, @deal], :notice => "Successfully created deal."
+      redirect_to [:admin, :offer, @deal], :notice => "Successfully created deal."
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Admin::Generic::DealsController < Admin::Generic::BaseController
   def update
     @deal = Deal.find(params[:id])
     if @deal.update_attributes(allowed_params)
-      redirect_to [:admin, :generic, @deal], :notice  => "Successfully updated deal."
+      redirect_to [:admin, :offer, @deal], :notice  => "Successfully updated deal."
     else
       render :edit
     end
@@ -39,7 +39,7 @@ class Admin::Generic::DealsController < Admin::Generic::BaseController
     @deal = Deal.find(params[:id])
     @deal.deleted_at = Time.zone.now
     @deal.save
-    redirect_to admin_generic_deals_url, :notice => "Successfully deleted deal."
+    redirect_to admin_offer_deals_url, :notice => "Successfully deleted deal."
   end
 
   def default_sort_column

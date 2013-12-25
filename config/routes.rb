@@ -145,7 +145,7 @@ MarketStreet::Application.routes.draw do
       resources :tax_categories
     end
 
-    namespace :generic do
+    namespace :offer do
       resources :coupons
       resources :deals
       resources :sales
