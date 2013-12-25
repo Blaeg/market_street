@@ -1,8 +1,8 @@
 <h1> Edit Coupon </h1>
 
 <%= form_for(@coupon, :as => :coupon, :url => admin_offer_coupon_path(@coupon)) do |f| %>
-  <%= render :partial => 'form', :locals => {:f => f} %>
+<%= render :partial => 'form', :locals => {:f => f} %>
 <% end %>
 
-  <%= link_to 'Show', admin_offer_coupon_path( @coupon ), :class => 'btn btn-primary' %> |
-  <%= link_to 'View All', admin_offer_coupons_path, :class => 'btn btn-primary' %>
+<%= link_to 'Show', admin_offer_coupon_path( @coupon ), :class => 'btn btn-primary' %>
+<%= link_to 'View All', admin_offer_coupons_path, :class => 'btn btn-primary' %>

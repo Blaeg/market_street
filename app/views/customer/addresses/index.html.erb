@@ -1,20 +1,18 @@
-<div class='span9 columns'>
-  <h3> Addresses </h3>
-  <% if @addresses.empty? %>
-    <p>
-      <%= I18n.t(:no_addresses_saved) %>
-    </p>
-  <% else %>
-    <ul>
-      <% for address in @addresses %>
-        <li><br/>
-          <%= render :partial => '/shared/compact_address', :locals => { :shopping_address => address } %>
-          <%= link_to "Edit", edit_customer_address_path(address) %> |
-          <%= link_to "Remove", customer_address_path(address), :confirm => 'Are you sure?', :method => :delete %>
-        </li>
-      <% end %>
-    </ul>
+<h3> Addresses </h3>
+<% if @addresses.empty? %>
+<p>
+  <%= I18n.t(:no_addresses_saved) %>
+</p>
+<% else %>
+<ul>
+  <% for address in @addresses %>
+  <li><br/>
+    <%= render :partial => '/shared/compact_address', :locals => { :shopping_address => address } %>
+    <%= link_to "Edit", edit_customer_address_path(address) %>
+    <%= link_to "Remove", customer_address_path(address), :confirm => 'Are you sure?', :method => :delete %>
+  </li>
   <% end %>
+</ul>
+<% end %>
 
-  <p><%= link_to "New Address", new_customer_address_path, :class => 'b-link' %></p>
-</div>
+<p><%= link_to "New Address", new_customer_address_path, :class => 'b-link' %></p>

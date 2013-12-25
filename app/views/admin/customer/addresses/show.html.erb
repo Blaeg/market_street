@@ -3,12 +3,10 @@
   <p>
     <%= render :partial => '/shared/compact_address', :locals => { :shopping_address => @address } %>
   </p>
-  <p>
-    <%= link_to "Show", admin_customer_user_address_path(customer, @address), 
-    	:class => 'btn' %> |
-    <%= link_to "View All", admin_customer_user_addresses_path(customer), 
-    	:class => 'btn' %> |
-    <%= link_to "Inactivate", admin_customer_user_address_path(customer, @address), data: { confirm: 'Are you sure?' }, :method => :delete, 
+  <%= link_to "Show", admin_customer_user_address_path(customer, @address), 
+  	:class => 'btn' %>
+  <%= link_to "View All", admin_customer_user_addresses_path(customer), 
+  	:class => 'btn' %>
+  <%= link_to "Inactivate", admin_customer_user_address_path(customer, @address), data: { confirm: 'Are you sure?' }, :method => :delete, 
     	:class => 'alert button' %>
-  </p>
 </div>

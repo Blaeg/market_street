@@ -1,4 +1,3 @@
-
 <h1> Inventory Adjustment  for <%= @variant.product_name %> </h1>
 <%= form_for(@variant, :url => admin_inventory_adjustment_path(@variant)) do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
@@ -25,7 +24,5 @@
       <td><%= @variant.inventory.count_pending_from_supplier %></td>
     </tr>
 </table>
-<p>
-  <%= link_to "Show #{@variant.product_name}" , admin_inventory_adjustment_path( @variant.product ), :class => 'btn' %> |
-  <%= link_to 'View Products', admin_inventory_adjustments_path, :class => 'btn' %>
-</p>
+<%= link_to "Show #{@variant.product_name}" , admin_inventory_adjustment_path( @variant.product ), :class => 'btn' %>
+<%= link_to 'View Products', admin_inventory_adjustments_path, :class => 'btn' %>

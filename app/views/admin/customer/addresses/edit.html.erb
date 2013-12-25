@@ -4,9 +4,7 @@
   <%=  render :partial => 'form', :locals => {:f => f} %>
   <div class="actions"><%= f.submit 'Update' , :class => 'btn' %></div>
 <% end %>
-<p>
-  <%= link_to "Show", admin_customer_user_address_path(customer, @form_address), 
-  	:class => 'btn' %> |
-  <%= link_to "View All", admin_customer_user_addresses_path(customer), 
-  	:class => 'btn' %>
-</p>
+<%= link_to "Show", admin_customer_user_address_path(customer, @form_address), 
+	:class => 'btn' %>
+<%= link_to "View All", admin_customer_user_addresses_path(customer), 
+	:class => 'btn' %>
