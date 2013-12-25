@@ -12,9 +12,8 @@ describe Deal do
       @order_item2   = create(:order_item, :price => 23.0, :order => @order, :variant => @variant2)
 
       ### Buy 2 get one 50% off
-
-      @deal         = create(:deal, :buy_quantity => 3, :get_percentage => 50, :product_type => @product_type, :created_at => (Time.zone.now - 1.days))
-
+      @deal = create(:deal, :buy_quantity => 3, :get_percentage => 50, 
+        :product_type => @product_type, :created_at => (Time.zone.now - 1.days))
     end
 
     it 'returns 0.0' do
@@ -68,9 +67,8 @@ describe Deal do
       @order_item2   = create(:order_item, :price => 23.0, :order => @order, :variant => @variant2)
 
       ### Buy 2 get one 50% off
-
-      @deal         = create(:deal, :buy_quantity => 3, :get_percentage => 50, :product_type => @product_type, :created_at => (Time.zone.now - 1.days), :deleted_at => (Time.zone.now - 2.minutes))
-
+      @deal = create(:deal, :buy_quantity => 3, :get_percentage => 50, :product_type => @product_type, 
+        :created_at => (Time.zone.now - 1.days), :deleted_at => (Time.zone.now - 2.minutes))
     end
 
     it 'returns 10.0"' do
