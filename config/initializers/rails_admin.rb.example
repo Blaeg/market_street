@@ -2780,7 +2780,7 @@ RailsAdmin.config do |config|
   #     configure :store_credit, :has_one_association 
   #     configure :orders, :has_many_association 
   #     configure :comments, :has_many_association 
-  #     configure :customer_service_comments, :has_many_association 
+  #     configure :customer_comments, :has_many_association 
   #     configure :shipments, :has_many_association 
   #     configure :finished_orders, :has_many_association 
   #     configure :completed_orders, :has_many_association 

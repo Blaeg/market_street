@@ -17,6 +17,6 @@
     <%= @comment.user.try(:name) %>
   </li>
 </ul>
-<%= link_to "View All", admin_customer_service_user_comments_path(customer), 
+<%= link_to "View All", admin_customer_user_comments_path(customer), 
   :class => 'btn' %>
 <%= link_to "Back to #{customer.name}", admin_user_path(customer), :class => 'btn'  %>

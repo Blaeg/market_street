@@ -16,6 +16,7 @@ MarketStreet::Application.routes.draw do
 
   root :to => "home#index"
 
+  #CUSTOMER
   namespace :customer do
     resources :user_sessions, :only => [:new, :create, :destroy]
     resources :registrations,   :only => [:index, :new, :create]
@@ -34,6 +35,7 @@ MarketStreet::Application.routes.draw do
     resources :products, :only => [:index, :show, :create]
   end
 
+  #SHOPPING
   namespace :shopping do
     resources :wish_items,  :only => [:index, :destroy]
 
@@ -64,9 +66,10 @@ MarketStreet::Application.routes.draw do
   
   resources :image_groups
   
+  #ADMIN
   namespace :admin do
     mount Sidekiq::Web => '/jobs'
-    namespace :customer_service do
+    namespace :customer do
       resources :users do
         resources :comments
       end

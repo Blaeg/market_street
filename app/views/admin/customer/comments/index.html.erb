@@ -11,7 +11,7 @@
   <% for comment in @comments %>
     <tr>
       <td>
-        <%= link_to comment.note[0..100], [:admin, :customer_service, customer, comment] %>
+        <%= link_to comment.note[0..100], [:admin, :customer, customer, comment] %>
       </td>
       <td><%= comment.commentable_type %></td>
       <td><%= comment.author.try(:name) %></td>
@@ -23,7 +23,7 @@
 
 <%= paginate @comments %>
 <p>
-  <%= link_to "New Comment", new_admin_customer_service_user_comment_path(customer), 
+  <%= link_to "New Comment", new_admin_customer_user_comment_path(customer), 
     :class => 'btn' %>
   <%= link_to "Back to #{customer.name}", admin_user_path(customer), :class => 'btn'  %>
 </p>

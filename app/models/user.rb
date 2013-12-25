@@ -63,32 +63,32 @@ class User < ActiveRecord::Base
   has_one     :store_credit
   has_many    :orders
   has_many    :comments
-  has_many    :customer_service_comments, as:         :commentable,
-                                          class_name: 'Comment'
+  has_many    :customer_comments, as: :commentable, class_name: 'Comment'
   has_many    :shipments, :through => :orders
-  has_many    :finished_orders,           -> { where(state: ['complete', 'paid']) },  class_name: 'Order'
-  has_many    :completed_orders,          -> { where(state: 'complete') },            class_name: 'Order'
+  
+  has_many    :finished_orders, -> { where(state: ['complete', 'paid']) },  
+                                    class_name: 'Order'
+  has_many    :completed_orders, -> { where(state: 'complete') },            
+                                    class_name: 'Order'
 
-  has_many    :phones,          dependent: :destroy,       as: :phoneable
-  has_one     :primary_phone, -> { where(primary: true) }, as: :phoneable, class_name: 'Phone'
+  has_many    :phones, dependent: :destroy,       as: :phoneable
+  
+  has_one     :primary_phone, -> { where(primary: true) }, 
+                                  as: :phoneable, class_name: 'Phone'
 
-  has_many    :addresses,       dependent: :destroy,       as: :addressable
+  has_many    :addresses, dependent: :destroy, as: :addressable
 
-  has_one     :default_billing_address,   -> { where(billing_default: true, active: true) },
-                                          as:         :addressable,
-                                          class_name: 'Address'
+  has_one     :default_billing_address, -> { where(billing_default: true, active: true) },
+                                          as: :addressable, class_name: 'Address'
 
-  has_many    :billing_addresses,         -> { where(active: true) },
-                                          as:         :addressable,
-                                          class_name: 'Address'
+  has_many    :billing_addresses, -> { where(active: true) },
+                                      as: :addressable, class_name: 'Address'
 
   has_one     :default_shipping_address,  -> { where(default: true, active: true) },
-                                          as:         :addressable,
-                                          class_name: 'Address'
+                                            as: :addressable, class_name: 'Address'
 
-  has_many     :shipping_addresses,       -> { where(active: true) },
-                                          as:         :addressable,
-                                          class_name: 'Address'
+  has_many     :shipping_addresses, -> { where(active: true) },
+                                        as: :addressable, class_name: 'Address'
 
   has_many    :user_roles,                dependent: :destroy
   has_many    :roles,                     through: :user_roles
@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :addresses, :user_roles
   accepts_nested_attributes_for :phones, :reject_if => lambda { |t| ( t['display_number'].gsub(/\D+/, '').blank?) }
-  accepts_nested_attributes_for :customer_service_comments, :reject_if => proc { |attributes| attributes['note'].strip.blank? }
+  accepts_nested_attributes_for :customer_comments, :reject_if => proc { |attributes| attributes['note'].strip.blank? }
 
   # returns true or false if the user has a role or not
   #

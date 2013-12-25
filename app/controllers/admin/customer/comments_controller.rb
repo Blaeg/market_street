@@ -1,5 +1,5 @@
-class Admin::CustomerService::CommentsController < Admin::CustomerService::BaseController
-  add_breadcrumb "Comments", :admin_customer_service_user_comments_path
+class Admin::Customer::CommentsController < Admin::BaseController
+  add_breadcrumb "Comments", :admin_customer_user_comments_path
   helper_method :sort_column, :sort_direction, :customer
 
   def index
@@ -16,11 +16,11 @@ class Admin::CustomerService::CommentsController < Admin::CustomerService::BaseC
   end
 
   def create
-    @comment = current_user.customer_service_comments.new(allowed_params)
+    @comment = current_user.customer_comments.new(allowed_params)
     @comment.user_id = customer.id
     @comment.created_by = current_user.id
     if @comment.save
-      redirect_to [:admin, :customer_service, customer, @comment], :notice => "Successfully created comment."
+      redirect_to [:admin, :customer, customer, @comment], :notice => "Successfully created comment."
     else
       render :new
     end
