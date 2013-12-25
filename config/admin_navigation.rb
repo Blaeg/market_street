@@ -39,7 +39,7 @@ SimpleNavigation::Configuration.run do |navigation|
     end
 
     if current_user.super_admin?
-      primary.item :config_tab ,"Config", admin_config_accounts_path do |config|        
+      primary.item :config_tab ,"Config", admin_config_tax_rates_path do |config|        
         config.item :countries,'Countries', admin_config_countries_path
         config.item :shipping_zones, 'Shipping Zones', admin_config_shipping_zones_path
         config.item :shipping_methods, 'Shipping Methods', admin_config_shipping_methods_path

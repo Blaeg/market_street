@@ -37,9 +37,8 @@
 </li>
 <% if current_user.super_admin? %>
 <li class="has-dropdown">
-  <%= link_to "Config", admin_config_accounts_path %>
+  <%= link_to "Config", admin_config_tax_rates_path %>
   <ul class="dropdown">
-    <li><%= link_to 'Accounts',           admin_config_accounts_path %></li>
     <li><%= link_to 'Countries',          admin_config_countries_path %></li>
     <li><%= link_to 'Shipping Zones',     admin_config_shipping_zones_path %></li>
     <li><%= link_to 'Shipping Methods',   admin_config_shipping_methods_path %></li>
