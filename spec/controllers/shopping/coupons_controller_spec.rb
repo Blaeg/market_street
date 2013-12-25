@@ -21,12 +21,12 @@ describe Shopping::CouponsController do
     @controller.stubs(:find_or_create_order).returns(@order)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     get :show
     response.should render_template(:show)
   end
 
-  it "create action should render show template when coupon is not eligible" do
+  it "create action renders show template when coupon is not eligible" do
     Coupon.any_instance.stubs(:eligible?).returns(false)
     post :create, :coupon => {:code => 'qwerty' }
     response.should render_template(:show)

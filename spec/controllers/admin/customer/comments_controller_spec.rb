@@ -11,24 +11,24 @@ describe Admin::Customer::CommentsController do
     @order = create(:order)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     comment = FactoryGirl.create(:comment, :user_id => @customer.id, :commentable => @customer)
     get :index, :user_id => @customer.id
     expect(response).to render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     comment = FactoryGirl.create(:comment, :user_id => @customer.id, :commentable => @customer)
     get :show, :id => comment.id, :user_id => @customer.id
     expect(response).to render_template(:show)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new, :user_id => @customer.id
     expect(response).to render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     comment = FactoryGirl.build(:comment, :user_id => @customer.id, :commentable => @customer)
     Comment.any_instance.stubs(:valid?).returns(false)
     post :create, :user_id => @customer.id, :comment => comment.attributes.reject {|k,v| ['id', 'commentable_type', 'commentable_id', 'created_by', 'user_id'].include?(k)}

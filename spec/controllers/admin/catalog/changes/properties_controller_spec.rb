@@ -11,14 +11,14 @@ describe Admin::Catalog::Changes::PropertiesController do
     controller.session[:product_wizard] = {}
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
 
     @product = create(:product)
     get :edit, :product_id => @product.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     property = create(:property)
     @product = create(:product)
     Product.any_instance.stubs(:valid?).returns(false)

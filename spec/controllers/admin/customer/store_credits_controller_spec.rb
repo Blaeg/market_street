@@ -10,17 +10,17 @@ describe Admin::Customer::StoreCreditsController do
     @user = FactoryGirl.create(:user)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     get :show, :user_id => @user.id
     response.should render_template(:show)
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     get :edit, :user_id => @user.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     put :update, :user_id => @user.id, :amount_to_add => 'ABC'
     response.should render_template(:edit)
   end

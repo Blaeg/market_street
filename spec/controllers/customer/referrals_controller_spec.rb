@@ -9,13 +9,13 @@ describe Customer::ReferralsController do
     @user = FactoryGirl.create(:user)
     login_as(@user)
   end
-  it "index action should render index template" do
+  it "index action renders index template" do
     referral = FactoryGirl.create(:referral)
     get :index
     response.should render_template(:index)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     referral = FactoryGirl.build(:referral, :referring_user_id => @user.id)
     Referral.any_instance.stubs(:valid?).returns(false)
     post :create, :referral => referral.attributes.reject {|k,v| ['id','applied','clicked_at','purchased_at', 'referral_user_id', 'referral_program_id', 'referring_user_id', 'registered_at','sent_at', 'created_at', 'updated_at'].include?(k)}
@@ -31,7 +31,7 @@ describe Customer::ReferralsController do
     response.should redirect_to(customer_referrals_url)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     referral = FactoryGirl.create(:referral, :referring_user_id => @user.id)
     Referral.any_instance.stubs(:valid?).returns(false)
     put :update, :id => referral.id, :referral => referral.attributes.reject {|k,v| ['id','applied','clicked_at','purchased_at', 'referral_user_id', 'referral_program_id', 'referring_user_id', 'registered_at','sent_at', 'created_at', 'updated_at'].include?(k)}

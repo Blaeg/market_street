@@ -10,23 +10,23 @@ describe Admin::Fulfillment::CommentsController do
     login_as(@user)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index, :order_id => @order.number
     response.should render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     @comment = create(:comment, :commentable_id => @order.id, :commentable_type => @order.class.to_s)
     get :show, :id => @comment.id, :order_id => @order.number
     response.should render_template(:show)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new, :order_id => @order.number
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     @comment = create(:comment, :commentable_id => @order.id, :commentable_type => @order.class.to_s)
     Comment.any_instance.stubs(:valid?).returns(false)
     post :create, :order_id => @order.number, :comment => @comment.attributes
@@ -50,13 +50,13 @@ describe Admin::Fulfillment::CommentsController do
     response.body.should == assigns[:comment].to_json()
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @comment = create(:comment, :commentable_id => @order.id, :commentable_type => @order.class.to_s)
     get :edit, :id => @comment.id, :order_id => @order.number
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @comment = create(:comment, :commentable_id => @order.id, :commentable_type => @order.class.to_s)
     Comment.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @comment.id, :order_id => @order.number, :comment => @comment.attributes

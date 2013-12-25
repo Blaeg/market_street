@@ -3,7 +3,7 @@ require 'spec_helper'
 describe HomeController do
   render_views
 
-  it "show action should render index template" do
+  it "show action renders index template" do
     FactoryGirl.create_list(:product, 2)
     get :index
     expect(response).to be_success
@@ -14,12 +14,12 @@ describe HomeController do
     expect(response).to redirect_to login_path
   end
 
-  it "show action should render about template" do
+  it "show action renders about template" do
     get :about
     expect(response).to be_success
   end
 
-  it "show action should render terms template" do
+  it "show action renders terms template" do
     get :terms
     expect(response).to be_success
   end

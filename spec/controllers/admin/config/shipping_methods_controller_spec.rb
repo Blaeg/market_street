@@ -10,23 +10,23 @@ describe Admin::Config::ShippingMethodsController do
     login_as(@user)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
 
-  #it "show action should render show template" do
+  #it "show action renders show template" do
   #  @shipping_method = create(:shipping_method)
   #  get :show, :id => @shipping_method.id
   #  response.should render_template(:show)
   #end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     ShippingMethod.any_instance.stubs(:valid?).returns(false)
     post :create, :shipping_method => {:name => 'UPS 3-5 day'}
     response.should render_template(:new)
@@ -38,13 +38,13 @@ describe Admin::Config::ShippingMethodsController do
     response.should redirect_to(admin_config_shipping_methods_url())
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @shipping_method = create(:shipping_method)
     get :edit, :id => @shipping_method.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @shipping_method = create(:shipping_method)
     ShippingMethod.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @shipping_method.id, :shipping_method => {:name => 'UPS 3-5 day'}

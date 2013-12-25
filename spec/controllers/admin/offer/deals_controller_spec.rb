@@ -10,24 +10,24 @@ describe Admin::Offer::DealsController do
     login_as(@user)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     deal = create(:deal)
     get :index
     response.should render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     deal = create(:deal)
     get :show, :id => deal.id
     response.should render_template(:show)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     deal = FactoryGirl.build(:deal)
     Deal.any_instance.stubs(:valid?).returns(false)
     post :create, :deal => deal.attributes.except('id', 'deleted_at', 'created_at', 'updated_at')
@@ -41,13 +41,13 @@ describe Admin::Offer::DealsController do
     response.should redirect_to(admin_offer_deal_url(assigns[:deal]))
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     deal = create(:deal)
     get :edit, :id => deal.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     deal = create(:deal)
     Deal.any_instance.stubs(:valid?).returns(false)
     put :update, :id => deal.id, :deal => deal.attributes.except('id', 'deleted_at', 'created_at', 'updated_at')

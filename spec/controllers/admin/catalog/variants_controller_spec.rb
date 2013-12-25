@@ -11,24 +11,24 @@ describe Admin::Catalog::VariantsController do
     @product = create(:product)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     @variant = create(:variant, :product => @product)
     get :index, :product_id => @product.id
     response.should render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     @variant = create(:variant, :product => @product)
     get :show, :id => @variant.id, :product_id => @product.id
     response.should render_template(:show)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new, :product_id => @product.id
     response.should render_template(:new)
   end
 #require(:variant).permit(:product_id, :sku, :name, :price, :cost, :deleted_at, :master, :brand_id, :inventory_id )
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     Variant.any_instance.stubs(:valid?).returns(false)
     post :create, :product_id => @product.id, :variant => {:sku => '1232-abc', :name => 'variant name', :price => '20.00', :cost => '10.00', :deleted_at => nil, :master => false, :brand_id => 1}
     response.should render_template(:new)
@@ -40,13 +40,13 @@ describe Admin::Catalog::VariantsController do
     response.should redirect_to(admin_catalog_product_variants_url(@product))
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @variant = create(:variant, :product => @product)
     get :edit, :id => @variant.id, :product_id => @product.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @variant = create(:variant, :product => @product)
     Variant.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @variant.id, :product_id => @product.id, :variant => {:sku => '1232-abc', :name => 'variant name', :price => '20.00', :cost => '10.00', :deleted_at => nil, :master => false, :brand_id => 1}

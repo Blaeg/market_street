@@ -8,7 +8,7 @@ describe Admin::Reports::WeeklyChartsController do
     login_as(@user)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     Reports::Sales.any_instance.stubs(:weekly_summary).returns(fake_sales_data)
     get :index, format: :json
     expect(response).to render_template(:index)

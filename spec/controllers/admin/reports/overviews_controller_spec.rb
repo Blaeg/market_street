@@ -9,7 +9,7 @@ describe Admin::Reports::OverviewsController do
     login_as(@user)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     get :show
     expect(response).to render_template(:show)
   end

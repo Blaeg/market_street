@@ -21,7 +21,7 @@ describe Shopping::ShippingMethodsController do
     @controller.stubs(:find_or_create_order).returns(@order)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
@@ -41,7 +41,7 @@ describe Shopping::ShippingMethodsController do
     create_cart(@cur_user, [@variant])
 
   end
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @variant2  = create(:variant)
     @address      = create(:address)
     @order        = create(:order, :ship_address => @address)

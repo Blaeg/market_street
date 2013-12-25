@@ -13,12 +13,12 @@ describe Admin::Catalog::Wizards::ProductTypesController do
     controller.session[:product_wizard][:brand_id] = 7# @brand.id
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     ProductType.any_instance.stubs(:valid?).returns(false)
     post :create, :product_type => {:name => 'prod type'}
     response.should render_template(:index)
@@ -30,7 +30,7 @@ describe Admin::Catalog::Wizards::ProductTypesController do
     response.should render_template(:index) #redirect_to(admin_catalog_wizards_properties_url)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @product_type = create(:product_type)
     ProductType.stubs(:find_by_id).returns(nil)
     put :update, :id => @product_type.id

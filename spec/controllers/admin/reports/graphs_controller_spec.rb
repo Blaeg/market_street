@@ -9,12 +9,12 @@ describe Admin::Reports::GraphsController do
     login_as(@user)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     expect(response).to render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     get :show, :id => 'Orders'
     expect(response).to render_template(:show)
   end

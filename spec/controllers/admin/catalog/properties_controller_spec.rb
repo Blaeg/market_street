@@ -12,21 +12,23 @@ describe Admin::Catalog::PropertiesController do
     controller.stubs(:current_ability).returns(Ability.new(@user))
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     @property = create(:property)
     get :index
-    response.should render_template(:index)
+    expect(response).to be_ok
+    expect(response).to render_template :index    
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new
-    response.should render_template(:new)
+    expect(response).to be_ok
+    expect(response).to render_template :new    
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     Property.any_instance.stubs(:valid?).returns(false)
     post :create, :property => {:display_name => 'dis', :identifing_name => 'test'}
-    response.should render_template(:new)
+    expect(response).to render_template :new
   end
 
   it "create action should redirect when model is valid" do
@@ -35,17 +37,18 @@ describe Admin::Catalog::PropertiesController do
     response.should redirect_to(admin_catalog_properties_url)
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @property = create(:property)
     get :edit, :id => @property.id
-    response.should render_template(:edit)
+    expect(response).to be_ok
+    expect(response).to render_template :edit
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @property = create(:property)
     Property.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @property.id, :property => {:display_name => 'dis', :identifing_name => 'test'}
-    response.should render_template(:edit)
+    expect(response).to render_template :edit
   end
 
   it "update action should redirect when model is valid" do

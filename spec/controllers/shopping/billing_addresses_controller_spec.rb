@@ -13,12 +13,12 @@ describe Shopping::BillingAddressesController do
     @billing_address = create(:address, :addressable_id => @cur_user.id, :addressable_type => 'User')
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     Address.any_instance.stubs(:valid?).returns(false)
     post :create, :address => @billing_address.attributes
     response.should render_template(:index)
@@ -31,12 +31,12 @@ describe Shopping::BillingAddressesController do
     response.should redirect_to(shopping_shipping_methods_url)
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     get :edit, :id => @billing_address.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     Address.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @billing_address.id, :address => @billing_address.attributes
     response.should render_template(:edit)

@@ -11,7 +11,7 @@ describe Customer::StoreCreditsController do
     login_as(@user)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     @store_credit = create(:store_credit, :user => @user)
     get :show, :id => @store_credit.id
     response.should render_template(:show)

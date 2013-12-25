@@ -12,31 +12,31 @@ describe Admin::Catalog::ProductsController do
     controller.stubs(:current_ability).returns(Ability.new(@user))
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     @product = create(:product)
     get :index
     response.should render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     @product = create(:product)
     get :show, :id => @product.id
     response.should render_template(:show)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     Prototype.stubs(:all).returns([])
     get :new
     response.should redirect_to(new_admin_catalog_prototype_url)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     @prototype = create(:prototype)
     get :new
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     Product.any_instance.stubs(:valid?).returns(false)
     post :create, :product => product_attributes
     response.should render_template(:new)
@@ -49,13 +49,13 @@ describe Admin::Catalog::ProductsController do
     response.should redirect_to(edit_admin_catalog_products_description_url(assigns[:product]))
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @product = create(:product)
     get :edit, :id => @product.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @product = create(:product)
     Product.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @product.id, :product => product_attributes

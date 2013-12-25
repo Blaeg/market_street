@@ -11,18 +11,18 @@ describe Admin::Catalog::ProductTypesController do
 
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     @product_type = create(:product_type)
     get :index
     response.should render_template(:index)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     ProductType.any_instance.stubs(:valid?).returns(false)
     post :create, :product_type => {:name => 'dis', :parent_id => 1}
     response.should render_template(:new)
@@ -35,13 +35,13 @@ describe Admin::Catalog::ProductTypesController do
     response.should redirect_to(admin_catalog_product_types_url)
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @product_type = create(:product_type)
     get :edit, :id => @product_type.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @product_type = create(:product_type)
     ProductType.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @product_type.id, :product_type => {:name => 'dis', :parent_id => nil}

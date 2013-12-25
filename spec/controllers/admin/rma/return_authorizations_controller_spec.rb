@@ -10,24 +10,24 @@ describe Admin::Rma::ReturnAuthorizationsController do
     @order = create(:order, :state => 'complete')
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     @return_authorization = create(:return_authorization)
     get :index, :order_id => @order.id
     response.should render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     @return_authorization = create(:return_authorization)
     get :show, :id => @return_authorization.id, :order_id => @order.id
     response.should render_template(:show)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new, :order_id => @order.id
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     ReturnAuthorization.any_instance.stubs(:valid?).returns(false)
     post :create, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}
     response.should render_template(:new)
@@ -39,13 +39,13 @@ describe Admin::Rma::ReturnAuthorizationsController do
     response.should redirect_to(admin_rma_order_return_authorization_url(@order, assigns[:return_authorization]))
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @return_authorization = create(:return_authorization)
     get :edit, :id => @return_authorization.id, :order_id => @order.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @return_authorization = create(:return_authorization)
     ReturnAuthorization.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @return_authorization.id, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}

@@ -11,17 +11,17 @@ describe Admin::Inventory::OverviewsController do
     @product = create(:product)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     get :edit, :id => @product.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     Product.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @product.id
     response.should render_template(:edit)

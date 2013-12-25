@@ -11,24 +11,24 @@ describe Admin::Inventory::PurchaseOrdersController do
   end
 
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
 
-  #it "show action should render show template" do
+  #it "show action renders show template" do
   #  @purchase_order = create(:purchase_order)
   #  get :show, :id => @purchase_order.id
   #  response.should render_template(:show)
   #end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     create(:supplier)
     get :new
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     PurchaseOrder.any_instance.stubs(:valid?).returns(false)
     post :create, :purchase_order => {:ordered_at => Time.now.to_s(:db), :supplier_id => '1'}
     response.should render_template(:new)
@@ -40,13 +40,13 @@ describe Admin::Inventory::PurchaseOrdersController do
     response.should redirect_to(admin_inventory_purchase_orders_url(:notice => 'Purchase order was successfully created.'))
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @purchase_order = create(:purchase_order)
     get :edit, :id => @purchase_order.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @purchase_order = create(:purchase_order)
     PurchaseOrder.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @purchase_order.id, :purchase_order => {:ordered_at => Time.now.to_s(:db), :supplier_id => '1'}

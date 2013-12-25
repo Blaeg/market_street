@@ -10,13 +10,13 @@ describe Admin::Catalog::Products::DescriptionsController do
     login_as(@user)
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @product = create(:product, :deleted_at => (Time.zone.now - 1.day), :description_markup => nil, :description => nil)
     get :edit, :id => @product.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @product = create(:product)
     Product.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @product.id, :product => {:name => 'test', :description_markup => 'mark it up'}

@@ -13,12 +13,12 @@ describe Admin::Catalog::Wizards::PropertiesController do
     controller.session[:product_wizard][:product_type_id] = 7# @brand.id
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     Property.any_instance.stubs(:valid?).returns(false)
     post :create, :property => {:identifing_name => 'test', :display_name => 'test'}
     response.should render_template(:index)
@@ -30,7 +30,7 @@ describe Admin::Catalog::Wizards::PropertiesController do
     response.should render_template(:index)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @property = create(:property)
     put :update, :id => @property.id, :property => {:ids => [ ]}
     response.should render_template(:index)

@@ -16,12 +16,12 @@ describe Shopping::WishItemsController do
     @wish_item = create(:wish_item)
     login_as(@wish_item.user)
   end
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
 
-  it "destroy action should render index template" do
+  it "destroy action renders index template" do
     delete :destroy, :id => @wish_item.id
     expect(WishItem.where(id: @wish_item.id)).to be_empty
     response.should render_template(:index)

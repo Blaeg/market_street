@@ -9,23 +9,23 @@ describe Admin::Offer::CouponsController do
     login_as(@user)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     @coupon = create(:coupon)
     get :show, :id => @coupon.id
     response.should render_template(:show)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     @coupon = create(:coupon)
     Coupon.any_instance.stubs(:valid?).returns(false)
     attribs =  @coupon.attributes
@@ -43,13 +43,13 @@ describe Admin::Offer::CouponsController do
     response.should redirect_to(admin_offer_coupon_url(assigns[:coupon]))
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @coupon = create(:coupon)
     get :edit, :id => @coupon.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @coupon = create(:coupon)
     attribs =  @coupon.attributes
     attribs.delete('type')

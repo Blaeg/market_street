@@ -11,7 +11,7 @@ describe Catalog::ProductsController do
     @product.activate!
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end

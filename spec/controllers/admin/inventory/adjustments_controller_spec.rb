@@ -11,32 +11,32 @@ describe Admin::Inventory::AdjustmentsController do
     @product = create(:product)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     @product = create(:product)
     get :show, :id => @product.id
     response.should render_template(:show)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     @product = create(:product)
     get :index
     response.should render_template(:index)
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @variant = create(:variant)
     get :edit, :id => @variant.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @variant = create(:variant)
     Variant.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @variant.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit when no refund is passed" do
+  it "update action renders edit when no refund is passed" do
     @product = create(:product)
     @variant = create(:variant, :product => @product)
     Variant.any_instance.stubs(:valid?).returns(true)

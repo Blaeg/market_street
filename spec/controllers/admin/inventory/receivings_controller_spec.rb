@@ -11,17 +11,17 @@ describe Admin::Inventory::ReceivingsController do
     @purchase_order = create(:purchase_order)
   end
 
-  #it "show action should render show template" do
+  #it "show action renders show template" do
   #  get :show, :id => @purchase_order.id
   #  response.should render_template(:show)
   #end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     get :edit, :id => @purchase_order.id
     response.should render_template(:edit)
   end

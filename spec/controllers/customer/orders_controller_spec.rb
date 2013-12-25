@@ -10,13 +10,13 @@ describe Customer::OrdersController do
     login_as(@user)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     @order = create(:order, :user => @user)
     get :index
     response.should render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     @order = build(:order, :user => @user )
     @order.state = 'complete'
     @order.save

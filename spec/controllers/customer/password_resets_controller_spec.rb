@@ -3,13 +3,13 @@ require 'spec_helper'
 describe Customer::PasswordResetsController do
   render_views
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     @user = create(:user)
     get :new
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     User.any_instance.stubs(:valid?).returns(false)
     User.any_instance.stubs(:find_by_email).returns(nil)
     post :create, :user => {:email => 'wertyuvc'}
@@ -24,13 +24,13 @@ describe Customer::PasswordResetsController do
     expect(response).to render_template('password_resets/confirmation')
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @user = create(:user)
     get :edit, :id => @user.perishable_token
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @user = create(:user)
     User.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @user.perishable_token, :user => {:password => 'testPWD123', :password_confirmation => 'testPWD123'}

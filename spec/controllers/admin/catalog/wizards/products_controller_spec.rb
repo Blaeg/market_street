@@ -15,12 +15,12 @@ describe Admin::Catalog::Wizards::ProductsController do
     controller.session[:product_wizard][:property_ids]    = [@property.id]    
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     Product.any_instance.stubs(:valid?).returns(false)
     post :create, :product => { :name => 'hello'}
     response.should render_template(:new)

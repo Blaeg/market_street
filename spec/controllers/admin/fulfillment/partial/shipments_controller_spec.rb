@@ -13,12 +13,12 @@ describe Admin::Fulfillment::Partial::ShipmentsController do
     login_as(@user)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new, :order_id => @order.number
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
    # shipment = Factory.build(:shipment)
    #@order_item.update_attribute(:state, 'paid')
     #Shipment.any_instance.stubs(:valid?).returns(false)
@@ -34,7 +34,7 @@ describe Admin::Fulfillment::Partial::ShipmentsController do
     response.should redirect_to(edit_admin_fulfillment_order_url( @order ))
   end
 
-  it "update action should render new template when model is invalid" do
+  it "update action renders new template when model is invalid" do
    # shipment = Factory.build(:shipment)
     #Shipment.any_instance.stubs(:valid?).returns(false)
     Order.any_instance.stubs(:create_shipments_with_order_item_ids).returns(false)

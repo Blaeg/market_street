@@ -9,23 +9,23 @@ describe Customer::CreditCardsController do
     login_as(@user)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     get :index
     response.should render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     @credit_card = create(:payment_profile, :user => @user)
     get :show, :id => @credit_card.id
     response.should render_template(:show)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     PaymentProfile.any_instance.stubs(:valid?).returns(false)
     credit_card = build(:payment_profile)
     post :create, :credit_card => credit_card.attributes
@@ -39,13 +39,13 @@ describe Customer::CreditCardsController do
     post :create, :credit_card => credit_card.attributes#.merge(:credit_card_info)
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     @credit_card = create(:payment_profile, :user => @user)
     get :edit, :id => @credit_card.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     @credit_card = create(:payment_profile, :user => @user)
     PaymentProfile.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @credit_card.id, :credit_card => @credit_card.attributes

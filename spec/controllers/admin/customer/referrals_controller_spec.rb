@@ -10,31 +10,31 @@ describe Admin::Customer::ReferralsController do
     login_as(@cur_user)
   end
 
-  it "index action should render index template" do
+  it "index action renders index template" do
     referral = FactoryGirl.create(:referral)
     get :index
     response.should render_template(:index)
   end
 
-  it "show action should render show template" do
+  it "show action renders show template" do
     referral = FactoryGirl.create(:referral)
     get :show, :id => referral.id
     response.should render_template(:show)
   end
 
-  it "new action should render new template" do
+  it "new action renders new template" do
     get :new
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
+  it "create action renders new template when model is invalid" do
     referral = FactoryGirl.build(:referral)
     Referral.any_instance.stubs(:valid?).returns(false)
     post :create, :referral => referral.attributes.reject {|k,v| ['id','applied','clicked_at','purchased_at', 'referral_user_id', 'referring_user_id', 'registered_at','sent_at', 'created_at', 'updated_at'].include?(k)}
     response.should render_template(:new)
   end
 
-  it "create action should render new template when wrong email given " do
+  it "create action renders new template when wrong email given " do
     @ref_user = FactoryGirl.create(:user)
     referral = FactoryGirl.build(:referral)
     Referral.any_instance.stubs(:valid?).returns(true)
@@ -50,13 +50,13 @@ describe Admin::Customer::ReferralsController do
     response.should redirect_to(admin_customer_referral_url(assigns[:referral]))
   end
 
-  it "edit action should render edit template" do
+  it "edit action renders edit template" do
     referral = FactoryGirl.create(:referral)
     get :edit, :id => referral.id
     response.should render_template(:edit)
   end
 
-  it "update action should render edit template when model is invalid" do
+  it "update action renders edit template when model is invalid" do
     referral = FactoryGirl.create(:referral)
     Referral.any_instance.stubs(:valid?).returns(false)
     put :update, :id => referral.id, :referral => referral.attributes.reject {|k,v| ['id','applied','clicked_at','purchased_at', 'referral_user_id', 'referring_user_id', 'registered_at','sent_at', 'created_at', 'updated_at'].include?(k)}
