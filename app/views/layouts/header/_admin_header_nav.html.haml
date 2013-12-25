@@ -1,4 +1,14 @@
 %ul.nav
+  %li#user_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/customer/users"}
+      Customer
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/customer/users"} Users
+      %li
+        %a{href: "/admin/customer/referrals"} Referrals
+        
   %li#catalog_tab.dropdown
     %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "#"}
       Catalog
@@ -57,15 +67,6 @@
         %a{href: "/admin/document/invoices"} Invoices
       %li
         %a{href: "/admin/fulfillment/orders"} Fulfillments
-  %li#user_tab.dropdown
-    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/customer/users"}
-      User
-      %b.caret
-    %ul.dropdown-menu
-      %li
-        %a{href: "/admin/customer/users"} Users
-      %li
-        %a{href: "/admin/customer/referrals"} Referrals
   %li#config_tab.dropdown
     %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/config/accounts"}
       Config
