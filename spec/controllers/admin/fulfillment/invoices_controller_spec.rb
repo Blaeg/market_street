@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../../../spec_helper'
+require 'spec_helper'
 
-describe Admin::Document::InvoicesController do
+describe Admin::Fulfillment::InvoicesController do
   render_views
 
   before(:each) do

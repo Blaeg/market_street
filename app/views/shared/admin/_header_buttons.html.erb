@@ -2,7 +2,6 @@
 <li class="has-dropdown">
   <%= link_to 'Orders', admin_history_orders_path %>
   <ul class="dropdown">
-    <li><%= link_to 'Create Order', admin_shopping_carts_path %></li>
     <li><%= link_to 'Old Orders', admin_history_orders_path %></li>
     <li><%= link_to 'Shipments', admin_fulfillment_shipments_path %></li>
   </ul>
@@ -56,7 +55,7 @@
 <li class="has-dropdown">
   <%= link_to "Fulfillment", admin_fulfillment_orders_path %>
   <ul class="dropdown">
-    <li><%= link_to 'Invoices', admin_document_invoices_path %></li>
+    <li><%= link_to 'Invoices', admin_fulfillment_invoices_path %></li>
     <li><%= link_to 'Orders', admin_fulfillment_orders_path %></li>
     <li><%= link_to 'Shipments', admin_fulfillment_shipments_path %></li>
   </ul>

@@ -124,12 +124,9 @@ MarketStreet::Application.routes.draw do
         end
         resources  :addresses , :only => [:edit, :update]# This is for editing the shipment address
       end
+      resources :invoices
     end
-    namespace :shopping do
-      resources :carts
-      resources :products
-      resources :users
-    end
+    
     namespace :config do
       resources :countries, :only => [:index, :update, :destroy]
       resources :overviews
@@ -193,9 +190,6 @@ MarketStreet::Application.routes.draw do
       namespace :products do
         resources :descriptions, :only => [:edit, :update]
       end
-    end
-    namespace :document do
-      resources :invoices
-    end
+    end    
   end
 end

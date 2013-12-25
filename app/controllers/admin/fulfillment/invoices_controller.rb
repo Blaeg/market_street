@@ -1,5 +1,5 @@
-class Admin::Document::InvoicesController < Admin::BaseController
-  add_breadcrumb "Invoice", :admin_document_invoices_path
+class Admin::Fulfillment::InvoicesController < Admin::BaseController
+  add_breadcrumb "Invoice", :admin_fulfillment_invoices_path
   
   helper_method :sort_column, :sort_direction
   include InvoicePrinter
@@ -29,7 +29,7 @@ class Admin::Document::InvoicesController < Admin::BaseController
   def destroy
     @invoice = Invoice.includes([:order]).find(params[:id])
     @invoice.cancel_authorized_payment
-    redirect_to admin_document_invoices_url
+    redirect_to admin_fulfillment_invoices_url
   end
 
   def default_sort_column

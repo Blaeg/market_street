@@ -8,9 +8,9 @@
   <%= @invoice.state %>
 </p>
 <p>
-  <%= link_to "View PDF", admin_document_invoice_path(@invoice, :format => 'pdf'), 
+  <%= link_to "View PDF", admin_fulfillment_invoice_path(@invoice, :format => 'pdf'), 
   	:class => 'btn' %>
 </p>
 <p>
-  <%= link_to "View All", admin_document_invoices_path, :class => 'btn' %>
+  <%= link_to "View All", admin_fulfillment_invoices_path, :class => 'btn' %>
 </p>

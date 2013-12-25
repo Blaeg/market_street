@@ -58,11 +58,13 @@ class Order < ActiveRecord::Base
 
   has_many   :order_items, :dependent => :destroy
   has_many   :shipments
+  
   has_many   :invoices
   has_many   :completed_invoices,   -> { where(state: ['authorized', 'paid']) },  class_name: 'Invoice'
   has_many   :authorized_invoices,  -> { where(state: 'authorized') },      class_name: 'Invoice'
   has_many   :paid_invoices      ,  -> { where(state: 'paid') },            class_name: 'Invoice'
   has_many   :canceled_invoices   , ->  { where(state: 'canceled') }  ,     class_name: 'Invoice'
+  
   has_many   :return_authorizations
   has_many   :comments, as: :commentable
 

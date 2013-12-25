@@ -1,6 +1,6 @@
 <% content_for :sidemenu do %>
   <div class="span2">
-    <%= search_form_for @q, url: admin_document_invoices_path do |f| %>
+    <%= search_form_for @q, url: admin_fulfillment_invoices_path do |f| %>
       <%= f.label :order_id_cont %>
       <%= f.text_field :order_id_eq, class: 'span12'%>
       <%= f.submit(:class => "btn btn-primary") %>       
@@ -28,10 +28,10 @@
         <td><%= invoice.state %></td>
         <td><%= invoice.order.number %></td>
         <td><%= invoice.invoice_type %></td>
-        <td><%= link_to "Show", admin_document_invoice_path(invoice) %></td>
+        <td><%= link_to "Show", admin_fulfillment_invoice_path(invoice) %></td>
         <td>
           <% if invoice.authorized? %>
-            <%= link_to "Cancel", admin_document_invoice_path(invoice), :confirm => 'Are you sure?', :method => :delete %>
+            <%= link_to "Cancel", admin_fulfillment_invoice_path(invoice), :confirm => 'Are you sure?', :method => :delete %>
           <% end %>
         </td>
       </tr>
