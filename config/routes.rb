@@ -64,8 +64,6 @@ MarketStreet::Application.routes.draw do
     resources  :shipping_methods
   end
   
-  resources :image_groups
-  
   #ADMIN
   namespace :admin do
     mount Sidekiq::Web => '/jobs'
@@ -159,7 +157,6 @@ MarketStreet::Application.routes.draw do
       namespace :images do
         resources :products
       end
-      resources :image_groups
       resources :properties
       resources :prototypes
       resources :brands

@@ -11,8 +11,7 @@ SimpleNavigation::Configuration.run do |navigation|
       catalog.item :products_link, 'Products', admin_catalog_products_path
       catalog.item :properties_link, 'Properties', admin_catalog_properties_path 
       catalog.item :product_types_link, 'Product Types', admin_catalog_product_types_path 
-      catalog.item :prototypes_link, 'Prototypes', admin_catalog_prototypes_path
-      catalog.item :image_groups_link, 'Image Groups', admin_catalog_image_groups_path      
+      catalog.item :prototypes_link, 'Prototypes', admin_catalog_prototypes_path      
     end
 
     primary.item :inventory_tab, 'Inventory', '#', icon: ['fa fa-truck']  do |inventory|

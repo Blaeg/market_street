@@ -1,5 +1,4 @@
 class Admin::Catalog::Multi::VariantsController < Admin::BaseController
-  helper_method :image_groups
   def edit
     @product = Product.find(params[:product_id])        
   end
@@ -18,9 +17,5 @@ class Admin::Catalog::Multi::VariantsController < Admin::BaseController
 
   def allowed_params
     params.require(:product).permit!
-  end
-
-  def image_groups
-    @image_groups ||= ImageGroup.where(:product_id => @product).map{|i| [i.name, i.id]}
   end  
 end

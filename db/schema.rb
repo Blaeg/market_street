@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131225054828) do
+ActiveRecord::Schema.define(version: 20131225095401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,15 +138,6 @@ ActiveRecord::Schema.define(version: 20131225054828) do
 
   add_index "deals", ["buy_quantity"], name: "index_deals_on_buy_quantity", using: :btree
   add_index "deals", ["product_type_id"], name: "index_deals_on_product_type_id", using: :btree
-
-  create_table "image_groups", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "product_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "image_groups", ["product_id"], name: "index_image_groups_on_product_id", using: :btree
 
   create_table "images", force: true do |t|
     t.integer  "imageable_id"
@@ -662,17 +653,16 @@ ActiveRecord::Schema.define(version: 20131225054828) do
   add_index "variant_suppliers", ["variant_id"], name: "index_variant_suppliers_on_variant_id", using: :btree
 
   create_table "variants", force: true do |t|
-    t.integer  "product_id",                                             null: false
-    t.string   "sku",                                                    null: false
+    t.integer  "product_id",                                           null: false
+    t.string   "sku",                                                  null: false
     t.string   "name"
-    t.decimal  "price",          precision: 8, scale: 2, default: 0.0,   null: false
-    t.decimal  "cost",           precision: 8, scale: 2, default: 0.0,   null: false
+    t.decimal  "price",        precision: 8, scale: 2, default: 0.0,   null: false
+    t.decimal  "cost",         precision: 8, scale: 2, default: 0.0,   null: false
     t.datetime "deleted_at"
-    t.boolean  "master",                                 default: false, null: false
+    t.boolean  "master",                               default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "inventory_id"
-    t.integer  "image_group_id"
     t.float    "retail"
   end
 

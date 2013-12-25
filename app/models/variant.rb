@@ -39,8 +39,7 @@ class Variant < ActiveRecord::Base
 
   belongs_to :product
   belongs_to :inventory
-  belongs_to :image_group
-
+  
   before_validation :create_inventory#, :on => :create
   #after_save :expire_cache
 
@@ -60,12 +59,6 @@ class Variant < ActiveRecord::Base
 
   def featured_image(image_size = :small)
     image_urls(image_size).first
-  end
-
-  def image_urls(image_size = :small)
-    Rails.cache.fetch("variant-image_urls-#{self}-#{image_size}", :expires_in => 3.hours) do
-      image_group ? image_group.image_urls(image_size) : product.image_urls(image_size)
-    end
   end
 
   # returns an array of the display name and description of all the variant properties
