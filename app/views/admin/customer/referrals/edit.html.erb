@@ -1,0 +1,11 @@
+<h1> Edit Referral </h1>
+
+<%= form_for @referral, :url => [:admin, :customer, @referral] do |f| %>
+  <%=  render :partial => 'form', :locals => {:f => f} %>
+  <div class="actions"><%= f.submit 'Update' , :class => 'btn' %></div>
+<% end %>
+
+<p>
+  <%= link_to "Show", [:admin, :customer, @referral], :class => 'btn' %> |
+  <%= link_to "View All", admin_customer_referrals_path, :class => 'btn' %>
+</p>

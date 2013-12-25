@@ -1,4 +1,4 @@
-class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
+class Admin::Customer::ReferralsController < Admin::BaseController
   helper_method :sort_column, :sort_direction, :referral_types, :referral_programs
   def index
     @referrals = Referral.order(sort_column + " " + sort_direction).
@@ -30,7 +30,7 @@ class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
         end
       end
       if @referral.save
-        redirect_to [:admin, :user_datas, @referral], :notice => "Successfully created referral."
+        redirect_to [:admin, :customer, @referral], :notice => "Successfully created referral."
       else
         render :new
       end
@@ -47,7 +47,7 @@ class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
   def update
     @referral = Referral.find(params[:id])
     if @referral.update_attributes(allowed_params)
-      redirect_to [:admin, :user_datas, @referral], :notice  => "Successfully updated referral."
+      redirect_to [:admin, :customer, @referral], :notice  => "Successfully updated referral."
     else
       render :edit
     end
@@ -57,13 +57,13 @@ class Admin::UserDatas::ReferralsController < Admin::UserDatas::BaseController
     Referral.unapplied.purchased.find_each do |referral|
       referral.give_credits!
     end
-    redirect_to admin_user_datas_referrals_path
+    redirect_to admin_customer_referrals_path
   end
 
   def destroy
     @referral = Referral.find(params[:id])
     @referral.destroy
-    redirect_to admin_user_datas_referrals_url, :notice => "Successfully destroyed referral."
+    redirect_to admin_customer_referrals_url, :notice => "Successfully destroyed referral."
   end
 
   def default_sort_column

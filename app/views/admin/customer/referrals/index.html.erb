@@ -18,7 +18,7 @@
     </tr>
     <% for referral in @referrals %>
       <tr>
-        <td><%= link_to referral.name, [:admin, :user_datas, referral] %></td>
+        <td><%= link_to referral.name, [:admin, :customer, referral] %></td>
         <td><%= referral.email %></td>
         <td><%= referral.referring_user.name %></td>
         <td><%= referral.referral_program.name %></td>
@@ -28,7 +28,7 @@
         <td><%= referral.purchased_at %></td>
         <td><%= referral.applied %></td>
         <td>
-          <%= link_to "", [:admin, :user_datas, referral], :class => 'ss_sprite ss_cross',
+          <%= link_to "", [:admin, :customer, referral], :class => 'ss_sprite ss_cross',
             :data => { :confirm => "Are you sure?" }, :method => :delete %>
           </td>
       </tr>
@@ -37,10 +37,10 @@
 </div>
 <%= paginate @referrals %>
 <p>
-  <%= link_to "Assign Referral", new_admin_user_datas_referral_path, :class => 'btn' %>
+  <%= link_to "Assign Referral", new_admin_customer_referral_path, :class => 'btn' %>
 </p>
 <p>
-  <%= link_to "Apply Referrals", apply_admin_user_datas_referral_path(0),
+  <%= link_to "Apply Referrals", apply_admin_customer_referral_path(0),
               :data => { :confirm => 'Are you sure?' }, 
               :class => 'btn red-button', :method => 'POST' %>
 </p>

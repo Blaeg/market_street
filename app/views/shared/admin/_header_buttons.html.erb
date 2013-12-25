@@ -29,10 +29,10 @@
   </ul>
 </li>
 <li class="has-dropdown">
-  <%= link_to "Users", admin_users_path %>
+  <%= link_to "Users", admin_customer_users_path %>
   <ul class="dropdown">
-    <li><%= link_to 'Users',      admin_users_path %></li>
-    <li><%= link_to 'Referrals',  admin_user_datas_referrals_path %></li>
+    <li><%= link_to 'Users',      admin_customer_users_path %></li>
+    <li><%= link_to 'Referrals',  admin_customer_referrals_path %></li>
   </ul>
 </li>
 <% if current_user.super_admin? %>
@@ -75,7 +75,7 @@
   <%= link_to "Recent", '#' %>
   <ul class="dropdown">
     <% recent_admin_users.each do |recent_user_email, recent_user_id| %>
-    <li><%= link_to recent_user_email, admin_user_path(recent_user_id) %></li>
+    <li><%= link_to recent_user_email, admin_customer_user_path(recent_user_id) %></li>
     <% end %>
   </ul>
 </li>

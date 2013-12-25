@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::UserDatas::StoreCreditsController do
+describe Admin::Customer::StoreCreditsController do
   # fixtures :all
   render_views
   before(:each) do
@@ -28,11 +28,11 @@ describe Admin::UserDatas::StoreCreditsController do
   it "update action should redirect when model is valid" do
     StoreCredit.any_instance.stubs(:valid?).returns(true)
     put :update, :user_id => @user.id, :amount_to_add => '20.0'
-    response.should redirect_to(admin_user_datas_user_store_credits_url(@user))
+    response.should redirect_to(admin_customer_user_store_credits_url(@user))
   end
   it "update action should redirect when model is valid" do
     StoreCredit.any_instance.stubs(:valid?).returns(true)
     put :update, :user_id => @user.id, :amount_to_add => '-20.00'
-    response.should redirect_to(admin_user_datas_user_store_credits_url(@user))
+    response.should redirect_to(admin_customer_user_store_credits_url(@user))
   end
 end

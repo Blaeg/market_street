@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::UserDatas::ReferralsController do
+describe Admin::Customer::ReferralsController do
   # fixtures :all
   render_views
 
@@ -47,7 +47,7 @@ describe Admin::UserDatas::ReferralsController do
     referral = FactoryGirl.build(:referral)
     Referral.any_instance.stubs(:valid?).returns(true)
     post :create, :referral => referral.attributes.reject {|k,v| ['id','applied','clicked_at','purchased_at', 'referral_user_id', 'referring_user_id', 'registered_at','sent_at', 'created_at', 'updated_at'].include?(k)}, :referring_user_email => @ref_user.email
-    response.should redirect_to(admin_user_datas_referral_url(assigns[:referral]))
+    response.should redirect_to(admin_customer_referral_url(assigns[:referral]))
   end
 
   it "edit action should render edit template" do
@@ -67,13 +67,13 @@ describe Admin::UserDatas::ReferralsController do
     referral = FactoryGirl.create(:referral)
     Referral.any_instance.stubs(:valid?).returns(true)
     put :update, :id => referral.id, :referral => referral.attributes.reject {|k,v| ['id','applied','clicked_at','purchased_at', 'referral_user_id', 'referring_user_id', 'registered_at','sent_at', 'created_at', 'updated_at'].include?(k)}
-    response.should redirect_to(admin_user_datas_referral_url(assigns[:referral]))
+    response.should redirect_to(admin_customer_referral_url(assigns[:referral]))
   end
 
   it "destroy action should destroy model and redirect to index action" do
     referral = FactoryGirl.create(:referral)
     delete :destroy, :id => referral.id
-    response.should redirect_to(admin_user_datas_referrals_url)
+    response.should redirect_to(admin_customer_referrals_url)
     Referral.exists?(referral.id).should be_false
   end
 end

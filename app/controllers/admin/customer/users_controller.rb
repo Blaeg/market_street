@@ -1,5 +1,5 @@
-class Admin::UsersController < Admin::BaseController
-  add_breadcrumb "Users", :admin_users_path
+class Admin::Customer::UsersController < Admin::BaseController
+  add_breadcrumb "Users", :admin_customer_users_path
   helper_method :sort_column, :sort_direction
   
   def index
@@ -29,7 +29,7 @@ class Admin::UsersController < Admin::BaseController
       EmailWorker::SendSignUpNotification.perform_async(@user.id)
       add_to_recent_user(@user)
       flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
-      redirect_to admin_users_url
+      redirect_to admin_customer_users_url
     else
       form_info
       render :action => :new
@@ -48,7 +48,7 @@ class Admin::UsersController < Admin::BaseController
     authorize! :create_users, current_user
     if @user.update_attributes(user_params)
       flash[:notice] = "#{@user.name} has been updated."
-      redirect_to admin_users_url
+      redirect_to admin_customer_users_url
     else
       form_info
       render :action => :edit

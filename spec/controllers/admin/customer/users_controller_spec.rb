@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::UsersController do
+describe Admin::Customer::UsersController do
   # fixtures :all
   render_views
   before(:each) do
@@ -36,7 +36,7 @@ describe Admin::UsersController do
   it "create action should redirect when model is valid" do
     User.any_instance.stubs(:valid?).returns(true)
     post :create, :user => @customer.attributes.reject {|k,v| ![ 'first_name', 'last_name', 'password'].include?(k)}
-    expect(response).to redirect_to(admin_users_url())
+    expect(response).to redirect_to(admin_customer_users_url())
   end
 
 end

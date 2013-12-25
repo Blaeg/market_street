@@ -69,26 +69,21 @@ MarketStreet::Application.routes.draw do
   #ADMIN
   namespace :admin do
     mount Sidekiq::Web => '/jobs'
+    resources :overviews, :only => [:index]
+
     namespace :customer do
       resources :users do
+        resource :store_credits, :only => [:show, :edit, :update]
+        resources :addresses
         resources :comments
       end
-    end
-    resources :users
-    namespace :user_datas do
 
       resources :referrals do
         member do
           post :apply
         end
-      end
-
-      resources :users do
-        resource :store_credits, :only => [:show, :edit, :update]
-        resources :addresses
-      end
+      end      
     end
-    resources :overviews, :only => [:index]
 
     namespace :reports do
       resource :overview, :only => [:show]

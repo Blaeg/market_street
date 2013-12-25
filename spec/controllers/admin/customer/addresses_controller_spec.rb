@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::UserDatas::AddressesController do
+describe Admin::Customer::AddressesController do
   # fixtures :all
   render_views
   before(:each) do
@@ -38,7 +38,7 @@ describe Admin::UserDatas::AddressesController do
     address = FactoryGirl.build(:address, :addressable_id => @customer.id, :addressable_type => 'User')
     Address.any_instance.stubs(:valid?).returns(true)
     post :create, user_id: @customer.id, :address => address.attributes.reject {|k,v| ['id'].include?(k)}
-    expect(response).to redirect_to(admin_user_datas_user_address_url(@customer, assigns[:address]))
+    expect(response).to redirect_to(admin_customer_user_address_url(@customer, assigns[:address]))
   end
 
   it "edit action should render edit template" do
@@ -58,7 +58,7 @@ describe Admin::UserDatas::AddressesController do
     address = FactoryGirl.create(:address, :addressable_id => @customer.id, :addressable_type => 'User')
     Address.any_instance.stubs(:valid?).returns(true)
     put :update, user_id: @customer.id, :id => address.id, :address => address.attributes.reject {|k,v| ['id'].include?(k)}
-    expect(response).to redirect_to(admin_user_datas_user_address_url(@customer, assigns[:address]))
+    expect(response).to redirect_to(admin_customer_user_address_url(@customer, assigns[:address]))
   end
 
   it "destroy action should destroy model and redirect to index action" do

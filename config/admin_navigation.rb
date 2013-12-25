@@ -33,9 +33,9 @@ SimpleNavigation::Configuration.run do |navigation|
       order.item :fulfillments, 'Fulfillments', admin_fulfillment_orders_path
     end
 
-    primary.item :user_tab ,"User", admin_users_path do |user|
-      user.item :users ,"Users", admin_users_path
-      user.item :referrals ,"Referrals", admin_user_datas_referrals_path
+    primary.item :user_tab ,"User", admin_customer_users_path do |user|
+      user.item :users ,"Users", admin_customer_users_path
+      user.item :referrals ,"Referrals", admin_customer_referrals_path
     end
 
     if current_user.super_admin?

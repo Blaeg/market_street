@@ -1,4 +1,4 @@
-class Admin::UserDatas::AddressesController < Admin::UserDatas::BaseController
+class Admin::Customer::AddressesController < Admin::BaseController
   helper_method :sort_column, 
   :sort_direction, 
   :customer, 
@@ -28,7 +28,7 @@ class Admin::UserDatas::AddressesController < Admin::UserDatas::BaseController
 
     respond_to do |format|
       if @address.save
-        format.html { redirect_to([:admin, :user_datas, customer, @address], :notice => 'Address was successfully created.') }
+        format.html { redirect_to([:admin, :customer, customer, @address], :notice => 'Address was successfully created.') }
       else
         @form_address = @address
         format.html { render :action => "new" }
@@ -52,7 +52,7 @@ class Admin::UserDatas::AddressesController < Admin::UserDatas::BaseController
 
     respond_to do |format|
       if @address.save
-        format.html { redirect_to([:admin, :user_datas, customer, @address], :notice => 'Address was successfully updated.') }
+        format.html { redirect_to([:admin, :customer, customer, @address], :notice => 'Address was successfully updated.') }
       else
         # the form needs to have an id
         @form_address = customer.addresses.find(params[:id])
@@ -66,7 +66,7 @@ class Admin::UserDatas::AddressesController < Admin::UserDatas::BaseController
   def destroy
     @address = customer.addresses.find(params[:id])
     @address.inactive!
-    redirect_to admin_user_datas_user_addresses_url(customer), :notice => "Successfully inactivated address."
+    redirect_to admin_customer_user_addresses_url(customer), :notice => "Successfully inactivated address."
   end
 
   def default_sort_column

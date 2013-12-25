@@ -21,15 +21,15 @@
         </td>
         <td><%= address.default %></td>
         <td><%= address.active %></td>
-        <td><%= link_to 'View', [:admin, :user_datas, customer, address] %></td>
+        <td><%= link_to 'View', [:admin, :customer, customer, address] %></td>
         <td>
           <% if address.active %>
-            <%= link_to "edit", edit_admin_user_datas_user_address_path(customer, address) %>
+            <%= link_to "edit", edit_admin_customer_user_address_path(customer, address) %>
           <% end %>
         </td>        
           <td>
             <% if address.active %>
-              <%= link_to "inactivate", [:admin, :user_datas, customer, address], 
+              <%= link_to "inactivate", [:admin, :customer, customer, address], 
                                       data: { confirm: 'Are you sure?' }, 
                                       :method => :delete %>
             <% end %>
@@ -42,6 +42,6 @@
 <%= paginate @addresses %>
 
 <p>
-  <%= link_to "New Address", new_admin_user_datas_user_address_path(customer), 
+  <%= link_to "New Address", new_admin_customer_user_address_path(customer), 
     :class => 'btn' %>
 </p>
