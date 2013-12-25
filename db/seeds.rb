@@ -45,10 +45,15 @@ end.flatten
 puts  "SEEDING VARIANTS"
 @products.each do |p|
   p.activate!
-  variant = FactoryGirl.create(:variant, product: p)
-  p.properties.each do |pp|
-    variant_property = FactoryGirl.create(:variant_property, :variant => variant, :property => pp)
-    variant.variant_properties.push(variant_property)    
+
+  2.times do 
+    variant = FactoryGirl.create(:variant, product: p)
+    
+    p.properties.each do |pp|
+      variant_property = FactoryGirl.create(:variant_property, :variant => variant, 
+                                      :property => pp)
+      variant.variant_properties.push(variant_property)    
+    end
   end
 end
 

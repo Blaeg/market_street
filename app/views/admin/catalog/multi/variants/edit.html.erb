@@ -5,7 +5,8 @@
 <%= form_for @product, url:  admin_catalog_multi_product_variant_path(@product),
                        html: { class: '' }  do |form| %>
   <div id='variants_container' class='row'>
-    <%= render partial: '/admin/catalog/multi/variants/form', locals:{form: form} %>
+    <%= render partial: '/admin/catalog/multi/variants/form', 
+      locals:{form: form} %>
   </div>
   <div class='clearfix'></div>
   <div class=" offer_submit_button">
