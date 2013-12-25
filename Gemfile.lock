@@ -67,8 +67,6 @@ GEM
     addressable (2.3.5)
     afm (0.2.0)
     american_date (1.1.0)
-    angularjs-rails (1.2.5)
-    angularjs-rails-resource (0.2.5)
     arel (4.0.1)
     asset_sync (1.0.0)
       activemodel
@@ -466,8 +464,6 @@ DEPENDENCIES
   actionpack-page_caching
   activemerchant (~> 1.29.3)
   american_date
-  angularjs-rails (~> 1.2.0.rc2)
-  angularjs-rails-resource
   asset_sync
   authlogic!
   awesome_nested_set (~> 3.0.0.rc.1)

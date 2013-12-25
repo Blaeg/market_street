@@ -25,8 +25,7 @@ gem 'dynamic_form'
 gem 'jbuilder'
 gem 'draper'
 gem "friendly_id",    '~> 5.0.1'#, :git => "git@github.com:FriendlyId/friendly_id.git", :branch => 'rails4'
-gem "jquery-rails"
-gem 'jquery-ui-rails'
+
 gem 'json',           '~> 1.8.0'
 gem 'awesome_print'
 
@@ -55,6 +54,12 @@ gem 'sunspot_rails', '~> 2.0.0'
 gem 'kaminari'
 gem "ransack"
 
+#JS libraries
+gem "jquery-rails"
+gem 'jquery-ui-rails'
+gem 'underscore-rails'
+gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
+
 # UI components
 gem 'simple_form'
 gem 'simple-navigation'
@@ -68,12 +73,6 @@ gem 'bootstrap-editable-rails'
 gem 'social-share-button'
 
 gem 'breadcrumbs_on_rails'
-gem 'angularjs-rails', '~> 1.2.0.rc2'
-gem 'angularjs-rails-resource'
-gem 'underscore-rails'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 
 gem 'rails_admin'
 
