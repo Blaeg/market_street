@@ -1,0 +1,86 @@
+%ul.nav
+  %li#user_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/customer/users"}
+      %i.fa.fa-users
+      Customer
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/customer/users"} Users
+      %li
+        %a{href: "/admin/customer/referrals"} Referrals
+        
+  %li#catalog_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "#"}
+      %i.fa.fa-shopping-cart
+      Catalog
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/catalog/products"} Products
+      %li
+        %a{href: "/admin/catalog/properties"} Properties
+      %li
+        %a{href: "/admin/catalog/product_types"} Product Types
+      %li
+        %a{href: "/admin/catalog/prototypes"} Prototypes
+      %li
+        %a{href: "/admin/catalog/image_groups"} Image Groups      
+  %li#inventory_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/inventory/overviews"}
+      %i.fa.fa-truck
+      Inventory
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/inventory/overviews"} Overviews
+      %li
+        %a{href: "/admin/inventory/suppliers"} Suppliers
+      %li
+        %a{href: "/admin/inventory/receivings"} Receive Purchase Order
+      %li
+        %a{href: "/admin/inventory/purchase_orders"} Purchase Orders
+      %li
+        %a{href: "/admin/inventory/adjustments"} Adjustments
+  %li#offer_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/offer/coupons"}
+      %i.fa.fa-tags
+      Offer
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/offer/coupons"} Coupons
+      %li
+        %a{href: "/admin/offer/deals"} Deals
+      %li
+        %a{href: "/admin/offer/sales"} Sales
+  %li#orders_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/history/orders"}
+      %i.fa.fa-credit-card
+      Order
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/history/orders"} Orders
+      %li
+        %a{href: "/admin/fulfillment/shipments"} Shipments
+      %li
+        %a{href: "/admin/document/invoices"} Invoices
+      %li
+        %a{href: "/admin/fulfillment/orders"} Fulfillments
+  %li#config_tab.dropdown
+    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/config/tax_rates"}
+      %i.fa.fa-gear
+      Config
+      %b.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "/admin/config/tax_rates"} Tax Rates
+      %li
+        %a{href: "/admin/config/countries"} Countries
+      %li
+        %a{href: "/admin/config/shipping_zones"} Shipping Zones
+      %li
+        %a{href: "/admin/config/shipping_methods"} Shipping Methods
+      %li
+        %a{href: "/admin/config/shipping_rates"} Shipping Rates

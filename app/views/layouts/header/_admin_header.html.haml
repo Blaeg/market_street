@@ -3,8 +3,8 @@
     .container-fluid
       .brand= link_to (site_name+' Admin') , root_path
       .nav-collapse
-        = #render "layouts/header/admin_header_nav"
-        = render_navigation expand_all: true, renderer: :bootstrap, context: :admin
+        = render "layouts/header/admin_header_nav"
+        = #render_navigation expand_all: true, renderer: :bootstrap, context: :admin
       %ul.nav.pull-right
         %li.dropdown
           = link_to "#", data: { toggle: 'dropdown'}, class: 'dropdown-toggle' do
