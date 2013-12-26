@@ -1,4 +1,5 @@
 class Admin::ReportsController < Admin::BaseController
+  add_breadcrumb "Reports", :admin_reports_dashboard_path
   helper_method :start_time, :end_time
   before_filter :set_start_time
   before_filter :set_end_time

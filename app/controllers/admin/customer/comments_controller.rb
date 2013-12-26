@@ -1,6 +1,6 @@
 class Admin::Customer::CommentsController < Admin::BaseController
   add_breadcrumb "Comments", :admin_customer_user_comments_path
-  helper_method :sort_column, :sort_direction, :customer
+  helper_method :customer
 
   def index
     @comments = customer.comments.order(sort_column + " " + sort_direction).

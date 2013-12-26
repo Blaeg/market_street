@@ -1,6 +1,5 @@
 class Admin::Customer::UsersController < Admin::BaseController
   add_breadcrumb "Users", :admin_customer_users_path
-  helper_method :sort_column, :sort_direction
   
   def index
     authorize! :view_users, current_user

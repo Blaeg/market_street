@@ -1,7 +1,7 @@
-# Use this model to create 20% off sales for any given product
-
 class Admin::Offer::SalesController < Admin::Offer::BaseController
-  helper_method :sort_column, :sort_direction, :products
+  add_breadcrumb "Sales", admin_offer_coupons_path
+  helper_method :products
+
   def index
     @sales = Sale.order(sort_column + " " + sort_direction).
               page(pagination_page).per(pagination_rows)

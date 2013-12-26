@@ -1,5 +1,5 @@
 class Admin::Customer::ReferralsController < Admin::BaseController
-  helper_method :sort_column, :sort_direction, :referral_types, :referral_programs
+  helper_method :referral_types, :referral_programs
   def index
     @referrals = Referral.order(sort_column + " " + sort_direction).
     page(pagination_page).per(pagination_rows)

@@ -1,7 +1,7 @@
 class Admin::Catalog::ProductTypesController < Admin::BaseController
   add_breadcrumb "Product Types", :admin_catalog_product_types_path
-  helper_method :sort_column, :sort_direction
   respond_to :html, :json
+  
   def index
     @q = ProductType.search(params[:q])
     @product_types = @q.result.page(params[:page]).

@@ -1,5 +1,5 @@
 class Customer::ReferralsController < Customer::BaseController
-  helper_method :sort_column, :sort_direction
+  
   def index
     @referral  = Referral.new
     @referrals = current_user.referrals.order(sort_column + " " + sort_direction)

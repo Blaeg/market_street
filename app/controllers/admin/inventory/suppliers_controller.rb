@@ -1,6 +1,5 @@
 class Admin::Inventory::SuppliersController < Admin::BaseController
   add_breadcrumb "Suppliers", :admin_inventory_suppliers_path
-  helper_method :sort_column, :sort_direction
   respond_to :json, :html
 
   def index

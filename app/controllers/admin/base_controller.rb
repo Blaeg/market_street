@@ -1,8 +1,9 @@
 class Admin::BaseController < ApplicationController
   add_breadcrumb "Admin", :admin_overviews_path
-  layout 'admin'
   before_filter :verify_admin
-
+  helper_method :sort_column, :sort_direction
+  layout 'admin'
+  
   private
 
   #move to cancan

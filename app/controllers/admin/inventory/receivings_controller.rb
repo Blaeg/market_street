@@ -1,7 +1,6 @@
 class Admin::Inventory::ReceivingsController < Admin::BaseController
   add_breadcrumb "Purchase Orders to be Received", :admin_inventory_receivings_path
-  helper_method :sort_column, :sort_direction
-
+  
   def index
     @q = PurchaseOrder.search(params[:q])
     @purchase_orders = @q.result.order(sort_column + " " + sort_direction).

@@ -1,7 +1,7 @@
 class Admin::Catalog::PropertiesController < Admin::BaseController
   add_breadcrumb "Properties", :admin_catalog_properties_path
-  helper_method :sort_column, :sort_direction
   respond_to :html, :json
+  
   def index
     @q = Property.search(params[:q])
     @properties = @q.result.order(sort_column + " " + sort_direction).

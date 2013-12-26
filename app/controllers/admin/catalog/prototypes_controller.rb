@@ -1,7 +1,7 @@
 class Admin::Catalog::PrototypesController < Admin::BaseController
   add_breadcrumb "Prototypes", :admin_catalog_prototypes_path
-  helper_method :sort_column, :sort_direction
   respond_to :html, :json
+  
   def index
     @q = Prototype.search(params[:q])
     @prototypes = @q.result.order(sort_column + " " + sort_direction).

@@ -1,8 +1,6 @@
 class Admin::Customer::AddressesController < Admin::BaseController
-  helper_method :sort_column, 
-  :sort_direction, 
-  :customer, 
-  :select_states
+  helper_method :customer, :select_states
+  
   def index
     @addresses = customer.addresses.order(sort_column + " " + sort_direction).
     page(pagination_page).per(pagination_rows)

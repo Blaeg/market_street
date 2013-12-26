@@ -1,6 +1,5 @@
 class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
   add_breadcrumb "Shipping Orders", :admin_fulfillment_orders_path
-  helper_method :sort_column, :sort_direction
   
   def index
     @q = Order.search(params[:q])

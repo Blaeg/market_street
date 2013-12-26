@@ -1,6 +1,6 @@
 class Admin::Catalog::ProductsController < Admin::BaseController
   add_breadcrumb "Products", :admin_catalog_products_path
-  helper_method :sort_column, :sort_direction, :product_types
+  helper_method :product_types
   respond_to :html, :json
   authorize_resource
 

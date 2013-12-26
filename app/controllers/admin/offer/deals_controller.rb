@@ -1,5 +1,7 @@
 class Admin::Offer::DealsController < Admin::Offer::BaseController
-  helper_method :sort_column, :sort_direction, :product_types,:deal_types
+  add_breadcrumb "Deals", admin_offer_coupons_path
+  helper_method :product_types,:deal_types
+
   def index
     @deals = Deal.order(sort_column + " " + sort_direction).
               page(pagination_page).per(pagination_rows)

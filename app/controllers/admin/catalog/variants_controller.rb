@@ -1,6 +1,5 @@
 class Admin::Catalog::VariantsController < Admin::BaseController
   add_breadcrumb "Variants", :admin_catalog_product_variants_path
-  helper_method :sort_column, :sort_direction
   respond_to :html, :json
   before_filter :current_product
 

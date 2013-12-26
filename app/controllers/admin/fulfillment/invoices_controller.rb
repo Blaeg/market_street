@@ -1,7 +1,5 @@
 class Admin::Fulfillment::InvoicesController < Admin::BaseController
   add_breadcrumb "Invoice", :admin_fulfillment_invoices_path
-  
-  helper_method :sort_column, :sort_direction
   include InvoicePrinter
 
   def index
