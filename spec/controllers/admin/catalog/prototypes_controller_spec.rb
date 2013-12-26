@@ -34,7 +34,7 @@ describe Admin::Catalog::PrototypesController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     Prototype.any_instance.stubs(:valid?).returns(true)
     post :create, :prototype => {:name => 'fred'}
     expect(response).to redirect_to(admin_catalog_prototypes_url())
@@ -53,7 +53,7 @@ describe Admin::Catalog::PrototypesController do
     expect(response).to render_template(:edit)
   end
 # ( :name, :active, :property_ids )
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     property = create(:property)
     @prototype = create(:prototype)
     Prototype.any_instance.stubs(:valid?).returns(true)

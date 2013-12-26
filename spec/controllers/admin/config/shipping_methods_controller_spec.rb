@@ -15,12 +15,6 @@ describe Admin::Config::ShippingMethodsController do
     expect(response).to render_template(:index)
   end
 
-  #it "show action renders show template" do
-  #  @shipping_method = create(:shipping_method)
-  #  get :show, :id => @shipping_method.id
-  #  expect(response).to render_template(:show)
-  #end
-
   it "new action renders new template" do
     get :new
     expect(response).to render_template(:new)
@@ -32,7 +26,7 @@ describe Admin::Config::ShippingMethodsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     ShippingMethod.any_instance.stubs(:valid?).returns(true)
     post :create, :shipping_method => {:name => 'UPS 3-5 day'}
     expect(response).to redirect_to(admin_config_shipping_methods_url())
@@ -51,7 +45,7 @@ describe Admin::Config::ShippingMethodsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @shipping_method = create(:shipping_method)
     ShippingMethod.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @shipping_method.id, :shipping_method => {:name => 'UPS 3-5 day'}

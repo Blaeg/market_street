@@ -24,7 +24,7 @@ describe Admin::Catalog::Wizards::ProductTypesController do
     expect(response).to render_template(:index)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     ProductType.any_instance.stubs(:valid?).returns(true)
     post :create, :product_type => {:name => 'prod type'}
     expect(response).to render_template(:index) #redirect_to(admin_catalog_wizards_properties_url)
@@ -37,7 +37,7 @@ describe Admin::Catalog::Wizards::ProductTypesController do
     expect(response).to render_template(:index)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @product_type = create(:product_type)
     #ProductType.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @product_type.id

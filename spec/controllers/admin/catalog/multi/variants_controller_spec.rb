@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Admin::Catalog::Multi::VariantsController do
   render_views
+  
   before(:each) do
     activate_authlogic
     @user = create_admin_user
@@ -21,7 +22,7 @@ describe Admin::Catalog::Multi::VariantsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @product = create(:product)
     Product.any_instance.stubs(:valid?).returns(true)
     Variant.any_instance.stubs(:valid?).returns(true)

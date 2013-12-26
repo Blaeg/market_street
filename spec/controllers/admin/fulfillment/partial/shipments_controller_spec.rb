@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Admin::Fulfillment::Partial::ShipmentsController do
-  # fixtures :all
   render_views
 
 
@@ -27,7 +26,7 @@ describe Admin::Fulfillment::Partial::ShipmentsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
    # shipment = Factory.build(:shipment)
     Order.any_instance.stubs(:create_shipments_with_order_item_ids).returns(true)
     post :create, :order_item_ids => [@order_item.id], :order_id => @order.number
@@ -42,7 +41,7 @@ describe Admin::Fulfillment::Partial::ShipmentsController do
     expect(response).to render_template(:new)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
    # shipment = Factory.build(:shipment)
     Order.any_instance.stubs(:create_shipments_with_order_item_ids).returns(true)
     put :update, :order => { :order_item_ids => [@order_item.id]}, :order_id => @order.number, :id => 0

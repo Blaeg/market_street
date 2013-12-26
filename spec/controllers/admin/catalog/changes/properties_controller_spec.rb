@@ -26,7 +26,7 @@ describe Admin::Catalog::Changes::PropertiesController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     property = create(:property)
     @product = create(:product)
     Product.any_instance.stubs(:valid?).returns(true)

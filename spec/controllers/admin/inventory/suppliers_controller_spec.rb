@@ -33,7 +33,7 @@ describe Admin::Inventory::SuppliersController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     Supplier.any_instance.stubs(:valid?).returns(true)
     post :create, :supplier => {:name => 'Nike', :email => 'test@test.com'}
     expect(response).to redirect_to(admin_inventory_suppliers_url())
@@ -52,7 +52,7 @@ describe Admin::Inventory::SuppliersController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @supplier = create(:supplier)
     Supplier.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @supplier.id, :supplier => {:name => 'John', :email => 'test@test.com'}

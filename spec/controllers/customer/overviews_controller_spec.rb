@@ -33,7 +33,7 @@ describe Customer::OverviewsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     User.any_instance.stubs(:valid?).returns(true)
     put :update, :user => @user.attributes.reject {|k,v| ![ 'first_name', 'last_name', 'password'].include?(k)}
     expect(response).to redirect_to(customer_overview_url())

@@ -32,7 +32,7 @@ describe Customer::CreditCardsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     PaymentProfile.any_instance.stubs(:valid?).returns(false)
     PaymentProfile.any_instance.stubs(:create_payment_profile).returns(true)
     credit_card = build(:payment_profile)
@@ -52,7 +52,7 @@ describe Customer::CreditCardsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @credit_card = create(:payment_profile, :user => @user)
     PaymentProfile.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @credit_card.id, :credit_card => @credit_card.attributes

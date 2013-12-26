@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Admin::Customer::AddressesController do
-  # fixtures :all
   render_views
+  
   before(:each) do
     activate_authlogic
     @cur_user = FactoryGirl.create(:admin_user)
@@ -34,7 +34,7 @@ describe Admin::Customer::AddressesController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     address = FactoryGirl.build(:address, :addressable_id => @customer.id, :addressable_type => 'User')
     Address.any_instance.stubs(:valid?).returns(true)
     post :create, user_id: @customer.id, :address => address.attributes.reject {|k,v| ['id'].include?(k)}
@@ -54,7 +54,7 @@ describe Admin::Customer::AddressesController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     address = FactoryGirl.create(:address, :addressable_id => @customer.id, :addressable_type => 'User')
     Address.any_instance.stubs(:valid?).returns(true)
     put :update, user_id: @customer.id, :id => address.id, :address => address.attributes.reject {|k,v| ['id'].include?(k)}

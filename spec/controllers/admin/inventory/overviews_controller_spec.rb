@@ -27,7 +27,7 @@ describe Admin::Inventory::OverviewsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     Product.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @product.id
     expect(response).to redirect_to(admin_inventory_overviews_url())

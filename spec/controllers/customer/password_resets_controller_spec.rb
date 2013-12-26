@@ -16,7 +16,7 @@ describe Customer::PasswordResetsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     @user = create(:user)
     User.any_instance.stubs(:valid?).returns(true)
     User.any_instance.stubs(:find_by_email).returns(@user)
@@ -37,7 +37,7 @@ describe Customer::PasswordResetsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @user = create(:user)
     User.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @user.perishable_token, :user => {:password => 'testPWD123', :password_confirmation => 'testPWD123'}

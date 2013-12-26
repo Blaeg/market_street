@@ -16,12 +16,6 @@ describe Admin::Inventory::PurchaseOrdersController do
     expect(response).to render_template(:index)
   end
 
-  #it "show action renders show template" do
-  #  @purchase_order = create(:purchase_order)
-  #  get :show, :id => @purchase_order.id
-  #  expect(response).to render_template(:show)
-  #end
-
   it "new action renders new template" do
     create(:supplier)
     get :new
@@ -34,7 +28,7 @@ describe Admin::Inventory::PurchaseOrdersController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     PurchaseOrder.any_instance.stubs(:valid?).returns(true)
     post :create, :purchase_order => {:ordered_at => Time.now.to_s(:db), :supplier_id => '1'}
     expect(response).to redirect_to(admin_inventory_purchase_orders_url(:notice => 'Purchase order was successfully created.'))
@@ -53,7 +47,7 @@ describe Admin::Inventory::PurchaseOrdersController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @purchase_order = create(:purchase_order)
     PurchaseOrder.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @purchase_order.id, :purchase_order => {:ordered_at => Time.now.to_s(:db), :supplier_id => '1'}

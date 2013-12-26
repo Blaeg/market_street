@@ -42,7 +42,7 @@ describe Admin::Catalog::ProductsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     @product = build(:product, :description_markup => nil, :deleted_at => (Time.zone.now - 1.day))
     Product.any_instance.stubs(:valid?).returns(true)
     post :create, :product => @product.attributes
@@ -62,21 +62,21 @@ describe Admin::Catalog::ProductsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @product = create(:product)
     Product.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @product.id, :product => product_attributes
     expect(response).to redirect_to(admin_catalog_product_url(assigns[:product]))
   end
 
-  it "activate action should redirect when model is valid" do
+  it "activate action redirects when model is valid" do
     @product = create(:product, :deleted_at => (Time.zone.now - 1.day))
     put :activate, :id => @product.id, :product => product_attributes
     @product.reload
     @product.active.should be_true
     expect(response).to redirect_to(admin_catalog_product_url(assigns[:product]))
   end
-  it "activate action should redirect to create description when model is valid" do
+  it "activate action redirects to create description when model is valid" do
     @product = create(:product, :description_markup => nil, :deleted_at => (Time.zone.now - 1.day))
     put :activate, :id => @product.id, :product => product_attributes
     @product.reload

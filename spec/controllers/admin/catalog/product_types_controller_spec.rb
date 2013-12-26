@@ -27,7 +27,7 @@ describe Admin::Catalog::ProductTypesController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     @product_type = build(:product_type)
     ProductType.any_instance.stubs(:valid?).returns(true)
     post :create, :product_type => @product_type.attributes.reject {|k,v| !['name','parent_id'].include?(k)}
@@ -47,7 +47,7 @@ describe Admin::Catalog::ProductTypesController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @product_type = create(:product_type)
     ProductType.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @product_type.id, :product_type => {:name => 'dis', :parent_id => nil}

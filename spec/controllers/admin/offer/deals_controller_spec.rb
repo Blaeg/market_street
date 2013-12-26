@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Admin::Offer::DealsController do
-  # fixtures :all
   render_views
 
   before(:each) do
@@ -34,7 +33,7 @@ describe Admin::Offer::DealsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     deal = FactoryGirl.build(:deal)
     Deal.any_instance.stubs(:valid?).returns(true)
     post :create, :deal => deal.attributes.except('id', 'deleted_at', 'created_at', 'updated_at')
@@ -54,7 +53,7 @@ describe Admin::Offer::DealsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     deal = create(:deal)
     Deal.any_instance.stubs(:valid?).returns(true)
     put :update, :id => deal.id, :deal => deal.attributes.except('id', 'deleted_at', 'created_at', 'updated_at')

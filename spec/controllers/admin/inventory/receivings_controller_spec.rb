@@ -11,11 +11,6 @@ describe Admin::Inventory::ReceivingsController do
     @purchase_order = create(:purchase_order)
   end
 
-  #it "show action renders show template" do
-  #  get :show, :id => @purchase_order.id
-  #  expect(response).to render_template(:show)
-  #end
-
   it "index action renders index template" do
     get :index
     expect(response).to render_template(:index)
@@ -26,7 +21,7 @@ describe Admin::Inventory::ReceivingsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     PurchaseOrder.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @purchase_order.id, :purchase_order => {:receive_po => '1'}
     expect(response).to redirect_to(admin_inventory_receivings_url( :notice => 'Purchase order was successfully updated.'))

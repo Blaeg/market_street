@@ -34,7 +34,7 @@ describe Admin::Offer::CouponsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     @coupon = create(:coupon_value)
     Coupons::CouponValue.any_instance.stubs(:valid?).returns(true)
     attribs =  @coupon.attributes
@@ -58,7 +58,7 @@ describe Admin::Offer::CouponsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @coupon = create(:coupon)
     attribs =  @coupon.attributes
     attribs.delete('type')

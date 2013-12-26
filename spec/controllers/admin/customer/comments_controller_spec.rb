@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Admin::Customer::CommentsController do
-  # fixtures :all
   render_views
+  
   before(:each) do
     activate_authlogic
     @customer = FactoryGirl.create(:user)
@@ -35,7 +35,7 @@ describe Admin::Customer::CommentsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     comment = FactoryGirl.build(:comment, :user_id => @customer.id, :commentable => @customer)
     Comment.any_instance.stubs(:valid?).returns(true)
     post :create, :user_id => @customer.id, :comment => comment.attributes.reject {|k,v| ['id', 'commentable_type', 'commentable_id', 'created_by', 'user_id'].include?(k)}

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Admin::Customer::UsersController do
-  # fixtures :all
   render_views
+
   before(:each) do
     activate_authlogic
     @customer = FactoryGirl.build(:user)
@@ -33,7 +33,7 @@ describe Admin::Customer::UsersController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     User.any_instance.stubs(:valid?).returns(true)
     post :create, :user => @customer.attributes.reject {|k,v| ![ 'first_name', 'last_name', 'password'].include?(k)}
     expect(response).to redirect_to(admin_customer_users_url())

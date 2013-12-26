@@ -44,7 +44,7 @@ describe Admin::Inventory::AdjustmentsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @product = create(:product)
     @variant = create(:variant, :product => @product)
     Variant.any_instance.stubs(:valid?).returns(true)
@@ -52,7 +52,7 @@ describe Admin::Inventory::AdjustmentsController do
     expect(response).to redirect_to(admin_inventory_adjustment_url(@product))
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @product = create(:product)
     @variant = create(:variant, :product => @product)
     Variant.any_instance.stubs(:valid?).returns(true)

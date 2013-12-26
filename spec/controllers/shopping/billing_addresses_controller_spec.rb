@@ -24,7 +24,7 @@ describe Shopping::BillingAddressesController do
     expect(response).to render_template(:index)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     Address.any_instance.stubs(:valid?).returns(true)
     controller.stubs(:next_form_url).returns(shopping_shipping_methods_url)
     post :create, :address => @billing_address.attributes
@@ -42,14 +42,14 @@ describe Shopping::BillingAddressesController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     Address.any_instance.stubs(:valid?).returns(true)
     controller.stubs(:next_form_url).returns(shopping_shipping_methods_url)
     put :update, :id => @billing_address.id, :address => @billing_address.attributes
     expect(response).to redirect_to(shopping_shipping_methods_url)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     Address.any_instance.stubs(:valid?).returns(true)
     controller.stubs(:next_form_url).returns(shopping_shipping_methods_url)
     put :select_address, :id => @billing_address.id

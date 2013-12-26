@@ -31,7 +31,7 @@ describe Admin::Catalog::PropertiesController do
     expect(response).to render_template :new
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     Property.any_instance.stubs(:valid?).returns(true)
     post :create, :property => {:display_name => 'dis', :identifing_name => 'test'}
     expect(response).to redirect_to(admin_catalog_properties_url)
@@ -51,7 +51,7 @@ describe Admin::Catalog::PropertiesController do
     expect(response).to render_template :edit
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @property = create(:property)
     Property.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @property.id, :property => {:display_name => 'dis', :identifing_name => 'test'}

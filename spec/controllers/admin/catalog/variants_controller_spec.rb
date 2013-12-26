@@ -34,7 +34,7 @@ describe Admin::Catalog::VariantsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     Variant.any_instance.stubs(:valid?).returns(true)
     post :create, :product_id => @product.id, :variant => {:sku => '1232-abc', :name => 'variant name', :price => '20.00', :cost => '10.00', :deleted_at => nil, :master => false, :brand_id => 1}
     expect(response).to redirect_to(admin_catalog_product_variants_url(@product))
@@ -53,7 +53,7 @@ describe Admin::Catalog::VariantsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @variant = create(:variant, :product => @product)
     Variant.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @variant.id, :product_id => @product.id, :variant => {:sku => '1232-abc', :name => 'variant name', :price => '20.00', :cost => '10.00', :deleted_at => nil, :master => false, :brand_id => 1}

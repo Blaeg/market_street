@@ -24,7 +24,7 @@ describe Admin::Catalog::Wizards::PropertiesController do
     expect(response).to render_template(:index)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     Property.any_instance.stubs(:valid?).returns(true)
     post :create, :property => {:identifing_name => 'test', :display_name => 'test'}
     expect(response).to render_template(:index)
@@ -36,7 +36,7 @@ describe Admin::Catalog::Wizards::PropertiesController do
     expect(response).to render_template(:index)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @property = create(:property)
     put :update, :id => @property.id, :property => {:ids => [ @property.id ]}
     controller.session[:product_wizard][:property_ids].should == [@property.id]

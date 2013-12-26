@@ -26,7 +26,7 @@ describe Admin::Catalog::Wizards::ProductsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     Product.any_instance.stubs(:valid?).returns(true)
     post :create, :product => { :name => 'hello',
                                 :permalink => 'hi',

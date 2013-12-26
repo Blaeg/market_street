@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Admin::Config::CountriesController do
-  # fixtures :all
   render_views
 
   before(:each) do
@@ -16,7 +15,7 @@ describe Admin::Config::CountriesController do
     expect(response).to render_template(:index)
   end
 
-  it "update action should redirect and make the country active" do
+  it "update action redirects and make the country active" do
     country = Country.first()
     country.update_attribute(:active,  false)
     Country.any_instance.stubs(:valid?).returns(true)

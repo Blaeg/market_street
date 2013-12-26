@@ -23,7 +23,7 @@ describe Admin::Catalog::Products::DescriptionsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @product = create(:product, :deleted_at => (Time.zone.now - 1.day), :description_markup => nil, :description => nil)
     Product.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @product.id, :product => {:description_markup => '**Hi Everybody**'}

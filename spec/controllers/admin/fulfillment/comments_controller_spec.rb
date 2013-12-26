@@ -33,7 +33,7 @@ describe Admin::Fulfillment::CommentsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     @comment = create(:comment, :commentable_id => @order.id, :commentable_type => @order.class.to_s)
     Comment.any_instance.stubs(:valid?).returns(true)
     post :create, :order_id => @order.number, :comment => @comment.attributes
@@ -42,7 +42,7 @@ describe Admin::Fulfillment::CommentsController do
   end
 
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     @comment = create(:comment, :commentable_id => @order.id, :commentable_type => @order.class.to_s)
     Comment.any_instance.stubs(:valid?).returns(true)
     post :create, :order_id => @order.number, :comment => @comment.attributes, :format => 'json'
@@ -63,7 +63,7 @@ describe Admin::Fulfillment::CommentsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @comment = create(:comment, :commentable_id => @order.id, :commentable_type => @order.class.to_s)
     Comment.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @comment.id, :order_id => @order.number, :comment => @comment.attributes

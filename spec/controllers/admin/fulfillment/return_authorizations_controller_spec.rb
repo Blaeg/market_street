@@ -33,7 +33,7 @@ describe Admin::Fulfillment::ReturnAuthorizationsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     ReturnAuthorization.any_instance.stubs(:valid?).returns(true)
     post :create, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}
     expect(response).to redirect_to(admin_fulfillment_order_return_authorization_url(@order, assigns[:return_authorization]))
@@ -52,14 +52,14 @@ describe Admin::Fulfillment::ReturnAuthorizationsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @return_authorization = create(:return_authorization)
     ReturnAuthorization.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @return_authorization.id, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}
     expect(response).to redirect_to(admin_fulfillment_order_return_authorization_url(@order, assigns[:return_authorization]))
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @return_authorization = create(:return_authorization)
     ReturnAuthorization.any_instance.stubs(:valid?).returns(true)
     put :complete, :id => @return_authorization.id, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}

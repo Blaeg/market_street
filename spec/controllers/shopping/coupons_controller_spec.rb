@@ -9,7 +9,6 @@ describe Shopping::CouponsController do
     @cur_user = create(:user)
     login_as(@cur_user)
 
-    #stylist_cart
     @variant  = create(:variant)
 
     create_cart(@cur_user, [@variant])
@@ -32,7 +31,7 @@ describe Shopping::CouponsController do
     expect(response).to render_template(:show)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     create(:coupon_value, :code => 'qwerty' )
     Coupons::CouponValue.any_instance.stubs(:eligible?).returns(true)
     Shopping::CouponsController.any_instance.stubs(:update_order_coupon_id).returns(true)

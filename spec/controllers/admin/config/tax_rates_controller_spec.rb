@@ -31,7 +31,7 @@ describe Admin::Config::TaxRatesController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     TaxRate.any_instance.stubs(:valid?).returns(true)
     post :create, :tax_rate => { :start_date => Time.now.to_s(:db), :state_id => 1}
     expect(response).to redirect_to(admin_config_tax_rate_url(assigns[:tax_rate]))
@@ -50,7 +50,7 @@ describe Admin::Config::TaxRatesController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @tax_rate = create(:tax_rate)
     TaxRate.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @tax_rate.id, :tax_rate => { :start_date => Time.now.to_s(:db), :state_id => 1}

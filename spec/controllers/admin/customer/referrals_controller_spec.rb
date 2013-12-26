@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Admin::Customer::ReferralsController do
-  # fixtures :all
   render_views
 
   before(:each) do
@@ -42,7 +41,7 @@ describe Admin::Customer::ReferralsController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     @ref_user = FactoryGirl.create(:user)
     referral = FactoryGirl.build(:referral)
     Referral.any_instance.stubs(:valid?).returns(true)
@@ -63,7 +62,7 @@ describe Admin::Customer::ReferralsController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     referral = FactoryGirl.create(:referral)
     Referral.any_instance.stubs(:valid?).returns(true)
     put :update, :id => referral.id, :referral => referral.attributes.reject {|k,v| ['id','applied','clicked_at','purchased_at', 'referral_user_id', 'referring_user_id', 'registered_at','sent_at', 'created_at', 'updated_at'].include?(k)}

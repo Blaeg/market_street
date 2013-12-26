@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Admin::Offer::SalesController do
-  # fixtures :all
   render_views
+  
   before(:each) do
     activate_authlogic
     @user = create_admin_user
@@ -33,7 +33,7 @@ describe Admin::Offer::SalesController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     sale = FactoryGirl.build(:sale)
     Sale.any_instance.stubs(:valid?).returns(true)
     post :create, :sale => sale.attributes.except('id', 'created_at', 'updated_at')
@@ -53,7 +53,7 @@ describe Admin::Offer::SalesController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     sale = FactoryGirl.create(:sale)
     Sale.any_instance.stubs(:valid?).returns(true)
     put :update, :id => sale.id, :sale => sale.attributes.except('id', 'created_at', 'updated_at')

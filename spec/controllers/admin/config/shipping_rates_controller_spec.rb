@@ -53,7 +53,7 @@ describe Admin::Config::ShippingRatesController do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it "create action redirects when model is valid" do
     ShippingRate.any_instance.stubs(:valid?).returns(true)
     post :create, :shipping_rate =>  {:shipping_method_id => 1, :shipping_rate_type_id => 1}
     expect(response).to redirect_to(admin_config_shipping_rate_url(assigns[:shipping_rate]))
@@ -72,7 +72,7 @@ describe Admin::Config::ShippingRatesController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @shipping_rate = create(:shipping_rate)
     ShippingRate.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @shipping_rate.id, :shipping_rate =>  { :shipping_method_id => 1, :shipping_rate_type_id => 1}

@@ -11,7 +11,7 @@ describe Admin::Catalog::Wizards::PrototypesController do
     controller.session[:product_wizard] = {}
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
     @property = create(:property)
     @prototype = create(:prototype)
     @prototype.stubs(:properties).returns([@property])

@@ -56,7 +56,7 @@ describe Shopping::ShippingMethodsController do
     expect(response).to redirect_to(shopping_orders_url)
   end
 
-  it "update action should redirect when model is valid" do
+  it "update action redirects when model is valid" do
 
     @address      = create(:address)
     @order        = create(:order, :ship_address => @address)
