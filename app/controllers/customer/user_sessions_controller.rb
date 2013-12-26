@@ -38,9 +38,6 @@ class Customer::UserSessionsController < ApplicationController
   def set_user_to_cart_items
     if session_cart.user_id != @user_session.record.id
       session_cart.update_attribute(:user_id, @user_session.record.id )
-    end
-    session_cart.cart_items.each do |item|
-      item.update_attribute(:user_id, @user_session.record.id ) if item.user_id != @user_session.record.id
-    end
+    end  
   end
 end

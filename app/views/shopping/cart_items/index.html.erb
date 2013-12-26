@@ -74,14 +74,7 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="span6">
-        <%= cart_form.submit 'Update', :class => 'btn btn-primary' %>          
-      </div>      
-      <div class="span6">
-        <%= cart_form.submit 'Checkout', {:checkout => 1, :class => 'btn btn-primary pull-right'} %> 
-      </div>
-    </div>
+    <%= cart_form.submit 'Update', class: 'btn btn-primary pull-left' %>          
+    <%= cart_form.submit 'Checkout', class: 'btn btn-primary pull-right' %>       
   </fieldset>  
 <% end %> 

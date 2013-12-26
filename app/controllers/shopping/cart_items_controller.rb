@@ -9,6 +9,7 @@ class Shopping::CartItemsController < Shopping::BaseController
   # POST /shopping/cart_items
   def create
     session_cart.save if session_cart.new_record?
+    
     qty = params[:cart_item][:quantity].to_i
     if cart_item = session_cart.add_variant(params[:cart_item][:variant_id], qty)
       session_cart.save_user(current_user)
@@ -27,7 +28,7 @@ class Shopping::CartItemsController < Shopping::BaseController
   # PUT /carts/1
   def update
     if session_cart.update_attributes(allowed_params)
-      if params[:commit] && params[:commit] == "checkout"
+      if params[:commit] && params[:commit] == "Checkout"
         redirect_to( checkout_shopping_order_url('checkout'))
       else
         redirect_to(shopping_cart_items_path, :notice => I18n.t('item_passed_update') )
