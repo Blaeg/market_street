@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Admin::ReportsController do
-  # fixtures :all
   render_views
+  
   before(:each) do
     activate_authlogic
     @user = create_admin_user

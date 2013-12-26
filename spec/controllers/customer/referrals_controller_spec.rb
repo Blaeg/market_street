@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe Customer::ReferralsController do
-  # fixtures :all
   render_views
+
   before(:each) do
     activate_authlogic
-
     @user = FactoryGirl.create(:user)
     login_as(@user)
   end
+  
   it "index action renders index template" do
     referral = FactoryGirl.create(:referral)
     get :index
