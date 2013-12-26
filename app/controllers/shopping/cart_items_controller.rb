@@ -2,7 +2,7 @@ class Shopping::CartItemsController < Shopping::BaseController
   # GET /shopping/cart_items
   def index
     add_breadcrumb "Shopping Cart", :shopping_cart_items_path
-    @cart_items       = session_cart.cart_items    
+    @cart_items = session_cart.cart_items    
   end
 
   # POST /shopping/cart_items
