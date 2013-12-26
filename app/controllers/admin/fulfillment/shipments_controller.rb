@@ -12,8 +12,7 @@ class Admin::Fulfillment::ShipmentsController < Admin::Fulfillment::BaseControll
   # GET /admin/fulfillment/shipments/1
   # GET /admin/fulfillment/shipments/1.xml
   def show
-    @shipment = Shipment.includes([{:order => :user}, :address, {:order_items => {:variant => :product} }]).find(params[:id])
-    add_to_recent_user(@shipment.order.user)
+    @shipment = Shipment.includes([{:order => :user}, :address, {:order_items => {:variant => :product} }]).find(params[:id])    
   end
 
   # GET /admin/fulfillment/shipments/new

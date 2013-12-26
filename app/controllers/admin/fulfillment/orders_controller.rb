@@ -13,7 +13,6 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
   # GET /admin/fulfillment/orders/1
   def show
     @order = Order.includes([:user, :shipments, {:order_items => [:shipment, :variant]}]).find(params[:id])
-    add_to_recent_user(@order.user)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @order }
@@ -22,8 +21,7 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
 
   # GET /admin/fulfillment/orders/1/edit
   def edit
-    @order = Order.includes([:user, :shipments, {:order_items => [:shipment, :variant]}]).find(params[:id])
-    add_to_recent_user(@order.user)
+    @order = Order.includes([:user, :shipments, {:order_items => [:shipment, :variant]}]).find(params[:id])    
   end
 
 

@@ -1,5 +1,4 @@
 class Admin::OverviewsController < ApplicationController
-  helper_method :recent_admin_users
   layout "admin"
 
   def index
@@ -36,9 +35,4 @@ class Admin::OverviewsController < ApplicationController
       :password => @password,
       :password_confirmation => @password }
   end
-
-  def recent_admin_users
-    []
-  end
-
 end

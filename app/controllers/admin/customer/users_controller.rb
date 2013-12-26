@@ -12,8 +12,7 @@ class Admin::Customer::UsersController < Admin::BaseController
   end
 
   def show
-    @user = User.includes([:shipments, :finished_orders, :return_authorizations]).find(params[:id])
-    add_to_recent_user(@user)
+    @user = User.includes([:shipments, :finished_orders, :return_authorizations]).find(params[:id])    
   end
 
   def new
@@ -27,7 +26,6 @@ class Admin::Customer::UsersController < Admin::BaseController
     authorize! :create_users, current_user
     if @user.save
       EmailWorker::SendSignUpNotification.perform_async(@user.id)
-      add_to_recent_user(@user)
       flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
       redirect_to admin_customer_users_url
     else

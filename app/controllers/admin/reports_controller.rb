@@ -11,6 +11,8 @@ class Admin::ReportsController < Admin::BaseController
     @beginning_number_of_cart_items = CartItem.before(start_time).last ? CartItem.before(start_time).last.id : 0
   end
 
+  private
+  
   def set_start_time
     @start_time = Chronic.parse('last week').beginning_of_week
     @start_time = Time.parse(params[:start_date]) if params[:start_date].present?    
