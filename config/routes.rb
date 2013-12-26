@@ -95,7 +95,7 @@ MarketStreet::Application.routes.draw do
 
     namespace :history do
       resources  :orders, :only => [:index, :show] do
-        resources  :addresses, :only => [:index, :show, :edit, :update, :new, :create]
+        resources  :addresses, :except => [:destroy]
       end
     end
 

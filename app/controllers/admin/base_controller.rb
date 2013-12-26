@@ -5,6 +5,7 @@ class Admin::BaseController < ApplicationController
 
   private
 
+  #move to cancan
   def verify_admin
     redirect_to root_url if !current_user || !current_user.admin?
   end

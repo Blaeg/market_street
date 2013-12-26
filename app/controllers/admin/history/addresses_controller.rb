@@ -1,32 +1,28 @@
 class Admin::History::AddressesController < Admin::BaseController
+  before_filter :order
   helper_method :states
   # GET /admin/history/addresses
   def index
-    @order = Order.includes({:user => :addresses}).find_by_number(params[:order_id])
     @addresses = @order.user.addresses
   end
 
   # GET /admin/history/addresses/1
   def show
-    @order = Order.includes({:user => :addresses}).find_by_number(params[:order_id])
     @address = Address.find(params[:id])
   end
 
   # GET /admin/history/addresses/new
   def new
-    @order    = Order.includes({:user => :addresses}).find_by_number(params[:order_id])
     @address  = Address.new
   end
 
   # GET /admin/history/addresses/1/edit
   def edit
-    @order    = Order.includes({:user => :addresses}).find_by_number(params[:order_id])
     @address  = Address.find(params[:id])
   end
 
   # POST /admin/history/addresses
   def create  ##  This create a new address, sets the orders address & redirects to order_history
-    @order    = Order.includes([:ship_address, {:user => :addresses}]).find_by_number(params[:order_id])
     @address  = @order.user.addresses.new(allowed_params)
 
     respond_to do |format|
@@ -42,7 +38,6 @@ class Admin::History::AddressesController < Admin::BaseController
 
   # PUT /admin/history/addresses/1
   def update ##  This selects a new address, sets the orders address & redirects to order_history
-    @order    = Order.includes([:ship_address, {:user => :addresses}]).find_by_number(params[:order_id])
     @address  = Address.find(params[:id])
 
     respond_to do |format|
@@ -57,6 +52,11 @@ class Admin::History::AddressesController < Admin::BaseController
       end
     end
   end
+
+  def order
+    @order = Order.includes({:user => :addresses}).find_by_number(params[:order_id])    
+  end
+
   private
 
   def allowed_params
@@ -64,6 +64,6 @@ class Admin::History::AddressesController < Admin::BaseController
   end
 
   def states
-    @states     ||= State.form_selector
+    @states ||= State.form_selector
   end
 end
