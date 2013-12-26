@@ -83,16 +83,6 @@ MarketStreet::Application.routes.draw do
       end      
     end
 
-    namespace :rma do
-      resources  :orders do
-        resources  :return_authorizations do
-          member do
-            put :complete
-          end
-        end
-      end      
-    end
-
     namespace :history do
       resources  :orders, :only => [:index, :show] do
         resources  :addresses, :except => [:destroy]
@@ -105,6 +95,11 @@ MarketStreet::Application.routes.draw do
           put :create_shipment
         end
         resources  :comments
+        resources  :return_authorizations do
+          member do
+            put :complete
+          end
+        end
       end
 
       namespace :partial do
@@ -119,7 +114,8 @@ MarketStreet::Application.routes.draw do
         end
         resources  :addresses , :only => [:edit, :update]# This is for editing the shipment address
       end
-      resources :invoices
+      
+      resources :invoices      
     end
     
     namespace :config do

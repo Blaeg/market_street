@@ -28,11 +28,11 @@
 <h2>New RMA</h2>
 
 <div class='span6 column '>
-<%= form_for(@return_authorization, :url => admin_rma_order_return_authorizations_path(@order)) do |f| %>
-  <%= render :partial => '/admin/rma/return_authorizations/form', :locals => {:f => f} %>
+<%= form_for(@return_authorization, :url => admin_fulfillment_order_return_authorizations_path(@order)) do |f| %>
+  <%= render :partial => '/admin/fulfillment/return_authorizations/form', :locals => {:f => f} %>
 <% end %>
 </div>
 
 <% if @order.return_authorizations.size > 0 %>
-  <%= link_to 'Back', admin_rma_order_return_authorizations_path(@order), :class => 'btn' %>
+  <%= link_to 'Back', admin_fulfillment_order_return_authorizations_path(@order), :class => 'btn' %>
 <% end %>

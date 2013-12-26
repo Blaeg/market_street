@@ -1,7 +1,6 @@
-<%= render :partial => '/admin/rma/sub_header'%>
 <% content_for :sidemenu do %>
   <div class="span2">
-    <%= search_form_for @q, url: admin_rma_order_return_authorizations_path do |f| %>
+    <%= search_form_for @q, url: admin_fulfillment_order_return_authorizations_path do |f| %>
       <%= f.label :number_cont %>
       <%= f.text_field :number_cont, class: 'span12'%>
       <%= f.label :state_eq %>
@@ -26,7 +25,7 @@
     </thead>
     <% @return_authorizations.each do |return_authorization| %>
       <tr>
-        <td><%= link_to return_authorization.number, edit_admin_rma_order_return_authorization_path(@order, return_authorization) %></td>
+        <td><%= link_to return_authorization.number, edit_admin_fulfillment_order_return_authorization_path(@order, return_authorization) %></td>
         <td><%= return_authorization.amount %></td>
         <td><%= return_authorization.user_name %></td>
         <td><%= return_authorization.order_number %></td>

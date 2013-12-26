@@ -31,17 +31,17 @@
 
   <div class='span4'>
     <% if @return_authorization.authorized? %>
-      <%= link_to 'Cancel RMA', edit_admin_rma_order_return_authorization_path(@order, @return_authorization), :class => 'btn heart', :method => :delete, :data => {:confirm => "Are you sure, you want to Cancel?"} %>
-      <%= button_to 'Receive RMA', complete_admin_rma_order_return_authorization_path(@order, @return_authorization), :class => 'btn green', :data => {:confirm => "Are you sure, you want to Receive?"}, :method => :put %>
+      <%= link_to 'Cancel RMA', edit_admin_fulfillment_order_return_authorization_path(@order, @return_authorization), :class => 'btn heart', :method => :delete, :data => {:confirm => "Are you sure, you want to Cancel?"} %>
+      <%= button_to 'Receive RMA', complete_admin_fulfillment_order_return_authorization_path(@order, @return_authorization), :class => 'btn green', :data => {:confirm => "Are you sure, you want to Receive?"}, :method => :put %>
     <% end %>
   </div>
 
   <div class='span12'>
     <% if @return_authorization.authorized? %>
-      <%= link_to 'Edit RMA', edit_admin_rma_order_return_authorization_path(@order, @return_authorization), :class => 'btn heart'%>
+      <%= link_to 'Edit RMA', edit_admin_fulfillment_order_return_authorization_path(@order, @return_authorization), :class => 'btn heart'%>
     <% end %>
     <%= link_to 'Order Info', admin_history_order_path(@order), 
       :class => 'btn' %>
-    <%= link_to 'All RMAs for this Order.', admin_rma_order_return_authorizations_path(@order), :class => 'btn heart' %>
+    <%= link_to 'All RMAs for this Order.', admin_fulfillment_order_return_authorizations_path(@order), :class => 'btn heart' %>
   </div>
 </div>

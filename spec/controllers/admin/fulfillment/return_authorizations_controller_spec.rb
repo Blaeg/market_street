@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::Rma::ReturnAuthorizationsController do
+describe Admin::Fulfillment::ReturnAuthorizationsController do
   render_views
 
   before(:each) do
@@ -36,7 +36,7 @@ describe Admin::Rma::ReturnAuthorizationsController do
   it "create action should redirect when model is valid" do
     ReturnAuthorization.any_instance.stubs(:valid?).returns(true)
     post :create, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}
-    response.should redirect_to(admin_rma_order_return_authorization_url(@order, assigns[:return_authorization]))
+    response.should redirect_to(admin_fulfillment_order_return_authorization_url(@order, assigns[:return_authorization]))
   end
 
   it "edit action renders edit template" do
@@ -56,7 +56,7 @@ describe Admin::Rma::ReturnAuthorizationsController do
     @return_authorization = create(:return_authorization)
     ReturnAuthorization.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @return_authorization.id, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}
-    response.should redirect_to(admin_rma_order_return_authorization_url(@order, assigns[:return_authorization]))
+    response.should redirect_to(admin_fulfillment_order_return_authorization_url(@order, assigns[:return_authorization]))
   end
 
   it "update action should redirect when model is valid" do
@@ -69,7 +69,7 @@ describe Admin::Rma::ReturnAuthorizationsController do
   it "destroy action should destroy model and redirect to index action" do
     @return_authorization = create(:return_authorization)
     delete :destroy, :id => @return_authorization.id, :order_id => @order.id
-    response.should redirect_to(admin_rma_order_return_authorization_url(@order, @return_authorization))
+    response.should redirect_to(admin_fulfillment_order_return_authorization_url(@order, @return_authorization))
     ReturnAuthorization.find(@return_authorization.id).state.should == 'cancelled'
   end
 end

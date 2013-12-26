@@ -64,11 +64,11 @@
     <b>Return Merchandise Authorization:</b>
     <div class=' panel'>
       <% if @order.return_authorizations.size > 0 %>
-         <%= link_to 'View RMAs', admin_rma_order_return_authorizations_path(@order),
+         <%= link_to 'View RMAs', admin_fulfillment_order_return_authorizations_path(@order),
                                   :class => 'btn ' %>
          <br/><br/>
       <% else %>
-        <%= link_to 'Create RMA', new_admin_rma_order_return_authorization_path(@order),
+        <%= link_to 'Create RMA', new_admin_fulfillment_order_return_authorization_path(@order),
                                   :class => 'btn ' %>
       <% end %>
     </div>

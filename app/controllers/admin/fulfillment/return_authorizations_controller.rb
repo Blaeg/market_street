@@ -1,6 +1,6 @@
-class Admin::Rma::ReturnAuthorizationsController < Admin::BaseController
+class Admin::Fulfillment::ReturnAuthorizationsController < Admin::BaseController
   add_breadcrumb "Order", :admin_history_orders_path
-  add_breadcrumb "Return Authorizations", :admin_rma_order_return_authorizations_path
+  add_breadcrumb "Return Authorizations", :admin_fulfillment_order_return_authorizations_path
   before_filter :current_order
   
   def index
@@ -32,7 +32,7 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::BaseController
     @return_authorization.user_id = current_order.user_id
 
     if @return_authorization.save
-      redirect_to(admin_rma_order_return_authorization_url(current_order, @return_authorization), :notice => 'Return authorization was successfully created.')
+      redirect_to(admin_fulfillment_order_return_authorization_url(current_order, @return_authorization), :notice => 'Return authorization was successfully created.')
     else
       form_info
       render :action => "new"
@@ -43,7 +43,7 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::BaseController
     @return_authorization = ReturnAuthorization.find(params[:id])
 
     if @return_authorization.update_attributes(allowed_params)
-      redirect_to(admin_rma_order_return_authorization_url(current_order, @return_authorization), :notice => 'Return authorization was successfully updated.')
+      redirect_to(admin_fulfillment_order_return_authorization_url(current_order, @return_authorization), :notice => 'Return authorization was successfully updated.')
     else
       form_info
       render :action => "edit"
@@ -65,7 +65,7 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::BaseController
     @return_authorization = ReturnAuthorization.find(params[:id])
 
     if @return_authorization.cancel!
-      redirect_to(admin_rma_order_return_authorization_url(current_order, @return_authorization), :notice => 'Return authorization was successfully updated.')
+      redirect_to(admin_fulfillment_order_return_authorization_url(current_order, @return_authorization), :notice => 'Return authorization was successfully updated.')
     else
       flash[:notice] = 'Return authorization had an error.'
       form_info

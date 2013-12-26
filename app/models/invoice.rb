@@ -146,13 +146,13 @@ class Invoice < ActiveRecord::Base
     transaction do
       this_invoice = Invoice.new(:order => order, :amount => return_amount, :invoice_type => RMA)
       this_invoice.save
-      this_invoice.complete_rma_return
+      this_invoice.complete_fulfillment_return
       this_invoice.payment_rma!
       this_invoice
     end
   end
 
-  def complete_rma_return
+  def complete_fulfillment_return
     batch       = batches.first || self.batches.create()
     batch.transactions.push(Transactions::ReturnMerchandiseComplete.new_complete_rma(order.user, amount))
     batch.save
