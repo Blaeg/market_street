@@ -1,6 +1,4 @@
 class Shopping::CartItemsController < Shopping::BaseController
-  add_breadcrumb "Home", :root_path
-
   # GET /shopping/cart_items
   def index
     add_breadcrumb "Shopping Cart", :shopping_cart_items_path
