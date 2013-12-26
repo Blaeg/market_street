@@ -4,10 +4,6 @@ class Shopping::BaseController < ApplicationController
 
   protected
 
-  def ssl_required?
-    ssl_supported?
-  end
-
   private
 
   def next_form_url(order)

@@ -5,10 +5,6 @@ class Customer::BaseController < ApplicationController
 
   protected
   
-  def ssl_required?
-    ssl_supported?
-  end
-
   def selected_customer_tab(tab)
     tab == ''
   end

@@ -4,10 +4,6 @@ class Admin::BaseController < ApplicationController
   before_filter :verify_admin
 
   private
-  
-  def ssl_required?
-    ssl_supported?
-  end
 
   def verify_admin
     redirect_to root_url if !current_user || !current_user.admin?
