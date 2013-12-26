@@ -38,6 +38,9 @@ MarketStreet::Application.routes.draw do
   #SHOPPING
   namespace :shopping do
     resources :wish_items,  :only => [:index, :destroy]
+    resources  :cart_items, :only => [:index, :update, :create, :destroy]
+
+    resource  :coupon, :only => [:show, :create]
 
     resources  :addresses do
       member do
@@ -50,18 +53,15 @@ MarketStreet::Application.routes.draw do
         put :select_address
       end
     end
-
-    resources  :cart_items
-
-    resource  :coupon, :only => [:show, :create]
+    
+    resources  :shipping_methods
 
     resources  :orders do
       member do
         get :checkout
         get :confirmation
       end
-    end
-    resources  :shipping_methods
+    end    
   end
   
   #ADMIN

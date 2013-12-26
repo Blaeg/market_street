@@ -21,8 +21,6 @@ class CartItem < ActiveRecord::Base
 
   validates :variant_id,    :presence => true
 
-  QUANTITIES = [1,2,3,4]
-
   before_save :inactivate_zero_quantity
 
   # Call this if you need to know the unit price of an item
@@ -51,6 +49,10 @@ class CartItem < ActiveRecord::Base
   # @return [Boolean]
   def inactivate!
     self.update_attributes(:active => false)
+  end
+
+  def active?
+    self.active
   end
 
   def shipping_rate
