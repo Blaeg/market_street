@@ -188,7 +188,7 @@ MarketStreet::Application.routes.draw do
     end    
 
     namespace :reports do
-      resource :overview, :only => [:show]
+      get 'dashboard' => 'reports#dashboard', as: :dashboard      
     end
   end
 end

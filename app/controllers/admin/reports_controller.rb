@@ -1,8 +1,9 @@
-class Admin::Reports::OverviewsController < Admin::BaseController
+class Admin::ReportsController < Admin::BaseController
   helper_method :start_time, :end_time
-  before_filter :set_time_range
+  before_filter :set_start_time
+  before_filter :set_end_time
 
-  def show
+  def dashboard
     @accounting_report  = ::Reports::Accounting.new(start_time, end_time)
     @orders_report      = ::Reports::Orders.new(start_time, end_time)
     @customers_report   = ::Reports::Customers.new(start_time, end_time)
@@ -10,13 +11,9 @@ class Admin::Reports::OverviewsController < Admin::BaseController
     @beginning_number_of_cart_items = CartItem.before(start_time).last ? CartItem.before(start_time).last.id : 0
   end
 
-  def set_time_range
-    if params[:start_date].present?
-      @start_time = Time.parse(params[:start_date])
-    else
-      @start_time = Chronic.parse('last week').beginning_of_week
-    end
-    set_end_time
+  def set_start_time
+    @start_time = Chronic.parse('last week').beginning_of_week
+    @start_time = Time.parse(params[:start_date]) if params[:start_date].present?    
   end
 
   def set_end_time

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::Reports::OverviewsController do
+describe Admin::ReportsController do
   # fixtures :all
   render_views
   before(:each) do
@@ -10,7 +10,7 @@ describe Admin::Reports::OverviewsController do
   end
 
   it "show action renders show template" do
-    get :show
-    expect(response).to render_template(:show)
+    get :dashboard
+    expect(response).to render_template(:dashboard)
   end
 end

@@ -18,8 +18,6 @@ class Admin::OverviewsController < ApplicationController
         @user_session = UserSession.new(session_args)
         @user_session.save
       end
-    else
-      @no_roles = true
     end
   end
 
@@ -32,11 +30,11 @@ class Admin::OverviewsController < ApplicationController
   def args
     @password ||= "admin_user_#{rand(1000)}"
     @args ||= {
-    :first_name => 'Admin',
-    :last_name => 'User',
-    :email => 'admin@notarealemail.com',
-    :password => @password,
-    :password_confirmation => @password }
+      :first_name => 'Admin',
+      :last_name => 'User',
+      :email => 'admin@notarealemail.com',
+      :password => @password,
+      :password_confirmation => @password }
   end
 
   def recent_admin_users
