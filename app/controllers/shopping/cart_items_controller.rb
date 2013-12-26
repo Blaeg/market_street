@@ -1,7 +1,8 @@
 class Shopping::CartItemsController < Shopping::BaseController
+  add_breadcrumb "Shopping Cart", :shopping_cart_items_path
+  
   # GET /shopping/cart_items
   def index
-    add_breadcrumb "Shopping Cart", :shopping_cart_items_path
     @cart_items = session_cart.cart_items    
   end
 
@@ -35,19 +36,6 @@ class Shopping::CartItemsController < Shopping::BaseController
       redirect_to(shopping_cart_items_url(), :notice => I18n.t('item_failed_update') )
     end
   end
-## TODO
-  ## This method moves saved_cart_items to your shopping_cart_items or saved_cart_items
-  #   this method is called using AJAX and returns json. with the object moved,
-  #   otherwise false is returned if there is an error
-  #   method => PUT
-  def move_to
-    @cart_item = session_cart.cart_items.find(params[:id])
-    if @cart_item.update_attributes(:item_type_id => params[:item_type_id])
-      redirect_to(shopping_cart_items_url() )
-    else
-      redirect_to(shopping_cart_items_url(), :notice => I18n.t('item_failed_update') )
-    end
-  end
 
   # DELETE /carts/1
   # DELETE /carts/1.xml
@@ -57,8 +45,8 @@ class Shopping::CartItemsController < Shopping::BaseController
   end
 
   private
+
   def allowed_params
     params.require(:cart).permit!
   end
-
 end
