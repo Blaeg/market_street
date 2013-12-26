@@ -12,8 +12,8 @@
   .container-fluid
     = render 'layouts/header/alert_notice'
     .row
-      .span3= render 'layouts/two_columns/sidebar'
-      .span11
+      .span2= render 'layouts/two_columns/sidebar'
+      .span12
         .breadcrumb= render_breadcrumbs
         = yield      
     = render 'layouts/footer/footer'

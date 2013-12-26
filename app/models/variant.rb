@@ -61,6 +61,12 @@ class Variant < ActiveRecord::Base
     image_urls(image_size).first
   end
 
+  def image_urls(image_size = :small)
+    Rails.cache.fetch("variant-image_urls-#{self}-#{image_size}", :expires_in => 3.hours) do
+      product.image_urls(image_size)
+    end
+  end
+
   # returns an array of the display name and description of all the variant properties
   #  ex: obj.sub_name => ['color: green', 'size: 9.0']
   #

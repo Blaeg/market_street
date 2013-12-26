@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
-  add_breadcrumb "Home", :root_path
-
+  
   def index
     @featured_product = Product.featured
     @best_selling_products = Product.limit(5)

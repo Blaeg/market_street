@@ -8,9 +8,9 @@ class Catalog::ProductsController < ApplicationController
       products = products.where('product_type_id IN (?)', product_types)      
     end
     @products = products.decorate
-
+    
     respond_to do |format|
-      format.html { render layout: "two_columns/left_nav"}
+      format.html { render }
       format.json { render json: @products }
     end
   end
