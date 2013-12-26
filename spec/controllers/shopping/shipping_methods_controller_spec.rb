@@ -23,7 +23,7 @@ describe Shopping::ShippingMethodsController do
 
   it "index action renders index template" do
     get :index
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 end
 describe Shopping::ShippingMethodsController do
@@ -53,7 +53,7 @@ describe Shopping::ShippingMethodsController do
     @shipping_rate = create(:shipping_rate)
     @shipping_method = create(:shipping_method)
     put :update, :id => @shipping_method.id                 
-    response.should redirect_to(shopping_orders_url)
+    expect(response).to redirect_to(shopping_orders_url)
   end
 
   it "update action should redirect when model is valid" do
@@ -70,6 +70,6 @@ describe Shopping::ShippingMethodsController do
     @controller.stubs(:next_form_url).returns(shopping_orders_url)
     ShippingMethod.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @shipping_method.id
-    response.should redirect_to(shopping_orders_url)
+    expect(response).to redirect_to(shopping_orders_url)
   end
 end

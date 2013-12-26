@@ -17,13 +17,13 @@ describe Admin::Catalog::Wizards::ProductsController do
 
   it "new action renders new template" do
     get :new
-    response.should render_template(:new)
+    expect(response).to render_template(:new)
   end
 
   it "create action renders new template when model is invalid" do
     Product.any_instance.stubs(:valid?).returns(false)
     post :create, :product => { :name => 'hello'}
-    response.should render_template(:new)
+    expect(response).to render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
@@ -32,6 +32,6 @@ describe Admin::Catalog::Wizards::ProductsController do
                                 :permalink => 'hi',
                                 :product_type_id => 2                                
                               }
-    response.should redirect_to(edit_admin_catalog_products_description_url(assigns[:product]))
+    expect(response).to redirect_to(edit_admin_catalog_products_description_url(assigns[:product]))
   end
 end

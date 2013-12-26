@@ -11,18 +11,18 @@ describe Admin::Offer::CouponsController do
 
   it "index action renders index template" do
     get :index
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 
   it "show action renders show template" do
     @coupon = create(:coupon)
     get :show, :id => @coupon.id
-    response.should render_template(:show)
+    expect(response).to render_template(:show)
   end
 
   it "new action renders new template" do
     get :new
-    response.should render_template(:new)
+    expect(response).to render_template(:new)
   end
 
   it "create action renders new template when model is invalid" do
@@ -31,7 +31,7 @@ describe Admin::Offer::CouponsController do
     attribs =  @coupon.attributes
     attribs.delete('type')
     post :create, :coupon => attribs, :c_type => 'CouponValue'
-    response.should render_template(:new)
+    expect(response).to render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
@@ -40,13 +40,13 @@ describe Admin::Offer::CouponsController do
     attribs =  @coupon.attributes
     attribs.delete('type')
     post :create, :coupon => attribs, :c_type => 'CouponValue'
-    response.should redirect_to(admin_offer_coupon_url(assigns[:coupon]))
+    expect(response).to redirect_to(admin_offer_coupon_url(assigns[:coupon]))
   end
 
   it "edit action renders edit template" do
     @coupon = create(:coupon)
     get :edit, :id => @coupon.id
-    response.should render_template(:edit)
+    expect(response).to render_template(:edit)
   end
 
   it "update action renders edit template when model is invalid" do
@@ -55,7 +55,7 @@ describe Admin::Offer::CouponsController do
     attribs.delete('type')
     Coupons::CouponValue.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @coupon.id, :coupon => attribs
-    response.should render_template(:edit)
+    expect(response).to render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
@@ -64,13 +64,13 @@ describe Admin::Offer::CouponsController do
     attribs.delete('type')
     Coupons::CouponValue.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @coupon.id, :coupon => attribs
-    response.should redirect_to(admin_offer_coupon_url(assigns[:coupon]))
+    expect(response).to redirect_to(admin_offer_coupon_url(assigns[:coupon]))
   end
 
   it "destroy action should destroy model and redirect to index action" do
     @coupon = create(:coupon)
     delete :destroy, :id => @coupon.id
-    response.should redirect_to(admin_offer_coupons_url)
+    expect(response).to redirect_to(admin_offer_coupons_url)
     Coupon.exists?(@coupon.id).should be_false
   end
 end

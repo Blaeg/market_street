@@ -13,50 +13,50 @@ describe Admin::Fulfillment::ReturnAuthorizationsController do
   it "index action renders index template" do
     @return_authorization = create(:return_authorization)
     get :index, :order_id => @order.id
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 
   it "show action renders show template" do
     @return_authorization = create(:return_authorization)
     get :show, :id => @return_authorization.id, :order_id => @order.id
-    response.should render_template(:show)
+    expect(response).to render_template(:show)
   end
 
   it "new action renders new template" do
     get :new, :order_id => @order.id
-    response.should render_template(:new)
+    expect(response).to render_template(:new)
   end
 
   it "create action renders new template when model is invalid" do
     ReturnAuthorization.any_instance.stubs(:valid?).returns(false)
     post :create, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}
-    response.should render_template(:new)
+    expect(response).to render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
     ReturnAuthorization.any_instance.stubs(:valid?).returns(true)
     post :create, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}
-    response.should redirect_to(admin_fulfillment_order_return_authorization_url(@order, assigns[:return_authorization]))
+    expect(response).to redirect_to(admin_fulfillment_order_return_authorization_url(@order, assigns[:return_authorization]))
   end
 
   it "edit action renders edit template" do
     @return_authorization = create(:return_authorization)
     get :edit, :id => @return_authorization.id, :order_id => @order.id
-    response.should render_template(:edit)
+    expect(response).to render_template(:edit)
   end
 
   it "update action renders edit template when model is invalid" do
     @return_authorization = create(:return_authorization)
     ReturnAuthorization.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @return_authorization.id, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}
-    response.should render_template(:edit)
+    expect(response).to render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
     @return_authorization = create(:return_authorization)
     ReturnAuthorization.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @return_authorization.id, :order_id => @order.id, :return_authorization => {:amount => '12.60', :user_id => 1}
-    response.should redirect_to(admin_fulfillment_order_return_authorization_url(@order, assigns[:return_authorization]))
+    expect(response).to redirect_to(admin_fulfillment_order_return_authorization_url(@order, assigns[:return_authorization]))
   end
 
   it "update action should redirect when model is valid" do
@@ -69,7 +69,7 @@ describe Admin::Fulfillment::ReturnAuthorizationsController do
   it "destroy action should destroy model and redirect to index action" do
     @return_authorization = create(:return_authorization)
     delete :destroy, :id => @return_authorization.id, :order_id => @order.id
-    response.should redirect_to(admin_fulfillment_order_return_authorization_url(@order, @return_authorization))
+    expect(response).to redirect_to(admin_fulfillment_order_return_authorization_url(@order, @return_authorization))
     ReturnAuthorization.find(@return_authorization.id).state.should == 'cancelled'
   end
 end

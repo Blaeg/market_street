@@ -13,14 +13,14 @@ describe Admin::Catalog::Products::DescriptionsController do
   it "edit action renders edit template" do
     @product = create(:product, :deleted_at => (Time.zone.now - 1.day), :description_markup => nil, :description => nil)
     get :edit, :id => @product.id
-    response.should render_template(:edit)
+    expect(response).to render_template(:edit)
   end
 
   it "update action renders edit template when model is invalid" do
     @product = create(:product)
     Product.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @product.id, :product => {:name => 'test', :description_markup => 'mark it up'}
-    response.should render_template(:edit)
+    expect(response).to render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
@@ -29,6 +29,6 @@ describe Admin::Catalog::Products::DescriptionsController do
     put :update, :id => @product.id, :product => {:description_markup => '**Hi Everybody**'}
     @product.reload
     @product.description.should_not be_nil
-    response.should redirect_to(admin_catalog_product_url(@product))
+    expect(response).to redirect_to(admin_catalog_product_url(@product))
   end
 end

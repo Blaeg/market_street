@@ -5,7 +5,7 @@ describe Shopping::WishItemsController do
 
   it "redirect to login if no current_user" do
     get :index
-    response.should redirect_to(login_url)
+    expect(response).to redirect_to(login_url)
   end
 end
 
@@ -18,12 +18,12 @@ describe Shopping::WishItemsController do
   end
   it "index action renders index template" do
     get :index
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 
   it "destroy action renders index template" do
     delete :destroy, :id => @wish_item.id
     expect(WishItem.where(id: @wish_item.id)).to be_empty
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 end

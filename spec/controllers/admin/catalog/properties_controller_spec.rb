@@ -34,7 +34,7 @@ describe Admin::Catalog::PropertiesController do
   it "create action should redirect when model is valid" do
     Property.any_instance.stubs(:valid?).returns(true)
     post :create, :property => {:display_name => 'dis', :identifing_name => 'test'}
-    response.should redirect_to(admin_catalog_properties_url)
+    expect(response).to redirect_to(admin_catalog_properties_url)
   end
 
   it "edit action renders edit template" do
@@ -55,13 +55,13 @@ describe Admin::Catalog::PropertiesController do
     @property = create(:property)
     Property.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @property.id, :property => {:display_name => 'dis', :identifing_name => 'test'}
-    response.should redirect_to(admin_catalog_properties_url)
+    expect(response).to redirect_to(admin_catalog_properties_url)
   end
 
   it "destroy action should destroy model and redirect to index action" do
     @property = create(:property)
     delete :destroy, :id => @property.id
-    response.should redirect_to(admin_catalog_properties_url)
+    expect(response).to redirect_to(admin_catalog_properties_url)
     Property.find(@property.id).active.should be_false
   end
 end

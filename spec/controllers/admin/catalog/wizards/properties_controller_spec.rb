@@ -15,25 +15,25 @@ describe Admin::Catalog::Wizards::PropertiesController do
 
   it "index action renders index template" do
     get :index
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 
   it "create action renders new template when model is invalid" do
     Property.any_instance.stubs(:valid?).returns(false)
     post :create, :property => {:identifing_name => 'test', :display_name => 'test'}
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 
   it "create action should redirect when model is valid" do
     Property.any_instance.stubs(:valid?).returns(true)
     post :create, :property => {:identifing_name => 'test', :display_name => 'test'}
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 
   it "update action renders edit template when model is invalid" do
     @property = create(:property)
     put :update, :id => @property.id, :property => {:ids => [ ]}
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 
   it "update action should redirect when model is valid" do

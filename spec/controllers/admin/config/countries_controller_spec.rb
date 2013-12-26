@@ -13,7 +13,7 @@ describe Admin::Config::CountriesController do
 
   it "index action renders index template" do
     get :index
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 
   it "update action should redirect and make the country active" do
@@ -23,14 +23,14 @@ describe Admin::Config::CountriesController do
     put :update, :id => country.id, :country => country.attributes
     country.reload
     country.active.should be_true
-    response.should redirect_to(admin_config_countries_url)
+    expect(response).to redirect_to(admin_config_countries_url)
   end
 
   it "destroy action should make the country inactive and redirect to index action" do
     country = Country.first()
     country.update_attribute(:active,  true)
     delete :destroy, :id => country.id
-    response.should redirect_to(admin_config_countries_url)
+    expect(response).to redirect_to(admin_config_countries_url)
     country.reload
     country.active.should be_false
   end

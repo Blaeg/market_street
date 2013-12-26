@@ -11,25 +11,25 @@ describe Customer::CreditCardsController do
 
   it "index action renders index template" do
     get :index
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
 
   it "show action renders show template" do
     @credit_card = create(:payment_profile, :user => @user)
     get :show, :id => @credit_card.id
-    response.should render_template(:show)
+    expect(response).to render_template(:show)
   end
 
   it "new action renders new template" do
     get :new
-    response.should render_template(:new)
+    expect(response).to render_template(:new)
   end
 
   it "create action renders new template when model is invalid" do
     PaymentProfile.any_instance.stubs(:valid?).returns(false)
     credit_card = build(:payment_profile)
     post :create, :credit_card => credit_card.attributes
-    response.should render_template(:new)
+    expect(response).to render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
@@ -42,27 +42,27 @@ describe Customer::CreditCardsController do
   it "edit action renders edit template" do
     @credit_card = create(:payment_profile, :user => @user)
     get :edit, :id => @credit_card.id
-    response.should render_template(:edit)
+    expect(response).to render_template(:edit)
   end
 
   it "update action renders edit template when model is invalid" do
     @credit_card = create(:payment_profile, :user => @user)
     PaymentProfile.any_instance.stubs(:valid?).returns(false)
     put :update, :id => @credit_card.id, :credit_card => @credit_card.attributes
-    response.should render_template(:edit)
+    expect(response).to render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
     @credit_card = create(:payment_profile, :user => @user)
     PaymentProfile.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @credit_card.id, :credit_card => @credit_card.attributes
-    response.should redirect_to(customer_credit_card_url(assigns[:credit_card]))
+    expect(response).to redirect_to(customer_credit_card_url(assigns[:credit_card]))
   end
 
   it "destroy action should inactivate model and redirect to index action" do
     @credit_card = create(:payment_profile, :user => @user)
     delete :destroy, :id => @credit_card.id
-    response.should redirect_to(customer_credit_cards_url)
+    expect(response).to redirect_to(customer_credit_cards_url)
     PaymentProfile.exists?(@credit_card.id).should be_true
 
     c = PaymentProfile.find(@credit_card.id)
@@ -75,12 +75,12 @@ describe Customer::CreditCardsController do
 
   it "index action should go to login page" do
     get :index
-    response.should redirect_to(login_url)
+    expect(response).to redirect_to(login_url)
   end
 
   it "show action should go to login page" do
     @credit_card = create(:payment_profile)
     get :show, :id => @credit_card.id
-    response.should redirect_to(login_url)
+    expect(response).to redirect_to(login_url)
   end
 end
