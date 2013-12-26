@@ -1,4 +1,4 @@
-class Admin::Offer::SalesController < Admin::Offer::BaseController
+class Admin::Offer::SalesController < Admin::BaseController
   add_breadcrumb "Sales", :admin_offer_coupons_path
   helper_method :products
 

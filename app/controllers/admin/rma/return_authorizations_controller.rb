@@ -1,4 +1,4 @@
-class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
+class Admin::Rma::ReturnAuthorizationsController < Admin::BaseController
   add_breadcrumb "Order", :admin_history_orders_path
   add_breadcrumb "Return Authorizations", :admin_rma_order_return_authorizations_path
   before_filter :current_order
