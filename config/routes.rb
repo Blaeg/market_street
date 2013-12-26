@@ -187,8 +187,6 @@ MarketStreet::Application.routes.draw do
       end
     end    
 
-    namespace :reports do
-      get 'dashboard' => 'reports#dashboard', as: :dashboard      
-    end
+    get 'dashboard' => 'reports#dashboard', as: :reports_dashboard          
   end
 end
