@@ -22,7 +22,9 @@ class Admin::OverviewsController < ApplicationController
       @no_roles = true
     end
   end
+
   private
+  
   def session_args
     @session_args ||= { :email => @user.email, :password => @password }
   end

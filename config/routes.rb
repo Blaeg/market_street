@@ -83,11 +83,6 @@ MarketStreet::Application.routes.draw do
       end      
     end
 
-    namespace :reports do
-      resource :overview, :only => [:show]
-      resources :graphs
-      resources :weekly_charts, :only => [:index]
-    end
     namespace :rma do
       resources  :orders do
         resources  :return_authorizations do
@@ -191,5 +186,9 @@ MarketStreet::Application.routes.draw do
         resources :descriptions, :only => [:edit, :update]
       end
     end    
+
+    namespace :reports do
+      resource :overview, :only => [:show]
+    end
   end
 end
