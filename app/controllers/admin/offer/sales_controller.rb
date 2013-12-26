@@ -1,5 +1,5 @@
 class Admin::Offer::SalesController < Admin::Offer::BaseController
-  add_breadcrumb "Sales", admin_offer_coupons_path
+  add_breadcrumb "Sales", :admin_offer_coupons_path
   helper_method :products
 
   def index

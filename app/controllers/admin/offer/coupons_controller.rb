@@ -1,5 +1,6 @@
 class Admin::Offer::CouponsController < Admin::Offer::BaseController
-  add_breadcrumb "Coupons", admin_offer_coupons_path
+  add_breadcrumb "Coupons", :admin_offer_coupons_path
+
   def index
     @coupons = Coupon.all
   end
