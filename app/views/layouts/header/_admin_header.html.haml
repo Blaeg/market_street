@@ -1,7 +1,7 @@
 .navbar.navbar-inverse
   .navbar-inner
     .container-fluid
-      .brand= link_to (site_name+' Admin') , root_path
+      .brand= link_to (site_name+' Admin') , admin_reports_dashboard_path
       .nav-collapse
         = render "layouts/header/admin_header_nav"
         = #render_navigation expand_all: true, renderer: :bootstrap, context: :admin
