@@ -1,15 +1,14 @@
 class Admin::Fulfillment::AddressesController < Admin::Fulfillment::BaseController
-  
+  before_filter :shipment
+
   # GET /admin/fulfillment/addresses/1/edit
   def edit
-    load_info
     @addresses  = @shipment.shipping_addresses
     @address = Address.find(params[:id])
   end
 
   # PUT /admin/fulfillment/addresses/1
   def update
-    load_info
     @address = Address.find(params[:id])
 
     @shipment.address = @address
@@ -20,7 +19,7 @@ class Admin::Fulfillment::AddressesController < Admin::Fulfillment::BaseControll
 
   private
 
-  def load_info
+  def shipment
     @shipment = Shipment.find_fulfillment_shipment(params[:shipment_id])
   end
 end
