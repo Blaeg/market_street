@@ -75,7 +75,7 @@ gem 'social-share-button'
 gem 'breadcrumbs_on_rails'
 
 gem 'rails_admin'
-gem 'protected_attributes', :github => 'rails/protected_attributes'
+#gem 'protected_attributes', :github => 'rails/protected_attributes'
 
 group :development do
   gem 'capistrano', '~> 3.0.1', require: false

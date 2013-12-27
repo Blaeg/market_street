@@ -13,7 +13,7 @@
         <% photo_url = item.variant.product.featured_image %>
             <%= image_tag(photo_url) if photo_url %>
             <%= item.variant.product_name %> 
-            <%= link_to 'remove', shopping_wish_item_path(item, :variant_id => item.variant_id), :method => :delete %>
+            <%= link_to 'remove', shopping_wish_item_path(item, :variant_id => item.variant_id, :format => :json), :method => :delete, :remote => true %>
         </li>
       <% end %>
       </ul>

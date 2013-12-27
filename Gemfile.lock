@@ -16,13 +16,6 @@ GIT
       activesupport (>= 3.2)
 
 GIT
-  remote: git://github.com/rails/protected_attributes.git
-  revision: 875689d550f28a5ce327310c51098443e1adcb03
-  specs:
-    protected_attributes (1.0.5)
-      activemodel (>= 4.0.1, < 5.0)
-
-GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
   revision: 44b0448193d4856847e47fb2a245bdd51a4bb2fa
   specs:
@@ -519,7 +512,6 @@ DEPENDENCIES
   paperclip (~> 3.0)
   pg
   prawn (~> 0.12.0)
-  protected_attributes!
   pry-byebug
   pry-nav
   pry-rails
