@@ -18,9 +18,9 @@ describe State, " methods" do
     end
   end
 
-  context ".abbrev_and_name" do
+  context ".abbreviation_name" do
     it 'returns the correct string' do
-      @state.abbrev_and_name.should == 'CA - California'
+      @state.abbreviation_name.should == 'CA - California'
     end
   end
 end

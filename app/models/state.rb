@@ -30,7 +30,7 @@ class State < ActiveRecord::Base
   #
   # @param [none]
   # @return [ String ]
-  def abbrev_and_name
+  def abbreviation_name
     abbreviation_name
   end
 
@@ -40,7 +40,7 @@ class State < ActiveRecord::Base
   # @param [none]
   # @return [ Array[Array] ]
   def self.form_selector
-    order('country_id ASC, abbreviation ASC').collect { |state| [state.abbrev_and_name, state.id] }
+    order('country_id ASC, abbreviation ASC').collect { |state| [state.abbreviation_name, state.id] }
   end
 
   # filter all the states for a form for a given country_id

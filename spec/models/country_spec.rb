@@ -27,9 +27,9 @@ describe Country do
     end
   end
 
-  context ".abbrev_and_name" do
+  context ".abbreviation_name" do
     it 'returns the correct string' do
-      @country.abbrev_and_name.should == 'US - United States'
+      @country.abbreviation_name.should == 'US - United States'
     end
   end
 end
