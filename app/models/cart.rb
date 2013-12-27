@@ -98,7 +98,7 @@ class Cart < ActiveRecord::Base
     return if quantity_to_purchase == 0
     if cart_item.nil? 
       cart_items.create(variant_id: variant_id, 
-                        quantity: quantity_to_purchase)
+        quantity: quantity_to_purchase)
     else
       cart_item.update_attributes(:quantity => cart_item.quantity + quantity_to_purchase)
     end    
@@ -125,26 +125,4 @@ class Cart < ActiveRecord::Base
       order.add_cart_item( item, nil)
     end
   end
-
-  def items_to_add_or_destroy(items_in_cart, order)
-    #destroy_any_order_item_that_was_removed_from_cart
-    destroy_order_items_not_in_cart!(items_in_cart, order)
-   # order.order_items.delete_all #destroy(order_item.id)
-    items = order.order_items.inject({}) {|h, item| h[item.variant_id].nil? ? h[item.variant_id] = [item.id]  : h[item.variant_id] << item.id; h}
-    items_in_cart.each_pair do |variant_id, qty_in_cart|
-      variant = Variant.find(variant_id)
-      if items[variant_id].nil? # the order does not have any order_items with this variant_id
-        order.add_items( variant , qty_in_cart)
-      elsif qty_in_cart - items[variant_id].size > 0 # the order does not enough order_items with this variant_id
-        order.add_items( variant , qty_in_cart - items[variant_id].size)
-      elsif qty_in_cart - items[variant_id].size < 0 # the order has too many order_items with this variant_id
-        order.remove_items( variant , qty_in_cart )
-      end
-    end
-    order
-  end
-  private
-    def destroy_order_items_not_in_cart!(items_in_cart, order)
-      order.order_items.delete_if {|order_item| !items_in_cart.keys.any?{|variant_id| variant_id == order_item.variant_id } }
-    end
 end
