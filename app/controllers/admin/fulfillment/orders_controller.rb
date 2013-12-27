@@ -1,17 +1,18 @@
 class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
-  add_breadcrumb "Shipping Orders", :admin_fulfillment_orders_path
+  add_breadcrumb "Orders", :admin_fulfillment_orders_path
   
   def index
     @q = Order.search(params[:q])
-    @orders = @q.result.where({ :orders => {:shipped => false }} ).
-                where("orders.completed_at IS NOT NULL").
+    @orders = @q.result.where("orders.completed_at IS NOT NULL").
                 order(sort_column + " " + sort_direction).
                 page(pagination_page).per(pagination_rows)
   end
 
   # GET /admin/fulfillment/orders/1
   def show
-    @order = Order.includes([:user, :shipments, {:order_items => [:shipment, :variant]}]).find(params[:id])
+    @order = Order.includes([:user, :shipments, 
+                        {:order_items => [:shipment, :variant]}]).find(params[:id])
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @order }

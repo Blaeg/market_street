@@ -1,4 +1,5 @@
 class Admin::Fulfillment::AddressesController < Admin::Fulfillment::BaseController
+  add_breadcrumb "Shipping /Address", :admin_fulfillment_shipments_path
   before_filter :shipment
 
   # GET /admin/fulfillment/addresses/1/edit
@@ -13,8 +14,8 @@ class Admin::Fulfillment::AddressesController < Admin::Fulfillment::BaseControll
 
     @shipment.address = @address
     @shipment.save
-    redirect_to(admin_fulfillment_shipments_path(:order_id => @shipment.order_id), :notice => 'Shipping address was successfully selected.')
-
+    redirect_to(admin_fulfillment_shipments_path(:order_id => @shipment.order_id), 
+      :notice => 'Shipping address was successfully selected.')
   end
 
   private

@@ -112,7 +112,7 @@ MarketStreet::Application.routes.draw do
         member do
           put :ship
         end
-        resources  :addresses , :only => [:edit, :update]# This is for editing the shipment address
+        resources  :addresses , :only => [:edit, :update]
       end
       
       resources :invoices      

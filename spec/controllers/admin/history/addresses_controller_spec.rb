@@ -29,14 +29,14 @@ describe Admin::History::AddressesController do
   it "create action renders new template when model is invalid" do
     Address.any_instance.stubs(:valid?).returns(false)
     address = build(:address)
-    post :create, :order_id => @order.number, :admin_history_address => address.attributes
+    post :create, :order_id => @order.number, :address => address.attributes
     expect(response).to render_template(:new)
   end
 
   it "create action redirects when model is valid" do
     @address = build(:address)
     Address.any_instance.stubs(:valid?).returns(true)
-    post :create, :order_id => @order.number,:admin_history_address => @address.attributes
+    post :create, :order_id => @order.number,:address => @address.attributes
     expect(response).to redirect_to(admin_history_order_url(@order))
   end
 

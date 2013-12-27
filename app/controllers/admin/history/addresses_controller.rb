@@ -1,7 +1,8 @@
 class Admin::History::AddressesController < Admin::BaseController
+  add_breadcrumb "Shipping Address", :admin_history_order_addresses_path
   before_filter :order
   helper_method :states
-  # GET /admin/history/addresses
+  
   def index
     @addresses = @order.user.addresses
   end
@@ -60,7 +61,9 @@ class Admin::History::AddressesController < Admin::BaseController
   private
 
   def allowed_params
-    params.require(:admin_history_address).permit(:address_type_id, :first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :phone_id, :alternative_phone, :default, :billing_default, :active, :country_id)
+    params.require(:address).permit(:address_type_id, :first_name, 
+      :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, 
+      :phone_id, :alternative_phone, :default, :billing_default, :active, :country_id)
   end
 
   def states
