@@ -2,7 +2,7 @@ class Catalog::ProductsController < ApplicationController
   add_breadcrumb "Products", :catalog_products_path
   
   def index
-    products = Product.active.includes(:variants)
+    products = Product.includes(:variants).active
     if params[:product_type_id].present? && product_type = ProductType.find_by_id(params[:product_type_id])
       product_types = product_type.self_and_descendants.map(&:id)
       products = products.where('product_type_id IN (?)', product_types)      

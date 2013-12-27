@@ -1,11 +1,9 @@
-<h1>Wish List</h1>
-
 <% current_user.wish_items do |item| %>
   <%= item %>
 <% end %>
 
 <% if current_user.wish_items.empty? %>
-  <h5> You currently don't have any items in your wish list.</h5>  
+  <h4> You currently don't have any items in your wish list.</h4>  
 <% else %>
   <div class='span12 last'>
     <div class='span9 line_item_blue'>
