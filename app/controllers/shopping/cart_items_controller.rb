@@ -25,7 +25,7 @@ class Shopping::CartItemsController < Shopping::BaseController
     end
   end
 
-  # PUT /carts/1
+  # PUT /shopping/cart_items
   def update
     if session_cart.update_attributes(allowed_params)
       if params[:commit] && params[:commit] == "Checkout"
@@ -38,8 +38,6 @@ class Shopping::CartItemsController < Shopping::BaseController
     end
   end
 
-  # DELETE /carts/1
-  # DELETE /carts/1.xml
   # id here is actually variant id
   def destroy
     session_cart.remove_variant(params[:id])
