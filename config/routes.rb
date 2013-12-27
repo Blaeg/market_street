@@ -37,8 +37,8 @@ MarketStreet::Application.routes.draw do
 
   #SHOPPING
   namespace :shopping do
-    resources :wish_items,  :only => [:index, :destroy]
-    resources  :cart_items, :only => [:index, :update, :create, :destroy]
+    resources :wish_items, :only => [:index, :create, :destroy]
+    resources :cart_items, :only => [:index, :update, :create, :destroy]
 
     resource  :coupon, :only => [:show, :create]
 
