@@ -18,7 +18,9 @@ puts "SEEDING USERS"
 Role.create_all
 
 @admin = FactoryGirl.create(:super_admin_user, :with_address, 
-  first_name: 'Alex', last_name: 'Chen', email: "alex@market.com")
+  first_name: 'Admin', last_name: 'Super', email: "super_admin@market.com")
+@admin = FactoryGirl.create(:admin_user, :with_address, 
+  first_name: 'Admin', last_name: 'Chen', email: "admin@market.com")
 FactoryGirl.create_list(:user, 10)
 
 puts  "SEEDING CATALOG"

@@ -6,13 +6,16 @@ class ApplicationController < ActionController::Base
                 :session_cart,
                 :search_product,
                 :product_types,
-                :customer_confirmation_page_view
+                :customer_confirmation_page_view,
+                :sort_column, 
+                :sort_direction
 
   before_filter :secure_session
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = "Access denied."
     flash[:alert] = 'Sorry you are not allowed to do that.'
+    
     if current_user && current_user.admin?
       redirect_to :back
     else
@@ -55,6 +58,19 @@ class ApplicationController < ActionController::Base
   def require_user
     redirect_to login_url and store_return_location and return unless current_user
   end
+
+  def verify_admin
+    redirect_to root_url unless current_user
+    redirect_to admin_onboard_url if current_user and !current_user.admin? 
+  end
+
+  def verify_super_admin
+    if current_user && current_user.admin? && !current_user.super_admin?
+      redirect_to admin_customer_users_url
+    elsif !current_user || !current_user.admin?
+      redirect_to root_url
+    end
+  end  
 
   def store_return_location
     # disallow return to login, logout, signup pages
