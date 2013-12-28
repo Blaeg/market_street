@@ -5,65 +5,47 @@
       Customer
       %b.caret
     %ul.dropdown-menu
-      %li
-        %a{href: "/admin/customer/users"} Users
-      %li
-        %a{href: "/admin/customer/referrals"} Referrals
-        
+      %li= link_to 'Users', admin_customer_users_path        
+      %li= link_to 'Referrals', admin_customer_referrals_path    
   %li#catalog_tab.dropdown
     %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "#"}
       %i.fa.fa-shopping-cart
       Catalog
       %b.caret
     %ul.dropdown-menu
-      %li
-        %a{href: "/admin/catalog/products"} Products
-      %li
-        %a{href: "/admin/catalog/properties"} Properties
-      %li
-        %a{href: "/admin/catalog/product_types"} Product Types
-      %li
-        %a{href: "/admin/catalog/prototypes"} Prototypes    
+      %li= link_to 'Products', admin_catalog_products_path        
+      %li= link_to 'Properties', admin_catalog_properties_path        
+      %li= link_to 'Product Types', admin_catalog_product_types_path        
+      %li= link_to 'Prototypes', admin_catalog_prototypes_path                
   %li#inventory_tab.dropdown
     %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/inventory/overviews"}
       %i.fa.fa-truck
       Inventory
       %b.caret
     %ul.dropdown-menu
-      %li
-        %a{href: "/admin/inventory/overviews"} Overviews
-      %li
-        %a{href: "/admin/inventory/suppliers"} Suppliers
-      %li
-        %a{href: "/admin/inventory/receivings"} Receive Purchase Order
-      %li
-        %a{href: "/admin/inventory/purchase_orders"} Purchase Orders
-      %li
-        %a{href: "/admin/inventory/adjustments"} Adjustments
+      %li= link_to 'Overviews', admin_inventory_overviews_path        
+      %li= link_to 'Suppliers', admin_inventory_suppliers_path        
+      %li= link_to 'Receive Purchase Order', admin_inventory_receivings_path        
+      %li= link_to 'Purchase Orders', admin_inventory_purchase_orders_path                
+      %li= link_to 'Adjustments', admin_inventory_adjustments_path                
   %li#offer_tab.dropdown
     %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/offer/coupons"}
       %i.fa.fa-tags
       Offer
       %b.caret
     %ul.dropdown-menu
-      %li
-        %a{href: "/admin/offer/coupons"} Coupons
-      %li
-        %a{href: "/admin/offer/deals"} Deals
-      %li
-        %a{href: "/admin/offer/sales"} Sales
+      %li= link_to 'Coupons', admin_offer_coupons_path        
+      %li= link_to 'Deals', admin_offer_deals_path        
+      %li= link_to 'Sales', admin_offer_sales_path              
   %li#orders_tab.dropdown
     %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/fulfillment/orders"}
       %i.fa.fa-credit-card
       Order
       %b.caret
     %ul.dropdown-menu
-      %li
-        %a{href: "/admin/fulfillment/orders"} Orders
-      %li
-        %a{href: "/admin/fulfillment/shipments"} Shipments
-      %li
-        %a{href: "/admin/fulfillment/invoices"} Invoices      
+      %li= link_to 'Orders', admin_fulfillment_orders_path        
+      %li= link_to 'Shipments', admin_fulfillment_shipments_path        
+      %li= link_to 'Invoices', admin_fulfillment_invoices_path                    
   - if can? :manage, :view_admin_config
     %li#config_tab.dropdown
       %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/config/tax_rates"}
@@ -71,13 +53,8 @@
         Config
         %b.caret
       %ul.dropdown-menu
-        %li
-          %a{href: "/admin/config/tax_rates"} Tax Rates
-        %li
-          %a{href: "/admin/config/countries"} Countries
-        %li
-          %a{href: "/admin/config/shipping_zones"} Shipping Zones
-        %li
-          %a{href: "/admin/config/shipping_methods"} Shipping Methods
-        %li
-          %a{href: "/admin/config/shipping_rates"} Shipping Rates
+        %li= link_to 'Tax Rates', admin_config_tax_rates_path        
+        %li= link_to 'Countries', admin_config_countries_path        
+        %li= link_to 'Shipping Zones', admin_config_shipping_zones_path                    
+        %li= link_to 'Shipping Methods', admin_config_shipping_methods_path        
+        %li= link_to 'Shipping Rates', admin_config_shipping_rates_path
