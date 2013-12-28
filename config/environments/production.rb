@@ -111,10 +111,6 @@ MarketStreet::Application.configure do
 
 
   config.after_initialize do
-    #Formtastic::SemanticFormBuilder.send(:include, Formtastic::DatePicker)
-    #Formtastic::SemanticFormBuilder.send(:include, Formtastic::FuturePicker)
-    #Formtastic::SemanticFormBuilder.send(:include, Formtastic::YearPicker)
-
     ActiveMerchant::Billing::Base.mode = :test
     #::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
     #  :login      => Settings.paypal.login
