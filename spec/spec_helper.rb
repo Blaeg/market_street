@@ -52,7 +52,7 @@ RSpec.configure do |config|
 
     Role::create_all
 
-    Country::find_or_create_by(id: USA_ID)       
+    Country::find_or_create_by(id: Country::USA_ID)       
     FactoryGirl.create(:state)
 
     Property::create_basic

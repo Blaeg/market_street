@@ -4,7 +4,7 @@ class Admin::Config::CountriesController < Admin::Config::BaseController
   def index
     @countries = Country.order(sort_column + " " + sort_direction)
     @active_countries = Country.active.order(sort_column + " " + sort_direction).
-                                              page(pagination_page).per(pagination_rows)
+                          page(pagination_page).per(pagination_rows)
   end
 
   def update

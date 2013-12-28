@@ -26,14 +26,6 @@ class State < ActiveRecord::Base
     ([abbreviation, name].join(" - ") + " #{append_name}").strip
   end
 
-  # the abbreviation and name of the state separated by '-'
-  #
-  # @param [none]
-  # @return [ String ]
-  def abbreviation_name
-    abbreviation_name
-  end
-
   # method to get all the states for a form
   # [['NY New York', 32], ['CA California', 3] ... ]
   #
