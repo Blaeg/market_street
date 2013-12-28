@@ -7,7 +7,6 @@ class Admin::BaseController < ApplicationController
     
   private
 
-  #move to cancan
   def verify_admin
     redirect_to root_url unless current_user
     redirect_to admin_onboard_url if current_user and !current_user.admin? 
