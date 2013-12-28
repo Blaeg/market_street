@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
-  
+  layout 'light'
+
   def index
     @featured_product = Product.featured
     @best_selling_products = Product.limit(5)
@@ -23,6 +24,10 @@ class HomeController < ApplicationController
   end
 
   def faq
-    add_breadcrumb "FAQ", :faq_home_path
+    
+  end
+
+  def subscription
+    add_breadcrumb "Subscription Plan", :subscription_home_path
   end
 end

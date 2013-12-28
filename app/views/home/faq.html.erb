@@ -1,4 +1,5 @@
-<% content_for :sidemenu do %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'base-admin-3' %>
   <%= stylesheet_link_tag 'faq' %>
 <% end %>
 
@@ -11,10 +12,12 @@
       </div> <!-- /widget-header -->              
       <div class="widget-content">                    
         <h3>Search</h3>
-
         <br>
-
-        <div class="faq-container"><form class="faq-search"><input type="text" class="form-control" name="search" placeholder="Search by Keyword"></form><div class="faq-toc">
+        <div class="faq-container">
+          <form class="faq-search">
+            <input type="text" class="span7" name="search" placeholder="Search by Keyword">
+          </form>
+        <div class="faq-toc">
         <ol>
           <li><a href="#faq-1">How can I get my own domain name?</a></li>
           <li><a href="#faq-2">How can I block my hosting service's advertisements?</a></li>

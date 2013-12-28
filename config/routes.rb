@@ -12,6 +12,7 @@ MarketStreet::Application.routes.draw do
   get 'about' => 'home#about', as: :about_home
   get 'faq' => 'home#faq', as: :faq_home
   get 'terms' => 'home#terms', as: :terms_home
+  get 'subscription' => 'home#subscription', as: :subscription_home
 
   root :to => "home#index"
 
