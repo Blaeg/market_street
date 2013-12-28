@@ -24,7 +24,6 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
         all_selected = false
       end
     end
-    binding.pry
     if all_selected
       redirect_to(shopping_orders_url, :notice => I18n.t('shipping_method_updated'))
     else
