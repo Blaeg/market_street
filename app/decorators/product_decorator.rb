@@ -6,4 +6,8 @@ class ProductDecorator < Draper::Decorator
   	str += '-'+ ActionController::Base.helpers.number_to_currency(product.price_range.last) if product.price_range?        		
   	str
   end  
+
+  def short_name
+  	product.name[0..20]
+  end
 end
