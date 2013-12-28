@@ -12,9 +12,7 @@
   .container
     = render 'layouts/header/alert_notice'
     .row
-      .breadcrumb= render_breadcrumbs 
       = yield      
-    = render 'layouts/footer/footer'
   = render 'layouts/footer/google_analytics' unless @disable_ga
   = javascript_include_tag 'bootstrap-application'
   = yield :bottom 

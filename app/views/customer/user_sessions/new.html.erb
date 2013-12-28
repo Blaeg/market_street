@@ -1,7 +1,9 @@
+<% content_for :head do %>
+	<%= stylesheet_link_tag 'jquery-ui-1.10.0.custom.min' %>
+	<%= stylesheet_link_tag 'base-admin-3' %>
+	<%= stylesheet_link_tag 'signin' %>
+<% end %>
+
 <%= render 'error' %>
-<h1>Sign In</h1>
-<hr>
-<div class="row">
-  <%= render 'login' %>
-  <%= render 'signup' %>      
-</div>
+<%= render 'login' %>
+<%= render 'signup' %>

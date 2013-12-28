@@ -1,5 +1,6 @@
 class Customer::UserSessionsController < ApplicationController
-  add_breadcrumb "Home", :root_path
+  layout 'light'
+  
   def new    
     add_breadcrumb "Sign In", :new_customer_user_session_path
     @user_session = UserSession.new

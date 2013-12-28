@@ -1,1 +1,0 @@
-If you are looking for an erb file you might want to look at user_sessions/new
