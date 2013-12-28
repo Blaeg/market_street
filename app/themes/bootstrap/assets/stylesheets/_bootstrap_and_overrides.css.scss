@@ -2,12 +2,10 @@
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
  
-main {
-	> .container {
-		width: 1000px;
-		.row {
-			margin-left: 0;
-		}
+.container {
+	width: 1170px;
+	.row {
+		margin-left: 0;
 	}
 }
 

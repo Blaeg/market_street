@@ -3,7 +3,7 @@
     = link_to image_tag(product.featured_image(:medium)), catalog_product_path(product), title: product.name
     .caption
       %h5= link_to product.name[0..20], catalog_product_path(product)
-      .span1= product.price_label
+      .span12= product.price_label
       = link_to fa_icon("heart"), shopping_wish_items_path(:format => :json, :variant_id => product.variants.first.id), :method => :post, :remote => true
       = link_to fa_icon("shopping-cart"), '#'
         
