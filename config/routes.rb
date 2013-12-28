@@ -8,7 +8,6 @@ MarketStreet::Application.routes.draw do
   delete 'logout' => 'customer/user_sessions#destroy'
   get 'signup' => 'customer/registrations#new'
   
-  resources :states,      :only => [:index]  
   resource  :unsubscribe, :only => :show
 
   get 'about' => 'home#about', as: :about_home

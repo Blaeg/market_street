@@ -1,79 +1,11 @@
 <% if @cart_items.blank? or @cart_items.empty? %>
   <h3 style='text-align:center;'><%= I18n.t(:nothing_in_cart) %></h3>
+<% else %>
+  <%= form_for session_cart, url: shopping_cart_item_path(session_cart), html: {class: 'form-horizontal'} do |cart_form| %>
+    <%= render :partial => 'cart_items_table', :locals => {:cart_form => cart_form} %>
+
+  <%= render :partial => 'discount_and_gift_card' %>
+  <%= cart_form.submit 'Update', class: 'btn btn-primary pull-left' %>          
+  <%= cart_form.submit 'Checkout', class: 'btn btn-primary pull-right' %>       
 <% end %> 
-
-<%= form_for session_cart, url: shopping_cart_item_path(session_cart), html: {class: 'form-horizontal'} do |cart_form| %>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th>Product Name</th>
-        <th>Unit Price</th>
-        <th>Quantity</th>        
-        <th>Total</th>            
-      </tr>
-    </thead>
-    <tbody>
-      
-      <% @cart_items.each do |item| %>
-        <%= cart_form.fields_for :cart_items, item do |cart_items_form| %>
-          <%= render :partial => 'cart_item', 
-            :locals => {:cart_items_form => cart_items_form, :item => item} %>
-        <% end %>
-      <% end %>   
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>
-          <strong><%= number_to_currency @cart_items.map(&:total).sum %></strong>
-        </td>
-      </tr>     
-    </tbody>
-  </table>      
-
-  <fieldset>
-    <div class="accordion" id="accordion2">
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-            <h4>Apply discount code</h4>
-          </a>
-        </div>
-        <div id="collapseOne" class="accordion-body collapse in">
-          <div class="accordion-inner">
-            <div class="control-group">
-              <label for="input01" class="control-label">Discount code: </label>
-              <div class="controls">
-                <input type="text" id="input01" class="input-xlarge" placeholder="Enter your coupon here">
-                <p class="help-block">You can only use one discount code at a time</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-            <h4>Use gift voucher</h4>
-          </a>
-        </div>
-        <div id="collapseTwo" class="accordion-body collapse">
-          <div class="accordion-inner">
-            <div class="control-group">
-              <label for="input01" class="control-label">Gift voucher: </label>
-              <div class="controls">
-                <input type="text" id="input01" class="input-xlarge" placeholder="Enter your gift voucher here">
-                <p class="help-block">You can use multiple gift vouchers at a time</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <%= cart_form.submit 'Update', class: 'btn btn-primary pull-left' %>          
-    <%= cart_form.submit 'Checkout', class: 'btn btn-primary pull-right' %>       
-  </fieldset>  
 <% end %> 
