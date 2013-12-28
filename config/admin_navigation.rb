@@ -31,8 +31,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :orders_tab, 'Order', '#', icon: ['fa fa-credit-card']  do |order|
       order.item :orders_link, 'Orders', admin_fulfillment_orders_path
       order.item :shipments_link, 'Shipments', admin_fulfillment_shipments_path
-      order.item :invoices_link, 'Invoices', admin_fulfillment_invoices_path
-      order.item :fulfillments_link, 'Fulfillments', admin_fulfillment_orders_path
+      order.item :invoices_link, 'Invoices', admin_fulfillment_invoices_path      
     end
 
     if current_user.super_admin?

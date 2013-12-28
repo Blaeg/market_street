@@ -60,9 +60,13 @@ puts  "SEEDING VARIANTS"
 end
 
 puts  "SEEDING ORDERS"
-FactoryGirl.create_list(:order, 5)
+FactoryGirl.create_list(:order_item, 5)
+
 puts  "SEEDING SHIPMENTS"
-FactoryGirl.create_list(:shipment, 5)
+Order.all.each do |order|
+  FactoryGirl.create(:shipment, :order => order)
+end
+
 puts  "SEEDING INVOICES"
 FactoryGirl.create_list(:invoice, 5)
 puts  "SEEDING PURCHASE ORDERS"

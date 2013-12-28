@@ -63,9 +63,7 @@
       %li
         %a{href: "/admin/fulfillment/shipments"} Shipments
       %li
-        %a{href: "/admin/fulfillment/invoices"} Invoices
-      %li
-        %a{href: "/admin/fulfillment/orders"} Fulfillments
+        %a{href: "/admin/fulfillment/invoices"} Invoices      
   - if can? :manage, :view_admin_config
     %li#config_tab.dropdown
       %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/config/tax_rates"}
