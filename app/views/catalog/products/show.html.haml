@@ -25,8 +25,6 @@
 
 - content_for :bottom do
   = javascript_include_tag 'shopping/cart.js' 
-  = javascript_include_tag 'jquery.jcarousel.js'
-  = javascript_include_tag 'jquery.pikachoose.full.js'
   = javascript_include_tag 'product_page.js'
 
 - content_for :below_body do
@@ -39,7 +37,6 @@
   - if @product.images.size > 1
     :javascript
       $(document).ready(function (){
-        $("#pikame").PikaChoose({autoPlay:true, carousel:false, carouselVertical:false});
-        $('#pikame').data('pikachoose').Pause();
+        
       });
   
