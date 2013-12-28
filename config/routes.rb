@@ -1,7 +1,6 @@
 require 'sidekiq/web'
 
 MarketStreet::Application.routes.draw do
-  mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
   get 'admin' => 'admin/reports#dashboard'
 
   get 'login' => 'customer/user_sessions#new'
@@ -67,7 +66,8 @@ MarketStreet::Application.routes.draw do
   #ADMIN
   namespace :admin do
     mount Sidekiq::Web => '/jobs'
-
+    mount RailsAdmin::Engine => '/super', :as => 'super'
+  
     namespace :customer do
       resources :users do
         resource :store_credits, :only => [:show, :edit, :update]
