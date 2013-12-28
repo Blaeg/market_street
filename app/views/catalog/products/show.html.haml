@@ -13,7 +13,7 @@
     
     - if @product.active_variants.size >= 1
       - @product.active_variants.each_with_index do |variant, i|
-        .btn.variant_select{:id => 'variant_'+variant.id.to_s, 'data-variant_id' => variant.id }= variant.product_name
+        .btn.variant_select{:id => 'variant_'+variant.id.to_s, 'data-variant_id' => variant.id }= variant.sub_name
 
       = form_for @cart_item, :url  => shopping_cart_items_path(@cart_item), :html => {:id => 'new_cart_item', :class => 'custom' } do |f|
         = f.hidden_field :variant_id
