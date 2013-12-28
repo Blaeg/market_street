@@ -1,14 +1,12 @@
-class Admin::OverviewsController < ApplicationController
+class Admin::OnboardController < Admin::BaseController
   layout "admin"
+  before_filter :verify_admin
 
   def index
-    #  The index action should
-    if u = User.first
-      redirect_to root_url and return if !current_user
-      redirect_to root_url unless current_user.admin?
-
-    elsif Role.first
-      @user = User.new(args)
+    add_breadcrumb "On Board", :admin_onboard_path
+  
+    if User.count == 0
+      @user = User.new(new_user_args)
       if @user.active? || @user.activate!
         @user.save
         @user.role_ids = Role.all.map{|r| r.id }
@@ -16,7 +14,7 @@ class Admin::OverviewsController < ApplicationController
         @current_user = @user
         @user_session = UserSession.new(session_args)
         @user_session.save
-      end
+      end    
     end
   end
 
@@ -26,7 +24,7 @@ class Admin::OverviewsController < ApplicationController
     @session_args ||= { :email => @user.email, :password => @password }
   end
 
-  def args
+  def new_user_args
     @password ||= "admin_user_#{rand(1000)}"
     @args ||= {
       :first_name => 'Admin',

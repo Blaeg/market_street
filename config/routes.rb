@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 MarketStreet::Application.routes.draw do
   mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
-  get 'admin' => 'admin/overviews#index'
+  get 'admin' => 'admin/reports#dashboard'
 
   get 'login' => 'customer/user_sessions#new'
   delete 'logout' => 'customer/user_sessions#destroy'
@@ -67,7 +67,6 @@ MarketStreet::Application.routes.draw do
   #ADMIN
   namespace :admin do
     mount Sidekiq::Web => '/jobs'
-    resources :overviews, :only => [:index]
 
     namespace :customer do
       resources :users do
@@ -183,6 +182,7 @@ MarketStreet::Application.routes.draw do
       end
     end    
 
+    get 'onboard' => 'onboard#index', as: :onboard         
     get 'dashboard' => 'reports#dashboard', as: :reports_dashboard          
   end
 end

@@ -24,10 +24,10 @@ def cookied_login
 end
 
 describe "Admin::Overviews" do
-  describe "GET /admin/overviews" do
+  describe "GET /admin/onboard" do
     it "works!" do
       User.any_instance.stubs(:activate!).returns(true)
-      visit admin_overviews_path
+      visit admin_onboard_path
       page.should have_content('admin_user_')
       page.should have_content('notarealemail')
       User.first.should_not be_nil
@@ -38,7 +38,7 @@ describe "Admin::Overviews" do
   describe "GET /admin/overviews" do
     it "If a user has already been created this page will show without password info for admin users" do
       cookied_admin_login
-      visit admin_overviews_path
+      visit admin_onboard_path
       page.should have_content('Market Street')
     end
   end
@@ -48,7 +48,7 @@ describe "Admin::Overviews" do
   describe "GET /admin/overviews" do
     it "If a user has already been created this page will redirect to root_url for non-admins" do
       cookied_login
-      visit admin_overviews_path
+      visit admin_onboard_path
       page.should have_content('Home')
       page.should have_content('Market Street')
     end
