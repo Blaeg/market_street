@@ -1,4 +1,5 @@
 class Customer::RegistrationsController < ApplicationController
+  layout 'light'
 
   def index
     redirect_to :action => :new
@@ -7,8 +8,7 @@ class Customer::RegistrationsController < ApplicationController
   def new
     @registration = true
     @user         = User.new
-    @user_session = UserSession.new
-    render :template => 'user_sessions/new'
+    @user_session = UserSession.new    
   end
 
   def create
@@ -27,7 +27,7 @@ class Customer::RegistrationsController < ApplicationController
     else
       @registration = true
       @user_session = UserSession.new
-      render :template => 'user_sessions/new'
+      flash[:notice] = "There is an error. Please try again."      
     end
   end
 

@@ -12,6 +12,7 @@
   .container
     = render 'layouts/header/alert_notice'
     .row
+      
       = yield      
   = render 'layouts/footer/google_analytics' unless @disable_ga
   = javascript_include_tag 'bootstrap-application'
