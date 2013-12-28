@@ -115,6 +115,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :phones, :reject_if => lambda { |t| ( t['display_number'].gsub(/\D+/, '').blank?) }
   accepts_nested_attributes_for :customer_comments, :reject_if => proc { |attributes| attributes['note'].strip.blank? }
 
+  scope :super_admin, -> { joins(:user_roles).joins(:roles).where("roles.name = ?", 'super_administrator') }
+
   # returns true or false if the user has a role or not
   #
   # @param [String] role name the user should have

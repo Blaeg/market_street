@@ -1,14 +1,16 @@
 class Admin::BaseController < ApplicationController
   add_breadcrumb "Admin", :admin_dashboard_path
-  before_filter :verify_admin
-  helper_method :sort_column, :sort_direction
   layout 'admin'
   
+  before_filter :verify_admin
+  helper_method :sort_column, :sort_direction
+    
   private
 
   #move to cancan
   def verify_admin
-    redirect_to root_url if !current_user || !current_user.admin?
+    redirect_to root_url unless current_user
+    redirect_to admin_onboard_url if current_user and !current_user.admin? 
   end
 
   def verify_super_admin

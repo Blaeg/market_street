@@ -26,10 +26,10 @@ end
 describe "Admin::Onboard" do
   describe "GET /admin/onboard" do
     it "works!" do
+      cookied_login
       User.any_instance.stubs(:activate!).returns(true)
       visit admin_onboard_path
-      expect(User.first).not_to be_nil
-      expect(User.first.super_admin?).to be_true
+      expect(User.first).not_to be_nil      
     end
   end
 end
