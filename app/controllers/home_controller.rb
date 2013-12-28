@@ -21,4 +21,8 @@ class HomeController < ApplicationController
   def terms
     add_breadcrumb "Terms", :terms_home_path
   end
+
+  def faq
+    add_breadcrumb "FAQ", :faq_home_path
+  end
 end
