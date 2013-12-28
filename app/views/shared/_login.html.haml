@@ -3,8 +3,10 @@
   = form_for @user_session, :as => :user_session, :url => customer_user_sessions_path(@user_session), :html => {:class => 'span12'} do |form|
     .login-fields
       .field
+        = form.label :email, 'Email'
         = form.email_field :email, :placeholder => 'Email', :class => 'username-field'      
       .field
+        = form.label :email, 'Password'
         = form.password_field :password, :placeholder => 'Password', :class => 'password-field'
     = form.submit "Sign In", :class => 'btn btn-primary'
     %br      

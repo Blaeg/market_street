@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 def cookied_admin_login
    User.acts_as_authentic_config[:maintain_sessions] = false
    u = create_real_admin_user({:email => 'test@admin.com', :password => 'secret1', :password_confirmation => 'secret1'})
@@ -11,9 +12,12 @@ def cookied_admin_login
      click_button 'Sign In'
    end
 end
+
 def cookied_login
    User.acts_as_authentic_config[:maintain_sessions] = false
-   create(:user, :first_name => 'Dave', :email => 'test@nonadmin.com', :password => 'secret1', :password_confirmation => 'secret1')
+   create(:user, :first_name => 'Dave', :email => 'test@nonadmin.com', 
+      :password => 'secret1', :password_confirmation => 'secret1')
+
    User.any_instance.stubs(:admin?).returns(false)
    visit login_path
    within("#login") do
@@ -35,7 +39,7 @@ describe "Admin::Onboard" do
 end
 
 describe "Admin::Onboard" do
-  describe "GET /admin/overviews" do
+  describe "GET /admin/onboard" do
     it "If a user has already been created this page will show without password info for admin users" do
       cookied_admin_login
       visit admin_onboard_path
@@ -45,11 +49,11 @@ describe "Admin::Onboard" do
 end
 describe "Admin::Onboard" do
 
-  describe "GET /admin/overviews" do
+  describe "GET /admin/onboard" do
     it "If a user has already been created this page will redirect to root_url for non-admins" do
       cookied_login
       visit admin_onboard_path
-      page.should have_content('Home')
+      page.should have_content('Welcome')
       page.should have_content('Market Street')
     end
   end

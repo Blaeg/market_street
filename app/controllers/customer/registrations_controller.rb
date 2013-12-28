@@ -28,6 +28,7 @@ class Customer::RegistrationsController < ApplicationController
       @registration = true
       @user_session = UserSession.new
       flash[:notice] = "There is an error. Please try again."      
+      redirect_to new_customer_registration_url
     end
   end
 
