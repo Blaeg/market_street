@@ -28,14 +28,14 @@ class Catalog::ProductsController < ApplicationController
   def show
     @product = Product.active.find(params[:id])
     add_breadcrumb @product.name, :catalog_products_path
-    form_info
-    @cart_item.variant_id = @product.active_variants.first.try(:id)
+    form_info    
   end
 
   private
 
   def form_info
     @cart_item = CartItem.new
+    @cart_item.variant_id = @product.active_variants.first.try(:id)
   end
 
   def featured_product_types

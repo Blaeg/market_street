@@ -1,6 +1,6 @@
 class Shopping::CartController < Shopping::BaseController
   def current
-    @cart_items = session_cart.cart_items    
+    @cart_items = session_cart.cart_items
   end
 
   def create
@@ -9,7 +9,7 @@ class Shopping::CartController < Shopping::BaseController
     qty = params[:cart_item][:quantity].to_i
     if cart_item = session_cart.add_variant(params[:cart_item][:variant_id], qty)
       session_cart.save_user(current_user)
-      redirect_to shopping_cart_items_url
+      redirect_to shopping_cart_url
     else
       variant = Variant.includes(:product).find_by_id(params[:cart_item][:variant_id])
       if variant
@@ -43,6 +43,6 @@ class Shopping::CartController < Shopping::BaseController
   private
 
   def allowed_params
-    params.require(:cart).permit!
+    params.require(:cart_item).permit!
   end
 end
