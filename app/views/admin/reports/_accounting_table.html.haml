@@ -1,0 +1,16 @@
+%h4 Accounting
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %td
+      %td Revenue
+      %td Cash
+      %td Accounts Receivable
+      %td Accounts Payable      
+  %tbody
+    %tr
+      %td $
+      %td= number_to_currency @accounting_report.revenue    
+      %td= number_to_currency @accounting_report.cash      
+      %td= number_to_currency @accounting_report.accounts_receivable      
+      %td= number_to_currency @accounting_report.accounts_payable                  

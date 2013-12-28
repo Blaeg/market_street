@@ -1,0 +1,25 @@
+%h4 Overview: #{display_start_and_end_date}
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %td
+      %td Sign Ups
+      %td New Customer
+      %td Adding to Cart
+      %td Cart items
+      %td Orders
+  %tbody
+    %tr
+      %td #
+      %td= @customers_report.users_in_timeframe    
+      %td= @customers_report.customers_in_timeframe
+      %td= @final_number_of_cart_items - @beginning_number_of_cart_items
+      %td= @final_number_of_cart_items
+      %td= @orders_report.quantity
+    %tr
+      %td $
+      %td
+      %td
+      %td= @final_number_of_cart_items - @beginning_number_of_cart_items
+      %td= @final_number_of_cart_items
+      %td= number_to_currency @orders_report.total_amount      

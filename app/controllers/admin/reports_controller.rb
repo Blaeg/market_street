@@ -1,42 +1,50 @@
 class Admin::ReportsController < Admin::BaseController
-  add_breadcrumb "Reports", :admin_reports_dashboard_path
-  helper_method :start_time, :end_time
-  before_filter :set_start_time
-  before_filter :set_end_time
-
+  helper_method :start_date, :end_date, :display_start_and_end_date
+  before_filter :set_start_date, :set_end_date
+  
   def dashboard
-    @accounting_report  = ::Reports::Accounting.new(start_time, end_time)
-    @orders_report      = ::Reports::Orders.new(start_time, end_time)
-    @customers_report   = ::Reports::Customers.new(start_time, end_time)
-    @final_number_of_cart_items     = CartItem.before(end_time).last   ? CartItem.before(end_time).last.id   : 0
-    @beginning_number_of_cart_items = CartItem.before(start_time).last ? CartItem.before(start_time).last.id : 0
+    add_breadcrumb "Dashboard", :admin_reports_dashboard_path
+    
+    @accounting_report = ::Reports::Accounting.new(start_date, end_date)
+    @orders_report = ::Reports::Orders.new(start_date, end_date)
+    @customers_report = ::Reports::Customers.new(start_date, end_date)
+    
+    @final_number_of_cart_items = CartItem.before(end_date).last   ? CartItem.before(end_date).last.id : 0    
+    @beginning_number_of_cart_items = CartItem.before(start_date).last ? CartItem.before(start_date).last.id : 0
   end
 
   private
   
-  def set_start_time
-    @start_time = Chronic.parse('last week').beginning_of_week
-    @start_time = Time.parse(params[:start_date]) if params[:start_date].present?    
-  end
-
-  def set_end_time
-    @end_time = case params[:commit]
-    when 'Daily'
-      start_time + 1.day
-    when 'Weekly'
-      start_time + 1.week
-    when 'Monthly'
-      start_time + 1.month
+  def set_start_date
+    if params[:start_date].present?    
+      @start_date = Time.parse(params[:start_date]).beginning_of_day.to_date
     else
-      start_time + 1.week
-    end
+      @start_date = Chronic.parse('last week').beginning_of_week.to_date
+    end    
   end
 
-  def start_time
-    @start_time
+  def set_end_date
+    @end_date = case params[:commit]
+      when 'Daily'
+        start_date + 1.day
+      when 'Weekly'
+        start_date + 1.week
+      when 'Monthly'
+        start_date + 1.month
+      else
+        start_date + 1.week
+      end
   end
 
-  def end_time
-    @end_time
+  def start_date
+    @start_date
+  end
+
+  def end_date
+    @end_date
+  end
+
+  def display_start_and_end_date
+    "#{I18n.localize(start_date)}-#{I18n.localize(end_date)}"
   end
 end

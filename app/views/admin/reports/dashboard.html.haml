@@ -1,0 +1,20 @@
+- content_for :sidemenu do
+  .span2
+    = form_tag( admin_reports_dashboard_path, :method => :GET, :id => 'request_report_form') do 
+      %label Start Date
+      = text_field_tag 'start_date', nil, :placeholder => 'dd/mm/yyyy', :class => 'ui-datepicker span12'
+      %br
+      = submit_tag 'Daily', :data => { disable_with: 'Please wait...' }, :class => 'btn btn-primary'
+      %br
+      %br
+      = submit_tag 'Weekly', :data => { disable_with: 'Please wait...' }, :class => 'btn btn-primary'
+      %br
+      %br
+      = submit_tag 'Monthly', :data => { disable_with: 'Please wait...' }, :class => 'btn btn-primary'         
+  
+.span9
+  = render :partial => "overview_table"
+  = render :partial => "accounting_table"  
+          
+- content_for :below_body do
+  = javascript_include_tag 'datePickerInitialize' 

@@ -1,4 +1,3 @@
-
 jQuery(document).ready(function(){
   jQuery('input.ui-datepicker').datepicker();
   jQuery('input.ui-futurepicker').datepicker({ yearRange: '2010:2020', changeYear: true });
