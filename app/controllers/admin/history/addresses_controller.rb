@@ -14,11 +14,13 @@ class Admin::History::AddressesController < Admin::BaseController
 
   # GET /admin/history/addresses/new
   def new
+    add_breadcrumb "New Address", :new_admin_history_order_address_path  
     @address  = Address.new
   end
 
   # GET /admin/history/addresses/1/edit
   def edit
+    add_breadcrumb "Change Address", :edit_admin_history_order_address_path   
     @address  = Address.find(params[:id])
   end
 
@@ -61,7 +63,7 @@ class Admin::History::AddressesController < Admin::BaseController
   private
 
   def allowed_params
-    params.require(:address).permit(:address_type_id, :first_name, 
+    params.require(:address).permit(:address_type, :first_name, 
       :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, 
       :phone_id, :alternative_phone, :default, :billing_default, :active, :country_id)
   end
