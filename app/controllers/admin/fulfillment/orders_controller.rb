@@ -40,16 +40,16 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
 
     payment = @order.capture_invoice(@invoice)
 
-##  several things happen on this request
-# => Payment is captured
-# => Invoice is updated to log leger transactions
-# => Shipment is marked as ready to send and associated to the order_items
-# => If everything works send the user to the shipment page
+    ##  several things happen on this request
+    # => Payment is captured
+    # => Invoice is updated to log leger transactions
+    # => Shipment is marked as ready to send and associated to the order_items
+    # => If everything works send the user to the shipment page
 
 
-## TODO
-# => Allow partial payments
-# => mark only order_items that will be shipped
+    ## TODO
+    # => Allow partial payments
+    # => mark only order_items that will be shipped
 
     if payment && payment.success?
       render :partial => 'success_message'
@@ -58,24 +58,9 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
     end
   end
 
-  # DELETE /admin/fulfillment/shipments/1
-  # DELETE /admin/fulfillment/shipments/1.xml
-  def destroy
-
-    @order    = Order.find(params[:id])
-    @invoice  = @order.invoices.find(params[:invoice_id])
-
-    @order.cancel_unshipped_order(@invoice)
-    respond_to do |format|
-      format.html { render :partial => 'invoice_details', :locals => {:invoice => @invoice} }
-      format.json { render :json => @order.to_json }
-    end
-  end
-
   protected
 
   def default_sort_column
     "number"
   end
-
 end

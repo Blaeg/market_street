@@ -52,12 +52,5 @@ describe Admin::Inventory::PurchaseOrdersController do
     PurchaseOrder.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @purchase_order.id, :purchase_order => {:ordered_at => Time.now.to_s(:db), :supplier_id => '1'}
     expect(response).to redirect_to(admin_inventory_purchase_orders_url(:notice => 'Purchase order was successfully updated.'))
-  end
-
-  it "destroy action should destroy model and redirect to index action" do
-    @purchase_order = create(:purchase_order)
-    delete :destroy, :id => @purchase_order.id
-    expect(response).to redirect_to(admin_inventory_purchase_orders_url)
-    PurchaseOrder.exists?(@purchase_order.id).should be_false
-  end
+  end  
 end
