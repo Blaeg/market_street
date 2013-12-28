@@ -17,4 +17,7 @@
   = render :partial => "accounting_table"  
           
 - content_for :below_body do
-  = javascript_include_tag 'datePickerInitialize' 
+  :javascript
+    $(document).ready(function() {
+      $('.ui-datepicker').datepicker({autoclose: true});
+    });
