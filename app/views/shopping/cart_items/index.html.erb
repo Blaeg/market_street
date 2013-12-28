@@ -3,9 +3,8 @@
 <% else %>
   <%= form_for session_cart, url: shopping_cart_item_path(session_cart), html: {class: 'form-horizontal'} do |cart_form| %>
     <%= render :partial => 'cart_items_table', :locals => {:cart_form => cart_form} %>
-
-  <%= render :partial => 'discount_and_gift_card' %>
-  <%= cart_form.submit 'Update', class: 'btn btn-primary pull-left' %>          
-  <%= cart_form.submit 'Checkout', class: 'btn btn-primary pull-right' %>       
-<% end %> 
+    <%= render :partial => 'discount_and_gift_card' %>
+    <%= cart_form.submit 'Update', class: 'btn btn-primary pull-left' %>          
+    <%= cart_form.submit 'Checkout', class: 'btn btn-primary pull-right' %>       
+  <% end %> 
 <% end %> 
