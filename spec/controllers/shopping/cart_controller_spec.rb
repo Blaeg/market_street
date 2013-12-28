@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shopping::CartItemsController do
+describe Shopping::CartController do
   render_views
 
   before(:each) do
@@ -16,8 +16,8 @@ describe Shopping::CartItemsController do
   end
 
   it "index action renders index template" do
-    get :index
-    expect(response).to render_template(:index)
+    get :current
+    expect(response).to render_template(:current)
   end
 
   #todo add test for create
@@ -27,7 +27,7 @@ describe Shopping::CartItemsController do
     it "updates cart item quantity and refreshes" do 
       put :update, :id => @cart.id, "commit"=>"Update", 
         "cart" => {"cart_items_attributes" => cart_items_attributes }
-      expect(response).to redirect_to shopping_cart_items_path
+      expect(response).to redirect_to shopping_cart_path
     end
   end
 
@@ -43,6 +43,6 @@ describe Shopping::CartItemsController do
   it "destroy action renders index template" do
     delete :destroy, :id => @variant.id
     expect(CartItem.where(variant_id: @variant.id).first).not_to be_active
-    expect(response).to redirect_to shopping_cart_items_path
+    expect(response).to redirect_to shopping_cart_path
   end
 end

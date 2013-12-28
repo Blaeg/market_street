@@ -1,12 +1,8 @@
-class Shopping::CartItemsController < Shopping::BaseController
-  add_breadcrumb "Shopping Cart", :shopping_cart_items_path
-
-  # GET /shopping/cart_items
-  def index
+class Shopping::CartController < Shopping::BaseController
+  def current
     @cart_items = session_cart.cart_items    
   end
 
-  # POST /shopping/cart_items
   def create
     session_cart.save if session_cart.new_record?
     
@@ -31,17 +27,17 @@ class Shopping::CartItemsController < Shopping::BaseController
       if params[:commit] && params[:commit] == "Checkout"
         redirect_to( checkout_shopping_order_url('checkout'))
       else
-        redirect_to(shopping_cart_items_path, :notice => I18n.t('item_passed_update') )
+        redirect_to(shopping_cart_path, :notice => I18n.t('item_passed_update') )
       end
     else
-      redirect_to(shopping_cart_items_path, :notice => I18n.t('item_failed_update') )
+      redirect_to(shopping_cart_path, :notice => I18n.t('item_failed_update') )
     end
   end
 
   # id here is actually variant id
   def destroy
     session_cart.remove_variant(params[:id])
-    redirect_to(shopping_cart_items_path)
+    redirect_to(shopping_cart_path)
   end
 
   private
