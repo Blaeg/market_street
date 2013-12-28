@@ -40,7 +40,7 @@
     <% if @return_authorization.authorized? %>
       <%= link_to 'Edit RMA', edit_admin_fulfillment_order_return_authorization_path(@order, @return_authorization), :class => 'btn heart'%>
     <% end %>
-    <%= link_to 'Order Info', admin_history_order_path(@order), 
+    <%= link_to 'Order Info', admin_fulfillment_order_path(@order), 
       :class => 'btn' %>
     <%= link_to 'All RMAs for this Order.', admin_fulfillment_order_return_authorizations_path(@order), :class => 'btn heart' %>
   </div>

@@ -1,5 +1,5 @@
-class Admin::History::AddressesController < Admin::BaseController
-  add_breadcrumb "Shipping Address", :admin_history_order_addresses_path
+class Admin::Fulfillment::OrderAddressesController < Admin::BaseController
+  add_breadcrumb "Shipping Address", :admin_fulfillment_order_addresses_path
   before_filter :order
   helper_method :states
   
@@ -7,46 +7,41 @@ class Admin::History::AddressesController < Admin::BaseController
     @addresses = @order.user.addresses
   end
 
-  # GET /admin/history/addresses/1
   def show
     @address = Address.find(params[:id])
   end
 
-  # GET /admin/history/addresses/new
   def new
-    add_breadcrumb "New Address", :new_admin_history_order_address_path  
+    add_breadcrumb "New Address", :new_admin_fulfillment_order_address_path  
     @address  = Address.new
   end
 
-  # GET /admin/history/addresses/1/edit
   def edit
-    add_breadcrumb "Change Address", :edit_admin_history_order_address_path   
+    add_breadcrumb "Change Address", :edit_admin_fulfillment_order_address_path   
     @address  = Address.find(params[:id])
   end
 
-  # POST /admin/history/addresses
-  def create  ##  This create a new address, sets the orders address & redirects to order_history
+  def create 
     @address  = @order.user.addresses.new(allowed_params)
 
     respond_to do |format|
       if @address.save
         @order.ship_address = @address
         @order.save
-        format.html { redirect_to(admin_history_order_url(@order), :notice => 'Address was successfully created.') }
+        format.html { redirect_to(admin_fulfillment_order_path(@order), :notice => 'Address was successfully created.') }
       else
         format.html { render :action => "new" }
       end
     end
   end
 
-  # PUT /admin/history/addresses/1
-  def update ##  This selects a new address, sets the orders address & redirects to order_history
+  def update
     @address  = Address.find(params[:id])
 
     respond_to do |format|
       if @address && @order.ship_address = @address
         if @order.save
-          format.html { redirect_to(admin_history_order_url(@order) , :notice => 'Address was successfully selected.') }
+          format.html { redirect_to(admin_fulfillment_order_path(@order) , :notice => 'Address was successfully selected.') }
         else
           format.html { render :action => "edit" }
         end

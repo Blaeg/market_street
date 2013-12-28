@@ -82,14 +82,9 @@ MarketStreet::Application.routes.draw do
       end      
     end
 
-    namespace :history do
-      resources  :orders, :only => [:index, :show] do
-        resources  :addresses, :except => [:destroy]
-      end
-    end
-
     namespace :fulfillment do
       resources  :orders do
+        resources  :addresses, :controller => 'order_addresses', :except => [:destroy]
         member do
           put :create_shipment
         end

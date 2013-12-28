@@ -28,7 +28,7 @@
   <b>Shipping Address</b>
   <div id='order-address' class='panel '>
     <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %><br>
-    <p><%= link_to 'Change Address', admin_history_order_addresses_path(@order), 
+    <p><%= link_to 'Change Address', admin_fulfillment_order_addresses_path(@order), 
       :class => 'btn green' %> <br>
       (This will not change the shipments that have already been placed)</p>
   </div>

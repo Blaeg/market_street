@@ -1,5 +1,5 @@
 class Admin::Fulfillment::ReturnAuthorizationsController < Admin::BaseController
-  add_breadcrumb "Order", :admin_history_orders_path
+  add_breadcrumb "Order", :admin_fulfillment_orders_path
   add_breadcrumb "Return Authorizations", :admin_fulfillment_order_return_authorizations_path
   before_filter :current_order
   

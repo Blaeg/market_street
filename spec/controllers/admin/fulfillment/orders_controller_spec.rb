@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::History::OrdersController do
+describe Admin::Fulfillment::OrdersController do
   render_views
 
   before(:each) do

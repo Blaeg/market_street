@@ -51,7 +51,7 @@ module MarketStreet
       g.fixture_replacement :factory_girl , :dir=>"spec/factories"
     end
 
-    ['bootstrap'].each do |theme|
+    ['default', 'bootstrap'].each do |theme|
       ['fonts', 'images', 'stylesheets', 'javascripts'].each do |folder| 
         config.assets.paths << "#{Rails.root}/app/themes/#{theme}/assets/#{folder}"
       end

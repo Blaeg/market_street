@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::History::AddressesController do
+describe Admin::Fulfillment::OrderAddressesController do
   render_views
 
   before(:each) do
@@ -37,7 +37,7 @@ describe Admin::History::AddressesController do
     @address = build(:address)
     Address.any_instance.stubs(:valid?).returns(true)
     post :create, :order_id => @order.number,:address => @address.attributes
-    expect(response).to redirect_to(admin_history_order_url(@order))
+    expect(response).to redirect_to(admin_fulfillment_order_path(@order))
   end
 
   it "edit action renders edit template" do
@@ -57,7 +57,7 @@ describe Admin::History::AddressesController do
     @address = create(:address)
     Address.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @address.id, :order_id => @order.number
-    expect(response).to redirect_to(admin_history_order_url(@order))
+    expect(response).to redirect_to(admin_fulfillment_order_path(@order))
   end
 
 end
