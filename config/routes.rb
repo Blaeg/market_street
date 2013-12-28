@@ -114,7 +114,6 @@ MarketStreet::Application.routes.draw do
     
     namespace :config do
       resources :countries, :only => [:index, :update, :destroy]
-      resources :overviews
       resources :shipping_rates
       resources :shipping_methods
       resources :shipping_zones

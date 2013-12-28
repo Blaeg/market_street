@@ -18,7 +18,7 @@ class Admin::Config::ShippingMethodsController < Admin::Config::BaseController
   # POST /admin/config/shipping_methods
   def create
     @shipping_method = ShippingMethod.new(allowed_params)
-
+    
     if @shipping_method.save
       redirect_to(admin_config_shipping_methods_url, :notice => 'Shipping method was successfully created.')
     else      

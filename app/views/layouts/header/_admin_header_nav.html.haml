@@ -66,19 +66,20 @@
         %a{href: "/admin/fulfillment/invoices"} Invoices
       %li
         %a{href: "/admin/fulfillment/orders"} Fulfillments
-  %li#config_tab.dropdown
-    %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/config/tax_rates"}
-      %i.fa.fa-gear
-      Config
-      %b.caret
-    %ul.dropdown-menu
-      %li
-        %a{href: "/admin/config/tax_rates"} Tax Rates
-      %li
-        %a{href: "/admin/config/countries"} Countries
-      %li
-        %a{href: "/admin/config/shipping_zones"} Shipping Zones
-      %li
-        %a{href: "/admin/config/shipping_methods"} Shipping Methods
-      %li
-        %a{href: "/admin/config/shipping_rates"} Shipping Rates
+  - if can? :manage, :view_admin_config
+    %li#config_tab.dropdown
+      %a.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", href: "/admin/config/tax_rates"}
+        %i.fa.fa-gear
+        Config
+        %b.caret
+      %ul.dropdown-menu
+        %li
+          %a{href: "/admin/config/tax_rates"} Tax Rates
+        %li
+          %a{href: "/admin/config/countries"} Countries
+        %li
+          %a{href: "/admin/config/shipping_zones"} Shipping Zones
+        %li
+          %a{href: "/admin/config/shipping_methods"} Shipping Methods
+        %li
+          %a{href: "/admin/config/shipping_rates"} Shipping Rates
