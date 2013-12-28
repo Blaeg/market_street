@@ -1,6 +1,6 @@
 - content_for :sidemenu do
   .span2
-    = form_tag( admin_reports_dashboard_path, :method => :GET, :id => 'request_report_form') do 
+    = form_tag( admin_dashboard_path, :method => :GET, :id => 'request_report_form') do 
       %label Start Date
       = text_field_tag 'start_date', nil, :placeholder => 'dd/mm/yyyy', :class => 'ui-datepicker span12'
       %br

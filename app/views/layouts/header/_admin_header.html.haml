@@ -1,7 +1,7 @@
 .navbar.navbar-inverse
   .navbar-inner
     .container-fluid
-      .brand= link_to (site_name+' Admin') , admin_reports_dashboard_path
+      .brand= link_to (site_name+' Admin') , admin_dashboard_path
       .nav-collapse
         = render "layouts/header/admin_header_nav"
         = #render_navigation expand_all: true, renderer: :bootstrap, context: :admin
@@ -11,6 +11,6 @@
             =fa_icon "caret-down", text: current_user.first_name, class: "pull-right"
           %ul.dropdown-menu            
             -if current_user.admin?
-              %li= link_to 'Admin', admin_reports_dashboard_path
+              %li= link_to 'Admin', admin_dashboard_path
               %li.divider
             %li= link_to 'Log Out', logout_path, :method => 'DELETE'			 

@@ -3,7 +3,7 @@ class Admin::ReportsController < Admin::BaseController
   before_filter :set_start_date, :set_end_date
   
   def dashboard
-    add_breadcrumb "Dashboard", :admin_reports_dashboard_path
+    add_breadcrumb "Dashboard", :admin_dashboard_path
     
     @accounting_report = ::Reports::Accounting.new(start_date, end_date)
     @orders_report = ::Reports::Orders.new(start_date, end_date)

@@ -183,6 +183,6 @@ MarketStreet::Application.routes.draw do
     end    
 
     get 'onboard' => 'onboard#index', as: :onboard         
-    get 'dashboard' => 'reports#dashboard', as: :reports_dashboard          
+    get 'dashboard' => 'reports#dashboard', as: :dashboard          
   end
 end

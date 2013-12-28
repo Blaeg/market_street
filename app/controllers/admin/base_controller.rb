@@ -1,5 +1,5 @@
 class Admin::BaseController < ApplicationController
-  add_breadcrumb "Admin", :admin_reports_dashboard_path
+  add_breadcrumb "Admin", :admin_dashboard_path
   before_filter :verify_admin
   helper_method :sort_column, :sort_direction
   layout 'admin'
