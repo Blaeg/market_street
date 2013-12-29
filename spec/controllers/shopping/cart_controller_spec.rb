@@ -26,7 +26,7 @@ describe Shopping::CartController do
     let(:cart_items_attributes) { {"0"=>{"quantity"=> @cart_item.quantity+1, "id"=>@cart_item.id}} }        
     it "updates cart item quantity and refreshes" do 
       put :update, :id => @cart.id, "commit"=>"Update", 
-        "cart" => {"cart_items_attributes" => cart_items_attributes }
+        "cart_item" => cart_items_attributes
       expect(response).to redirect_to shopping_cart_path
     end
   end
@@ -35,7 +35,7 @@ describe Shopping::CartController do
     let(:cart_items_attributes) { {"0"=>{"id"=>@cart_item.id}} }        
     it "redirects to checkout page" do 
       put :update, :id => @cart.id, :commit => 'Checkout', 
-        "cart" => {"cart_items_attributes" => cart_items_attributes }
+        "cart_item" => cart_items_attributes 
       expect(response).to redirect_to checkout_shopping_order_url('checkout')      
     end
   end
