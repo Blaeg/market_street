@@ -1,20 +1,19 @@
 require 'sidekiq/web'
 
 MarketStreet::Application.routes.draw do
-  get 'admin' => 'admin/reports#dashboard'
-
+  root :to => "home#index"
+  
+  #login
   get 'login' => 'customer/user_sessions#new'
   delete 'logout' => 'customer/user_sessions#destroy'
   get 'signup' => 'customer/registrations#new'
-  
-  resource  :unsubscribe, :only => :show
+  get 'admin' => 'admin/reports#dashboard'
 
+  #static
   get 'about' => 'home#about', as: :about_home
   get 'faq' => 'home#faq', as: :faq_home
   get 'terms' => 'home#terms', as: :terms_home
-  get 'subscription' => 'home#subscription', as: :subscription_home
-
-  root :to => "home#index"
+  #get 'subscription' => 'home#subscription', as: :subscription_home
 
   #CUSTOMER
   namespace :customer do
