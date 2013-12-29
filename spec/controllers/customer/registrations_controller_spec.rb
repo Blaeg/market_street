@@ -1,28 +1,39 @@
 require 'spec_helper'
 
 describe Customer::RegistrationsController do
+  describe "#new" do 
+    it "renders" do 
+      get :new
+      expect(response).to be_success
+    end
+  end
+
   describe "#create" do
-    context "when login fails" do
-      it "displays a message with login failure and render the login template" do
-        post :create, :user_session => {:email => 'test@test.com'}
-        flash[:alert].should == I18n.t('login_failure')
-        expect(response).to redirect_to login_url
+    context "when signup succeeds" do
+      let(:user) { build(:user) }
+      it "displays a message with login success and redirect to root_url" do
+        expect(EmailWorker::SendSignUpNotification).to receive(:perform_async)
+        post :create, :user => {:password => user.password, 
+                                :password_confirmation => user.password_confirmation, 
+                                :first_name => user.first_name, 
+                                :last_name => user.last_name, 
+                                :email => user.email}
+        expect(flash[:alert]).to match(/Your account has been created/)
+        expect(response).to redirect_to root_url
       end
     end
-  end
 
-  describe "#destroy" do
-    let(:user) { create(:user) }
-    let(:user_session) { UserSession.create :email => user.email, :password => 'password' }
-
-    before do
-      subject.stubs(:current_user_session).returns(user)
+    context "when signup fails" do
+      let(:user) { build(:user) }
+      it "displays a message with login failure and render the sign up template" do
+        post :create, :user => {:password => user.password, 
+                                :password_confirmation => 'wrong password', 
+                                :first_name => user.first_name, 
+                                :last_name => user.last_name, 
+                                :email => user.email}
+        expect(flash[:alert]).to match(/There is an error/)
+        expect(response).to redirect_to new_customer_registration_url
+      end
     end
-
-    it "displays a message with logout success and render the login template" do
-      post :destroy
-      flash[:notice].should == I18n.t('logout_successful')
-      expect(response).to redirect_to login_url
-    end
-  end
+  end  
 end

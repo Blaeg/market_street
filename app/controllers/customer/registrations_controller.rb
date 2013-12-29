@@ -1,10 +1,6 @@
 class Customer::RegistrationsController < ApplicationController
   layout 'light'
 
-  def index
-    redirect_to :action => :new
-  end
-
   def new
     @registration = true
     @user         = User.new
@@ -37,5 +33,4 @@ class Customer::RegistrationsController < ApplicationController
   def allowed_params
     params.require(:user).permit(:password, :password_confirmation, :first_name, :last_name, :email)
   end
-
 end
