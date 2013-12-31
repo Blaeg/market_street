@@ -1,0 +1,18 @@
+.span3.pull-right
+	%table
+		%tr
+			%td.span2 Subtotal
+			%td.pull-right= number_to_currency @cart.sub_total
+		- if @cart.shipping > 0 
+			%tr
+				%td Shipping
+				%td.pull-right= number_to_currency @cart.shipping			
+		- if @cart.tax > 0 
+			%tr
+				%td Tax
+				%td.pull-right= number_to_currency @cart.tax			
+		%tr
+			%td 
+				%strong Total
+			%td.pull-right= number_to_currency @cart.total			
+	%hr
