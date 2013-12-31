@@ -1,1 +1,1 @@
-rvm use --create 2.0.0@market_street
+rvm use 2.0.0-p353@market_street

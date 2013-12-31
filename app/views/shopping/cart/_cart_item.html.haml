@@ -1,9 +1,0 @@
-%tr
-  %td.muted
-    =link_to image_tag(item.variant.featured_image), catalog_product_path(item.variant.product)      
-  %td= link_to item.variant.product_name, catalog_product_path(item.variant.  product)
-  %td= number_to_currency item.price
-  %td
-    = cart_items_form.number_field :quantity, :size => item.quantity
-    = item.variant.display_stock_status('', '')
-  %td= number_to_currency item.total

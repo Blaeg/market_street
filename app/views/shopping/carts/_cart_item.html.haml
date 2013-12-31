@@ -1,0 +1,11 @@
+%tr
+  %td.muted
+    =link_to image_tag(item.variant.featured_image), catalog_product_path(item.variant.product)      
+  %td
+    = link_to item.variant.product_name, catalog_product_path(item.variant.  product)
+    = item.variant.display_stock_status('', '')
+  %td= number_to_currency item.price
+  %td
+    = simple_form_for item, :url => shopping_cart_item_path(item), :method => :put do |f|
+      = f.input :quantity, collection: (0..6), input_html: { class: 'cart_item_quantity span1', 'data-cart-item-id'=> item.id}    
+  %td= number_to_currency item.total

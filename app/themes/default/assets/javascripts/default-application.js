@@ -11,5 +11,3 @@
 
 //= require_tree  ./layout
 //= require foundation
-
-$(function(){ $(document).foundation(); });

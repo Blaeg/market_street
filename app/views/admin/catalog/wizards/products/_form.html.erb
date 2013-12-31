@@ -2,12 +2,6 @@
   <%= javascript_include_tag 'admin/merchandise_product' %>
 <% end %>
 
-<% content_for :below_body do -%>
-  <script>
-    MarketStreet.AdminMerchandiseProductForm.initialize(<%= @product.id %>);
-  </script>
-<% end %>
-
 <%= error_messages_for 'product' %>
 
 <label>Name</label>
@@ -45,3 +39,9 @@
     <% end %>
   </div>
 </fieldset>
+
+<% content_for :below_body do -%>
+  <script>
+    MarketStreet.AdminMerchandiseProductForm.initialize(<%= @product.id %>);
+  </script>
+<% end %>

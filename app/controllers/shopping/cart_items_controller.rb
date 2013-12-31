@@ -1,8 +1,4 @@
-class Shopping::CartController < Shopping::BaseController
-  def current
-    @cart_items = session_cart.cart_items
-  end
-
+class Shopping::CartItemsController < Shopping::BaseController
   def create
     session_cart.save if session_cart.new_record?
     
@@ -23,14 +19,15 @@ class Shopping::CartController < Shopping::BaseController
 
   # PUT /shopping/cart_items
   def update
-    if session_cart.update_attributes(allowed_params)
-      if params[:commit] && params[:commit] == "Checkout"
-        redirect_to( checkout_shopping_order_url('checkout'))
-      else
-        redirect_to(shopping_cart_path, :notice => I18n.t('item_passed_update') )
+    @cart_item = CartItem.find(params[:id])
+    if @cart_item.update_attributes(allowed_params)
+      respond_to do |format|
+        format.json { render json: {:message => I18n.t('item_passed_update')}, status: :ok}
       end
-    else
-      redirect_to(shopping_cart_path, :notice => I18n.t('item_failed_update') )
+   else
+      respond_to do |format|
+        format.json { render json: {:message => I18n.t('item_failed_update')}, status: :ok}      
+      end      
     end
   end
 
@@ -43,6 +40,6 @@ class Shopping::CartController < Shopping::BaseController
   private
 
   def allowed_params
-    params.require(:cart_item).permit!
+    params.require(:cart_item).permit(:quantity)
   end
 end

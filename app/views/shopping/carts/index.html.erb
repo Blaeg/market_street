@@ -1,0 +1,31 @@
+<% if @cart.cart_items.blank? or @cart.cart_items.empty? %>
+  <h3 style='text-align:center;'><%= I18n.t(:nothing_in_cart) %></h3>
+<% else %>
+  <%= render :partial => 'cart_items_table' %>
+  <%= render :partial => 'discount_and_gift_card' %>
+  <%= link_to 'Checkout', checkout_shopping_order_url('checkout'), class: 'btn btn-primary btn-large pull-right' %>    
+<% end %> 
+
+<% content_for :below_body do %>
+  <script>
+  	jQuery(document).ready(function ($) {
+  		$( ".cart_item_quantity" ).change(function() {
+  			var cartItemId = $(this).attr('data-cart-item-id');
+  			var form = $('#edit_cart_item_'+cartItemId);
+  			
+  			$.ajax({  
+				  type: "POST",  
+				  url: form.attr("action"),  
+				  data: form.serializeArray(),  
+				  success: function() {  
+				    location.reload();
+				  },
+				  error: function(jqXHR, textStatus, errorThrown) {
+            alert('failure');
+        	}
+				});  
+				return false;
+  	  });
+  	});
+  </script>
+<% end %>
