@@ -7,7 +7,7 @@ class Shopping::BaseController < ApplicationController
   private
 
   def next_form_url(order)
-    next_form(order) || shopping_orders_url
+    next_form(order) || shopping_checkout_path
   end
 
   def next_form(order)

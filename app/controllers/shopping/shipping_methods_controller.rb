@@ -5,6 +5,7 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
     session_order.find_sub_total
     @order_items = session_order.order_items
     @order_items.each do |item|
+      binding.pry
       shipping_rates = item.variant.product.shipping_method.shipping_rates
       item.variant.product.available_shipping_rates = shipping_rates              
     end
@@ -13,7 +14,7 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
   # PUT /shopping/shipping_methods/1
   def update
     all_selected = true
-    redirect_to(shopping_orders_url) and return unless params[:shipping_category].present?
+    redirect_to(shopping_checkout_path) and return unless params[:shipping_category].present?
     params[:shipping_category].each_pair do |rate_id|#[rate]
       if rate_id
         items = OrderItem.includes([{:variant => :product}]).
@@ -25,7 +26,7 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
       end
     end
     if all_selected
-      redirect_to(shopping_orders_url, :notice => I18n.t('shipping_method_updated'))
+      redirect_to(shopping_checkout_path, :notice => I18n.t('shipping_method_updated'))
     else
       redirect_to( shopping_shipping_methods_url, :notice => I18n.t('all_shipping_methods_must_be_selected'))
     end

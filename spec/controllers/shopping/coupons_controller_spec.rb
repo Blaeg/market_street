@@ -35,8 +35,8 @@ describe Shopping::CouponsController do
     create(:coupon_value, :code => 'qwerty' )
     Coupons::CouponValue.any_instance.stubs(:eligible?).returns(true)
     Shopping::CouponsController.any_instance.stubs(:update_order_coupon_id).returns(true)
-    @controller.expects(:next_form_url).returns(shopping_orders_url)
+    @controller.expects(:next_form_url).returns(shopping_checkout_path)
     post :create, :coupon => {:code => 'qwerty' }
-    expect(response).to redirect_to(shopping_orders_url)
+    expect(response).to redirect_to(shopping_checkout_path)
   end
 end

@@ -53,7 +53,7 @@ describe Shopping::ShippingMethodsController do
     @shipping_rate = create(:shipping_rate)
     @shipping_method = create(:shipping_method)
     put :update, :id => @shipping_method.id                 
-    expect(response).to redirect_to(shopping_orders_url)
+    expect(response).to redirect_to(shopping_checkout_path)
   end
 
   it "update action redirects when model is valid" do
@@ -67,9 +67,9 @@ describe Shopping::ShippingMethodsController do
     @shipping_rate = create(:shipping_rate)
     @shipping_method = create(:shipping_method)
     @controller.stubs(:not_secure?).returns(false)
-    @controller.stubs(:next_form_url).returns(shopping_orders_url)
+    @controller.stubs(:next_form_url).returns(shopping_checkout_path)
     ShippingMethod.any_instance.stubs(:valid?).returns(true)
     put :update, :id => @shipping_method.id
-    expect(response).to redirect_to(shopping_orders_url)
+    expect(response).to redirect_to(shopping_checkout_path)
   end
 end
