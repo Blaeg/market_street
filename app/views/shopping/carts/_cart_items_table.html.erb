@@ -11,15 +11,6 @@
   <tbody>
     <% @cart.cart_items.each do |item| %>
       <%= render :partial => 'cart_item', :locals => {:item => item} %>      
-    <% end %>   
-    <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>
-        <strong><%= number_to_currency @cart.cart_items.map(&:total).sum %></strong>
-      </td>
-    </tr>     
+    <% end %>     
   </tbody>
 </table>      

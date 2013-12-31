@@ -1,0 +1,21 @@
+<div class="span3 pull-right">
+	<table>
+		<tr>
+			<td class="span2">Subtotal</td>
+			<td class="pull-right"><%= number_to_currency @cart.sub_total %></td>
+		</tr>
+		<tr>
+			<td>Shipping</td>
+			<td class="pull-right"><%= number_to_currency @cart.shipping %></td>
+		</tr>
+		<tr>
+			<td>Tax</td>
+			<td class="pull-right"><%= number_to_currency @cart.tax %></td>
+		</tr>
+		<tr>
+			<td><strong>Total</strong></td>
+			<td class="pull-right"><strong><%= number_to_currency @cart.total %></strong></td>
+		</tr>
+	</table>		
+	<hr>
+</div>
