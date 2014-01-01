@@ -5,7 +5,6 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
     session_order.find_sub_total
     @order_items = session_order.order_items
     @order_items.each do |item|
-      binding.pry
       shipping_rates = item.variant.product.shipping_method.shipping_rates
       item.variant.product.available_shipping_rates = shipping_rates              
     end

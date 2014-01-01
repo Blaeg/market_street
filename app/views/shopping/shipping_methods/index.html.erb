@@ -3,7 +3,6 @@
 <div class='clearfix'>
   <%= form_tag(shopping_shipping_method_path(session_order.id), html: {class: 'custom'}, method: :put) do -%>
   <% @order_items.each do |item| %>
-  <% binding.pry %>
   <div class='column float-left span10 line_items_blue last'>
     <div class='span9 clearfix panel'>
       <div class='span6 columns'>

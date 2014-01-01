@@ -79,7 +79,6 @@ class Cart < ActiveRecord::Base
   # @param [Order] order to insert the shopping cart variants into
   # @return [order]  return order because teh order returned has a diffent quantity
   def add_items_to_checkout(order)
-    binding.pry
     if order.in_progress?
       order.order_items.map(&:destroy)
       order.order_items.reload

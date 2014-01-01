@@ -151,7 +151,6 @@ class Order < ActiveRecord::Base
   end
 
   def add_cart_item( item, state_id = nil)
-    binding.pry
     self.save! if self.new_record?
     tax_rate_id = state_id ? item.variant.product.tax_rate(state_id) : nil
     oi =  OrderItem.create(
@@ -160,7 +159,6 @@ class Order < ActiveRecord::Base
         :price        => item.variant.price,
         :quantity     => item.quantity,
         :tax_rate_id  => tax_rate_id)
-    binding.pry
     self.order_items.push(oi)    
   end
 
