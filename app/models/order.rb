@@ -86,7 +86,13 @@ class Order < ActiveRecord::Base
   validates :user_id,     :presence => true
   validates :email,       :presence => true,
                           :format   => { :with => CustomValidators::Emails.email_validator }
-
+  
+  scope :active_session_carts,  -> (user, session_id) { where(state: :active, user_id: user, session_id: session_id) }
+  scope :between, -> (start_time, end_time) { where("orders.completed_at >= ? AND orders.completed_at <= ?", start_time, end_time) }
+  scope :finished, -> { where({:orders => { :state => ['complete', 'paid']}})}
+  scope :order_by_completion, order('orders.completed_at asc')
+  scope :find_customer_details, includes([:completed_invoices, :invoices])
+  
   NUMBER_SEED     = 1001001001000
   CHARACTERS_SEED = 21
 
@@ -134,22 +140,6 @@ class Order < ActiveRecord::Base
     invoices.last.state
   end
 
-  def self.between(start_time, end_time)
-    where("orders.completed_at >= ? AND orders.completed_at <= ?", start_time, end_time)
-  end
-
-  def self.order_by_completion
-    order('orders.completed_at asc')
-  end
-
-  def self.finished
-    where({:orders => { :state => ['complete', 'paid']}})
-  end
-
-  def self.find_customer_details
-    includes([:completed_invoices, :invoices])
-  end
-
   def add_cart_item( item, state_id = nil)
     self.save! if self.new_record?
     tax_rate_id = state_id ? item.variant.product.tax_rate(state_id) : nil
@@ -158,7 +148,9 @@ class Order < ActiveRecord::Base
         :variant_id   => item.variant.id,
         :price        => item.variant.price,
         :quantity     => item.quantity,
+        :shipping_amount => item.shipping_amount,
         :tax_rate_id  => tax_rate_id)
+
     self.order_items.push(oi)    
   end
 
@@ -246,22 +238,12 @@ class Order < ActiveRecord::Base
   end
 
   def create_shipments_with_order_item_ids(order_item_ids)
-    created_shipments = false
-    self.order_items.find(order_item_ids).group_by(&:shipping_method_id).each do |shipping_method_id, order_items|
-      shipment = Shipment.new(:shipping_method_id => shipping_method_id,
-                              :address_id         => self.ship_address_id,
-                              :order_id           => self.id
-                              )
-      shipment_has_items = false
-      order_items.each do |item|
-        if item.paid?
-          shipment.order_items.push(item)
-          shipment_has_items = true
-        end
-      end
-      created_shipments = shipment.prepare! if shipment_has_items # just because there might not be any order items that are paid? within order_item_ids
-    end
-    created_shipments
+    self.order_items.find(order_item_ids).map do |order_item|
+      shipment = Shipment.new(:address_id => self.ship_address_id,
+                              :order_id => self.id )          
+      shipment.order_items.push(order_item) if order_item.paid?
+      shipment.prepare! if shipment.order_items.size > 0
+    end.any?
   end
 
   # add the variant to the order items in the order, normally called at order creation

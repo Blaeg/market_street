@@ -123,28 +123,8 @@ describe Shipment, '#create_shipments_with_items(order)' do
     order    = Order.find(@order.id)
     shipment = Shipment.create_shipments_with_items(order)
     order.reload
-    order.shipments.size.should == 2
-    #shipment.order_item_ids.should == order.order_item_ids
+    order.shipments.size.should == 2    
   end
-#shipping_method_id
-
-  it 'create 1 shipment with items with the same shipping method'do
-    #shipping_method = create(:shipping_method)
-    shipping_rate = create(:shipping_rate)
-
-    order_item  = create(:order_item, :order => @order, :shipping_rate => shipping_rate)
-    order_item2 = create(:order_item, :order => @order, :shipping_rate => shipping_rate)
-    @order.order_items.push(order_item)
-    @order.order_items.push(order_item2)
-    @order.save
-
-    order    = Order.find(@order.id)
-    shipment = Shipment.create_shipments_with_items(order)
-    order.reload
-    order.shipments.size.should == 1
-    #shipment.order_item_ids.should == order.order_item_ids
-  end
-
 end
 
 describe Shipment, 'Class Methods' do

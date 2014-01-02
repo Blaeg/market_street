@@ -32,13 +32,13 @@ class Shopping::BillingAddressesController < Shopping::BaseController
       @shopping_address = current_user.addresses.find(params[:shopping_address_id])
     end
 
-      if @shopping_address.id
-        update_order_address_id(@shopping_address.id)
-        redirect_to(next_form_url(session_order))
-      else
-        form_info
-        render :action => "index"
-      end
+    if @shopping_address.id
+      update_order_address_id(@shopping_address.id)
+      redirect_to(next_form_url(session_order))
+    else
+      form_info
+      render :action => "index"
+    end
   end
 
   def update
@@ -49,18 +49,18 @@ class Shopping::BillingAddressesController < Shopping::BaseController
     @shopping_address.default         = true if params[:id].to_i == current_user.default_shipping_address.try(:id)
     @shopping_address.billing_default = true if params[:id].to_i == current_user.default_billing_address.try(:id)
 
-      if @shopping_address.save
-        update_order_address_id(@shopping_address.id)
-        redirect_to(next_form_url(session_order))
-      else
-        # the form needs to have an id
-        @form_address = current_user.addresses.find(params[:id])
-        # the form needs to reflect the attributes to customer entered
-        @form_address.attributes = allowed_params
-        @form_address.phones.build if @form_address.phones.empty?
-        @states     = State.form_selector
-        render action: "edit"
-      end
+    if @shopping_address.save
+      update_order_address_id(@shopping_address.id)
+      redirect_to(next_form_url(session_order))
+    else
+      # the form needs to have an id
+      @form_address = current_user.addresses.find(params[:id])
+      # the form needs to reflect the attributes to customer entered
+      @form_address.attributes = allowed_params
+      @form_address.phones.build if @form_address.phones.empty?
+      @states     = State.form_selector
+      render action: "edit"
+    end
   end
 
   def select_address
@@ -83,7 +83,9 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   end
 
   def allowed_params
-    params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :billing_default, :country_id)
+    params.require(:address).permit(:first_name, :last_name, 
+      :address1, :address2, :city, :state_id, :state_name, 
+      :zip_code, :default, :billing_default, :country_id)
   end
 
   def phone_types
@@ -96,8 +98,6 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   end
 
   def update_order_address_id(id)
-    session_order.update_attributes(
-                          :bill_address_id => id
-                                    )
+    session_order.update_attributes(:bill_address_id => id)
   end
 end

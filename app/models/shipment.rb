@@ -92,14 +92,10 @@ class Shipment < ActiveRecord::Base
   # @param [Order]
   # @return [ none ]
   def self.create_shipments_with_items(order)
-    order.order_items.group_by(&:shipping_method_id).each do |shipping_method_id, order_items|
-      shipment = Shipment.new(:shipping_method_id => shipping_method_id,
-                              :address_id         => order.ship_address_id,
-                              :order_id           => order.id
-                              )
-      order_items.each do |item|
-        shipment.order_items.push(item)
-      end
+    order.order_items.each do |order_item|
+      shipment = Shipment.new(:address_id         => order.ship_address_id,
+                              :order_id           => order.id)
+      shipment.order_items.push(order_item)
       shipment.prepare!
     end
   end

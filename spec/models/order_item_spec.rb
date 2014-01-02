@@ -40,26 +40,11 @@ describe OrderItem, "instance methods" do
     end
   end
 
-  context ".shipping_method" do
-    #shipping_rate.shipping_method
-    it 'returns the shipping method' do
-      @order_item.shipping_method.should == @order_item.shipping_rate.shipping_method
-    end
-  end
-
-  context ".shipping_method_id" do
-    it 'returns the shipping method id' do
-      @order_item.shipping_method_id.should == @order_item.shipping_rate.shipping_method_id
-    end
-  end
-
   context ".calculate_order" do
     it 'calculate order once after calling method twice' do
       order     = mock()
       @order_item.stubs(:ready_to_calculate?).returns(true)
       @order_item.stubs(:order).returns(order)
-      shipping_rate = create(:shipping_rate)
-      @order_item.shipping_rate = shipping_rate
       @order_item.order.expects(:calculate_totals).once
       @order_item.calculate_order
       @order_item.calculate_order
@@ -76,19 +61,11 @@ describe OrderItem, "instance methods" do
 
   context ".ready_to_calculate?" do
     it 'is ready to calculate if we know the shipping rate and tax rate' do
-      @order_item.shipping_rate_id = 1
       @order_item.tax_rate_id = 1
       @order_item.ready_to_calculate?.should be_true
     end
 
-    it 'is not ready to calculate if we dont know the shipping rate ' do
-      @order_item.shipping_rate_id = nil
-      @order_item.tax_rate_id = 1
-      @order_item.ready_to_calculate?.should be_false
-    end
-
     it 'is not ready to calculate if we know the tax rate' do
-      @order_item.shipping_rate_id = 1
       @order_item.tax_rate_id = nil
       @order_item.ready_to_calculate?.should be_false
     end
@@ -168,7 +145,4 @@ describe OrderItem, "With VAT" do
       order_item.amount_of_charge_without_vat.should == 18.18
     end
   end
-end
-describe OrderItem, "#order_items_in_cart(order_id)" do
-  pending "test for order_items_in_cart(order_id)"
 end
