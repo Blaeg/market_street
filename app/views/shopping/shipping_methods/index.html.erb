@@ -15,11 +15,6 @@
     </div>          
   </div>
   <% end %>
-  <ul class='span10'>
-    <% @order_items.first.shipping_rate_options(session_order.sub_total).each do |rate| %>
-    <li><%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %> <%= rate.name_rate_min %></li>
-    <% end %>
-  </ul>
   <div class='span10 clearfix offset-by-two'>
     <%= submit_tag 'continue', :class => 'btn' %>
   </div>

@@ -55,8 +55,6 @@ MarketStreet::Application.routes.draw do
       end
     end
     
-    resources  :shipping_methods
-
     resources  :orders do
       member do
         get :confirmation

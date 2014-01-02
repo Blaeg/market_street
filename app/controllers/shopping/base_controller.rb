@@ -11,18 +11,15 @@ class Shopping::BaseController < ApplicationController
   end
 
   def next_form(order)
-    # if cart is empty
-    if session_cart.cart_items.empty?
+    if session_cart.cart_items.empty? # if cart is empty
       flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')
       return products_url
-    ## If we are insecure
-    elsif not_secure?
+    
+    elsif not_secure? ## If we are insecure
       session[:return_to] = shopping_orders_url
       return login_url()
     elsif session_order.ship_address_id.nil?
       return shopping_addresses_url()
-    elsif !session_order.all_order_items_have_a_shipping_rate?
-      return shopping_shipping_methods_url()  
     end
   end
 
