@@ -7,13 +7,13 @@ class Shopping::BaseController < ApplicationController
   private
 
   def next_form_url(order)
-    next_form(order) || shopping_checkout_path
+    next_form(order) || shopping_orders_path
   end
 
   def next_form(order)
     if session_cart.cart_items.empty? # if cart is empty
       flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')
-      return products_url
+      return catalog_products_url
     
     elsif not_secure? ## If we are insecure
       session[:return_to] = shopping_orders_url
@@ -45,12 +45,13 @@ class Shopping::BaseController < ApplicationController
   end
 
   def find_or_create_order
+    binding.pry
     return @session_order if @session_order
     if session[:order_id].nil?
       create_order
     else
       @session_order = current_user.orders.include_checkout_objects.find(session[:order_id])
-      create_order if !@session_order.in_progress?
+      create_order unless @session_order.in_progress?
     end
     @session_order
   end

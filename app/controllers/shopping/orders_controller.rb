@@ -38,29 +38,32 @@ class Shopping::OrdersController < Shopping::BaseController
     if !@order.in_progress?
       flash[:error] = I18n.t('the_order_purchased')
       redirect_to myaccount_order_url(@order)
-    elsif @credit_card.valid?
-      if response = @order.create_invoice(@credit_card,
-                                          @order.credited_total,
-                                          {:email => @order.email, :billing_address=> address, :ip=> @order.ip_address },
-                                          @order.amount_to_credit)
-        if response.succeeded?
-          expire_all_browser_cache
-          ##  MARK items as purchased
-          session[:last_order] = @order.number
-          redirect_to( confirmation_shopping_order_url(@order) ) and return
-        else
-          flash[:alert] =  [I18n.t('could_not_process'), I18n.t('the_order')].join(' ')
-        end
-      else
-        flash[:alert] = [I18n.t('could_not_process'), I18n.t('the_credit_card')].join(' ')
-      end
-      form_info
-      render :action => 'index'
-    else
+      return 
+    end
+    
+    if !@credit_card.valid?
       form_info
       flash[:alert] = [I18n.t('credit_card'), I18n.t('is_not_valid')].join(' ')
-      render :action => 'index'
+      render :action => 'index' and return
+    end 
+
+    if response = @order.create_invoice(@credit_card, @order.credited_total,
+      { :email => @order.email, 
+        :billing_address=> address, 
+        :ip=> @order.ip_address }, @order.amount_to_credit)
+      if response.succeeded?
+        expire_all_browser_cache
+        session[:last_order] = @order.number
+        redirect_to( confirmation_shopping_order_url(@order) ) and return
+      else
+        flash[:alert] =  [I18n.t('could_not_process'), I18n.t('the_order')].join(' ')
+      end
+    else
+      flash[:alert] = [I18n.t('could_not_process'), I18n.t('the_credit_card')].join(' ')
     end
+
+    form_info
+    render :action => 'index'    
   end
 
   def confirmation

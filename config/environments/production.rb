@@ -38,8 +38,6 @@ MarketStreet::Application.configure do
                                 'autocomplete.css',
                                 'application.css',
                                 'chosen.css',
-                                'foundation.css',
-                                'foundation_and_overrides.css',
                                 'home_page.css',
                                 'ie.css',
                                 'ie6.css',
@@ -54,7 +52,6 @@ MarketStreet::Application.configure do
                                 'signup.css',
                                 'site/app.css',
                                 'sprite.css',
-                                'tables.css',
                                 'cupertino/jquery-ui-1.8.12.custom.css',# in vendor
                                 'modstyles.css', # in vendor
                                 'scaffold.css' # in vendor
