@@ -68,7 +68,7 @@ describe Order, "instance methods" do
       order_item = create(:order_item, :total => 5.52, :tax_rate => tax_rate )
 
       @order.stubs(:order_items).returns([order_item, order_item])
-      @order.stubs(:shipping_charges).returns(100.00)
+      @order.stubs(:shipping_amount).returns(100.00)
 
       # shippping == 100
       # items     == 11.04
@@ -86,7 +86,7 @@ describe Order, "instance methods" do
       @order.stubs(:calculated_at).returns(nil)
       order_item = create(:order_item, :total => 5.52 )
       @order.stubs(:order_items).returns([order_item, order_item])
-      @order.stubs(:shipping_charges).returns(10.00)
+      @order.stubs(:shipping_amount).returns(10.00)
 
 
       @order.user.store_credit.amount = 100.02
@@ -102,7 +102,7 @@ describe Order, "instance methods" do
       @order.stubs(:calculated_at).returns(nil)
       order_item = create(:order_item, :total => 5.52 )
       @order.stubs(:order_items).returns([order_item, order_item])
-      @order.stubs(:shipping_charges).returns(100.00)
+      @order.stubs(:shipping_amount).returns(100.00)
       #@order.find_total.should == 111.04
 
 
@@ -127,7 +127,7 @@ describe Order, "instance methods" do
 
       #@order.stubs(:order_items).returns([order_item1, order_item2])
       order.stubs(:coupon).returns(coupon)
-      order.stubs(:shipping_charges).returns(100.00)
+      order.stubs(:shipping_amount).returns(100.00)
 
 
       # shippping == 100
@@ -148,7 +148,7 @@ describe Order, "instance methods" do
       tax_rate = create(:tax_rate, :percentage => 10.0 )
       order_item = create(:order_item, :total => 5.52, :tax_rate => tax_rate )
       @order.stubs(:order_items).returns([order_item, order_item])
-      @order.stubs(:shipping_charges).returns(5.00)
+      @order.stubs(:shipping_amount).returns(5.00)
       # shippping ==                5.00
       # items     ==               11.04
       # taxes     == 11.04 * .10 == 1.10
@@ -260,16 +260,16 @@ describe Order, "instance methods" do
     end
   end
 #
-#shipping_charges
+#shipping_amount
 
-  context ".find_total(force = false)" do
-    it 'calculate the order totals with shipping charges' do
-      @order.stubs(:calculate_totals).returns( true )
-      @order.stubs(:calculated_at).returns(nil)
-      tax_rate = create(:tax_rate, :percentage => 10.0 )
-      order_item = create(:order_item, :total => 5.52, :tax_rate => tax_rate )
-      @order.stubs(:order_items).returns([order_item, order_item])
-      @order.stubs(:shipping_charges).returns(100.00)
+context ".find_total(force = false)" do
+  it 'calculate the order totals with shipping charges' do
+    @order.stubs(:calculate_totals).returns( true )
+    @order.stubs(:calculated_at).returns(nil)
+    tax_rate = create(:tax_rate, :percentage => 10.0 )
+    order_item = create(:order_item, :total => 5.52, :tax_rate => tax_rate )
+    @order.stubs(:order_items).returns([order_item, order_item])
+    @order.stubs(:shipping_amount).returns(100.00)
       # shippping == 100
       # items     == 11.04
       # taxes     == 11.04 * .10 == 1.10
@@ -295,26 +295,11 @@ describe Order, "instance methods" do
     end
   end
 
-  context ".shipping_charges" do
-    it 'returns one shippoing rate that all items fall under' do
-        order_item = create(:order_item )
-        ShippingRate.any_instance.stubs(:individual?).returns(false)
-        ShippingRate.any_instance.stubs(:rate).returns(1.01)
-
-        OrderItem.stubs(:order_items_in_cart).returns( [order_item, order_item] )
-
-        @order.shipping_charges.should == 1.01
-    end
-
+  context ".shipping_amount" do
     it 'returns one shipping rate that all items fall under' do
-        order_item = create(:order_item )
-        ShippingRate.any_instance.stubs(:individual?).returns(true)
-        ShippingRate.any_instance.stubs(:rate).returns(1.01)
-
-        OrderItem.stubs(:order_items_in_cart).returns( [order_item, order_item] )
-
-        @order.shipping_charges.should == 2.02
-    end
+      order_item = create(:order_item )
+      expect(@order.shipping_amount).to eq(order_item.shipping_amount)
+    end    
   end
 
   context ".add_items(variant, quantity, state_id = nil)" do
@@ -422,10 +407,12 @@ describe Order, "instance methods" do
       @order_item = FactoryGirl.create(:order_item, :order => @order)
       @order.create_shipments_with_order_item_ids([]).should be_false
     end
+    
     it "returns false if the ids cant be shipped" do
       @order_item = FactoryGirl.create(:order_item, :order => @order, :state => 'unpaid')
       @order.create_shipments_with_order_item_ids([@order_item.id]).should be_false
     end
+    
     it "returns true if the ids can be shipped" do
       @order_item = FactoryGirl.build(:order_item, :order => @order)
       @order_item.state = 'paid'

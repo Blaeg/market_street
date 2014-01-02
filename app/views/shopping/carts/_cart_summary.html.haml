@@ -3,10 +3,10 @@
 		%tr
 			%td.span2 Subtotal
 			%td.pull-right= number_to_currency @cart.sub_total
-		- if @cart.shipping > 0 
+		- if @cart.shipping_amount > 0 
 			%tr
 				%td Shipping
-				%td.pull-right= number_to_currency @cart.shipping			
+				%td.pull-right= number_to_currency @cart.shipping_amount			
 		- if @cart.tax > 0 
 			%tr
 				%td Tax

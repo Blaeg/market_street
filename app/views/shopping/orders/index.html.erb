@@ -50,7 +50,7 @@
         <td></td><td>Sub-total:</td><td><%= number_to_currency @order.sub_total %></td>
       </tr>
       <tr>
-        <td></td><td>Shipping Charges:</td><td><%= number_to_currency @order.shipping_charges %></td>
+        <td></td><td>Shipping Charges:</td><td><%= number_to_currency @order.shipping_amount %></td>
       </tr>
       <% if @order.coupon_amount > 0.0 %>
         <tr>

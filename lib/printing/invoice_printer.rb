@@ -67,7 +67,7 @@ module InvoicePrinter
 
   def shipping_charges_details(pdf, invoice)
     pdf.draw_text 'Shipping',      {:at => [130, 270 ]}
-    pdf.draw_text number_to_currency(invoice.order.shipping_charges),      {:at => [470, 270 ]}
+    pdf.draw_text number_to_currency(invoice.order.shipping_amount),      {:at => [470, 270 ]}
   end
 
   def coupon_details(pdf, invoice)

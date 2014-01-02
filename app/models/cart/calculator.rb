@@ -3,8 +3,8 @@ module Cart::Calculator
     cart_items.map(&:total).sum
   end
   
-  def shipping
-  	0.0
+  def shipping_amount
+  	cart_items.map(&:shipping_amount).sum
   end
 
   def tax 

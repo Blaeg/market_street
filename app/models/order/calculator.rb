@@ -1,12 +1,13 @@
 module Order::Calculator
+  
   def find_total(force = false)
   	calculate_totals if self.calculated_at.nil? || order_items.any? {|item| (item.updated_at > self.calculated_at) }
   	self.deal_time ||= Time.zone.now
   	self.deal_amount = Deal.best_qualifing_deal(self)
   	self.find_sub_total
   	taxable_money     = (self.sub_total - deal_amount - coupon_amount) * ((100.0 + order_tax_percentage) / 100.0)
-  	self.total        = (self.sub_total + shipping_charges - deal_amount - coupon_amount ).round_at( 2 )
-  	self.taxed_total  = (taxable_money + shipping_charges).round_at( 2 )
+  	self.total        = (self.sub_total + shipping_amount - deal_amount - coupon_amount ).round_at( 2 )
+  	self.taxed_total  = (taxable_money + shipping_amount).round_at( 2 )
   end
 
   def find_sub_total
@@ -23,7 +24,7 @@ module Order::Calculator
     if any_order_item_needs_to_be_calculated? && all_order_items_are_ready_to_calculate?
       calculate_each_order_items_total
       sub_total = total
-      self.total = total + shipping_charges
+      self.total = total + shipping_amount
       self.calculated_at = Time.zone.now
       save
     end
@@ -41,9 +42,9 @@ module Order::Calculator
   	[find_total, user.store_credit.amount].min.to_f.round_at( 2 )
   end
 
-  def all_order_items_have_a_shipping_rate?
-    !order_items.any?{ |item| item.shipping_rate_id.nil? }
-  end
+  # def all_order_items_have_a_shipping_rate?
+  #   !order_items.any?{ |item| item.shipping_rate_id.nil? }
+  # end
 
   #TAX
   def taxed_amount
@@ -59,7 +60,7 @@ module Order::Calculator
   end
 
   def tax_charges
-  	order_items.map {|item| item.tax_charge }
+  	order_items.map(&:tax_charge)
   end
 
   def total_tax_charges
@@ -81,23 +82,8 @@ module Order::Calculator
   end
 
   #SHIPPING
-  def shipping_charges(items = nil)
-    return @order_shipping_charges if defined?(@order_shipping_charges)
-    @order_shipping_charges = shipping_rates(items).inject(0.0) {|sum, shipping_rate|  sum + shipping_rate.rate  }
-  end
-
-  def display_shipping_charges
-    items = OrderItem.order_items_in_cart(self.id)
-    return 'TBD' if items.any?{|i| i.shipping_rate_id.nil? }
-    shipping_charges(items)
-  end
-
-  def shipping_rates(items = nil)
-    items ||= OrderItem.order_items_in_cart(self.id)
-    rates = items.inject([]) do |rates, item|
-      rates << item.shipping_rate if item.shipping_rate.individual? || !rates.include?(item.shipping_rate)
-      rates
-    end
+  def shipping_amount
+    order_items.map(&:shipping_amount).sum    
   end
 
   private 
@@ -123,10 +109,6 @@ module Order::Calculator
     end
   end
 
-  # prices to charge of all items before taxes and coupons and shipping
-  #
-  # @param none
-  # @return [Array] Array of prices to charge of all items before
   def item_prices
     order_items.map(&:adjusted_price)
   end

@@ -15,6 +15,9 @@
 #
 
 class CartItem < ActiveRecord::Base
+  require_dependency 'cart_item/calculator'
+  include CartItem::Calculator
+
   belongs_to :user
   belongs_to :cart
   belongs_to :variant
@@ -23,24 +26,11 @@ class CartItem < ActiveRecord::Base
 
   before_save :inactivate_zero_quantity
 
-  # Call this if you need to know the unit price of an item
-  #
-  # @param [none]
-  # @return [Float] price of the variant in the cart
-  def price
-    self.variant.price
-  end
+  scope :before, -> (at) { where( "cart_items.created_at <= ?", at ) }
+  scope :between, -> (start_time, end_time) { where("orders.completed_at >= ? AND orders.completed_at <= ?", start_time, end_time) }
 
   def name
     variant.product_name
-  end
-
-  # Call this method if you need the price of an item before taxes
-  #
-  # @param [none]
-  # @return [Float] price of the variant in the cart times quantity
-  def total
-    self.price * self.quantity
   end
 
   # Call this method to soft delete an item in the cart
@@ -53,14 +43,6 @@ class CartItem < ActiveRecord::Base
 
   def active?
     self.active
-  end
-
-  def shipping_rate
-    variant.product.shipping_rate
-  end
-
-  def self.before(at)
-    where( "cart_items.created_at <= ?", at )
   end
 
   private
