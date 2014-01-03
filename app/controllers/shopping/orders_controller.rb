@@ -1,13 +1,11 @@
 class Shopping::OrdersController < Shopping::BaseController
   before_filter :require_login
-  # GET /shopping/orders
-  ### The intent of this action is two fold
-  #
+  layout 'light'
+
+  ##### THIS METHOD IS BASICALLY A CHECKOUT ENGINE
   # A)  if there is a current order redirect to the process that
   # => needs to be completed to finish the order process.
   # B)  if the order is ready to be checked out...  give the order summary page.
-  #
-  ##### THIS METHOD IS BASICALLY A CHECKOUT ENGINE
   def index
     @order = find_or_create_order
     if f = next_form(@order)
@@ -17,7 +15,6 @@ class Shopping::OrdersController < Shopping::BaseController
       form_info
     end
   end
-
 
   #  add checkout button
   def checkout

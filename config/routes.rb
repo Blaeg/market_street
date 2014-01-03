@@ -37,7 +37,7 @@ MarketStreet::Application.routes.draw do
   #SHOPPING
   namespace :shopping do
     get 'cart' => 'carts#index', as: :cart         
-    get 'checkout' => 'orders#checkout', as: :checkout
+    get 'checkout' => 'carts#checkout', as: :checkout
     
     resources :cart_items, :only => [:update, :create, :destroy] 
     resources :wish_items, :only => [:index, :create, :destroy]    

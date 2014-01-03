@@ -1,0 +1,12 @@
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th
+      %th Product Name
+      %th Price
+      %th Quantity
+      %th Total    
+  %tbody
+    - @cart.cart_items.each do |item|
+      = render :partial => 'cart_item', :locals => {:item => item}
+    
