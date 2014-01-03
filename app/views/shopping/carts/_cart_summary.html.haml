@@ -1,15 +1,17 @@
 .span3.pull-right.well
+	%strong Order Summary
+	%hr
 	%table
 		%tr
-			%td.span2 Subtotal
+			%td.span2 Cart Total
 			%td.pull-right= number_to_currency @cart.sub_total		
 		- if @cart.shipping_amount > 0 
 			%tr
-				%td Shipping & Handling
+				%td Shipping
 				%td.pull-right= number_to_currency @cart.shipping_amount			
 		- if @cart.tax > 0 
 			%tr
-				%td Estimated Tax
+				%td Tax
 				%td.pull-right= number_to_currency @cart.tax			
 		-if @cart.credit_amount > 0
 			%tr 
