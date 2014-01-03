@@ -45,7 +45,6 @@ class Shopping::BaseController < ApplicationController
   end
 
   def find_or_create_order
-    binding.pry
     return @session_order if @session_order
     if session[:order_id].nil?
       create_order

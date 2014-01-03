@@ -168,7 +168,6 @@ class Order < ActiveRecord::Base
   ## This method creates the invoice and payment method.  If the payment is not authorized the whole transaction is roled back
   def create_invoice(credit_card, charge_amount, args, credited_amount = 0.0)
     transaction do
-      binding.pry
       new_invoice = create_invoice_transaction(credit_card, charge_amount, args, credited_amount)
       if new_invoice.succeeded?
         remove_user_store_credits
@@ -353,10 +352,8 @@ class Order < ActiveRecord::Base
   end
 
   def create_invoice_transaction(credit_card, charge_amount, args, credited_amount = 0.0)
-    binding.pry
     invoice_statement = Invoice.generate(self.id, charge_amount, credited_amount)
     invoice_statement.save
-    binding.pry
     invoice_statement.authorize_payment(credit_card, args)#, options = {})
     invoices.push(invoice_statement)
 
@@ -367,7 +364,6 @@ class Order < ActiveRecord::Base
       invoice_statement.errors.add(:base, 'Payment denied!!!')
       invoice_statement.save
     end
-    binding.pry
     invoice_statement
   end
 end
