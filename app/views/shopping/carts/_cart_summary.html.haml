@@ -1,18 +1,31 @@
-.span3.pull-right
+.span3.pull-right.well
 	%table
 		%tr
 			%td.span2 Subtotal
-			%td.pull-right= number_to_currency @cart.sub_total
+			%td.pull-right= number_to_currency @cart.sub_total		
 		- if @cart.shipping_amount > 0 
 			%tr
-				%td Shipping
+				%td Shipping & Handling
 				%td.pull-right= number_to_currency @cart.shipping_amount			
 		- if @cart.tax > 0 
 			%tr
-				%td Tax
+				%td Estimated Tax
 				%td.pull-right= number_to_currency @cart.tax			
+		-if @cart.credit_amount > 0
+			%tr 
+				%td Credit
+				%td.pull-right= number_to_currency @cart.credit_amount			
+
+		-if @cart.discount_amount > 0
+			%tr 
+				%td Discount
+				%td.pull-right= number_to_currency @cart.discount_amount			
+		%tr
+			%td{:colspan=>"2"}
+				%hr      
 		%tr
 			%td 
 				%strong Total
 			%td.pull-right= number_to_currency @cart.total			
-	%hr
+
+		
