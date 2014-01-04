@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Cart, ".sub_total" do
   context "calculator" do
     let(:cart) { create(:cart_with_two_items) }
-    let(:variant) { create(:variant) }
     
     it 'has a subtotal_amount' do
       expect(cart.subtotal_amount.to_f).to eq 15.0

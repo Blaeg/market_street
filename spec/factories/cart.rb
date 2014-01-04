@@ -1,9 +1,5 @@
 FactoryGirl.define do
   factory :cart do
-    user_id 1
-  end
-
-  factory :cart_with_user, :parent => :cart do
     user { |c| c.association(:user) }
   end
 

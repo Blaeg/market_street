@@ -5,17 +5,18 @@ module Order::Calculator
   	self.deal_time ||= Time.zone.now
   	self.deal_amount = Deal.best_qualifing_deal(self)
   	self.find_sub_total
-  	taxable_money     = (self.sub_total - deal_amount - coupon_amount) * ((100.0 + order_tax_percentage) / 100.0)
   	self.total        = (self.sub_total + shipping_amount - deal_amount - coupon_amount ).round_at( 2 )
-  	self.taxed_total  = (taxable_money + shipping_amount).round_at( 2 )
+  	self.taxed_total  = (taxable_subtotal_amount + shipping_amount).round_at( 2 )
+  end
+
+  def taxable_subtotal_amount 
+    (self.sub_total - deal_amount - coupon_amount) * ((100.0 + order_tax_percentage) / 100.0)
   end
 
   def find_sub_total
-  	self.total = 0.0
-  	order_items.each do |item|
-  		self.total = self.total + item.item_total
-  	end
-  	self.sub_total = self.total
+  	order_items.map do |item|
+  		self.total + item.item_total
+  	end.sum  	
   end
 
   def calculate_totals

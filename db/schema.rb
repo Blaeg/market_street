@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140102080127) do
+ActiveRecord::Schema.define(version: 20140104092305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,21 +179,20 @@ ActiveRecord::Schema.define(version: 20140102080127) do
 
   create_table "order_items", force: true do |t|
     t.decimal  "price",           precision: 8, scale: 2
-    t.decimal  "total",           precision: 8, scale: 2
+    t.decimal  "total_amount",    precision: 8, scale: 2
     t.integer  "order_id",                                              null: false
     t.integer  "variant_id",                                            null: false
     t.string   "state",                                                 null: false
-    t.integer  "tax_rate_id"
-    t.integer  "shipment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "quantity"
     t.float    "shipping_amount",                         default: 0.0
+    t.float    "tax_amount"
+    t.datetime "shipped_at"
+    t.datetime "delivered_at"
   end
 
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
-  add_index "order_items", ["shipment_id"], name: "index_order_items_on_shipment_id", using: :btree
-  add_index "order_items", ["tax_rate_id"], name: "index_order_items_on_tax_rate_id", using: :btree
   add_index "order_items", ["variant_id"], name: "index_order_items_on_variant_id", using: :btree
 
   create_table "orders", force: true do |t|
@@ -205,14 +204,18 @@ ActiveRecord::Schema.define(version: 20140102080127) do
     t.integer  "bill_address_id"
     t.integer  "ship_address_id"
     t.integer  "coupon_id"
-    t.boolean  "active",                                  default: true,  null: false
-    t.boolean  "shipped",                                 default: false, null: false
+    t.boolean  "active",                                  default: true, null: false
     t.integer  "shipments_count",                         default: 0
     t.datetime "calculated_at"
     t.datetime "completed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "credited_amount", precision: 8, scale: 2, default: 0.0
+    t.decimal  "credit_amount",   precision: 8, scale: 2, default: 0.0
+    t.integer  "cart_id"
+    t.datetime "shipped_at"
+    t.float    "shipping_amount"
+    t.float    "tax_amount"
+    t.float    "total_amount"
   end
 
   add_index "orders", ["bill_address_id"], name: "index_orders_on_bill_address_id", using: :btree

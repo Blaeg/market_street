@@ -29,6 +29,8 @@ class CartItem < ActiveRecord::Base
   scope :before, -> (at) { where( "cart_items.created_at <= ?", at ) }
   scope :between, -> (start_time, end_time) { where("orders.completed_at >= ? AND orders.completed_at <= ?", start_time, end_time) }
 
+  delegate :price, :to => :variant
+
   def name
     variant.product_name
   end
@@ -43,6 +45,16 @@ class CartItem < ActiveRecord::Base
 
   def active?
     self.active
+  end
+
+   def to_order_item_attributes
+    {
+      :variant           => variant,
+      :price             => price,
+      :quantity          => quantity,
+      :shipping_amount   => shipping_amount,
+      :tax_amount        => tax_amount
+    }
   end
 
   private

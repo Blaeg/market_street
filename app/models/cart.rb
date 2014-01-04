@@ -78,17 +78,17 @@ class Cart < ActiveRecord::Base
   #
   # @param [Order] order to insert the shopping cart variants into
   # @return [order]  return order because teh order returned has a diffent quantity
-  def add_items_to_checkout(order)
-    if order.in_progress?
-      order.order_items.map(&:destroy)
-      order.order_items.reload
+  # def add_items_to_checkout(order)
+  #   if order.in_progress?
+  #     order.order_items.map(&:destroy)
+  #     order.order_items.reload
       
-      cart_items.each do |item|
-        order.add_cart_item( item, nil)
-      end      
-    end
-    order
-  end
+  #     cart_items.each do |item|
+  #       order.add_cart_item( item, nil)
+  #     end      
+  #   end
+  #   order
+  # end
 
   # Call this method when you want to add an item to the shopping cart
   #
@@ -100,8 +100,7 @@ class Cart < ActiveRecord::Base
     quantity_to_purchase = Variant.find(variant_id).quantity_purchaseable_by_user(qty.to_i)
     return if quantity_to_purchase == 0
     if cart_item.nil? 
-      cart_items.create(variant_id: variant_id, 
-        quantity: quantity_to_purchase)
+      cart_items.create(variant_id: variant_id, quantity: quantity_to_purchase)
     else
       cart_item.update_attributes(:quantity => cart_item.quantity + quantity_to_purchase)
     end    
@@ -120,4 +119,17 @@ class Cart < ActiveRecord::Base
       self.save
     end
   end  
+
+  def to_order_attributes
+    {
+      :cart_id   => id,
+      :user      => user,
+      :tax_amount => tax_amount,
+      :credit_amount => credit_amount,
+      :shipping_amount => shipping_amount,  
+      :total_amount => total_amount,
+      :calculated_at => DateTime.now,
+      :email => user.email
+    }
+  end    
 end
