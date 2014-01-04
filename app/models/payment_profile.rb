@@ -44,8 +44,6 @@ class PaymentProfile < ActiveRecord::Base
   validate            :validate_card
   #validates :address_id,      :presence => true
 
-  #attr_accessible # none
-
   def name
     [cc_type, last_digits].join(' - ')
   end
