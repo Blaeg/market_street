@@ -18,10 +18,6 @@ module User::States
 
     def active?
       !['canceled', 'inactive'].any? {|s| self.state == s }
-    end
-
-    def display_active
-      active?.to_s
-    end
+    end    
   end
 end

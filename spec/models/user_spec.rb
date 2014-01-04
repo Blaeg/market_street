@@ -72,23 +72,6 @@ describe User, "instance methods" do
 
   end
 
-  context ".display_active" do
-    it 'is not active' do
-      @user.state = 'canceled'
-      @user.display_active.should == 'false'
-    end
-
-    it 'is not active' do
-      @user.state = 'inactive'
-      @user.display_active.should == 'false'
-    end
-
-    it 'is active' do
-      @user.state = 'active'
-      @user.display_active.should == 'true'
-    end
-  end
-
   context ".current_cart" do
     it 'use the last cart' do
       cart1 = @user.carts.new

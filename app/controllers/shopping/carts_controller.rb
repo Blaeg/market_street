@@ -7,5 +7,6 @@ class Shopping::CartsController < Shopping::BaseController
 
   def checkout
   	@cart = session_cart
+  	redirect root_url if @cart.nil?  	
   end
 end
