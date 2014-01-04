@@ -41,4 +41,15 @@ describe Shopping::CartItemsController do
       end
     end
   end  
+
+  describe "destroy" do 
+    let(:cart) { create_cart(user, [variant]) }
+    let(:cart_item) { cart.cart_items.first }
+    
+    it "deletes cart item quantity" do 
+      delete :destroy, :id => cart_item.id
+      expect(response).to be_success
+      expect(CartItem.count).to eq 0
+    end
+  end
 end

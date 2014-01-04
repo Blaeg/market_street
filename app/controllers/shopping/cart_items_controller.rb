@@ -21,6 +21,12 @@ class Shopping::CartItemsController < Shopping::BaseController
     end
   end
 
+  # id here is actually variant id
+  def destroy
+    cart_item.destroy
+    render json: {:message => I18n.t('item_passed_delete')}, status: :ok
+  end
+
   private
 
   def allowed_params
