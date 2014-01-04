@@ -4,16 +4,14 @@ class Shopping::CartItemsController < Shopping::BaseController
     if cart_item = session_cart.add_variant(variant.id, new_quantity)
       session_cart.save_user(current_user)
       redirect_to shopping_cart_url
-    else
-      #error case    
+    else #error case          
       redirect_to product_url(variant.product)
     end    
   end
 
   # PUT /shopping/cart_items
   def update    
-    if allowed_params[:quantity] == 0
-      binding.pry
+    if new_quantity == 0
       cart_item.destroy
       render json: {:message => I18n.t('item_passed_update')}, status: :ok
     elsif cart_item.update_attributes(allowed_params)
