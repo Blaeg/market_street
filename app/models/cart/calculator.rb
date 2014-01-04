@@ -1,6 +1,6 @@
 module Cart::Calculator
-  def sub_total
-    cart_items.map(&:total).sum
+  def subtotal_amount
+    cart_items.map(&:subtotal_amount).sum
   end
   
   def shipping_amount
@@ -8,19 +8,15 @@ module Cart::Calculator
   end
   
   def taxable_amount
-    sub_total
+    cart_items.map(&:taxable_amount).sum
   end
   
-  def tax 
-  	1.0
+  def tax_amount
+  	cart_items.map(&:tax_amount).sum
   end
   
-  def total
-  	cart_items.map(&:total).sum
-  end
-
-  def number_of_cart_items
-    cart_items.map(&:quantity).sum
+  def total_amount
+  	cart_items.map(&:total_amount).sum
   end
 
   def discount_amount

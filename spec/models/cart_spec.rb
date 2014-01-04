@@ -1,25 +1,26 @@
 require 'spec_helper'
 
 describe Cart, ".sub_total" do
-  let(:cart) { create(:cart_with_two_5_dollar_items) }
-  let(:variant) { create(:variant) }
+  context "calculator" do
+    let(:cart) { create(:cart_with_two_items) }
+    let(:variant) { create(:variant) }
+    
+    it 'has a subtotal_amount' do
+      expect(cart.subtotal_amount.to_f).to eq 15.0
+    end
+    
+    it 'has a taxable_amount' do
+      expect(cart.taxable_amount.to_f).to eq 35.0
+    end
 
-  it "calculates subtotal correctly" do
-    expect(cart.sub_total).to eq 10.00
-  end
+    it 'has a tax_amount' do
+      expect(cart.tax_amount.to_f).to eq 3.5
+    end
 
-  it "calculates taxable correctly" do
-    expect(cart.taxable_amount).to eq 10.00
-  end
-
-  it "gives the number of cart items" do
-    expect(cart.number_of_cart_items).to eq 2
-  end
-
-  it "gives the number of cart items" do  
-    cart.add_variant(variant.id, 2)
-    expect(cart.number_of_cart_items).to eq 4
-  end
+    it 'has a total amount' do
+      expect(cart.total_amount.to_f).to eq 38.5
+    end
+  end  
 end
 
 describe Cart, " instance methods" do

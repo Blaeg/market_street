@@ -4,7 +4,7 @@ FactoryGirl.define do
     product             { |c| c.association(:product) }
     sequence(:price)    { |i| 11.1*i }
     sequence(:retail)   { |i| 16.1*i }
-    cost                8.00
+    sequence(:cost)     { |i| 5.1*i }
     deleted_at          nil
     master              false
     inventory           { |c| c.association(:inventory) }    
@@ -17,18 +17,13 @@ FactoryGirl.define do
         end
       end
     end
-  end
 
-  factory :five_dollar_variant, :class => Variant do |f| # :parent => :variant,
-    price  5.00
-    sku           '345-98765-0980'
-    product       { |c| c.association(:product) }
-    cost          3.00
-    deleted_at    nil
-    master        false
-    inventory     { |c| c.association(:inventory) }
-    #count_on_hand             10000
-    #count_pending_to_customer 1000
-    #count_pending_from_supplier 900
+    factory :five_dollar_variant, :class => Variant do |f| # :parent => :variant,
+      price  5.00
+    end
+
+    factory :ten_dollar_variant, :class => Variant do |f| # :parent => :variant,
+      price  10.00      
+    end
   end
 end

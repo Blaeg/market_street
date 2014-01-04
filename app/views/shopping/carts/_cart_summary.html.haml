@@ -2,15 +2,15 @@
 	%table
 		%tr
 			%td.span2 Cart Total
-			%td.pull-right= number_to_currency @cart.sub_total		
+			%td.pull-right= number_to_currency @cart.subtotal_amount
 		- if @cart.shipping_amount > 0 
 			%tr
 				%td Shipping
 				%td.pull-right= number_to_currency @cart.shipping_amount			
-		- if @cart.tax > 0 
+		- if @cart.tax_amount > 0 
 			%tr
 				%td Tax
-				%td.pull-right= number_to_currency @cart.tax			
+				%td.pull-right= number_to_currency @cart.tax_amount			
 		-if @cart.credit_amount > 0
 			%tr 
 				%td Credit
@@ -26,6 +26,6 @@
 		%tr
 			%td 
 				%strong Total
-			%td.pull-right= number_to_currency @cart.total			
+			%td.pull-right= number_to_currency @cart.total_amount
 
 		
