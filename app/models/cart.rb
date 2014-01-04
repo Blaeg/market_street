@@ -82,7 +82,10 @@ class Cart < ActiveRecord::Base
     if order.in_progress?
       order.order_items.map(&:destroy)
       order.order_items.reload
-      items_to_add(order, cart_items)
+      
+      cart_items.each do |item|
+        order.add_cart_item( item, nil)
+      end      
     end
     order
   end
@@ -116,13 +119,5 @@ class Cart < ActiveRecord::Base
       self.user_id = u.id
       self.save
     end
-  end
-
-  private
-
-  def items_to_add(order, items)
-    items.each do |item|
-      order.add_cart_item( item, nil)
-    end
-  end
+  end  
 end

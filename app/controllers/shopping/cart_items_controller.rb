@@ -1,45 +1,43 @@
 class Shopping::CartItemsController < Shopping::BaseController
   def create
-    session_cart.save if session_cart.new_record?
-    
-    qty = params[:cart_item][:quantity].to_i
-    if cart_item = session_cart.add_variant(params[:cart_item][:variant_id], qty)
+    session_cart.save if session_cart.new_record?    
+    if cart_item = session_cart.add_variant(variant.id, new_quantity)
       session_cart.save_user(current_user)
       redirect_to shopping_cart_url
     else
-      variant = Variant.includes(:product).find_by_id(params[:cart_item][:variant_id])
-      if variant
-        redirect_to product_url(variant.product)
-      else
-        flash[:notice] = I18n.t('something_went_wrong')
-        redirect_to root_url
-      end
-    end
+      #error case    
+      redirect_to product_url(variant.product)
+    end    
   end
 
   # PUT /shopping/cart_items
-  def update
-    @cart_item = CartItem.find(params[:id])
-    if @cart_item.update_attributes(allowed_params)
-      respond_to do |format|
-        format.json { render json: {:message => I18n.t('item_passed_update')}, status: :ok}
-      end
-   else
-      respond_to do |format|
-        format.json { render json: {:message => I18n.t('item_failed_update')}, status: :ok}      
-      end      
+  def update    
+    if allowed_params[:quantity] == 0
+      binding.pry
+      cart_item.destroy
+      render json: {:message => I18n.t('item_passed_update')}, status: :ok
+    elsif cart_item.update_attributes(allowed_params)
+      render json: {:message => I18n.t('item_passed_update')}, status: :ok
+    else
+      render json: {:message => I18n.t('item_failed_update')}, status: :error
     end
-  end
-
-  # id here is actually variant id
-  def destroy
-    session_cart.remove_variant(params[:id])
-    redirect_to(shopping_cart_path)
   end
 
   private
 
   def allowed_params
-    params.require(:cart_item).permit(:quantity)
+    params.require(:cart_item).permit(:quantity, :variant_id)
   end
+
+  def cart_item
+    @cart_item ||= CartItem.find(params[:id])
+  end
+
+  def variant
+    @variant ||= Variant.find_by_id(allowed_params[:variant_id])    
+  end
+
+  def new_quantity 
+    @new_quantity ||= allowed_params[:quantity].to_i    
+  end  
 end

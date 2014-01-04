@@ -47,6 +47,7 @@ module MarketStreet
         test_cart.add_variant(variant.id)
       end
       @controller.stubs(:session_cart).returns(test_cart)
+      test_cart
     end
 
     def setup_10_dollar_referral(referring_user, referral_email, referral_user = nil, quantity_needed = 2)
