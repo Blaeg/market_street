@@ -85,7 +85,7 @@ module InvoicePrinter
   end
 
   def final_price_details(pdf, invoice)
-    pdf.draw_text number_to_currency(invoice.order.total_tax_charges.round_at(2)),      {:at => [480, 175], :size => 10 }
+    pdf.draw_text number_to_currency(invoice.order.tax_amount.round_at(2)),      {:at => [480, 175], :size => 10 }
   end
 
   def line_items_details(pdf, invoice)

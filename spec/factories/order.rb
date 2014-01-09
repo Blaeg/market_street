@@ -14,10 +14,10 @@ FactoryGirl.define do
   end
 
   factory :in_progress_order, :parent => :order do
-    state           'in_progress'
+    state 'in_progress'
   end
 
   factory :complete_order, :parent => :order do
-    state           'complete'
+    state 'complete'
   end
 end

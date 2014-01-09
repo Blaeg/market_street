@@ -38,7 +38,6 @@
 #  coupon_id       :integer(4)
 #  active          :boolean(1)      default(TRUE), not null
 #  shipped         :boolean(1)      default(FALSE), not null
-#  shipments_count :integer(4)      default(0)
 #  calculated_at   :datetime
 #  completed_at    :datetime
 #  created_at      :datetime
@@ -63,21 +62,22 @@ class Order < ActiveRecord::Base
   has_many   :completed_invoices,   -> { where(state: ['authorized', 'paid']) },  class_name: 'Invoice'
   has_many   :authorized_invoices,  -> { where(state: 'authorized') },      class_name: 'Invoice'
   has_many   :paid_invoices      ,  -> { where(state: 'paid') },            class_name: 'Invoice'
-  has_many   :canceled_invoices   , ->  { where(state: 'canceled') }  ,     class_name: 'Invoice'
+  has_many   :canceled_invoices  , ->  { where(state: 'canceled') }  ,     class_name: 'Invoice'
   
   has_many   :return_authorizations
   has_many   :comments, as: :commentable
 
   belongs_to :user
   belongs_to :coupon
-  belongs_to   :ship_address, class_name: 'Address'
-  belongs_to   :bill_address, class_name: 'Address'
+  belongs_to :ship_address, class_name: 'Address'
+  belongs_to :bill_address, class_name: 'Address'
 
   before_validation :set_email, :set_number
   after_create      :save_order_number
-  before_save       :update_tax_rates
+  #before_save       :update_tax_rates
 
   attr_accessor :total, :sub_total, :deal_amount, :taxed_total, :deal_time
+  accepts_nested_attributes_for :order_items
 
   validates :number,      :presence => true
   validates :user_id,     :presence => true
@@ -168,14 +168,7 @@ class Order < ActiveRecord::Base
      end
      return_hash
   end
-  # looks at all the order items and determines if the order has all the required elements to complete a checkout
-  #
-  # @param [none]
-  # @return [Boolean]
-  def ready_to_checkout?
-    order_items.all? {|item| item.ready_to_calculate? }
-  end
-
+  
   def self.include_checkout_objects
     includes([{:ship_address => :state},
               {:bill_address => :state},
@@ -184,20 +177,24 @@ class Order < ActiveRecord::Base
                   {:product => :images }}}])
   end
 
-  
-
-  def remove_user_store_credits
-    user.store_credit.remove_credit(amount_to_credit) if amount_to_credit > 0.0
+  def shipments_count
+    order_items.map{|item| item.shipments.count}.sum
   end
 
-  def create_shipments_with_order_item_ids(order_item_ids)
-    self.order_items.find(order_item_ids).map do |order_item|
-      shipment = Shipment.new(:address_id => self.ship_address_id,
-                              :order_id => self.id )          
-      shipment.order_items.push(order_item) if order_item.paid?
-      shipment.prepare! if shipment.order_items.size > 0
-    end.any?
-  end
+  # def remove_user_store_credits
+  #   user.store_credit.remove_credit(amount_to_credit) if amount_to_credit > 0.0
+  # end
+
+  # def create_shipments_with_order_item_ids(order_item_ids)
+  #   self.order_items.find(order_item_ids).map do |order_item|
+  #     shipment = Shipment.new(:address_id => self.ship_address_id,
+  #                             :order_id => self.id )          
+  #     shipment.order_items.push(order_item) if order_item.paid?
+  #     binding.pry
+  #     shipment.save!
+  #     shipment.prepare! if shipment.order_items.size > 0
+  #   end.any?
+  # end
 
   # add the variant to the order items in the order, normally called at order creation
   #
@@ -205,14 +202,12 @@ class Order < ActiveRecord::Base
   # @param [Integer] quantity to add to the order
   # @param [Optional Integer] state_id (for taxes) to assign to the order_item
   # @return [none]
-  # def add_items(variant, quantity, state_id = nil)
-  #   self.save! if self.new_record?
-  #   tax_rate_id = state_id ? variant.product.tax_rate(state_id) : nil
-  #   self.order_items.create(:variant_id => variant.id, 
-  #                           :price => variant.price, 
-  #                           :tax_rate_id => tax_rate_id, 
-  #                           :quantity => quantity)    
-  # end
+  def add_items(variant, quantity, state_id = nil)
+    self.save! if self.new_record?
+    self.order_items.create(:variant_id => variant.id, 
+                            :price => variant.price, 
+                            :quantity => quantity)    
+  end
 
   # remove the variant from the order items in the order
   #
@@ -261,7 +256,7 @@ class Order < ActiveRecord::Base
   end
 
   def has_shipment?
-    shipments_count > 0
+    order_items.any?{|item| item.shipments.count > 0 }    
   end
 
   private

@@ -36,15 +36,17 @@
 
 <div class='six column '>
   <b>Shipments:</b>
-  <% @order.shipments.each do |shipment| %>
+  <% @order.order_items.each do |order_item| %>
+    <% order_item.shipments.each do |shipment| %>
       <div  id='order-shipment-items'
             class='panel'>
           State: <%= shipment.state.humanize %> <br/>
           Shipping Method: <%= shipment.shipping_method.name %> <br/>
           Shipping #: <%= shipment.number %> Tracking:<%= shipment.tracking %>
       </div>
+    <% end %>
   <% end %>
-  <% if @order.shipments.empty? %>
+  <% if @order.shipments_count == 0 %>
     <div  id='order-shipment-items'
           class=' panel'>
       No Shipments have been made for this Order.

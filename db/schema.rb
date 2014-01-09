@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140104092305) do
+ActiveRecord::Schema.define(version: 20140108104029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,7 +205,6 @@ ActiveRecord::Schema.define(version: 20140104092305) do
     t.integer  "ship_address_id"
     t.integer  "coupon_id"
     t.boolean  "active",                                  default: true, null: false
-    t.integer  "shipments_count",                         default: 0
     t.datetime "calculated_at"
     t.datetime "completed_at"
     t.datetime "created_at"
@@ -471,20 +470,19 @@ ActiveRecord::Schema.define(version: 20140104092305) do
   add_index "sales", ["product_id"], name: "index_sales_on_product_id", using: :btree
 
   create_table "shipments", force: true do |t|
-    t.integer  "order_id"
-    t.integer  "address_id",                null: false
+    t.integer  "address_id",                   null: false
     t.string   "tracking"
-    t.string   "number",                    null: false
-    t.string   "state",                     null: false
+    t.string   "number",                       null: false
+    t.string   "state",                        null: false
     t.datetime "shipped_at"
-    t.boolean  "active",     default: true, null: false
+    t.boolean  "active",        default: true, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order_item_id"
   end
 
   add_index "shipments", ["address_id"], name: "index_shipments_on_address_id", using: :btree
   add_index "shipments", ["number"], name: "index_shipments_on_number", using: :btree
-  add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
 
   create_table "shipping_methods", force: true do |t|
     t.string   "name",       null: false

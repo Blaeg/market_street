@@ -10,8 +10,7 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
 
   # GET /admin/fulfillment/orders/1
   def show
-    @order = Order.includes([:user, :shipments, 
-                        {:order_items => [:shipment, :variant]}]).find(params[:id])
+    @order = Order.includes([:user, {:order_items => [:shipments, :variant]}]).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,7 +20,7 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
 
   # GET /admin/fulfillment/orders/1/edit
   def edit
-    @order = Order.includes([:user, :shipments, {:order_items => [:shipment, :variant]}]).find(params[:id])    
+    @order = Order.includes([:user, {:order_items => [:shipments, :variant]}]).find(params[:id])    
   end
 
 

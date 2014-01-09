@@ -14,9 +14,7 @@
     </div>
     <hr style='color:#aac'/>
   <% end %>
-  <% if session_order.ready_to_checkout? %>
-    <%= link_to 'Order Summary', shopping_orders_path, :class => 'btn btn-success' %>
-  <% end %>
+  <%= link_to 'Order Summary', shopping_orders_path, :class => 'btn btn-success' %>  
 </div>
 <br />
 <%= form_for @shopping_address, url: shopping_addresses_path, html: {class: 'custom'} do |address_form| %>

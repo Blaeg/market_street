@@ -16,7 +16,6 @@ module Order::InvoiceManager
     transaction do
       new_invoice = create_invoice_transaction(credit_card, charge_amount, args, credited_amount)
       if new_invoice.succeeded?
-        remove_user_store_credits
         EmailWorker::SendOrderConfirmation.perform_async(self.id, new_invoice.id)                  
       end
       new_invoice

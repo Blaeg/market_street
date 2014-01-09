@@ -27,25 +27,25 @@ describe Cart, " instance methods" do
   
   context " add_items_to_checkout" do    
     let(:order) { create(:in_progress_order) }
-    it 'adds item to in_progress orders' do
+    xit 'adds item to in_progress orders' do
       cart.add_items_to_checkout(order)
       expect(order.order_items.size).to eq 2
     end
     
-    it 'keeps items already in order to in_progress orders' do
+    xit 'keeps items already in order to in_progress orders' do
       cart.add_items_to_checkout(order)
       cart.add_items_to_checkout(order)
       expect(order.order_items.size).to eq 2
     end
     
-    it 'adds only needed items already in order to in_progress orders' do
+    xit 'adds only needed items already in order to in_progress orders' do
       cart.add_items_to_checkout(order)
       cart.cart_items.push(create(:cart_item))
       cart.add_items_to_checkout(order)
       expect(order.order_items.size).to eq 3
     end
     
-    it 'remove items not in cart to in_progress orders' do
+    xit 'remove items not in cart to in_progress orders' do
       cart.cart_items.push(create(:cart_item))
       cart.add_items_to_checkout(order) ##
       expect(order.order_items.size).to eq 3

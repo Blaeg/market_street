@@ -8,7 +8,6 @@
 #  order_id         :integer(4)      not null
 #  variant_id       :integer(4)      not null
 #  state            :string(255)     not null
-#  tax_rate_id      :integer(4)
 #  shipping_amount  :float
 #  shipment_id      :integer(4)
 #  created_at       :datetime
@@ -28,6 +27,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :tax_rate
   belongs_to :shipment
 
+  has_many   :shipments
   has_many   :return_items
 
   #after_save :calculate_order
@@ -35,11 +35,10 @@ class OrderItem < ActiveRecord::Base
   after_destroy :set_order_calculated_at_to_nil
 
   validates :variant_id,  :presence => true
-  validates :order_id,    :presence => true
+  #validates :order_id,    :presence => true
   validates :quantity,    :presence => true
 
   def set_beginning_values
-    @beginning_tax_rate_id      = self.tax_rate_id      rescue @beginning_tax_rate_id = nil # this stores the initial value of the tax_rate
     @beginning_total            = self.total            rescue @beginning_total = nil # this stores the initial value of the total
   end
 

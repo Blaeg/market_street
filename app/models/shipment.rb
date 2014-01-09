@@ -3,7 +3,6 @@
 # Table name: shipments
 #
 #  id                 :integer(4)      not null, primary key
-#  order_id           :integer(4)
 #  address_id         :integer(4)      not null
 #  tracking           :string(255)
 #  number             :string(255)     not null
@@ -15,16 +14,15 @@
 #
 
 class Shipment < ActiveRecord::Base
-  belongs_to :order, :counter_cache => true
+  belongs_to :order_item
+  
   belongs_to :shipping_method
   belongs_to :address#, :polymorphic => true
-
-  has_many   :order_items
-
+  
   before_validation :set_number
   after_create      :save_shipment_number
 
-  validates :order_id,            :presence => true
+  #validates :order_id,            :presence => true
   validates :address_id,          :presence => true
 
   CHARACTERS_SEED = 20
@@ -55,17 +53,17 @@ class Shipment < ActiveRecord::Base
   #
   # @param [none]
   # @return [ Boolean ]
-  def has_items?
-    order_items.size > 0
-  end
+  # def has_items?
+  #   order_items.size > 0
+  # end
 
   # when the order has been shipped the inventory must be updated
   #
   # @param [none]
   # @return [ Boolean ]
   def ship_inventory
-    order_items.each{ |item| item.variant.subtract_pending_to_customer(1) }
-    order_items.each{ |item| item.variant.subtract_count_on_hand(1) }
+    order_item.variant.subtract_pending_to_customer(1)
+    order_item.variant.subtract_count_on_hand(1)
   end
 
   # mark the order as shipped when the item ships
@@ -73,7 +71,7 @@ class Shipment < ActiveRecord::Base
   # @param [none]
   # @return [ none ]
   def mark_order_as_shipped
-    order.update_attributes(:shipped => true)
+    order_item.update_attributes(:shipped_at => DateTime.now)
   end
 
   # when the order has been shipped the inventory must be updated
@@ -93,9 +91,9 @@ class Shipment < ActiveRecord::Base
   # @return [ none ]
   def self.create_shipments_with_items(order)
     order.order_items.each do |order_item|
-      shipment = Shipment.new(:address_id         => order.ship_address_id,
-                              :order_id           => order.id)
-      shipment.order_items.push(order_item)
+      shipment = Shipment.new(:address_id => order.ship_address_id,
+                              :order_item_id => order_item.id)
+      order_item.shipments << shipment
       shipment.prepare!
     end
   end
@@ -104,17 +102,9 @@ class Shipment < ActiveRecord::Base
   #
   # @param [none]
   # @return [ Array [Address] ] all user addresses
-  def shipping_addresses
-    order.user.shipping_addresses
-  end
-
-  ## finds the Shipment in the admin area (includes to prevent N + 1 queries)
-  #
-  # @param [Integer]  shipment.id
-  # @return [Shipment]
-  def self.find_fulfillment_shipment(id)
-    includes([{:order => {:user => :shipping_addresses}} , :address ]).find(id)
-  end
+  # def shipping_addresses
+  #   order.user.shipping_addresses
+  # end
 
   ## determines the shipment id from the shipment.number
   #

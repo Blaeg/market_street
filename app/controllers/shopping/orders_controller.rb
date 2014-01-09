@@ -19,7 +19,7 @@ class Shopping::OrdersController < Shopping::BaseController
   #  add checkout button
   def checkout
     order = find_or_create_order
-    @order = session_cart.add_items_to_checkout(order) # need here because items can also be removed
+    #@order = session_cart.add_items_to_checkout(order) # need here because items can also be removed
     redirect_to next_form_url(order)
   end
 
@@ -44,10 +44,10 @@ class Shopping::OrdersController < Shopping::BaseController
       render :action => 'index' and return
     end 
 
-    if response = @order.create_invoice(@credit_card, @order.credited_total,
+    if response = @order.create_invoice(@credit_card, @order.credit_amount,
       { :email => @order.email, 
         :billing_address=> address, 
-        :ip=> @order.ip_address }, @order.amount_to_credit)
+        :ip=> @order.ip_address }, @order.credit_amount)
       if response.succeeded?
         expire_all_browser_cache
         session[:last_order] = @order.number
@@ -86,7 +86,7 @@ class Shopping::OrdersController < Shopping::BaseController
 
   def form_info
     @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
-    @order.credited_total
+    @order.credit_amount
   end
   def require_login
     if !current_user

@@ -922,7 +922,6 @@ RailsAdmin.config do |config|
   #     configure :coupon_id, :integer         # Hidden 
   #     configure :active, :boolean 
   #     configure :shipped, :boolean 
-  #     configure :shipments_count, :integer 
   #     configure :calculated_at, :datetime 
   #     configure :completed_at, :datetime 
   #     configure :created_at, :datetime 

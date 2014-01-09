@@ -81,7 +81,6 @@ class Admin::Fulfillment::ReturnAuthorizationsController < Admin::BaseController
   
   def current_order
     @order = Order.includes([:ship_address, :invoices,
-               {:shipments => :shipping_method},
                {:order_items => [ {:variant => [:product, :variant_properties]}]
                 }]).find(params[:order_id])
   end

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :shipment do
-    order           { |c| c.association(:order) }
+    order_item      { |c| c.association(:order_item) }
     address         { |c| c.association(:address) }
     state           "ready_to_ship"
     shipped_at      nil

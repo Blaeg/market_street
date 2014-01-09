@@ -6,11 +6,9 @@ class CheckoutService
   end
 
   def new_order
-    Cart.transaction do
-      @order = ::Order.new(cart.to_order_attributes)
-      @order.order_items = cart.cart_items.map do |cart_item|
-         ::OrderItem.new(cart_item.to_order_item_attributes)
-      end
+    @order = ::Order.new(cart.to_order_attributes)
+    cart.cart_items.each do |cart_item|
+      @order.order_items.build(cart_item.to_order_item_attributes)
     end
     @order
   end

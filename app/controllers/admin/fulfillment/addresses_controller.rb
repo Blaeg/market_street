@@ -21,6 +21,6 @@ class Admin::Fulfillment::AddressesController < Admin::Fulfillment::BaseControll
   private
 
   def shipment
-    @shipment = Shipment.find_fulfillment_shipment(params[:shipment_id])
+    @shipment = Shipment.find(params[:shipment_id])
   end
 end
