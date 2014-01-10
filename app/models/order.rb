@@ -82,7 +82,7 @@ class Order < ActiveRecord::Base
   validates :number,      :presence => true
   validates :user_id,     :presence => true
   validates :email,       :presence => true,
-                          :format   => { :with => CustomValidators::Emails.email_validator }
+    :format   => { :with => CustomValidators::Emails.email_validator }
   
   scope :active_session_carts,  -> (user, session_id) { where(state: :active, user_id: user, session_id: session_id) }
   scope :between, -> (start_time, end_time) { where("orders.completed_at >= ? AND orders.completed_at <= ?", start_time, end_time) }
@@ -99,19 +99,11 @@ class Order < ActiveRecord::Base
     calculated_at || Time.zone.now
   end
 
-  # formated date of the complete_at datetime on the order
-  #
-  # @param [none]
-  # @return [String] formated date or 'Not Finished.' if the order is not completed
+  #todo:move decorator
   def display_completed_at(format = :us_date)
     completed_at ? I18n.localize(completed_at, :format => format) : 'Not Finished.'
   end
 
-  # cancel the order and payment
-  # => sets the order inactive and cancels the authorized payments
-  #
-  # @param [Invoice]
-  # @return [none]
   def cancel_unshipped_order(invoice)
     transaction do
       self.update_attributes(:active => false)
@@ -129,13 +121,7 @@ class Order < ActiveRecord::Base
   #       :quantity     => item.quantity,
   #       :shipping_amount => item.shipping_amount,
   #       :tax_rate_id  => tax_rate_id)
-
   
-  # call after the order is completed (authorized the payment)
-  # => sets the order.state to completed, sets completed_at to time.now and updates the inventory
-  #
-  # @param [none]
-  # @return [Payment] payment object
   def order_complete!
     self.complete!
     self.completed_at = Time.zone.now
