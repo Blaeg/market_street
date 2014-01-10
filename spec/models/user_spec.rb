@@ -13,7 +13,6 @@ describe User do
   end
 
   context "Invalid User" do
-
     it "is valid without first_name" do
       @user = build(:user, :first_name => '')
       @user.should_not be_valid
@@ -91,48 +90,48 @@ describe User, "instance methods" do
     #pending "add your specific find products method here"
   end
 
-  context ".billing_address" do
+  context ".bill_address" do
     # default_billing_address ? default_billing_address : default_shipping_address
     it 'returns nil if you dont have an address' do
       #add = create(:address, :addressable => @user, :default => true)
-      @user.billing_address.should be_nil
+      @user.bill_address.should be_nil
     end
 
     it 'use your shipping address if you dont have a default billing address' do
       add = create(:address, :addressable => @user, :default => true)
-      @user.billing_address.should == add
+      @user.bill_address.should == add
     end
 
     it 'use your default billing address if you have one available' do
       add = create(:address, :addressable => @user, :default => true)
       bill_add = create(:address, :addressable => @user, :billing_default => true)
-      @user.billing_address.should == bill_add
+      @user.bill_address.should == bill_add
     end
 
     it 'returns the first address if not defaults are set' do
       #add = create(:address, :addressable => @user, :default => true)
       add = create(:address, :addressable => @user)
-      @user.billing_address.should == add
+      @user.bill_address.should == add
     end
   end
 
-  context ".shipping_address" do
+  context ".ship_address" do
     # default_billing_address ? default_billing_address : default_shipping_address
     it 'returns nil if you dont have an address' do
       #add = create(:address, :addressable => @user, :default => true)
-      @user.shipping_address.should be_nil
+      @user.ship_address.should be_nil
     end
 
     it 'use your default shipping address if you have one available' do
       add = create(:address, :addressable => @user, :default => true)
       bill_add = create(:address, :addressable => @user, :billing_default => true)
-      @user.shipping_address.should == add
+      @user.ship_address.should == add
     end
 
     it 'returns the first address if not defaults are set' do
       #add = create(:address, :addressable => @user, :default => true)
       add = create(:address, :addressable => @user)
-      @user.shipping_address.should == add
+      @user.ship_address.should == add
     end
   end
 

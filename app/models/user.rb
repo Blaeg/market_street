@@ -160,15 +160,15 @@ class User < ActiveRecord::Base
   #
   # @param [none]
   # @return [ Address ]
-  def billing_address
-    default_billing_address ? default_billing_address : shipping_address
+  def bill_address
+    default_billing_address ? default_billing_address : ship_address
   end
 
   # Returns the default shipping address if it exists.   otherwise returns the first shipping address
   #
   # @param [none]
   # @return [ Address ]
-  def shipping_address
+  def ship_address
     default_shipping_address ? default_shipping_address : shipping_addresses.first
   end
 

@@ -16,9 +16,9 @@
 <div class='span4 column'>
   <div>
     <h4> Address </h4>
-    <% if current_user.shipping_address %>
-      <%= render :partial => '/shared/compact_address', :locals => { :shopping_address => current_user.shipping_address } %>
-      <%= link_to "Edit", edit_customer_address_path(current_user.shipping_address) %>
+    <% if current_user.ship_address %>
+      <%= render :partial => '/shared/compact_address', :locals => { :shopping_address => current_user.ship_address } %>
+      <%= link_to "Edit", edit_customer_address_path(current_user.ship_address) %>
     <% else %>
       No Address Saved.<br/>
       <%= link_to "New", new_customer_address_path() %>

@@ -17,7 +17,7 @@ describe Customer::OverviewsController do
 
   it "show action renders show template" do
     @address = create(:address, :addressable => @user)
-    @user.stubs(:shipping_address).returns(@address)
+    @user.stubs(:ship_address).returns(@address)
     get :show
     expect(response).to render_template(:show)
   end

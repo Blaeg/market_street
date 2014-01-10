@@ -46,7 +46,7 @@ class Shopping::OrdersController < Shopping::BaseController
 
     if response = @order.create_invoice(@credit_card, @order.credit_amount,
       { :email => @order.email, 
-        :billing_address=> address, 
+        :bill_address=> address, 
         :ip=> @order.ip_address }, @order.credit_amount)
       if response.succeeded?
         expire_all_browser_cache

@@ -7,6 +7,7 @@ FactoryGirl.define do
     city       'San Francisco'
     state     { State.first }
     zip_code  '54322'
+    address_type 'SHIPPING'
     addressable  { |c| c.association(:user) }
   end
 

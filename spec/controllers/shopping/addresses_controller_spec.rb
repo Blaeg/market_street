@@ -10,7 +10,7 @@ describe Shopping::AddressesController do
 
     @variant  = create(:variant)
     create_cart(@cur_user, [@variant])
-    @shipping_address = create(:address, :addressable_id => @cur_user.id, :addressable_type => 'User')
+    @ship_address = create(:address, :addressable_id => @cur_user.id, :addressable_type => 'User')
   end
 
   it "index action renders index template" do
@@ -20,36 +20,36 @@ describe Shopping::AddressesController do
 
   it "create action renders new template when model is invalid" do
     Address.any_instance.stubs(:valid?).returns(false)
-    post :create, :address => @shipping_address.attributes
+    post :create, :address => @ship_address.attributes
     expect(response).to render_template(:index)
   end
 
   it "create action redirects when model is valid" do
     Address.any_instance.stubs(:valid?).returns(true)
-    post :create, :address => @shipping_address.attributes
+    post :create, :address => @ship_address.attributes
     expect(response).to redirect_to(shopping_checkout_path)
   end
 
   it "edit action renders edit template" do
-    get :edit, :id => @shipping_address.id
+    get :edit, :id => @ship_address.id
     expect(response).to render_template(:edit)
   end
 
   it "update action renders edit template when model is invalid" do
     Address.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => @shipping_address.id, :address => @shipping_address.attributes
+    put :update, :id => @ship_address.id, :address => @ship_address.attributes
     expect(response).to render_template(:edit)
   end
 
   it "update action redirects when model is valid" do
     Address.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => @shipping_address.id, :address => @shipping_address.attributes
+    put :update, :id => @ship_address.id, :address => @ship_address.attributes
     expect(response).to redirect_to(shopping_checkout_path)
   end
 
   it "update action redirects when model is valid" do
     Address.any_instance.stubs(:valid?).returns(true)
-    put :select_address, :id => @shipping_address.id
+    put :select_address, :id => @ship_address.id
     expect(response).to redirect_to(shopping_checkout_path)
   end
 
