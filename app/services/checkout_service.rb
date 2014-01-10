@@ -5,7 +5,7 @@ class CheckoutService
     @cart = cart    
   end
 
-  def new_order
+  def build_new_order
     @order = ::Order.new(cart.to_order_attributes)
     cart.cart_items.each do |cart_item|
       @order.order_items.build(cart_item.to_order_item_attributes)
@@ -13,12 +13,10 @@ class CheckoutService
     @order
   end
 
-  def ready_to_checkout?
-    cart.ready_to_checkout? 
-  end
-
   def checkout
-    return unless ready_to_checkout?
+    return unless cart.ready_to_checkout? 
+    new_order = build_new_order
     new_order.save!
-  end  
+    new_order
+  end    
 end

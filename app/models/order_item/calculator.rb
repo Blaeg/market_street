@@ -6,7 +6,7 @@ module OrderItem::Calculator
 
   def adjusted_price(coupon = nil)
     ## coupon credit is calculated at the order level but because taxes we need to apply it now
-    coupon_credit = coupon ? coupon.value([sale_price(order.transaction_time)], order) : 0.0
+    coupon_credit = coupon ? coupon.value([sale_price(order.completed_at)], order) : 0.0
     self.price - coupon_credit
   end
 

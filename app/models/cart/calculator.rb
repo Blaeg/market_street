@@ -26,4 +26,9 @@ module Cart::Calculator
   def credit_amount
     0.0
   end  
+
+  #todo lookup in real time
+  def tax_rate
+    0.10
+  end
 end

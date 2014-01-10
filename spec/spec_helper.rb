@@ -42,6 +42,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
+  config.include CheckoutHelpers
 
   config.use_transactional_fixtures = false
 

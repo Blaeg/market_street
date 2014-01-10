@@ -12,14 +12,10 @@ module CartItem::Calculator
   end
 
   def tax_amount
-    taxable_amount * tax_rate
+    taxable_amount * cart.tax_rate
   end
 
   def total_amount
     subtotal_amount + shipping_amount + tax_amount
-  end
-
-  def tax_rate
-    0.10
-  end
+  end  
 end

@@ -104,14 +104,18 @@ class Cart < ActiveRecord::Base
 
   def to_order_attributes
     {
-      :cart_id   => id,
       :user      => user,
+      :email => user.email,
+      :cart_id   => id,
+
+      :tax_rate => tax_rate,
       :tax_amount => tax_amount,
       :credit_amount => credit_amount,
       :shipping_amount => shipping_amount,  
       :total_amount => total_amount,
-      :calculated_at => DateTime.now,
-      :email => user.email
+      
+      :ship_address_id => ship_address_id,
+      :bill_address_id => bill_address_id,      
     }
   end    
 end

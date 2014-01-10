@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110062137) do
+ActiveRecord::Schema.define(version: 20140110072730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,9 +205,6 @@ ActiveRecord::Schema.define(version: 20140110062137) do
     t.integer  "user_id"
     t.integer  "bill_address_id"
     t.integer  "ship_address_id"
-    t.integer  "coupon_id"
-    t.boolean  "active",                                  default: true, null: false
-    t.datetime "calculated_at"
     t.datetime "completed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -217,10 +214,10 @@ ActiveRecord::Schema.define(version: 20140110062137) do
     t.float    "shipping_amount"
     t.float    "tax_amount"
     t.float    "total_amount"
+    t.float    "tax_rate",                                default: 0.0, null: false
   end
 
   add_index "orders", ["bill_address_id"], name: "index_orders_on_bill_address_id", using: :btree
-  add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
   add_index "orders", ["email"], name: "index_orders_on_email", using: :btree
   add_index "orders", ["number"], name: "index_orders_on_number", using: :btree
   add_index "orders", ["ship_address_id"], name: "index_orders_on_ship_address_id", using: :btree

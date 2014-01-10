@@ -6,8 +6,6 @@ FactoryGirl.define do
     user            { |c| c.association(:user) }
     bill_address    { |c| c.association(:address) }
     ship_address    { |c| c.association(:address) }
-    active          true
-    calculated_at   Time.now
     completed_at    Time.now
 
     after(:build) {|oi| oi.send(:initialize_state_machines, :dynamic => :force)}
