@@ -9,6 +9,7 @@ FactoryGirl.define do
   end
 
   factory :cart_ready_to_checkout, :parent => :cart_with_items do
-		    
+		bill_address { |c| c.association(:bill_address) }
+    ship_address { |c| c.association(:ship_address) }
   end
 end

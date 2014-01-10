@@ -4,10 +4,17 @@ FactoryGirl.define do
     sequence(:last_name)  { |n| Forgery::Name.last_name }
     address1 { Faker::Address.street_address() }
     address2 { Faker::Address.secondary_address() }
-    city       'Fredville'
+    city       'San Francisco'
     state     { State.first }
     zip_code  '54322'
-    address_type 'SHIPPING'
     addressable  { |c| c.association(:user) }
+  end
+
+  factory :bill_address, :parent => :address do
+    address_type 'BILLING'    
+  end
+
+  factory :ship_address, :parent => :address do
+    address_type 'SHIPPING'    
   end
 end

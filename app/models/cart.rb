@@ -69,8 +69,11 @@ class Cart < ActiveRecord::Base
 
   belongs_to  :user
   has_many    :cart_items
-  
-  accepts_nested_attributes_for :cart_items
+
+  belongs_to :ship_address, class_name: 'Address'
+  belongs_to :bill_address, class_name: 'Address'
+
+  accepts_nested_attributes_for :cart_items, :ship_address, :bill_address
 
   def add_variant(variant_id, quantity = 1)
     cart_item = cart_items.where(variant_id: variant_id).first
@@ -93,6 +96,11 @@ class Cart < ActiveRecord::Base
     self.user = user
     self.save
   end  
+
+  def ready_to_checkout?
+    user.present? and !cart_items.empty? and 
+    ship_address.present? and bill_address.present?
+  end
 
   def to_order_attributes
     {

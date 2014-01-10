@@ -22,45 +22,13 @@ describe Cart, ".sub_total" do
   end  
 end
 
-describe Cart, " instance methods" do
-  let(:cart) { create(:cart_with_items) }
-  
-  context " add_items_to_checkout" do    
-    let(:order) { create(:in_progress_order) }
-    xit 'adds item to in_progress orders' do
-      cart.add_items_to_checkout(order)
-      expect(order.order_items.size).to eq 2
-    end
-    
-    xit 'keeps items already in order to in_progress orders' do
-      cart.add_items_to_checkout(order)
-      cart.add_items_to_checkout(order)
-      expect(order.order_items.size).to eq 2
-    end
-    
-    xit 'adds only needed items already in order to in_progress orders' do
-      cart.add_items_to_checkout(order)
-      cart.cart_items.push(create(:cart_item))
-      cart.add_items_to_checkout(order)
-      expect(order.order_items.size).to eq 3
-    end
-    
-    xit 'remove items not in cart to in_progress orders' do
-      cart.cart_items.push(create(:cart_item))
-      cart.add_items_to_checkout(order) ##
-      expect(order.order_items.size).to eq 3
-      cart = create(:cart_with_items)
-      cart.add_items_to_checkout(order)
-      expect(order.order_items.size).to eq 2
-    end
-  end
-  
-  context ".save_user(u)" do
-    let(:user) { create(:user) }
-    it 'assign the user to the cart' do      
-      cart.save_user(user)
-      expect(cart.user).to eq user      
-    end
+describe Cart, ".save_user(u)" do
+  let(:cart) { create(:cart_with_items) }  
+  let(:user) { create(:user) }
+
+  it 'assign the user to the cart' do      
+    cart.save_user(user)
+    expect(cart.user).to eq user      
   end
 end
 
@@ -102,5 +70,20 @@ describe Cart, ".remove_variant" do
     variant_id = cart.cart_items.first.variant_id
     cart.remove_variant(variant_id)
     expect(cart.cart_items.first).to be_active
+  end
+end
+
+describe Cart, "#ready_to_checkout?" do 
+  context "with items but no addresses" do 
+    let(:cart) { create(:cart_with_items) }
+    it "is not ready to checkout" do 
+      expect(cart).not_to be_ready_to_checkout
+    end
+  end
+  context "with items and addresses" do 
+    let(:cart) { create(:cart_ready_to_checkout) }
+    it "is ready to checkout" do 
+      expect(cart).to be_ready_to_checkout
+    end
   end
 end
