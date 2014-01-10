@@ -83,9 +83,7 @@ describe Cart, "add_variant" do
     cart.add_variant(variant.id)
 
     cart.reload.cart_items.each do |item|
-      if item.variant_id == variant.id
-        expect(item.quantity).to eq 1 
-      end
+      expect(item.quantity).to eq 2 if item.variant_id == variant.id
     end
     expect(cart.cart_items.size).to eq(cart_item_size + 1)    
   end
