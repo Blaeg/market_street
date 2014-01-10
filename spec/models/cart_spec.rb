@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Cart, ".sub_total" do
   context "calculator" do
-    let(:cart) { create(:cart_with_two_items) }
+    let(:cart) { create(:cart_with_items) }
     
     it 'has a subtotal_amount' do
       expect(cart.subtotal_amount.to_f).to eq 15.0
@@ -23,7 +23,7 @@ describe Cart, ".sub_total" do
 end
 
 describe Cart, " instance methods" do
-  let(:cart) { create(:cart_with_two_5_dollar_items) }
+  let(:cart) { create(:cart_with_items) }
   
   context " add_items_to_checkout" do    
     let(:order) { create(:in_progress_order) }
@@ -49,7 +49,7 @@ describe Cart, " instance methods" do
       cart.cart_items.push(create(:cart_item))
       cart.add_items_to_checkout(order) ##
       expect(order.order_items.size).to eq 3
-      cart = create(:cart_with_two_5_dollar_items)
+      cart = create(:cart_with_items)
       cart.add_items_to_checkout(order)
       expect(order.order_items.size).to eq 2
     end
@@ -65,7 +65,7 @@ describe Cart, " instance methods" do
 end
 
 describe Cart, "add_variant" do
-  let(:cart) { create(:cart_with_two_5_dollar_items) }
+  let(:cart) { create(:cart_with_items) }
   let(:variant) { create(:variant) }
   
   it 'adds variant to cart' do
@@ -78,10 +78,14 @@ describe Cart, "add_variant" do
   it 'adds quantity of variant to cart' do
     Variant.any_instance.stubs(:quantity_available).returns(10)
     cart_item_size = cart.cart_items.size
+    
     cart.add_variant(variant.id)
     cart.add_variant(variant.id)
+
     cart.reload.cart_items.each do |item|
-      expect(item.quantity).to eq 2 if item.variant_id == variant.id
+      if item.variant_id == variant.id
+        expect(item.quantity).to eq 1 
+      end
     end
     expect(cart.cart_items.size).to eq(cart_item_size + 1)    
   end
@@ -95,7 +99,7 @@ describe Cart, "add_variant" do
 end
 
 describe Cart, ".remove_variant" do
-  let(:cart) {create(:cart_with_two_items)}
+  let(:cart) {create(:cart_with_items)}
   it 'inactivate variant in cart' do
     variant_id = cart.cart_items.first.variant_id
     cart.remove_variant(variant_id)

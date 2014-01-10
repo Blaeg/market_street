@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CheckoutService do
   describe "new_order" do
-    let(:cart) { create(:cart_with_two_items) }
+    let(:cart) { create(:cart_with_items) }
     subject { CheckoutService.new(cart) }
     
     it "builds new order" do
