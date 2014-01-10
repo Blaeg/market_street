@@ -6,7 +6,7 @@ class Shopping::CouponsController < Shopping::BaseController
   def create
     @coupon = Coupon.find_by_code(params[:coupon][:code])
     if @coupon && @coupon.eligible?(session_order) && 
-      session_order.update_attributes( :coupon_id => @coupon.id )
+      session_cart.update_attributes(:coupon_id => @coupon.id )
       flash[:notice] = "Successfully added coupon code #{@coupon.code}."
       redirect_to next_form_url(session_order)
     else

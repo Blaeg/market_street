@@ -38,12 +38,12 @@ describe Order, "instance methods" do
   end
 
   context ".cancel_unshipped_order(invoice)" do
+    let(:invoice) { create(:invoice, :amount => 13.49) }
+    let(:order) { create(:completed_order) }
     it 'returns ""' do
-      @invoice = create(:invoice, :amount => 13.49)
-      @order = create(:order)
-      @invoice.stubs(:cancel_authorized_payment).returns(true)
-      @order.cancel_unshipped_order(@invoice).should == true
-      @order.active.should be_false
+      invoice.stubs(:cancel_authorized_payment).returns(true)
+      expect(order.cancel_unshipped_order(invoice)).to be_true
+      expect(order).to be_canceled
     end
   end
 
@@ -139,12 +139,12 @@ describe Order, "instance methods" do
   end
 
   context ".capture_invoice(invoice)" do
+    let(:invoice) { create(:invoice) }
+    let(:order) { create(:completed_order) }
     it 'returns an payment object' do
-      ##  Create fake admin_cart object in memcached
-      @invoice  = create(:invoice)
-      payment   = @order.capture_invoice(@invoice)
-      payment.class.to_s.should == 'Payment'
-      @invoice.state.should == 'paid'
+      payment = order.capture_invoice(invoice)
+      expect(payment.is_a?(Payment)).to be_true
+      expect(invoice).to be_paid
     end
   end
 

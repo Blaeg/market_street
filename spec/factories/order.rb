@@ -1,8 +1,7 @@
 FactoryGirl.define do
   factory :order do
-    sequence(:number)
     email           'email@e.com'
-    state           'in_progress'
+    state           'initial'
     user            { |c| c.association(:user) }
     bill_address    { |c| c.association(:address) }
     ship_address    { |c| c.association(:address) }
@@ -11,11 +10,7 @@ FactoryGirl.define do
     after(:build) {|oi| oi.send(:initialize_state_machines, :dynamic => :force)}
   end
 
-  factory :in_progress_order, :parent => :order do
-    state 'in_progress'
-  end
-
-  factory :complete_order, :parent => :order do
-    state 'complete'
+  factory :completed_order, :parent => :order do
+    state 'completed'
   end
 end

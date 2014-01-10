@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110072730) do
+ActiveRecord::Schema.define(version: 20140110083509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20140110072730) do
     t.datetime "updated_at"
     t.integer  "bill_address_id"
     t.integer  "ship_address_id"
+    t.integer  "coupon_id"
   end
 
   add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
@@ -215,6 +216,7 @@ ActiveRecord::Schema.define(version: 20140110072730) do
     t.float    "tax_amount"
     t.float    "total_amount"
     t.float    "tax_rate",                                default: 0.0, null: false
+    t.integer  "coupon_id"
   end
 
   add_index "orders", ["bill_address_id"], name: "index_orders_on_bill_address_id", using: :btree

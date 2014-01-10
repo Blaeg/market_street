@@ -50,7 +50,7 @@ class Shopping::BaseController < ApplicationController
       create_order
     else
       @session_order = current_user.orders.include_checkout_objects.find(session[:order_id])
-      create_order unless @session_order.in_progress?
+      create_order unless @session_order.initial?
     end
     @session_order
   end

@@ -32,7 +32,7 @@ class Shopping::OrdersController < Shopping::BaseController
 
     address = @order.bill_address.cc_params
 
-    if !@order.in_progress?
+    if !@order.initial?
       flash[:error] = I18n.t('the_order_purchased')
       redirect_to myaccount_order_url(@order)
       return 

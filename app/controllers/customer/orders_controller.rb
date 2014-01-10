@@ -8,8 +8,10 @@ class Customer::OrdersController < Customer::BaseController
   # GET /customer/orders/1
   # GET /customer/orders/1.xml
   def show
-    @order = current_user.finished_orders.includes([:invoices]).find_by_number(params[:id])
+    @order = current_user.finished_orders.includes([:invoices])
+                        .find_by_number(params[:id])
   end
+
   private
 
   def selected_customer_tab(tab)

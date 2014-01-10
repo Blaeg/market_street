@@ -63,9 +63,9 @@ class User < ActiveRecord::Base
   has_many    :customer_comments, as: :commentable, class_name: 'Comment'
   has_many    :shipments, :through => :orders
   
-  has_many    :finished_orders, -> { where(state: ['complete', 'paid']) },  
+  has_many    :finished_orders, -> { where(state: ['completed', 'paid']) },  
                                     class_name: 'Order'
-  has_many    :completed_orders, -> { where(state: 'complete') },            
+  has_many    :completed_orders, -> { where(state: 'completed') },            
                                     class_name: 'Order'
 
   has_many    :phones, dependent: :destroy,       as: :phoneable

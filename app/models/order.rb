@@ -102,8 +102,8 @@ class Order < ActiveRecord::Base
 
   def cancel_unshipped_order(invoice)
     transaction do
-      self.update_attributes(:active => false)
       invoice.cancel_authorized_payment
+      cancel!
     end
   end
 
@@ -253,6 +253,8 @@ class Order < ActiveRecord::Base
   end
 
   def set_order_number
+    # o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+    # string = (0...50).map { o[rand(o.length)] }.join
     self.number = (NUMBER_SEED + id).to_s(CHARACTERS_SEED)
   end
 

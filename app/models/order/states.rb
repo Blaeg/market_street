@@ -2,18 +2,22 @@ require 'active_support/concern'
 module Order::States
   extend ActiveSupport::Concern
   included do
-    state_machine :initial => 'in_progress' do
-      state 'in_progress'
-      state 'complete'
+    state_machine :initial => 'initial' do
+      state 'initial'
+      state 'completed'
       state 'paid'
       state 'canceled'
 
       event :complete do
-        transition :to => 'complete', :from => 'in_progress'
+        transition :to => 'completed', :from => 'initial'
       end
 
       event :pay do
-        transition :to => 'paid', :from => ['in_progress', 'complete']
+        transition :to => 'paid', :from => 'completed'
+      end
+
+      event :cancel do 
+        transition :to => 'canceled', :from => 'completed'
       end
 
       after_transition :to => 'paid', :do => [:mark_items_paid]

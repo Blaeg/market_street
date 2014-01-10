@@ -7,7 +7,7 @@ describe Admin::Fulfillment::ReturnAuthorizationsController do
     activate_authlogic
     @user = create_admin_user
     login_as(@user)
-    @order = create(:order, :state => 'complete')
+    @order = create(:completed_order)
   end
 
   it "index action renders index template" do
