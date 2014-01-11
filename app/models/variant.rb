@@ -145,9 +145,8 @@ class Variant < ActiveRecord::Base
   end
 
   def create_inventory
-    return if inventory_id.nil?
     self.inventory = Inventory.create({:count_on_hand => 0, 
       :count_pending_to_customer => 0, 
-      :count_pending_from_supplier => 0}) 
+      :count_pending_from_supplier => 0}) unless inventory_id
   end
 end

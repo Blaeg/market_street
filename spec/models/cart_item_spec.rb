@@ -8,18 +8,13 @@ describe CartItem do
     end
 
     it 'is created active' do
-      expect(cart_item.active).to be_true      
+      expect(cart_item).to be_active
     end
 
     it 'is not active' do
       cart_item.inactivate!
       expect(cart_item).not_to be_active
-    end
-    
-    it 'is not active after inactivation' do
-      cart_item.inactivate!
-      expect(cart_item.active).to be_false      
-    end
+    end    
   end
 
   context "calculator" do
