@@ -88,11 +88,11 @@ class Shopping::OrdersController < Shopping::BaseController
     @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
     @order.credit_amount
   end
+  
   def require_login
     if !current_user
       session[:return_to] = shopping_checkout_path
       return redirect_to( login_url() )
     end
   end
-
 end

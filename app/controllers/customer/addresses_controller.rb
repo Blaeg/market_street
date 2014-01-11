@@ -15,14 +15,14 @@ class Customer::AddressesController < Customer::BaseController
     if !Settings.require_state_in_address && countries.size == 1
       @address.country = countries.first
     end
-    @address.default = true          if current_user.default_shipping_address.nil?
+    @address.default = (current_user.default_shipping_address.nil?)
     @form_address = @address
   end
 
   def create
     @address = current_user.addresses.new(allowed_params)
-    @address.default = true          if current_user.default_shipping_address.nil?
-    @address.billing_default = true  if current_user.default_billing_address.nil?
+    @address.default = (current_user.default_shipping_address.nil?)
+    @address.billing_default = (current_user.default_billing_address.nil?)
 
     respond_to do |format|
       if @address.save
@@ -47,8 +47,8 @@ class Customer::AddressesController < Customer::BaseController
     @address.replace_address_id = params[:id] # This makes the address we are updating inactive if we save successfully
 
     # if we are editing the current default address then this is the default address
-    @address.default         = true if params[:id].to_i == current_user.default_shipping_address.try(:id)
-    @address.billing_default = true if params[:id].to_i == current_user.default_billing_address.try(:id)
+    @address.default = (params[:id].to_i == current_user.default_shipping_address.try(:id))
+    @address.billing_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
     respond_to do |format|
       if @address.save
