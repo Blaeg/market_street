@@ -84,7 +84,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bluecloth (2.1.0)
+    bluecloth (2.2.0)
     bootstrap-editable-rails (0.0.5)
       railties (>= 3.1)
     bootstrap-sass (2.3.2.2)
@@ -471,7 +471,7 @@ DEPENDENCIES
   aws-sdk
   better_errors
   binding_of_caller (~> 0.7.2)
-  bluecloth (~> 2.1.0)
+  bluecloth (~> 2.2.0)
   bootstrap-editable-rails
   bootstrap-sass (~> 2.3.2.1)
   breadcrumbs_on_rails

@@ -28,6 +28,7 @@ class Product < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :permalink, use: :finders
+  include Presentation::ProductPresenter
 
   serialize :product_keywords, Array
 
@@ -152,49 +153,49 @@ class Product < ActiveRecord::Base
 
   private
 
-    def self.deleted_at_filter(active_state)
-      if active_state
-        active
-      elsif active_state == false##  note nil != false
-        where(['products.deleted_at IS NOT NULL AND products.deleted_at <= ?', Time.zone.now.to_s(:db)])
-      else
-        all
-      end
+  def self.deleted_at_filter(active_state)
+    if active_state
+      active
+    elsif active_state == false##  note nil != false
+      where(['products.deleted_at IS NOT NULL AND products.deleted_at <= ?', Time.zone.now.to_s(:db)])
+    else
+      all
     end
+  end
 
-    def create_content
-      self.description = BlueCloth.new(self.description_markup).to_html unless self.description_markup.blank?
-    end
+  def create_content
+    self.description = BlueCloth.new(self.description_markup).to_html unless self.description_markup.blank?
+  end
 
-    def not_active_on_create!
-      self.deleted_at = Time.zone.now
-    end
+  def not_active_on_create!
+    self.deleted_at = Time.zone.now
+  end
 
-    # if the permalink is not filled in set it equal to the name
-    def sanitize_data
-      sanitize_permalink
-      assign_meta_keywords  if meta_keywords.blank? && description
-      sanitize_meta_description
-    end
+  # if the permalink is not filled in set it equal to the name
+  def sanitize_data
+    sanitize_permalink
+    assign_meta_keywords  if meta_keywords.blank? && description
+    sanitize_meta_description
+  end
 
-    def sanitize_permalink
-      self.permalink = name if permalink.blank? && name
-      self.permalink = permalink.squeeze(" ").strip.gsub(' ', '-') if permalink
-    end
+  def sanitize_permalink
+    self.permalink = name if permalink.blank? && name
+    self.permalink = permalink.squeeze(" ").strip.gsub(' ', '-') if permalink
+  end
 
-    def sanitize_meta_description
-      if name && description.present? && meta_description.blank?
-        self.meta_description = [name.first(55), description.remove_hyper_text.first(197)].join(': ')
-      end
+  def sanitize_meta_description
+    if name && description.present? && meta_description.blank?
+      self.meta_description = [name.first(55), description.remove_hyper_text.first(197)].join(': ')
     end
+  end
 
-    def assign_meta_keywords
-      self.meta_keywords =  [name.first(55),
-                            description.
-                            remove_non_alpha_numeric.           # remove non-alpha numeric
-                            remove_hyper_text.                  # remove hyper text
-                            remove_words_less_than_x_characters. # remove words less than 2 characters
-                            first(197)                       # limit to 197 characters
-                            ].join(': ')
-    end
+  def assign_meta_keywords
+    self.meta_keywords =  [name.first(55),
+                          description.
+                          remove_non_alpha_numeric.           # remove non-alpha numeric
+                          remove_hyper_text.                  # remove hyper text
+                          remove_words_less_than_x_characters. # remove words less than 2 characters
+                          first(197)                       # limit to 197 characters
+                          ].join(': ')
+  end
 end

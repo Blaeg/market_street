@@ -54,6 +54,7 @@ class Order < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :number
+  include Presentation::OrderPresenter
 
   has_many   :order_items, :dependent => :destroy
   has_many   :shipments
@@ -99,7 +100,7 @@ class Order < ActiveRecord::Base
   def display_completed_at(format = :us_date)
     completed_at ? I18n.localize(completed_at, :format => format) : 'Not Finished.'
   end
-
+    
   def cancel_unshipped_order(invoice)
     transaction do
       invoice.cancel_authorized_payment
@@ -177,7 +178,7 @@ class Order < ActiveRecord::Base
   #     shipment.prepare! if shipment.order_items.size > 0
   #   end.any?
   # end
-
+  
   # add the variant to the order items in the order, normally called at order creation
   #
   # @param [Variant] variant to add

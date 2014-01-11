@@ -17,7 +17,7 @@ gem "asset_sync"
 gem 'awesome_nested_set', '~> 3.0.0.rc.1'
 
 gem 'aws-sdk'
-gem 'bluecloth',      '~> 2.1.0'
+gem 'bluecloth',      '~> 2.2.0'
 gem 'cancan',         '~> 1.6.8'
 gem 'chronic'
 
