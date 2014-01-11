@@ -4,17 +4,18 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   def index
     if session_cart.cart_items.empty?
       flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')
-      redirect_to products_url and return
+      return redirect_to products_url
     end
+  
     @form_address = @shopping_address = Address.new
     @form_address.phones.build
+  
     if !Settings.require_state_in_address && countries.size == 1
       @shopping_address.country = countries.first
     end
     form_info
   end
 
-  # GET /shopping/addresses/1/edit
   def edit
     form_info
     @form_address = @shopping_address = Address.find(params[:id])
@@ -22,18 +23,13 @@ class Shopping::BillingAddressesController < Shopping::BaseController
 
   # POST /shopping/addresses
   def create
-    if params[:address].present?
-      @shopping_address = current_user.addresses.new(allowed_params)
-      @shopping_address.default = true          if current_user.default_shipping_address.nil?
-      @shopping_address.billing_default = true  if current_user.default_billing_address.nil?
-      @shopping_address.save
-      @form_address = @shopping_address
-    elsif params[:shopping_address_id].present?
-      @shopping_address = current_user.addresses.find(params[:shopping_address_id])
-    end
-
+    @shopping_address = current_user.addresses.new(allowed_params)
+    @shopping_address.default = (current_user.default_shipping_address.nil?)
+    @shopping_address.billing_default = (current_user.default_billing_address.nil?)
+    @shopping_address.save
+    @form_address = @shopping_address
+  
     if @shopping_address.id
-      update_order_address_id(@shopping_address.id)
       redirect_to(next_form_url(session_order))
     else
       form_info
@@ -43,14 +39,12 @@ class Shopping::BillingAddressesController < Shopping::BaseController
 
   def update
     @shopping_address = current_user.addresses.new(allowed_params)
-    @shopping_address.replace_address_id = params[:id] # This makes the address we are updating inactive if we save successfully
-
-    # if we are editing the current default address then this is the default address
-    @shopping_address.default         = true if params[:id].to_i == current_user.default_shipping_address.try(:id)
-    @shopping_address.billing_default = true if params[:id].to_i == current_user.default_billing_address.try(:id)
+    # This makes the address we are updating inactive if we save successfully
+    @shopping_address.replace_address_id = params[:id] 
+    @shopping_address.default = (params[:id].to_i == current_user.default_shipping_address.try(:id))
+    @shopping_address.billing_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
     if @shopping_address.save
-      update_order_address_id(@shopping_address.id)
       redirect_to(next_form_url(session_order))
     else
       # the form needs to have an id
@@ -65,7 +59,6 @@ class Shopping::BillingAddressesController < Shopping::BaseController
 
   def select_address
     address = current_user.addresses.find(params[:id])
-    update_order_address_id(address.id)
     redirect_to next_form_url(session_order)
   end
 
@@ -95,9 +88,5 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   def form_info
     @shopping_addresses = current_user.shipping_addresses
     @states     = State.form_selector
-  end
-
-  def update_order_address_id(id)
-    session_order.update_attributes(:bill_address_id => id)
   end
 end

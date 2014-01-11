@@ -17,23 +17,16 @@ class Shopping::AddressesController < Shopping::BaseController
 
   # POST /shopping/addresses
   def create
-    if params[:address].present?
-      @shopping_address = current_user.addresses.new(allowed_params)
-      @shopping_address.default = true          if current_user.default_shipping_address.nil?
-      @shopping_address.billing_default = true  if current_user.default_billing_address.nil?
-      @shopping_address.save
-      @form_address = @shopping_address
-    elsif params[:shopping_address_id].present?
-      @shopping_address = current_user.addresses.find(params[:shopping_address_id])
+    @shopping_address = current_user.addresses.new(allowed_params)
+    @shopping_address.default = (current_user.default_shipping_address.nil?)
+    @shopping_address.billing_default = (current_user.default_billing_address.nil?)
+        
+    if @shopping_address.save
+      redirect_to(shopping_checkout_path, :notice => 'Address was successfully created.')
+    else
+      form_info
+      render :action => "index"
     end
-
-      if @shopping_address.id
-        update_order_address_id(@shopping_address.id)
-        redirect_to(shopping_checkout_path, :notice => 'Address was successfully created.')
-      else
-        form_info
-        render :action => "index"
-      end
   end
 
   def update
@@ -41,25 +34,23 @@ class Shopping::AddressesController < Shopping::BaseController
     @shopping_address.replace_address_id = params[:id] # This makes the address we are updating inactive if we save successfully
 
     # if we are editing the current default address then this is the default address
-    @shopping_address.default         = true if params[:id].to_i == current_user.default_shipping_address.try(:id)
-    @shopping_address.billing_default = true if params[:id].to_i == current_user.default_billing_address.try(:id)
+    @shopping_address.default = (params[:id].to_i == current_user.default_shipping_address.try(:id))
+    @shopping_address.billing_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
-      if @shopping_address.save
-        update_order_address_id(@shopping_address.id)
-        redirect_to(shopping_checkout_path, :notice => 'Address was successfully updated.')
-      else
-        # the form needs to have an id
-        @form_address = current_user.addresses.find(params[:id])
-        # the form needs to reflect the attributes to customer entered
-        @form_address.attributes = allowed_params
-        @states     = State.form_selector
-        render :action => "edit"
-      end
+    if @shopping_address.save
+      redirect_to(shopping_checkout_path, :notice => 'Address was successfully updated.')
+    else
+      # the form needs to have an id
+      @form_address = current_user.addresses.find(params[:id])
+      # the form needs to reflect the attributes to customer entered
+      @form_address.attributes = allowed_params
+      @states     = State.form_selector
+      render :action => "edit"
+    end
   end
 
   def select_address
     address = current_user.addresses.find(params[:id])
-    update_order_address_id(address.id)
     redirect_to shopping_checkout_path
   end
 
@@ -81,15 +72,7 @@ class Shopping::AddressesController < Shopping::BaseController
     @states     = State.form_selector
   end
 
-  def update_order_address_id(id)
-    session_order.update_attributes(
-                          :ship_address_id => id ,
-                          :bill_address_id => (session_order.bill_address_id ? session_order.bill_address_id : id)
-                                    )
-  end
-
   def countries
     @countries ||= Country.active
   end
-
 end

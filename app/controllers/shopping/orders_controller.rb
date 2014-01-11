@@ -17,11 +17,11 @@ class Shopping::OrdersController < Shopping::BaseController
   end
 
   #  add checkout button
-  def checkout
-    order = find_or_create_order
-    #@order = session_cart.add_items_to_checkout(order) # need here because items can also be removed
-    redirect_to next_form_url(order)
-  end
+  # def checkout
+  #   order = find_or_create_order
+  #   #@order = session_cart.add_items_to_checkout(order) # need here because items can also be removed
+  #   redirect_to next_form_url(order)
+  # end
 
   # POST /shopping/orders
   def update
@@ -91,7 +91,7 @@ class Shopping::OrdersController < Shopping::BaseController
   def require_login
     if !current_user
       session[:return_to] = shopping_checkout_path
-      redirect_to( login_url() ) and return
+      return redirect_to( login_url() )
     end
   end
 
