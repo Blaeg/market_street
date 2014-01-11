@@ -12,7 +12,7 @@ module Variant::AvailabilityManager
   end
 
   def inactivate
-    deleted_at ? true : false
+    deleted_at.present?
   end
 
   def quantity_purchaseable
@@ -42,7 +42,7 @@ module Variant::AvailabilityManager
   end
 
   def stock_status
-    return "sold_out"  if sold_out?
+    return "sold_out" if sold_out?
     return "low_stock" if low_stock?
     "available"
   end
@@ -65,10 +65,12 @@ module Variant::AvailabilityManager
     ### don't lock if we have plenty of stock.
     if low_stock?
       inventory.lock!
-        self.inventory.count_on_hand = inventory.count_on_hand + num.to_i
+      self.inventory.count_on_hand = inventory.count_on_hand + num.to_i
       inventory.save!
     else
-      sql = "UPDATE inventories SET count_on_hand = (#{num} + count_on_hand) WHERE id = #{self.inventory.id}"
+      sql = "UPDATE inventories 
+            SET count_on_hand = (#{num} + count_on_hand) 
+            WHERE id = #{self.inventory.id}"
       ActiveRecord::Base.connection.execute(sql)
     end
   end
@@ -93,7 +95,9 @@ module Variant::AvailabilityManager
       self.inventory.count_pending_to_customer = inventory.count_pending_to_customer.to_i + num.to_i
       inventory.save!
     else
-      sql = "UPDATE inventories SET count_pending_to_customer = (#{num} + count_pending_to_customer) WHERE id = #{self.inventory.id}"
+      sql = "UPDATE inventories 
+            SET count_pending_to_customer = (#{num} + count_pending_to_customer) 
+            WHERE id = #{self.inventory.id}"
       ActiveRecord::Base.connection.execute(sql)
     end
   end

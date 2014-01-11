@@ -36,17 +36,26 @@ describe CheckoutService do
       end
     end
 
-    context "ready" do 
-      let(:cart) { create(:cart_ready_to_checkout) }
+    context "ready to checkout" do
+      let(:cart) { create(:cart_ready_to_checkout) }      
       subject { CheckoutService.new(cart) }
       
-      it "checkouts, saves the new order to db" do 
-        expect(Order.count).to eq 0
-        placed_order = subject.checkout
-        expect(Order.count).to eq 1      
-
-        expect_cart_and_order_to_be_equal(cart, placed_order)                      
+      before do
+        cart.cart_items.each do |item|
+          item.variant.inventory.update_attributes(count_on_hand: 100)
+        end
       end
-    end
+
+      it "checkouts, saves the order" do           
+        placed_order = subject.checkout
+
+        #inactivate cart
+        expect(cart).not_to be_active
+        expect(cart.cart_items.map(&:active?).any?).to be_false
+        
+        expect(Order.count).to eq 1      
+        expect_cart_and_order_to_be_equal(cart, placed_order)                              
+      end      
+    end  
   end
 end

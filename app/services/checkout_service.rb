@@ -15,8 +15,16 @@ class CheckoutService
 
   def checkout
     return unless cart.ready_to_checkout? 
-    new_order = build_new_order
-    new_order.save!
-    new_order
+
+    ActiveRecord::Base.transaction do
+      new_order = build_new_order
+      new_order.save!
+
+      cart.inactivate!      
+      cart.sell_inventory
+      
+      #charge payment
+      new_order
+    end
   end    
 end

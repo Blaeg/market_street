@@ -40,13 +40,13 @@ class Variant < ActiveRecord::Base
   belongs_to :product
   belongs_to :inventory
   
-  before_validation :create_inventory#, :on => :create
+  before_validation :create_inventory #, :on => :create
   #after_save :expire_cache
 
   validates :inventory_id, :presence => true
-  validates :price,       :presence => true
-  validates :product_id,  :presence => true
-  validates :sku,         :presence => true,       :length => { :maximum => 255 }
+  validates :price, :presence => true
+  validates :product_id, :presence => true
+  validates :sku, :presence => true, :length => { :maximum => 255 }
 
   accepts_nested_attributes_for :variant_properties#, :inventory
   
@@ -145,6 +145,9 @@ class Variant < ActiveRecord::Base
   end
 
   def create_inventory
-    self.inventory = Inventory.create({:count_on_hand => 0, :count_pending_to_customer => 0, :count_pending_from_supplier => 0}) unless inventory_id
+    return if inventory_id.nil?
+    self.inventory = Inventory.create({:count_on_hand => 0, 
+      :count_pending_to_customer => 0, 
+      :count_pending_from_supplier => 0}) 
   end
 end
