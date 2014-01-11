@@ -35,19 +35,19 @@ class CartItem < ActiveRecord::Base
     variant.product_name
   end
 
-  # Call this method to soft delete an item in the cart
-  #
-  # @param [none]
-  # @return [Boolean]
   def inactivate!
-    self.update_attributes(:active => false)
+    self.update_attributes(:is_active => false)
+  end
+
+  def sell_inventory
+    variant.subtract_count_on_hand(quantity)
   end
 
   def active?
-    self.active
+    self.is_active
   end
 
-   def to_order_item_attributes
+  def to_order_item_attributes
     {
       :variant           => variant,
       :price             => price,
@@ -60,6 +60,6 @@ class CartItem < ActiveRecord::Base
   private
 
   def inactivate_zero_quantity
-    active = false if quantity == 0
+    active = (quantity != 0)
   end
 end

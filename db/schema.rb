@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110083509) do
+ActiveRecord::Schema.define(version: 20140111070514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,9 +68,9 @@ ActiveRecord::Schema.define(version: 20140110083509) do
     t.integer  "cart_id"
     t.integer  "variant_id",                null: false
     t.integer  "quantity",   default: 1
-    t.boolean  "active",     default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_active",  default: true
   end
 
   add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id", using: :btree
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20140110083509) do
     t.integer  "bill_address_id"
     t.integer  "ship_address_id"
     t.integer  "coupon_id"
+    t.boolean  "is_active",       default: true
   end
 
   add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree

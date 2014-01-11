@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :cart do
     user { |c| c.association(:user) }
+    is_active true
   end
 
   factory :cart_with_items, :parent => :cart do
