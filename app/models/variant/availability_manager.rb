@@ -12,7 +12,7 @@ module Variant::AvailabilityManager
   end
 
   def inactivate
-    deleted_at.present?
+    deleted_at ? true : false
   end
 
   def quantity_purchaseable

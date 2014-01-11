@@ -4,7 +4,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   def index
     if session_cart.cart_items.empty?
       flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')
-      return redirect_to products_url
+      return redirect_to catalog_products_url
     end
   
     @form_address = @shopping_address = Address.new

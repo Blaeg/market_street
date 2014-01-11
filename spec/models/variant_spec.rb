@@ -159,15 +159,14 @@ describe Variant, " instance methods" do
 
   context ".is_available?" do
     it "is available" do
-
-      inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 99)
-      @variant    = create(:variant,   :inventory => inventory)
+      inventory = create(:inventory, :count_on_hand => 100, 
+        :count_pending_to_customer => 99)
+      @variant = create(:variant, :inventory => inventory)
       @variant.save
       @variant.is_available?.should be_true
     end
 
     it "is not available" do
-
       inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 100)
       @variant    = create(:variant,   :inventory => inventory)
       @variant.save

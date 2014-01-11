@@ -5,7 +5,7 @@ class Shopping::CartItemsController < Shopping::BaseController
       session_cart.save_user(current_user)
       redirect_to shopping_cart_url
     else #error case          
-      redirect_to product_url(variant.product)
+      redirect_to catalog_products_url(variant.product)
     end    
   end
 
