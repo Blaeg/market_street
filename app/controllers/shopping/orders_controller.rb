@@ -16,13 +16,6 @@ class Shopping::OrdersController < Shopping::BaseController
     end
   end
 
-  #  add checkout button
-  # def checkout
-  #   order = find_or_create_order
-  #   #@order = session_cart.add_items_to_checkout(order) # need here because items can also be removed
-  #   redirect_to next_form_url(order)
-  # end
-
   # POST /shopping/orders
   def update
     @order = find_or_create_order

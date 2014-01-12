@@ -40,12 +40,6 @@ describe CheckoutService do
       let(:cart) { create(:cart_ready_to_checkout) }      
       subject { CheckoutService.new(cart) }
       
-      before do
-        cart.cart_items.each do |item|
-          item.variant.inventory.update_attributes(count_on_hand: 100)
-        end
-      end
-
       it "checkouts, saves the order" do           
         placed_order = subject.checkout
 

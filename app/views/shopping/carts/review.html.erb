@@ -1,14 +1,17 @@
-<% if @cart.cart_items.blank? or @cart.cart_items.empty? %>
-  <h3 style='text-align:center;'><%= I18n.t(:nothing_in_cart) %></h3>
-<% else %>
-  <h3>Shopping Cart</h3>
-  <%= render :partial => 'cart_items_table' %>
+<div class="span12">
+	<div class="row">
+	  <div class="accordion" id="accordion2">
+	    <%= render 'checkout_shipping' %>   
+	    <%= render 'checkout_billing' %>	         
+	    <%= render 'checkout_payment' %>	         
+	  </div>
+	</div>
   <div class="row">
-  	<%= render :partial => 'cart_discount_and_gift_card' %>
-  	<%= render :partial => 'cart_summary' %>
-  </div>
-  <%= link_to 'Checkout', shopping_cart_review_path, class: 'span2 btn btn-primary btn-large pull-right' %>      
-<% end %> 
+	  <%= render :partial => 'shopping/carts/cart_items_table' %>
+	  <%= render :partial => 'shopping/carts/cart_summary' %>
+	</div>
+	<%= link_to 'Place Order', shopping_cart_checkout_path, method: :post, class: 'span2 btn btn-primary btn-large pull-right' %>	
+</div>
 
 <% content_for :below_body do %>
   <script>

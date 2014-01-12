@@ -21,10 +21,9 @@ class CheckoutService
       new_order.save!
 
       cart.inactivate!      
-      cart.sell_inventory
-      
-      #charge payment
-      new_order
+      cart.sell_inventory    
+      #charge payment      
     end
+    new_order
   end    
 end
