@@ -24,6 +24,7 @@ class Shopping::CartsController < Shopping::BaseController
     end		
   end
 
+
   def review
   	redirect root_url if @cart.nil?  	
   end

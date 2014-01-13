@@ -84,7 +84,7 @@ class Shopping::OrdersController < Shopping::BaseController
   
   def require_login
     if !current_user
-      session[:return_to] = shopping_checkout_path
+      session[:return_to] = shopping_cart_review_path
       return redirect_to( login_url() )
     end
   end

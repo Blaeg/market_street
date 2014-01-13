@@ -22,7 +22,7 @@ class Shopping::AddressesController < Shopping::BaseController
     @shopping_address.billing_default = (current_user.default_billing_address.nil?)
         
     if @shopping_address.save
-      redirect_to(shopping_checkout_path, :notice => 'Address was successfully created.')
+      redirect_to(shopping_cart_review_path, :notice => 'Address was successfully created.')
     else
       form_info
       render :action => "index"
@@ -38,7 +38,7 @@ class Shopping::AddressesController < Shopping::BaseController
     @shopping_address.billing_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
     if @shopping_address.save
-      redirect_to(shopping_checkout_path, :notice => 'Address was successfully updated.')
+      redirect_to(shopping_cart_review_path, :notice => 'Address was successfully updated.')
     else
       # the form needs to have an id
       @form_address = current_user.addresses.find(params[:id])
@@ -51,13 +51,12 @@ class Shopping::AddressesController < Shopping::BaseController
 
   def select_address
     address = current_user.addresses.find(params[:id])
-    redirect_to shopping_checkout_path
+    redirect_to shopping_cart_review_path
   end
 
   def destroy
     @shopping_address = Address.find(params[:id])
     @shopping_address.update_attributes(:active => false)
-
     redirect_to(shopping_addresses_url)
   end
 
