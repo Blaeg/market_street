@@ -23,7 +23,7 @@ class CheckoutService
       cart.inactivate!      
       cart.sell_inventory    
       #charge payment      
-    end
-    new_order
+      new_order
+    end    
   end    
 end

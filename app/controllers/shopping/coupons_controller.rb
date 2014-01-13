@@ -1,18 +1,13 @@
 class Shopping::CouponsController < Shopping::BaseController
-  def show
-    form_info
-  end
-
   def create
     @coupon = Coupon.find_by_code(params[:coupon][:code])
     if @coupon && @coupon.eligible?(session_order) && 
       session_cart.update_attributes(:coupon_id => @coupon.id )
-      flash[:notice] = "Successfully added coupon code #{@coupon.code}."
-      redirect_to next_form_url(session_order)
+      render json: {:notice => "Successfully added coupon code #{@coupon.code}."}, 
+        status: :ok      
     else
-      form_info
-      flash[:notice] = "Sorry coupon code: #{params[:coupon][:code]} is not valid."
-      render :action => 'show'
+      render json: {:notice => "Sorry coupon code: #{params[:coupon][:code]} is not valid."}, 
+        status: :bad_request            
     end
   end
 

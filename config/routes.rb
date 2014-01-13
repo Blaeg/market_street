@@ -35,14 +35,19 @@ MarketStreet::Application.routes.draw do
 
   #SHOPPING
   namespace :shopping do
-    get 'cart' => 'carts#index', as: :cart         
-    get 'cart/review' => 'carts#review', as: :cart_review
+    #to do add name space
+    get 'cart' => 'carts#index', as: :cart
+    get 'cart/review' => 'carts#review', as: :cart_review    
+    post 'cart/select_ship_address' => 'carts#select_ship_address', as: :cart_ship_address
+    post 'cart/select_bill_address' => 'carts#select_bill_address', as: :cart_bill_address
+    post 'cart/add_coupon' => 'carts#add_coupon', as: :cart_add_coupon    
     post 'cart/checkout' => 'carts#checkout', as: :cart_checkout
     
     resources :cart_items, :only => [:update, :create, :destroy] 
     resources :wish_items, :only => [:index, :create, :destroy]    
     resource  :coupon, :only => [:show, :create]
 
+    #move to customer
     resources  :addresses do
       member do
         put :select_address

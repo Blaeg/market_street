@@ -106,6 +106,7 @@ group :development do
 end
 group :test, :development do
   gem 'rspec-rails'  
+  gem 'rspec'
   gem 'pry-rails'
   gem 'pry-nav'
   

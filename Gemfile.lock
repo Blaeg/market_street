@@ -524,6 +524,7 @@ DEPENDENCIES
   rake (~> 10.1)
   ransack
   rmagick
+  rspec
   rspec-mocks
   rspec-rails
   rspec-rails-mocha
