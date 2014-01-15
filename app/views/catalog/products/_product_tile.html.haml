@@ -2,9 +2,8 @@
   .thumbnail
     = link_to image_tag(product.featured_image(:medium)), catalog_product_path(product), title: product.name
     .caption
-      %h5= link_to product.short_name, catalog_product_path(product)
+      %h5.text-center= link_to product.short_name, catalog_product_path(product)
       .row-fluid
-        .span8= product.price_label
-        .span3.pull-right
-          = link_to fa_icon("heart"), shopping_wish_items_path(:format => :json, :variant_id => product.variants.first.id), :method => :post, :remote => true
-          = link_to fa_icon("shopping-cart"), '#'       
+        %h5.span9= product.price_label
+        %h4.pull-right
+          = link_to fa_icon("heart"), shopping_wish_items_path(:format => :json, :variant_id => product.variants.first.id), :method => :post, :remote => true          
