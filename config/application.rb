@@ -57,7 +57,7 @@ module MarketStreet
       end
       config.assets.precompile += [ "#{theme}-application.css", "#{theme}-application.js"]      
     end
-    config.assets.precompile += [ "application-admin.css", "application-admin.js"]
+    config.assets.precompile += [ "application-admin.js"]
     config.assets.initialize_on_precompile = false
 
     #config.session_store = ::Ripple::SessionStore
