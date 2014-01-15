@@ -29,33 +29,14 @@ MarketStreet::Application.configure do
   config.assets.precompile += %w( .svg .eot .woff .ttf )
   config.assets.precompile += %w( *.js )
   config.assets.precompile += [ 'admin.css',
-                                'admin/app.css',
-                                'admin/cart.css',
-                                'admin/foundation.css',
-                                'admin/normalize.css',
-                                'admin/help.css',
-                                'admin/ie.css',
-                                'autocomplete.css',
-                                'application.css',
-                                'chosen.css',
-                                'home_page.css',
-                                'ie.css',
-                                'ie6.css',
-                                'login.css',
-                                'markdown.css',
-                                'myaccount.css',
-                                'normalize.css',
-                                'pikachoose_product.css',
-                                'product_page.css',
-                                'products_page.css',
-                                'shopping_cart_page.css',
-                                'signup.css',
-                                'site/app.css',
-                                'sprite.css',
+    'autocomplete.css',
+    'application.css',
+    'chosen.css',
+    'markdown.css',
+    'sprite.css',
                                 'cupertino/jquery-ui-1.8.12.custom.css',# in vendor
-                                'modstyles.css', # in vendor
                                 'scaffold.css' # in vendor
-                                ]
+                              ]
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
@@ -101,7 +82,7 @@ MarketStreet::Application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
-  config.i18n.fallbacks = true
+config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
@@ -115,29 +96,29 @@ MarketStreet::Application.configure do
     #  :signature  => Settings.paypal.signature
     #)
 
-    ::GATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new(
-      :login    => Settings.authnet.login,
-      :password => Settings.authnet.password,
-      :test     => true
-    )
+::GATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new(
+  :login    => Settings.authnet.login,
+  :password => Settings.authnet.password,
+  :test     => true
+  )
 
-    ::CIM_GATEWAY = ActiveMerchant::Billing::AuthorizeNetCimGateway.new(
-      :login    => Settings.authnet.login,
-      :password => Settings.authnet.password,
-      :test     => true
-    )
-    Paperclip::Attachment.default_options[:storage] = :s3
+::CIM_GATEWAY = ActiveMerchant::Billing::AuthorizeNetCimGateway.new(
+  :login    => Settings.authnet.login,
+  :password => Settings.authnet.password,
+  :test     => true
+  )
+Paperclip::Attachment.default_options[:storage] = :s3
     #::GATEWAY = ActiveMerchant::Billing::BraintreeGateway.new(
     #  :login     => Settings.braintree.login,
     #  :password  => Settings.braintree.password
     #)
-  end
-  PAPERCLIP_STORAGE_OPTS = {  :styles => {:mini => '48x48>',
-                                          :small => '100x100>',
-                                          :medium   => '200x200>',
-                                          :product => '320x320>',
-                                          :large => '600x600>' },
-                              :default_style => :product,
-                              :url => "/assets/products/:id/:style/:basename.:extension",
-                              :path => ":rails_root/public/assets/products/:id/:style/:basename.:extension" }
+end
+PAPERCLIP_STORAGE_OPTS = {  :styles => {:mini => '48x48>',
+  :small => '100x100>',
+  :medium   => '200x200>',
+  :product => '320x320>',
+  :large => '600x600>' },
+  :default_style => :product,
+  :url => "/assets/products/:id/:style/:basename.:extension",
+  :path => ":rails_root/public/assets/products/:id/:style/:basename.:extension" }
 end
