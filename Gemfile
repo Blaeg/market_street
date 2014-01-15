@@ -101,7 +101,6 @@ group :development do
   #gem 'capistrano-unicorn', require: false  
   gem 'better_errors'
   gem "binding_of_caller", '~> 0.7.2'
-  gem "rails-erd"
   gem 'byebug', :platforms => [:mingw_20, :mri_20, :ruby_20]
   gem 'pry-byebug', :platforms => [:mingw_20, :mri_20, :ruby_20]
   gem 'pry-rails'
