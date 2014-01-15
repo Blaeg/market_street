@@ -13,8 +13,7 @@
       <%= link_to 'Delete', shopping_address_path(shopping_address), :data => {:confirm => 'Are you sure?'}, :method => :delete %>
     </div>
     <hr style='color:#aac'/>
-  <% end %>
-  <%= link_to 'Order Summary', shopping_orders_path, :class => 'btn btn-success' %>  
+  <% end %>  
 </div>
 <br />
 <%= form_for @shopping_address, url: shopping_addresses_path, html: {class: 'custom'} do |address_form| %>
