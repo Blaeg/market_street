@@ -29,12 +29,12 @@ MarketStreet::Application.configure do
   config.assets.precompile += %w( .svg .eot .woff .ttf )
   config.assets.precompile += %w( *.js )
   config.assets.precompile += [ 'admin.css',
-    'autocomplete.css',
-    'application.css',
-    'chosen.css',
-    'markdown.css',
-    'sprite.css',
-                                'cupertino/jquery-ui-1.8.12.custom.css',# in vendor
+                                'autocomplete.css',
+                                'application.css',
+                                'chosen.css',
+                                'markdown.css',
+                                'sprite.css',
+                                'jquery-ui-1.10.0.custom.min.css',# in vendor
                                 'scaffold.css' # in vendor
                               ]
 
