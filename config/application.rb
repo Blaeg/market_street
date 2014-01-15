@@ -55,7 +55,10 @@ module MarketStreet
       ['images', 'stylesheets', 'javascripts'].each do |folder| 
         config.assets.paths << "#{Rails.root}/app/themes/#{theme}/assets/#{folder}"
       end
-      config.assets.precompile += [ "#{theme}-application.css", "#{theme}-application.js"]      
+      config.assets.precompile += ["#{theme}-application.css"]
+      config.assets.precompile += ["#{theme}-application.js"]
+      config.assets.precompile += ["#{theme}-application-admin.css"]
+      config.assets.precompile += ["#{theme}-application-admin.js"]
     end
     config.assets.initialize_on_precompile = false
 
