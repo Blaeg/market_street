@@ -15,11 +15,11 @@ module OrderItem::States
     end
 
     def shipped?
-      shipment_id?
+      !shipped_at.nil?
     end
 
     def unshipped?
-      !shipped?
+      shipped_at.nil?
     end
   end
 end

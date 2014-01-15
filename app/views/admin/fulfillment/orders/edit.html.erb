@@ -15,7 +15,7 @@
           <li> <label>Shipped:</label> <%= item.shipment.display_shipped_at %> </li>
           <li> <label>Shipping #:</label> <%= item.shipment.number %> </li>
         <% else %>
-          <li>Not Shipped Yet,  <%= item.shipping_rate.shipping_method.name %></li>
+          <li>Not Shipped Yet</li>
         <% end %>
       </ul>
 
@@ -65,11 +65,11 @@
     <div class=' panel'>
       <% if @order.return_authorizations.size > 0 %>
          <%= link_to 'View RMAs', admin_fulfillment_order_return_authorizations_path(@order),
-                                  :class => 'btn ' %>
+                                  :class => 'btn' %>
          <br/><br/>
       <% else %>
         <%= link_to 'Create RMA', new_admin_fulfillment_order_return_authorization_path(@order),
-                                  :class => 'btn ' %>
+                                  :class => 'btn' %>
       <% end %>
     </div>
   </div>
@@ -81,6 +81,6 @@
   </div>
 </div>
 
-<% content_for :bottom do -%>
+<% content_for :below_body do -%>
   <%= javascript_include_tag "admin/fulfillment" %>  
 <% end %>

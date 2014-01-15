@@ -32,7 +32,7 @@
         <td><%= order.name %></td>
         <td><%= order.email %></td>      
         <td><%= order.display_completed_at(:us_time) %></td>
-        <td><%= order.shipped.to_s %></td>
+        <td><%= order.shipped_at.to_s %></td>
         <td><%= link_to 'Edit', edit_admin_fulfillment_order_path(order), class: 'btn btn-primary' %></td>
       </tr>
     <% end %>

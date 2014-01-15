@@ -1,9 +1,5 @@
 <%= render :partial => '/admin/catalog/sub_header'%>
 
-<% content_for :head do -%>
-  <%#= javascript_include_tag "admin/index_grid" %>
-<% end %>
-
 <% content_for :sidemenu do %>
   <div class='admin_filters'>
     <%= form_tag admin_catalog_product_variants_path(@product), :method => 'get', :id => "variants_search" do %>

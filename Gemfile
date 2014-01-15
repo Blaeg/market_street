@@ -88,7 +88,7 @@ gem 'social-share-button'
 group :assets do
   gem 'uglifier',     '>= 1.3.0'
   gem 'sass-rails',   '~> 4.0.0'
-  gem 'coffee-rails'
+  gem 'coffee-rails'  
 end
 
 group :production do  

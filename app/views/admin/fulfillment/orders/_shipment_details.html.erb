@@ -1,6 +1,6 @@
 <div class='panel'>
   <h4>Shipment Details</h4>
-  <% if order.shipments.empty? %>
+  <% if order.order_items.map(&:shipments).flatten.compact.empty? %>
       <div class='well'>
         No Shipments have been made on this order.<br />
         <% if order.paid? %>
@@ -8,13 +8,14 @@
         <% end %>
       </div>
   <% else %>
-    <% order.shipments.each do |shipment| %>
-      <ul class='vertical-list'>
-        <li> <label>Shipping Method:</label> <%= shipment.shipping_method.name %></li>
-        <li> <label>Shipping #:</label> <%= shipment.number %> </li>
-        <li> <label>Tracking:</label> <%= shipment.tracking %> </li>
-        <li> <label>State:</label> <%= shipment.state %></li>
-      </ul>
+    <% order.order_items.each do |order_item| %>
+      <% order_item.shipments.each do |shipment| %>
+        <ul class='vertical-list'>
+          <li> <label>Shipping #:</label> <%= shipment.number %> </li>
+          <li> <label>Tracking:</label> <%= shipment.tracking %> </li>
+          <li> <label>State:</label> <%= shipment.state %></li>
+        </ul>
+      <% end %>
     <% end %>
     <div class='panel callout'>
       <%= link_to 'View Shipments for this order.', admin_fulfillment_shipments_path(:order_id => order.number) %>

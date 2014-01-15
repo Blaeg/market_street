@@ -24,11 +24,9 @@
         .clearfix
     = render 'product_details'
 
-- content_for :bottom do
-  = javascript_include_tag 'shopping/cart.js' 
-  = javascript_include_tag 'product_page.js'
-
 - content_for :below_body do
+  = javascript_include_tag 'cart.js' 
+  = javascript_include_tag 'product_page.js'
   :javascript
     $('#product_tabs a').click(function (e) {
       e.preventDefault()
