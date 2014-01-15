@@ -1,11 +1,11 @@
 <% if @cart.cart_items.blank? or @cart.cart_items.empty? %>
   <h3 style='text-align:center;'><%= I18n.t(:nothing_in_cart) %></h3>
 <% else %>
-  <h3>Shopping Cart</h3>
+  <h3 class>Shopping Cart</h3>
   <%= render :partial => 'cart_items_table' %>
   <div class="row">
-  	<%= render :partial => 'cart_discount_and_gift_card' %>
-  	<%= render :partial => 'cart_summary' %>
+    <%= render :partial => 'cart_discount_and_gift_card' %>
+    <%= render :partial => 'cart_summary' %>
   </div>
   <%= link_to 'Checkout', shopping_cart_review_path, class: 'span2 btn btn-primary btn-large pull-right' %>      
 <% end %> 

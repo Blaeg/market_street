@@ -1,17 +1,13 @@
-<div class="span12">
-	<div class="row">
-	  <div class="accordion" id="accordion2">
-	    <%= render 'checkout_shipping' %>   
-	    <%= render 'checkout_billing' %>	         
-	    <%= render 'checkout_payment' %>	         
-	  </div>
-	</div>
-  <div class="row">
-	  <%= render :partial => 'shopping/carts/cart_items_table' %>
-	  <%= render :partial => 'shopping/carts/cart_summary' %>
-	</div>
-	<%= link_to 'Place Order', shopping_cart_checkout_path, method: :post, class: 'span2 btn btn-primary btn-large pull-right' %>	
+<div class="accordion" id="accordion2">
+  <%= render 'checkout_shipping' %>   
+  <%= render 'checkout_billing' %>	         
+  <%= render 'checkout_payment' %>	         
 </div>
+<div class="row">
+  <%= render :partial => 'shopping/carts/cart_items_table' %>
+  <%= render :partial => 'shopping/carts/cart_summary' %>
+</div>
+<%= link_to 'Place Order', shopping_cart_checkout_path, method: :post, class: 'span2 btn btn-primary btn-large pull-right' %>	
 
 <% content_for :below_body do %>
   <script>

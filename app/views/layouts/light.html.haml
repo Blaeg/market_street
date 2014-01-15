@@ -11,8 +11,6 @@
   = render 'layouts/header/header'
   .container
     = render 'layouts/header/alert_notice'
-    - if notice.nil? and alert.nil?
-      .span12 &nbsp;
     .row= yield      
   = render 'layouts/footer/google_analytics' unless @disable_ga
   = javascript_include_tag 'bootstrap-application'
