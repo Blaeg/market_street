@@ -1,4 +1,5 @@
 .navbar.navbar-inverse
   .navbar-inner
     .brand= link_to site_name, root_path
-    = render 'layouts/header/right_nav'    
+    %ul.nav.pull-right
+      %li= link_to current_user.first_name, class: 'dropdown-toggle'
