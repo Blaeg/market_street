@@ -7,7 +7,6 @@
 - else 
   %h3 Shopping Cart
   = render :partial => 'cart_items_table'
-  .row
-    = render :partial => 'cart_discount_and_gift_card'
-    = render :partial => 'cart_summary'
+  = render :partial => 'cart_discount_and_gift_card'
+  = render :partial => 'cart_summary'
   = link_to 'Checkout', shopping_cart_review_path, class: 'span2 btn btn-primary btn-large pull-right'

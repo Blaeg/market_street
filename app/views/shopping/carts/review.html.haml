@@ -12,7 +12,7 @@
   #billing.tab-pane.fade.in= render 'checkout_billing'    
   #review.tab-pane.fade.in
     = render :partial => 'cart_items_table'
-    .row= render :partial => 'cart_summary'		
+    = render :partial => 'cart_summary'		
     = link_to 'Place Order', shopping_cart_checkout_path, method: :post, class: 'span2 btn btn-primary btn-large pull-right'
 
 
