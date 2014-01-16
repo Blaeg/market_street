@@ -1,0 +1,14 @@
+- content_for :below_body do
+  = javascript_include_tag 'cart.js'
+  = javascript_include_tag 'product_page.js'
+
+%h3 Review your order
+.accordion#accordion2
+  = render 'checkout_shipping'
+  = render 'checkout_billing'
+  = render 'checkout_payment'
+
+= render :partial => 'cart_items_table'
+.row= render :partial => 'cart_summary'
+ 
+= link_to 'Place Order', shopping_cart_checkout_path, method: :post, class: 'span2 btn btn-primary btn-large pull-right'

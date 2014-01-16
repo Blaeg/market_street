@@ -1,0 +1,13 @@
+- content_for :below_body do
+  = javascript_include_tag 'cart.js'
+  = javascript_include_tag 'product_page.js'
+
+- if @cart.cart_items.blank? or @cart.cart_items.empty?
+  %h3.text-center= I18n.t(:nothing_in_cart)
+- else 
+  %h3 Shopping Cart
+  = render :partial => 'cart_items_table'
+  .row
+    = render :partial => 'cart_discount_and_gift_card'
+    = render :partial => 'cart_summary'
+  = link_to 'Checkout', shopping_cart_review_path, class: 'span2 btn btn-primary btn-large pull-right'
