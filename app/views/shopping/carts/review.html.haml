@@ -1,14 +1,19 @@
 - content_for :below_body do
   = javascript_include_tag 'cart.js'
-  = javascript_include_tag 'product_page.js'
-
+  
 %h3 Review your order
-.accordion#accordion2
-  = render 'checkout_shipping'
-  = render 'checkout_billing'
-  = render 'checkout_payment'
+%ul#checkoutTab.nav.nav-tabs
+  %li.active= link_to 'Shipping', '#shipping', 'data-toggle' => 'tab'
+  %li= link_to 'Billing', '#billing', 'data-toggle' => 'tab'
+  %li= link_to 'Review', '#review', 'data-toggle' => 'tab'
+              
+#productTabContent.tab-content
+  #shipping.tab-pane.fade.in.active= render 'checkout_shipping'
+  #billing.tab-pane.fade.in= render 'checkout_billing'    
+  #review.tab-pane.fade.in
+    = render :partial => 'cart_items_table'
+    .row= render :partial => 'cart_summary'		
+    = link_to 'Place Order', shopping_cart_checkout_path, method: :post, class: 'span2 btn btn-primary btn-large pull-right'
 
-= render :partial => 'cart_items_table'
-.row= render :partial => 'cart_summary'
- 
-= link_to 'Place Order', shopping_cart_checkout_path, method: :post, class: 'span2 btn btn-primary btn-large pull-right'
+
+  

@@ -1,6 +1,6 @@
 class Shopping::CartsController < Shopping::BaseController
   before_filter :load_cart
-	layout 'light'
+	layout 'min_nav'
   
   def index
   	

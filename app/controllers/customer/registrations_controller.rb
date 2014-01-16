@@ -1,5 +1,5 @@
 class Customer::RegistrationsController < ApplicationController
-  layout 'light'
+  layout 'lean'
 
   def new
     @registration = true

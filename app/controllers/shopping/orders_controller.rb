@@ -1,6 +1,6 @@
 class Shopping::OrdersController < Shopping::BaseController
   before_filter :require_login
-  layout 'light'
+  layout 'no_nav'
 
   ##### THIS METHOD IS BASICALLY A CHECKOUT ENGINE
   # A)  if there is a current order redirect to the process that

@@ -29,6 +29,11 @@ MarketStreet.Cart.newForm = {
       });  
       return false;
     });
+
+    $('#checkoutTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    })
   }
 };
 
