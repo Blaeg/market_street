@@ -8,7 +8,7 @@ if (typeof MarketStreet.Cart.newForm == "undefined") {
     newFormId : '#new_cart_item',
     addToCart : true,
 
-    initialize      : function() {
+    initialize: function() {
       jQuery('#submit_add_to_cart').click( function() {
           if (jQuery('#cart_item_variant_id').val() == '' ) { // Select to see if variant is selected in hidden field
             alert('Please click on a specific item to add.');

@@ -1,3 +1,7 @@
+- content_for :below_body do
+  = javascript_include_tag 'cart.js' 
+  = javascript_include_tag 'product_page.js'  
+  
 .row
   .span6
     = render 'product_images'  
@@ -23,19 +27,3 @@
         .clearfix
     = render 'product_details'
   .span12= render 'recommended_products'
-
-- content_for :below_body do
-  = javascript_include_tag 'cart.js' 
-  = javascript_include_tag 'product_page.js'
-  :javascript
-    $('#product_tabs a').click(function (e) {
-      e.preventDefault()
-      $(this).tab('show')
-    })
-
-  - if @product.images.size > 1
-    :javascript
-      $(document).ready(function (){
-        
-      });
-  
