@@ -51,7 +51,7 @@ module MarketStreet
       g.fixture_replacement :factory_girl , :dir=>"spec/factories"
     end
 
-    ['bootstrap'].each do |theme|
+    ['bootstrap', 'flatly'].each do |theme|
       ['images', 'stylesheets', 'javascripts'].each do |folder| 
         config.assets.paths << "#{Rails.root}/app/themes/#{theme}/assets/#{folder}"
       end
@@ -60,6 +60,7 @@ module MarketStreet
       config.assets.precompile += ["#{theme}-application-admin.css"]
       config.assets.precompile += ["#{theme}-application-admin.js"]
     end
+
     config.assets.initialize_on_precompile = false
 
     #config.session_store = ::Ripple::SessionStore
