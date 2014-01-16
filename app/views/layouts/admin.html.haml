@@ -9,12 +9,12 @@
 %body
   = render 'layouts/header/admin_header'
   .container-fluid
-    = render 'layouts/header/alert_notice'
-    .row-fluid    
+    .row-fluid
+      = render 'layouts/header/alert_notice'
       .breadcrumb= render_breadcrumbs
       - if content_for?(:sidemenu)
         = yield :sidemenu         
-      = yield        
+      = yield     
   = javascript_include_tag 'bootstrap-application-admin'  
   = yield :bottom
   = yield(:below_body)
