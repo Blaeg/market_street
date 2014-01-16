@@ -8,7 +8,6 @@ class Catalog::ProductsController < ApplicationController
       products = products.where('product_type_id IN (?)', product_types)      
     end
     @products = products.decorate
-    
     respond_to do |format|
       format.html { render }
       format.json { render json: @products }
@@ -25,10 +24,10 @@ class Catalog::ProductsController < ApplicationController
     render :template => '/products/index'
   end
 
-  def show
-    @product = Product.active.find(params[:id])
-    add_breadcrumb @product.name, :catalog_products_path
-    form_info    
+  def show    
+    add_breadcrumb product.name, :catalog_products_path
+    @recommended_products = Product.includes(:variants).active.decorate
+    form_info
   end
 
   private
@@ -40,5 +39,9 @@ class Catalog::ProductsController < ApplicationController
 
   def featured_product_types
     [ProductType::FEATURED_TYPE_ID]
+  end
+
+  def product 
+    @product ||= Product.active.find(params[:id])
   end
 end

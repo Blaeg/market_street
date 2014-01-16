@@ -2,8 +2,7 @@
   .span6
     = render 'product_images'  
     .content= raw @product.description
-    %hr
-    = render 'recommended_products'
+    %hr    
   .span6
     .pull-right= social_share_button_tag @product.name
     %h3= @product.name
@@ -23,6 +22,7 @@
           #submit_add_to_cart.btn.btn-primary= link_to 'Add to Cart', '#' unless @product.active_variants.empty? 
         .clearfix
     = render 'product_details'
+  .span12= render 'recommended_products'
 
 - content_for :below_body do
   = javascript_include_tag 'cart.js' 
