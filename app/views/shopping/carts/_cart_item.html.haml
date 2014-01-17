@@ -1,6 +1,6 @@
 %tr
   %td.muted
-    =link_to image_tag(item.variant.featured_image), catalog_product_path(item.variant.product)      
+    =link_to image_tag(item.variant.featured_image(:mini)), catalog_product_path(item.variant.product)      
   %td
     = link_to item.variant.product_name, catalog_product_path(item.variant.  product)
     = item.variant.display_stock_status('', '')

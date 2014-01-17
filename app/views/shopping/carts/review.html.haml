@@ -12,6 +12,7 @@
     = render :partial => 'cart_items_table'
     = render :partial => 'cart_discount_and_gift_card'
     = render :partial => 'cart_summary'		
+    .clearfix
     = link_to 'Place Order', shopping_cart_checkout_path, method: :post, class: 'span2 btn btn-primary btn-large pull-right'
 
 
