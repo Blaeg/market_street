@@ -3,23 +3,20 @@
   = javascript_include_tag 'product_page.js'  
   
 .row
+  .col-md-6= render 'product_images'      
   .col-md-6
-    = render 'product_images'  
-    .content= raw @product.description    
-  .col-md-6
-    %h3= @product.name
-    %h3= number_to_currency @product.active_variants.first.price
-    - if @product.active_variants.size >= 1
-      - @product.active_variants.each_with_index do |variant, i|
-        .btn.btn-primary.variant_select{:id => 'variant_'+variant.id.to_s, 'data-variant_id' => variant.id }= variant.sub_name
-    .pull-right= social_share_button_tag @product.name    
-    %hr
-    = form_for @cart_item, :url  => shopping_cart_items_path(@cart_item), :html => {:id => 'new_cart_item', :class => 'custom' } do |f|
+    = social_share_button_tag @product.name
+    %h3= @product.name    
+    %h3= number_to_currency @product.active_variants.first.price    
+    .clearfix
+    = form_for @cart_item, :url  => shopping_cart_items_path(@cart_item), :html => {:id => 'new_cart_item', :class => 'custom' } do |f|    
       = f.hidden_field :variant_id
-      .col-md-1= f.select :quantity, [1,2,3,4]
-      %br
-      .col-md-2.pull-right
-        #submit_add_to_cart.btn.btn-danger= link_to 'Add to Cart', '#', :class => 'no_link' unless @product.active_variants.empty? 
+      - if @product.active_variants.size >= 1
+        - @product.active_variants.each_with_index do |variant, i|
+          .btn.btn-primary.variant_select{:id => 'variant_'+variant.id.to_s, 'data-variant_id' => variant.id }= variant.sub_name
+      #submit_add_to_cart.btn.btn-danger.col-md-2.pull-right= link_to 'Add to Cart', '#', :class => 'no_link' unless @product.active_variants.empty? 
+      .col-md-2.pull-right= f.select :quantity, (1..6)
+      %hr
       .clearfix
     = render 'product_details'
 .row  

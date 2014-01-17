@@ -1,5 +1,3 @@
 %h4 You may also like
-.text-center
-	%ul.thumbnails
-		- @recommended_products.each_with_index do |product, i|
-			= render partial: "product_tile", locals: {product: product }
+- @recommended_products.each_with_index do |product, i|
+	= render partial: "product_tile", locals: {product: product }
