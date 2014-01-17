@@ -1,15 +1,16 @@
-#signup.span5.well
+#signup.well
   %h3 New to #{site_name} ?
-  = form_for @user, url: customer_registrations_path(@user), html: {class: 'span12'}  do |form|
+  = form_for @user, url: customer_registrations_path(@user) do |form|
     .signup-fields
-      .field
-        = form.text_field :first_name, placeholder: 'First name'
-      .field
-        = form.text_field :last_name, placeholder: 'Last name'
-      .field
-        = form.email_field :email, placeholder: 'Email*'      
-      .field
-        = form.password_field :password, placeholder: 'Password*'      
-      .field
-        = form.password_field :password_confirmation, placeholder: 'Confirm*'      
-    = form.submit "Sign Up", :class => 'btn btn-primary'        
+      .field.col-md-8
+        = form.text_field :first_name, placeholder: 'First name', :class => 'form-control'
+      .field.col-md-8
+        = form.text_field :last_name, placeholder: 'Last name', :class => 'form-control'
+      .field.col-md-8
+        = form.email_field :email, placeholder: 'Email*', :class => 'form-control'      
+      .field.col-md-8
+        = form.password_field :password, placeholder: 'Password*', :class => 'form-control'      
+      .field.col-md-8
+        = form.password_field :password_confirmation, placeholder: 'Confirm*', :class => 'form-control'            
+    .col-md-8= form.submit "Sign Up", :class => 'btn btn-primary'        
+    .clearfix
