@@ -11,21 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140111070514) do
+ActiveRecord::Schema.define(version: 20140117102610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "accounting_adjustments", force: true do |t|
-    t.integer  "adjustable_id",                           null: false
-    t.string   "adjustable_type",                         null: false
-    t.string   "notes"
-    t.decimal  "amount",          precision: 8, scale: 2, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "accounting_adjustments", ["adjustable_id"], name: "index_accounting_adjustments_on_adjustable_id", using: :btree
 
   create_table "addresses", force: true do |t|
     t.string   "first_name"
@@ -52,17 +41,6 @@ ActiveRecord::Schema.define(version: 20140111070514) do
   add_index "addresses", ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
   add_index "addresses", ["addressable_type"], name: "index_addresses_on_addressable_type", using: :btree
   add_index "addresses", ["state_id"], name: "index_addresses_on_state_id", using: :btree
-
-  create_table "batches", force: true do |t|
-    t.string   "batchable_type"
-    t.integer  "batchable_id"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "batches", ["batchable_id"], name: "index_batches_on_batchable_id", using: :btree
-  add_index "batches", ["batchable_type"], name: "index_batches_on_batchable_type", using: :btree
 
   create_table "cart_items", force: true do |t|
     t.integer  "cart_id"

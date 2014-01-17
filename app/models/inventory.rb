@@ -15,8 +15,6 @@
 
 class Inventory < ActiveRecord::Base
   has_one :variant
-  has_many :accounting_adjustments, :as => :adjustable
-
   validate :must_have_stock
 
   private
