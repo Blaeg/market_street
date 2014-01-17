@@ -2,7 +2,6 @@ module MarketStreet
   module TruncateHelper
 
     UNSEEDED_TABLES = [ "addresses",
-                        'batches',
                         'brands',
                         'carts',
                         'comments',

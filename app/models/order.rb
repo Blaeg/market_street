@@ -103,7 +103,6 @@ class Order < ActiveRecord::Base
     
   def cancel_unshipped_order(invoice)
     transaction do
-      invoice.cancel_authorized_payment
       cancel!
     end
   end

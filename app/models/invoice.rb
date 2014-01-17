@@ -27,7 +27,6 @@ class Invoice < ActiveRecord::Base
   include Invoice::States
 
   has_many :payments
-  has_many :batches, :as => :batchable#, :polymorphic => true
   belongs_to :order
 
 
@@ -101,63 +100,14 @@ class Invoice < ActiveRecord::Base
     Invoice.new(:order_id => order_id, :amount => charge_amount, :invoice_type => PURCHASE, :credited_amount => credited_amount)
   end
 
-  def capture_complete_order
-    if batches.empty?
-      # this means we never authorized just captured payment
-      capture_complete_order_without_authorization
-    else
-      capture_authorized_order
-    end
-  end
-
-  def capture_authorized_order
-    batch       = batches.first
-    batch.transactions.push(Transactions::CreditCardReceivePayment.new_capture_authorized_payment(order.user, amount))
-    batch.save
-  end
-
-  def capture_complete_order_without_authorization
-    batch = self.batches.create()
-    batch.transactions.push(Transactions::CreditCardCapture.new_capture_payment_directly(order.user, amount))
-    batch.save
-  end
-
-  def authorize_complete_order#(amount)
-    order.complete!
-    if batches.empty?
-      batch = self.batches.create()
-      batch.transactions.push(Transactions::CreditCardPayment.new_authorized_payment(order.user, amount))
-      batch.save
-    else
-      raise error ###  something messed up I think
-    end
-  end
-
-  def cancel_authorized_payment
-    batch       = batches.first
-    if batch# if not we never authorized the payment
-      self.cancel!
-      batch.transactions.push(Transactions::CreditCardCancel.new_cancel_authorized_payment(order.user, amount))
-      batch.save
-    end
-  end
-
   def self.process_rma(return_amount, order)
     transaction do
       this_invoice = Invoice.new(:order => order, :amount => return_amount, :invoice_type => RMA)
       this_invoice.save
-      this_invoice.complete_fulfillment_return
       this_invoice.payment_rma!
       this_invoice
     end
   end
-
-  def complete_fulfillment_return
-    batch       = batches.first || self.batches.create()
-    batch.transactions.push(Transactions::ReturnMerchandiseComplete.new_complete_rma(order.user, amount))
-    batch.save
-  end
-
 
   # call to find the confirmation_id sent by the payment processor.
   #
@@ -192,8 +142,7 @@ class Invoice < ActiveRecord::Base
       authorization = Payment.authorize(integer_amount, credit_card, options)
       payments.push(authorization)
       if authorization.success?
-        payment_authorized!
-        authorize_complete_order
+        payment_authorized!        
       else
         transaction_declined!
       end
@@ -206,8 +155,7 @@ class Invoice < ActiveRecord::Base
       capture = Payment.capture(integer_amount, authorization_reference, options)
       payments.push(capture)
       if capture.success?
-        payment_captured!
-        capture_complete_order
+        payment_captured!        
       else
         transaction_declined!
       end

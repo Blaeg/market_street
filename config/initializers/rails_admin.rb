@@ -751,8 +751,7 @@ RailsAdmin.config do |config|
 
   #     configure :order, :belongs_to_association 
   #     configure :payments, :has_many_association 
-  #     configure :batches, :has_many_association 
-
+  
   #   # Found columns:
 
   #     configure :id, :integer 
@@ -1368,7 +1367,6 @@ RailsAdmin.config do |config|
   #     configure :supplier, :belongs_to_association 
   #     configure :purchase_order_variants, :has_many_association 
   #     configure :variants, :has_many_association 
-  #     configure :batches, :has_many_association 
   #     configure :transaction_ledgers, :has_many_association 
 
   #   # Found columns:
@@ -2176,7 +2174,6 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :batch, :belongs_to_association 
   #     configure :transaction_ledgers, :has_many_association 
 
   #   # Found columns:
@@ -2316,7 +2313,6 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :batch, :belongs_to_association 
   #     configure :transaction_ledgers, :has_many_association 
 
   #   # Found columns:
@@ -2361,7 +2357,6 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :batch, :belongs_to_association 
   #     configure :transaction_ledgers, :has_many_association 
 
   #   # Found columns:
@@ -2406,7 +2401,6 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :batch, :belongs_to_association 
   #     configure :transaction_ledgers, :has_many_association 
 
   #   # Found columns:
@@ -2451,7 +2445,6 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :batch, :belongs_to_association 
   #     configure :transaction_ledgers, :has_many_association 
 
   #   # Found columns:
@@ -2496,7 +2489,6 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :batch, :belongs_to_association 
   #     configure :transaction_ledgers, :has_many_association 
 
   #   # Found columns:
@@ -2541,7 +2533,6 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :batch, :belongs_to_association 
   #     configure :transaction_ledgers, :has_many_association 
 
   #   # Found columns:
@@ -2586,7 +2577,6 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :batch, :belongs_to_association 
   #     configure :transaction_ledgers, :has_many_association 
 
   #   # Found columns:

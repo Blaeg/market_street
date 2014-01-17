@@ -5,9 +5,5 @@ FactoryGirl.define do
     state           'authorized'
     active          true
     invoice_type    'Purchase'
-  end
-
-  factory :invoice_with_batch, :parent => :invoice do
-    batches  { [ create(:batch) ]}
-  end
+  end  
 end

@@ -13,7 +13,7 @@ module PurchaseOrder::States
       state :incomplete
       state :received
 
-      after_transition :on => :complete, :do => [:pay_for_order, :receive_variants]
+      after_transition :on => :complete, :do => [:receive_variants]
 
       event :complete do |purchase_order|
         transition all => :received

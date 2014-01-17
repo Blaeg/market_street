@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :transaction do
-    type      'Transactions::CreditCardPurchase'
-    batch     { |c| c.association(:batch) }
+    type      'Transactions::CreditCardPurchase'    
   end
 end

@@ -41,7 +41,6 @@ describe Order, "instance methods" do
     let(:invoice) { create(:invoice, :amount => 13.49) }
     let(:order) { create(:completed_order) }
     it 'returns ""' do
-      invoice.stubs(:cancel_authorized_payment).returns(true)
       expect(order.cancel_unshipped_order(invoice)).to be_true
       expect(order).to be_canceled
     end

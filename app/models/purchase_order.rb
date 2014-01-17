@@ -26,7 +26,6 @@ class PurchaseOrder < ActiveRecord::Base
   has_many  :purchase_order_variants
   has_many  :variants, :through => :purchase_order_variants
 
-  has_many  :batches,             :as => :batchable
   has_many  :transaction_ledgers, :as => :accountable
 
   validates :invoice_number,  :presence => true, :length => { :maximum => 200 }
@@ -60,10 +59,6 @@ class PurchaseOrder < ActiveRecord::Base
     (state == RECEIVED)
   end
 
-  # called by state machine after the PO is complete.  adds the inventory to stock
-  #
-  # @param [none]
-  # @return [none]
   def receive_variants
     po_variants = PurchaseOrderVariant.where(:purchase_order_id => self.id)
     po_variants.each do |po_variant|
@@ -73,10 +68,6 @@ class PurchaseOrder < ActiveRecord::Base
     end
   end
 
-  # returns "Yes" if the PO has been received, otherwise "No"
-  #
-  # @param [none]
-  # @return [String]  "Yes" or "No"
   def display_received
     receive_po ? 'Yes' : 'No'
   end
@@ -85,41 +76,11 @@ class PurchaseOrder < ActiveRecord::Base
     estimated_arrival_on? ? estimated_arrival_on.to_s(:format => :us_date) : ""
   end
 
-  # returns "the tracking #" if the tracking # exists, otherwise "N/A"
-  #
-  # @param [none]
-  # @return [String]  "Yes" or "No"
   def display_tracking_number
     tracking_number? ? tracking_number : 'N/A'
   end
 
-  # returns "Suppliers name" if the supplier exists, otherwise "N/A"
-  #
-  # @param [none]
-  # @return [String]  "Yes" or "No"
   def supplier_name
     supplier.name rescue 'N/A'
-  end
-
-  def receive_order_from_credit
-      batch = self.batches.create()
-      transaction = Transactions::ReceivePurchaseOrder.new_expensed(self, total_cost)
-      batch.transactions.push(transaction)
-      batch.save
-  end
-
-  def pay_for_order
-    now = Time.zone.now
-    if self.batches.empty?
-        batch = self.batches.create()
-        transaction = Transactions::ReceivePurchaseOrder.new_direct_payment(self, total_cost, now)
-        batch.transactions.push(transaction)
-        batch.save
-    else # thus we are paying after having received the item from credit
-      batch       = batches.first
-      transaction = Transactions::ReceivePurchaseOrder.new_expensed_payment(self, total_cost, now)
-      batch.transactions.push(transaction)
-      batch.save
-    end
   end  
 end

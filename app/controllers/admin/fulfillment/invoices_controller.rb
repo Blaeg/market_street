@@ -26,7 +26,6 @@ class Admin::Fulfillment::InvoicesController < Admin::BaseController
 
   def destroy
     @invoice = Invoice.includes([:order]).find(params[:id])
-    @invoice.cancel_authorized_payment
     redirect_to admin_fulfillment_invoices_url
   end
 

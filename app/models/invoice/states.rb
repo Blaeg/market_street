@@ -9,8 +9,6 @@ module Invoice::States
       state :payment_declined
       state :canceled
 
-      #after_transition :on => 'cancel', :do => :cancel_authorized_payment
-
       event :payment_rma do
         transition :from => :pending, :to   => :refunded
       end
