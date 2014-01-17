@@ -1,5 +1,7 @@
 = image_tag(@product.featured_image(:large))
 - if @product.images.size >= 2
-  %ul.thumbnails
+  .row
     - @product.images.drop(1).each do |image|
-      %li.span1= link_to image_tag(image.photo.url(:mini)), '#', :class => 'thumbnail'
+      .col-md-2= link_to image_tag(image.photo.url(:mini)), '#', :class => 'thumbnail'
+
+    
