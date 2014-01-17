@@ -1,8 +1,15 @@
-//= require underscore
-//= require backbone
-//= require market_street
-//= require_tree ../templates
-//= require_tree ./models
-//= require_tree ./collections
-//= require_tree ./views
-//= require_tree ./routers
+//= require jquery
+//= require jquery.ui.all
+//= require jquery_ujs
+
+//= require dataTables/jquery.dataTables
+//= require dataTables/jquery.dataTables.bootstrap
+
+//= require bootstrap
+//= require bootstrap/collapse
+//= require bootstrap/transition
+//= require bootstrap-lightbox
+
+//= require underscore-min
+//= require underscore.string.min
+//= require social-share-button

@@ -1,4 +1,4 @@
 .text-center
-	%ul.thumbnails
-		- @products.each_with_index do |product, i|
-			= render partial: "product_tile", locals: {product: product }
+  .row
+    - @products.each_with_index do |product, i|
+      = render partial: "product_tile", locals: {product: product }

@@ -3,7 +3,7 @@
 %head>
   %title= content_for?(:title) ? "#{site_name}: #{yield(:title)}" : site_name
   %link{:href => "/assets/favicon.ico", :rel => "shortcut icon"}
-  = stylesheet_link_tag "bootstrap-application-admin", :media => "all"
+  = stylesheet_link_tag "application-admin", :media => "all"
   = csrf_meta_tag 
   = yield :head
 %body
@@ -15,7 +15,7 @@
       - if content_for?(:sidemenu)
         = yield :sidemenu         
       = yield     
-  = javascript_include_tag 'bootstrap-application-admin'  
+  = javascript_include_tag 'application-admin'  
   = yield :bottom
   = yield(:below_body)
   

@@ -3,18 +3,18 @@
 %head>
   %title= content_for?(:title) ? "#{site_name}: #{yield(:title)}" : site_name
   %link{:href => "/assets/favicon.ico", :rel => "shortcut icon"}
-  = stylesheet_link_tag "bootstrap-application", :media => "all"
+  = stylesheet_link_tag "application", :media => "all"
   = csrf_meta_tag 
   = yield :head
   = render 'shared/metadata'
 %body
   = render 'layouts/header/header'
-  .container-fluid
+  .container
     = render 'layouts/header/alert_notice'
-    .breadcrumb= render_breadcrumbs 
-    = yield      
+    %ol.breadcrumb= render_breadcrumbs 
+    = yield
     = render 'layouts/footer/footer'
   = render 'layouts/footer/google_analytics' unless @disable_ga
-  = javascript_include_tag 'bootstrap-application'
+  = javascript_include_tag 'application'
   = yield :bottom 
 = yield :below_body
