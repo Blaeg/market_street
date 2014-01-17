@@ -92,7 +92,7 @@ GEM
     bluecloth (2.2.0)
     bootstrap-editable-rails (0.0.5)
       railties (>= 3.1)
-    bootstrap-sass (2.3.2.2)
+    bootstrap-sass (3.0.3.0)
       sass (~> 3.2)
     breadcrumbs_on_rails (2.3.0)
     builder (3.1.4)
@@ -472,7 +472,7 @@ DEPENDENCIES
   binding_of_caller (~> 0.7.2)
   bluecloth (~> 2.2.0)
   bootstrap-editable-rails
-  bootstrap-sass (~> 2.3.2.1)
+  bootstrap-sass (~> 3.0.3.0)
   breadcrumbs_on_rails
   byebug
   cancan (~> 1.6.8)
