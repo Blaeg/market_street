@@ -6,6 +6,12 @@ module CustomValidators
     end
   end
 
+  class Numbers
+    def self.phone_number_validator
+      /(?:\+?|\b)[0-9]{10}\b/
+    end
+  end
+
   class Names
     def self.name_validator
       #/([a-zA-Z-’'` ].+)/ \A and \z

@@ -8,7 +8,6 @@ describe OrderItem, "instance methods" do
       order     = mock()
       order_item.stubs(:ready_to_calculate?).returns(true)
       order_item.stubs(:order).returns(order)
-      #order_item.order.expects(:calculate_totals).once
       order_item.calculate_order
       order_item.calculate_order
     end

@@ -26,6 +26,8 @@ class Shopping::CartsController < Shopping::BaseController
 
 
   def review
+    @ship_address = Address.new
+    @bill_address = Address.new
   	redirect root_url if @cart.nil?  	
   end
 
