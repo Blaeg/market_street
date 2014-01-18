@@ -15,7 +15,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.integer   "phone_id"
       t.string   "alternative_phone"
       t.boolean  "default",             :default => false
-      t.boolean  "billing_default",     :default => false
+      t.boolean  "bill_default",     :default => false
       t.boolean  'active',              :default => true
       t.timestamps
     end

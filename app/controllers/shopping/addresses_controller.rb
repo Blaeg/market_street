@@ -19,7 +19,7 @@ class Shopping::AddressesController < Shopping::BaseController
   def create
     @shopping_address = current_user.addresses.new(allowed_params)
     @shopping_address.default = (current_user.default_shipping_address.nil?)
-    @shopping_address.billing_default = (current_user.default_billing_address.nil?)
+    @shopping_address.bill_default = (current_user.default_billing_address.nil?)
         
     if @shopping_address.save
       redirect_to(shopping_cart_review_path, :notice => 'Address was successfully created.')
@@ -35,7 +35,7 @@ class Shopping::AddressesController < Shopping::BaseController
 
     # if we are editing the current default address then this is the default address
     @shopping_address.default = (params[:id].to_i == current_user.default_shipping_address.try(:id))
-    @shopping_address.billing_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
+    @shopping_address.bill_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
     if @shopping_address.save
       redirect_to(shopping_cart_review_path, :notice => 'Address was successfully updated.')
@@ -63,7 +63,7 @@ class Shopping::AddressesController < Shopping::BaseController
   private
 
   def allowed_params
-    params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :billing_default, :country_id)
+    params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :bill_default, :country_id)
   end
 
   def form_info

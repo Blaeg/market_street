@@ -25,7 +25,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   def create
     @shopping_address = current_user.addresses.new(allowed_params)
     @shopping_address.default = (current_user.default_shipping_address.nil?)
-    @shopping_address.billing_default = (current_user.default_billing_address.nil?)
+    @shopping_address.bill_default = (current_user.default_billing_address.nil?)
     @shopping_address.save
     @form_address = @shopping_address
   
@@ -42,7 +42,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
     # This makes the address we are updating inactive if we save successfully
     @shopping_address.replace_address_id = params[:id] 
     @shopping_address.default = (params[:id].to_i == current_user.default_shipping_address.try(:id))
-    @shopping_address.billing_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
+    @shopping_address.bill_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
     if @shopping_address.save
       redirect_to(next_form_url(session_order))
@@ -78,7 +78,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   def allowed_params
     params.require(:address).permit(:first_name, :last_name, 
       :address1, :address2, :city, :state_id, :state_name, 
-      :zip_code, :default, :billing_default, :country_id)
+      :zip_code, :default, :bill_default, :country_id)
   end
 
   def phone_types

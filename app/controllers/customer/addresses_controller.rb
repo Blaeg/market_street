@@ -21,8 +21,8 @@ class Customer::AddressesController < Customer::BaseController
 
   def create
     @address = current_user.addresses.new(allowed_params)
-    @address.default = (current_user.default_shipping_address.nil?)
-    @address.billing_default = (current_user.default_billing_address.nil?)
+    @address.ship_default = (current_user.default_shipping_address.nil?)
+    @address.bill_default = (current_user.default_billing_address.nil?)
 
     respond_to do |format|
       if @address.save
@@ -47,16 +47,15 @@ class Customer::AddressesController < Customer::BaseController
     @address.replace_address_id = params[:id] # This makes the address we are updating inactive if we save successfully
 
     # if we are editing the current default address then this is the default address
-    @address.default = (params[:id].to_i == current_user.default_shipping_address.try(:id))
-    @address.billing_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
+    @address.ship_default = (params[:id].to_i == current_user.default_shipping_address.try(:id))
+    @address.bill_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
     respond_to do |format|
       if @address.save
-        format.html { redirect_to(customer_address_url(@address), :notice => 'Address was successfully updated.') }
+        format.html { redirect_to(customer_address_url(@address), 
+          :notice => 'Address was successfully updated.') }
       else
-        # the form needs to have an id
         @form_address = current_user.addresses.find(params[:id])
-        # the form needs to reflect the attributes to customer entered
         @form_address.attributes = allowed_params
         form_info
         format.html { render :action => "edit" }
@@ -75,7 +74,7 @@ class Customer::AddressesController < Customer::BaseController
 
   def allowed_params
     params.require(:address).permit(:first_name, :last_name, :address1, :address2, 
-      :city, :state_id, :state_name, :zip_code, :default, :billing_default, :country_id)
+      :city, :state_id, :state_name, :zip_code, :default, :bill_default, :country_id)
   end
 
   def form_info

@@ -14,20 +14,22 @@ describe Address do
 end
 
 describe Address, "methods" do
-  before(:each) do
-    User.any_instance.stubs(:start_store_credits).returns(true)  ## simply speed up tests, no reason to have store_credit object
-    state = FactoryGirl.create(:state)
-    @user = FactoryGirl.create(:user)
-    @address = @user.addresses.new(:first_name => 'Perez',
+  let(:state) { FactoryGirl.create(:state)}
+  let(:address) { Address.new(:first_name => 'Perez',
                           :last_name  => 'Hilton',
                           :address1   => '7th street',
                           :city       => 'Fredville',
                           :state   => state,
-                          :state_name => 'CA',
+                          :state_id => state.id,
                           :zip_code   => '13156',
-                          :address_type  => 'BILLING',
+                          :address_type  => 'BILL',
                           :country_id => state.country_id
-                          )
+                          )}
+  before(:each) do
+    User.any_instance.stubs(:start_store_credits).returns(true)  ## simply speed up tests, no reason to have store_credit object
+    state = FactoryGirl.create(:state)
+    @user = FactoryGirl.create(:user)
+    @address = @user.addresses << address
   end
 
   context ".name" do
@@ -106,23 +108,25 @@ describe Address, "methods" do
   end
 
   describe Address, ".sanitize_data" do
-    address = Address.new(:first_name => ' Perez ',
-                          :last_name  => ' Hilton ',
-                          :address1   => ' 1st street ',
-                          :address2   => ' 2nd street ',
-                          :city       => ' Fredville ',
-                          :state_name => 'CA',
-                          :zip_code   => ' 13156 ',
-                          :address_type => 'BILLING',
-                          )
-
-    address.send(:sanitize_data)
-    address.first_name.should ==  'Perez'
-    address.last_name.should  ==  'Hilton'
-    address.city.should       ==  'Fredville'
-      address.zip_code.should ==  '13156'
-      address.address1.should ==  '1st street'
-      address.address2.should ==  '2nd street'
+    let(:state) {FactoryGirl.create(:state)}
+    let(:address) { Address.new(:first_name => ' Perez ',
+                            :last_name  => ' Hilton ',
+                            :address1   => ' 1st street ',
+                            :address2   => ' 2nd street ',
+                            :city       => ' Fredville ',
+                            :state_id => state.id,
+                            :zip_code   => ' 13156 ',
+                            :address_type => 'BILL',
+                            )}
+    it "sanitizes data" do 
+      address.send(:sanitize_data)
+      address.first_name.should ==  'Perez'
+      address.last_name.should  ==  'Hilton'
+      address.city.should       ==  'Fredville'
+        address.zip_code.should ==  '13156'
+        address.address1.should ==  '1st street'
+        address.address2.should ==  '2nd street'
+    end
   end
 end
 
@@ -153,7 +157,7 @@ end
 describe Address do
   describe "before save" do
     it "#invalidates_old_defaults" do
-      old_address = FactoryGirl.create(:address, default: true, billing_default: true)
+      old_address = FactoryGirl.create(:address, default: true, bill_default: true)
       new_address = old_address.dup
       new_address.save
       old_address.reload

@@ -127,7 +127,7 @@ RailsAdmin.config do |config|
   #     configure :phone_id, :integer 
   #     configure :alternative_phone, :string 
   #     configure :default, :boolean 
-  #     configure :billing_default, :boolean 
+  #     configure :bill_default, :boolean 
   #     configure :active, :boolean 
   #     configure :created_at, :datetime 
   #     configure :updated_at, :datetime 

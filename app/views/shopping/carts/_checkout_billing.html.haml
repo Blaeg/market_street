@@ -1,0 +1,22 @@
+.col-md-8
+  = simple_form_for @bill_address, :url => '/customer/addresses' do |ba|
+    .col-md-4
+      = ba.input :first_name
+      = ba.input :last_name
+      = ba.input :address1
+      = ba.input :address2
+      = ba.input :city
+      = ba.association :state, collection: State.all
+      = ba.input :zip_code
+      = ba.association :country, collection: Country.active
+      = ba.input :address_type, :as => :hidden, :input_html => { :value => "BILL" }
+    .col-md-4
+      %input{:type=>"radio", :value=>"option1", :name=>"payment1"} Pay in person
+      %br
+      %br
+      %input{:type=>"radio", :value=>"option2", :name=>"payment2"} Paypal
+      %br
+      %br
+      %input{:type=>"radio", :value=>"option3", :name=>"payment3"} Google checkout  
+
+    = ba.button :submit

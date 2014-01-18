@@ -1,0 +1,13 @@
+.col-md-6
+  = simple_form_for @ship_address, :url => '/customer/addresses' do |sa|
+    = sa.input :first_name
+    = sa.input :last_name
+    = sa.input :address1
+    = sa.input :address2
+    = sa.input :city
+    = sa.association :state, collection: State.all
+    = sa.input :zip_code
+    = sa.association :country, collection: Country.active
+    = sa.input :phone
+    = sa.input :address_type, :as => :hidden, :input_html => { :value => "SHIP" }
+    .pull-right= sa.button :submit

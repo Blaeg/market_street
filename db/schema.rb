@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140117102610) do
+ActiveRecord::Schema.define(version: 20140118072732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,19 +19,17 @@ ActiveRecord::Schema.define(version: 20140117102610) do
   create_table "addresses", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "addressable_type",                  null: false
-    t.integer  "addressable_id",                    null: false
-    t.string   "address1",                          null: false
+    t.string   "addressable_type",                 null: false
+    t.integer  "addressable_id",                   null: false
+    t.string   "address1",                         null: false
     t.string   "address2"
-    t.string   "city",                              null: false
+    t.string   "city",                             null: false
     t.integer  "state_id"
-    t.string   "state_name"
-    t.string   "zip_code",                          null: false
-    t.integer  "phone_id"
-    t.string   "alternative_phone"
-    t.boolean  "default",           default: false
-    t.boolean  "billing_default",   default: false
-    t.boolean  "active",            default: true
+    t.string   "zip_code",                         null: false
+    t.string   "phone"
+    t.boolean  "ship_default",     default: false
+    t.boolean  "bill_default",     default: false
+    t.boolean  "is_active",        default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "country_id"
@@ -240,19 +238,6 @@ ActiveRecord::Schema.define(version: 20140117102610) do
   end
 
   add_index "payments", ["invoice_id"], name: "index_payments_on_invoice_id", using: :btree
-
-  create_table "phones", force: true do |t|
-    t.string   "number",                         null: false
-    t.string   "phoneable_type",                 null: false
-    t.integer  "phoneable_id",                   null: false
-    t.boolean  "primary",        default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "phone_type"
-  end
-
-  add_index "phones", ["phoneable_id"], name: "index_phones_on_phoneable_id", using: :btree
-  add_index "phones", ["phoneable_type"], name: "index_phones_on_phoneable_type", using: :btree
 
   create_table "product_properties", force: true do |t|
     t.integer "product_id",  null: false

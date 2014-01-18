@@ -18,27 +18,14 @@ class State < ActiveRecord::Base
   validates :country_id,        :presence => true
   validates :shipping_zone_id,  :presence => true
 
-  # the abbreviation and name of the state separated by '-' and optionally appended by characters
-  #
-  # @param [none]
-  # @return [ String ]
   def abbreviation_name(append_name = "")
     ([abbreviation, name].join(" - ") + " #{append_name}").strip
   end
 
-  # method to get all the states for a form
-  # [['NY New York', 32], ['CA California', 3] ... ]
-  #
-  # @param [none]
-  # @return [ Array[Array] ]
   def self.form_selector
     order('country_id ASC, abbreviation ASC').collect { |state| [state.abbreviation_name, state.id] }
   end
 
-  # filter all the states for a form for a given country_id
-  #
-  # @param [Integer] country_id
-  # @return [ Arel ]
   def self.all_with_country_id(c_id)
     where(country_id: c_id)
   end

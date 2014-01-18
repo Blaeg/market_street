@@ -67,23 +67,18 @@ class User < ActiveRecord::Base
   has_many    :completed_orders, -> { where(state: 'completed') },            
                                     class_name: 'Order'
 
-  has_many    :phones, dependent: :destroy,       as: :phoneable
-  
-  has_one     :primary_phone, -> { where(primary: true) }, 
-                                  as: :phoneable, class_name: 'Phone'
-
   has_many    :addresses, dependent: :destroy, as: :addressable
 
-  has_one     :default_billing_address, -> { where(billing_default: true, active: true) },
+  has_one     :default_billing_address, -> { where(bill_default: true, is_active: true) },
                                           as: :addressable, class_name: 'Address'
 
-  has_many    :billing_addresses, -> { where(active: true) },
+  has_many    :billing_addresses, -> { where(is_active: true) },
                                       as: :addressable, class_name: 'Address'
 
-  has_one     :default_shipping_address,  -> { where(default: true, active: true) },
+  has_one     :default_shipping_address,  -> { where(ship_default: true, is_active: true) },
                                             as: :addressable, class_name: 'Address'
 
-  has_many     :shipping_addresses, -> { where(active: true) },
+  has_many     :shipping_addresses, -> { where(is_active: true) },
                                         as: :addressable, class_name: 'Address'
 
   has_many    :user_roles,                dependent: :destroy
@@ -110,8 +105,7 @@ class User < ActiveRecord::Base
                           :format   => { :with => CustomValidators::Emails.email_validator },
                           :length => { :maximum => 255 }
 
-  accepts_nested_attributes_for :addresses, :user_roles
-  accepts_nested_attributes_for :phones, :reject_if => lambda { |t| ( t['display_number'].gsub(/\D+/, '').blank?) }
+  accepts_nested_attributes_for :shipping_addresses, :billing_addresses, :user_roles
   accepts_nested_attributes_for :customer_comments, :reject_if => proc { |attributes| attributes['note'].strip.blank? }
 
   scope :super_admin, -> { joins(:user_roles).joins(:roles).where("roles.name = ?", 'super_administrator') }

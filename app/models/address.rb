@@ -29,49 +29,40 @@
 #  phone_id          :integer(4)
 #  alternative_phone :string(255)
 #  default           :boolean(1)      default(FALSE)
-#  billing_default   :boolean(1)      default(FALSE)
+#  bill_default   :boolean(1)      default(FALSE)
 #  active            :boolean(1)      default(TRUE)
 #  created_at        :datetime
 #  updated_at        :datetime
 #
 
 class Address < ActiveRecord::Base
-  ADDRESS_TYPES = %w(BILLING SHIPPING)
-
   belongs_to :state
   belongs_to :country
   belongs_to :addressable, :polymorphic => true
   has_many :phones, :as => :phoneable
   has_many :shipments
 
-  validates :first_name,  :presence => true,
-                          :format   => { :with => CustomValidators::Names.name_validator },       :length => { :maximum => 25 }
-  validates :last_name,   :presence => true,
-                          :format   => { :with => CustomValidators::Names.name_validator },       :length => { :maximum => 25 }
-  validates :address1,    :presence => true,       :length => { :maximum => 255 }
-  validates :city,        :presence => true,
-                          :format   => { :with => CustomValidators::Names.name_validator },       :length => { :maximum => 75 }
-  validates :state_id,      :presence => true,  :if => Proc.new { |address| Settings.require_state_in_address}
-  validates :country_id,    :presence => true,  :if => Proc.new { |address| !Settings.require_state_in_address}
-  validates :zip_code,    :presence => true,       :length => { :minimum => 5, :maximum => 12 }
-  validates :address_type, :inclusion => ADDRESS_TYPES
+  validates :first_name,   :presence => true, :length => { :maximum => 25 },
+                           :format   => { :with => CustomValidators::Names.name_validator }
+  validates :last_name,    :presence => true, :length => { :maximum => 25 },
+                           :format   => { :with => CustomValidators::Names.name_validator }
+  validates :address1,     :presence => true, :length => { :maximum => 255 }
+  validates :city,         :presence => true, :length => { :maximum => 75 },
+                           :format   => { :with => CustomValidators::Names.name_validator }
+  validates :state_id,     :presence => true,  :if => Proc.new { |address| Settings.require_state_in_address}
+  validates :country_id,   :presence => true,  :if => Proc.new { |address| !Settings.require_state_in_address}
+  validates :zip_code,     :presence => true,       :length => { :minimum => 5, :maximum => 12 }
+  
   before_validation :sanitize_data
 
   attr_accessor :replace_address_id # if you are updating an address set this field.
+  
   before_create :default_to_active
   before_save :replace_address, if: :replace_address_id
   after_save  :invalidate_old_defaults
 
   delegate :shipping_zone_id, :to => :state
    
-  #accepts_nested_attributes_for :phones
-
-  # First and last name of the person on the address
-  #
-  # @example first_name == 'John', last_name == 'Doe'
-  #    address.name  => 'John Doe'
-  # @param none
-  # @ return [String] first and last name on the address with a space between
   def name
     [first_name, last_name].compact.join(' ')
   end
@@ -81,7 +72,7 @@ class Address < ActiveRecord::Base
   # @param none
   # @ return [Boolean] true or error(error will only happen if there is a bad record in the db)
   def inactive!
-    self.active = false
+    self.is_active = false
     save!
   end
 
@@ -104,8 +95,7 @@ class Address < ActiveRecord::Base
       :city     => city,
       :state    => state.abbreviation,
       :country  => state.country_id == Country::USA_ID ? 'US' : 'CAN',
-      :zip      => zip_code#,
-      #:phone    => phone
+      :zip      => zip_code      
     }
   end
 
@@ -174,7 +164,7 @@ class Address < ActiveRecord::Base
     end
 
     def default_to_active
-      self.active ||= true
+      self.is_active ||= true
     end
 
     def sanitize_zip_code
@@ -212,11 +202,11 @@ class Address < ActiveRecord::Base
     end
 
     def replace_address
-      Address.where(id: replace_address_id).update_all(active: false)
+      Address.where(id: replace_address_id).update_all(is_active: false)
     end
 
     def invalidate_old_defaults
-      [:default, :billing_default].each do |attr|
+      [:default, :bill_default].each do |attr|
         Address.where({
           addressable_type: addressable_type,
           addressable_id: addressable_id

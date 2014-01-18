@@ -22,7 +22,7 @@ class Admin::Customer::AddressesController < Admin::BaseController
   def create
     @address = customer.addresses.new(allowed_params)
     @address.default = (customer.default_shipping_address.nil?)
-    @address.billing_default = (customer.default_billing_address.nil?)
+    @address.bill_default = (customer.default_billing_address.nil?)
 
     respond_to do |format|
       if @address.save
@@ -46,7 +46,7 @@ class Admin::Customer::AddressesController < Admin::BaseController
 
     # if we are editing the current default address then this is the default address
     @address.default = (params[:id].to_i == customer.default_shipping_address.try(:id))
-    @address.billing_default = (params[:id].to_i == customer.default_billing_address.try(:id))
+    @address.bill_default = (params[:id].to_i == customer.default_billing_address.try(:id))
 
     respond_to do |format|
       if @address.save
@@ -74,7 +74,7 @@ class Admin::Customer::AddressesController < Admin::BaseController
   private
 
   def allowed_params
-    params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :billing_default, :country_id)
+    params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :bill_default, :country_id)
   end
 
   def customer
