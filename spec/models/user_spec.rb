@@ -98,12 +98,12 @@ describe User, "instance methods" do
     end
 
     it 'use your shipping address if you dont have a default billing address' do
-      add = create(:address, :addressable => @user, :default => true)
+      add = create(:address, :addressable => @user, :ship_default => true)
       @user.bill_address.should == add
     end
 
     it 'use your default billing address if you have one available' do
-      add = create(:address, :addressable => @user, :default => true)
+      add = create(:address, :addressable => @user, :ship_default => true)
       bill_add = create(:address, :addressable => @user, :bill_default => true)
       @user.bill_address.should == bill_add
     end
@@ -123,7 +123,7 @@ describe User, "instance methods" do
     end
 
     it 'use your default shipping address if you have one available' do
-      add = create(:address, :addressable => @user, :default => true)
+      add = create(:address, :addressable => @user, :ship_default => true)
       bill_add = create(:address, :addressable => @user, :bill_default => true)
       @user.ship_address.should == add
     end

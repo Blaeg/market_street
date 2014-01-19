@@ -15,13 +15,13 @@ class Admin::Customer::AddressesController < Admin::BaseController
     if !Settings.require_state_in_address && countries.size == 1
       @address.country = countries.first
     end
-    @address.default = (customer.default_shipping_address.nil?)
+    @address.ship_default = (customer.default_shipping_address.nil?)
     @form_address = @address
   end
 
   def create
     @address = customer.addresses.new(allowed_params)
-    @address.default = (customer.default_shipping_address.nil?)
+    @address.ship_default = (customer.default_shipping_address.nil?)
     @address.bill_default = (customer.default_billing_address.nil?)
 
     respond_to do |format|
@@ -45,7 +45,7 @@ class Admin::Customer::AddressesController < Admin::BaseController
     @address.replace_address_id = params[:id] # This makes the address we are updating inactive if we save successfully
 
     # if we are editing the current default address then this is the default address
-    @address.default = (params[:id].to_i == customer.default_shipping_address.try(:id))
+    @address.ship_default = (params[:id].to_i == customer.default_shipping_address.try(:id))
     @address.bill_default = (params[:id].to_i == customer.default_billing_address.try(:id))
 
     respond_to do |format|
@@ -64,7 +64,8 @@ class Admin::Customer::AddressesController < Admin::BaseController
   def destroy
     @address = customer.addresses.find(params[:id])
     @address.inactive!
-    redirect_to admin_customer_user_addresses_url(customer), :notice => "Successfully inactivated address."
+    redirect_to admin_customer_user_addresses_url(customer), 
+      :notice => "Successfully inactivated address."
   end
 
   def default_sort_column

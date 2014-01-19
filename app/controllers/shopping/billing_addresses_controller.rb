@@ -8,8 +8,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
     end
   
     @form_address = @shopping_address = Address.new
-    @form_address.phones.build
-  
+    
     if !Settings.require_state_in_address && countries.size == 1
       @shopping_address.country = countries.first
     end
@@ -24,7 +23,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   # POST /shopping/addresses
   def create
     @shopping_address = current_user.addresses.new(allowed_params)
-    @shopping_address.default = (current_user.default_shipping_address.nil?)
+    @shopping_address.ship_default = (current_user.default_shipping_address.nil?)
     @shopping_address.bill_default = (current_user.default_billing_address.nil?)
     @shopping_address.save
     @form_address = @shopping_address
@@ -41,7 +40,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
     @shopping_address = current_user.addresses.new(allowed_params)
     # This makes the address we are updating inactive if we save successfully
     @shopping_address.replace_address_id = params[:id] 
-    @shopping_address.default = (params[:id].to_i == current_user.default_shipping_address.try(:id))
+    @shopping_address.ship_default = (params[:id].to_i == current_user.default_shipping_address.try(:id))
     @shopping_address.bill_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
     if @shopping_address.save
@@ -51,7 +50,6 @@ class Shopping::BillingAddressesController < Shopping::BaseController
       @form_address = current_user.addresses.find(params[:id])
       # the form needs to reflect the attributes to customer entered
       @form_address.attributes = allowed_params
-      @form_address.phones.build if @form_address.phones.empty?
       @states     = State.form_selector
       render action: "edit"
     end

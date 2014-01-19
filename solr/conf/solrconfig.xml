@@ -218,8 +218,8 @@
          exe - the name of the executable to run
          dir - dir to use as the current working directory. default="."
          wait - the calling thread waits until the executable returns. default="true"
-         args - the arguments to pass to the program.  default=nothing
-         env - environment variables to set.  default=nothing
+         args - the arguments to pass to the program.  ship_default=nothing
+         env - environment variables to set.  ship_default=nothing
       -->
     <!-- A postCommit event is fired after every commit or optimize command
     <listener event="postCommit" class="solr.RunExecutableListener">

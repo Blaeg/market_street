@@ -21,22 +21,6 @@
         <%= f.text_field :last_name, :class => '' %>
       </div>
     </div>
-    <div class="twelve ">
-      <div class="field">
-
-        <%= f.fields_for :phones do |phone_f| %>
-          <div class="span6 columns">
-            <%= phone_f.label :display_number, 'Primary Phone' %>
-            <%= phone_f.text_field :display_number %>
-          </div>
-          <div class="span6 columns">
-            <%= phone_f.label :phone_type, 'Type' %>
-            <%= phone_f.select :phone_type, ::Phone::PHONE_TYPES %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
     <div class='clear'></div>
       <div class="twelve columns">
         <div class="field">

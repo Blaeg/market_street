@@ -48,7 +48,7 @@ describe Customer::AddressesController do
   it "update action renders edit template when model is invalid" do
     @address = create(:address, :addressable => @user)
     Address.any_instance.stubs(:valid?).returns(false)
-    address = build(:address, :default => true)
+    address = build(:address, :ship_default => true)
     put :update, :id => @address.id, :address => address.attributes
     expect(response).to render_template(:edit)
   end
@@ -56,7 +56,7 @@ describe Customer::AddressesController do
   it "update action redirects when model is valid" do
     @address = create(:address, :addressable => @user)
     Address.any_instance.stubs(:valid?).returns(true)
-    address = build(:address, :default => true)
+    address = build(:address, :ship_default => true)
     put :update, :id => @address.id, :address => address.attributes
     expect(response).to redirect_to(customer_address_url(assigns[:address]))
   end
@@ -67,6 +67,6 @@ describe Customer::AddressesController do
     expect(response).to redirect_to(customer_addresses_url)
     Address.exists?(@address.id).should be_true
     a = Address.find(@address.id)
-    a.active.should be_false
+    expect(a).not_to be_active
   end
 end

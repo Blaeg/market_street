@@ -19,16 +19,16 @@
           <%= render :partial => '/shared/compact_address', 
                     :locals => {:shopping_address => address} %>
         </td>
-        <td><%= address.default %></td>
-        <td><%= address.active %></td>
+        <td><%= address.ship_default %></td>
+        <td><%= address.is_active %></td>
         <td><%= link_to 'View', [:admin, :customer, customer, address] %></td>
         <td>
-          <% if address.active %>
+          <% if address.is_active %>
             <%= link_to "edit", edit_admin_customer_user_address_path(customer, address) %>
           <% end %>
         </td>        
           <td>
-            <% if address.active %>
+            <% if address.is_active %>
               <%= link_to "inactivate", [:admin, :customer, customer, address], 
                                       data: { confirm: 'Are you sure?' }, 
                                       :method => :delete %>

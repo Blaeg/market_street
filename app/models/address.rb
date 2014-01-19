@@ -67,10 +67,10 @@ class Address < ActiveRecord::Base
     [first_name, last_name].compact.join(' ')
   end
 
-  # Will inactivate and save the address
-  #
-  # @param none
-  # @ return [Boolean] true or error(error will only happen if there is a bad record in the db)
+  def active?
+    self.is_active
+  end
+
   def inactive!
     self.is_active = false
     save!
@@ -206,11 +206,13 @@ class Address < ActiveRecord::Base
     end
 
     def invalidate_old_defaults
-      [:default, :bill_default].each do |attr|
-        Address.where({
-          addressable_type: addressable_type,
-          addressable_id: addressable_id
-        }).where("id <> ?", self.id).update_all(attr => false) if self[attr]
+      [:ship_default, :bill_default].each do |attr|
+        if self[attr]
+          Address.where({
+            addressable_type: addressable_type,
+            addressable_id: addressable_id
+          }).where("id <> ?", self.id).update_all(attr => false)
+        end
       end
     end
 end

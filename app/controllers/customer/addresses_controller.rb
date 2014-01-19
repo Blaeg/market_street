@@ -15,7 +15,7 @@ class Customer::AddressesController < Customer::BaseController
     if !Settings.require_state_in_address && countries.size == 1
       @address.country = countries.first
     end
-    @address.default = (current_user.default_shipping_address.nil?)
+    @address.ship_default = (current_user.default_shipping_address.nil?)
     @form_address = @address
   end
 

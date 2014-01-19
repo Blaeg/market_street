@@ -29,7 +29,8 @@ describe Address, "methods" do
     User.any_instance.stubs(:start_store_credits).returns(true)  ## simply speed up tests, no reason to have store_credit object
     state = FactoryGirl.create(:state)
     @user = FactoryGirl.create(:user)
-    @address = @user.addresses << address
+    @address = address
+    @user.addresses << address
   end
 
   context ".name" do
@@ -42,7 +43,7 @@ describe Address, "methods" do
     it 'inactivate the address' do
       @address.save
       @address.inactive!
-      @address.active.should be_false
+      expect(@address).not_to be_active
     end
   end
 
@@ -94,14 +95,12 @@ describe Address, "methods" do
   end
 
   describe Address, ".city_state_name" do
-    #[city, state_abbr_name].join(', ')
     it 'displays the state_abbr_name' do
       @address.city_state_name.should == "Fredville, #{@address.state.abbreviation}"
     end
   end
 
   describe Address, ".city_state_zip" do
-    #[city_state_name, zip_code].join(' ')
     it 'displays the city_state_zip' do
       @address.city_state_zip.should == "Fredville, #{@address.state.abbreviation} 13156"
     end
@@ -130,7 +129,6 @@ describe Address, "methods" do
   end
 end
 
-# Save method should save to default address attribute and make all other default addresses "not default" for that user
 describe Address, "#save" do
 
   before(:each) do
@@ -139,30 +137,28 @@ describe Address, "#save" do
   end
 
   it "only the last default address should be the default address" do
-    @address3   = FactoryGirl.create(:address)
-    @address3.default = true
-    @address3.save
-    @address2   = FactoryGirl.create(:address, :addressable => @user)
-    @address2.default = true
+    @address2  = FactoryGirl.create(:address, :addressable => @user)
+    @address2.ship_default = true
     @address2.save
-    @address.default = true
+    
+    @address.ship_default = true
     @address.save
-    @address.default.should       be_true
-    @address2.reload.default.should_not  be_true
-    @address2.reload.default.should_not  be_true
-    @address3.reload.default.should  be_true # should only update the addresses that belong to that user
+    
+    expect(@address.reload.ship_default).to be_true
+    expect(@address2.reload.ship_default).not_to be_true    
   end
 end
 
 describe Address do
   describe "before save" do
     it "#invalidates_old_defaults" do
-      old_address = FactoryGirl.create(:address, default: true, bill_default: true)
+      old_address = FactoryGirl.create(:address, ship_default: true, bill_default: true)
       new_address = old_address.dup
       new_address.save
+      
       old_address.reload
-      old_address.should_not be_default
-      old_address.should_not be_billing_default
+      old_address.should_not be_ship_default
+      old_address.should_not be_bill_default
     end
 
     context "when #replace_address_id is set" do
