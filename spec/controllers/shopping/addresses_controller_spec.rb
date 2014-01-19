@@ -44,7 +44,7 @@ describe Shopping::AddressesController do
 
   context "invalid address" do 
     it "redirects to index template" do
-      ship_address.id = nil
+      ship_address.first_name = nil
       post :create, :address => ship_address.attributes
       expect(response).to render_template(:index)
     end
