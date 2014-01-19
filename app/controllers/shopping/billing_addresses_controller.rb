@@ -26,8 +26,8 @@ class Shopping::BillingAddressesController < Shopping::BaseController
     @shopping_address.ship_default = (current_user.default_shipping_address.nil?)
     @shopping_address.bill_default = (current_user.default_billing_address.nil?)
     @shopping_address.save
-    @form_address = @shopping_address
-  
+    @form_address = @shopping_address    
+
     if @shopping_address.id
       redirect_to(next_form_url(session_order))
     else

@@ -46,12 +46,12 @@ describe Shopping::BillingAddressesController do
 
   context "invalid address" do 
     it "redirects to index template" do
-      bill_address.id = nil
+      bill_address.first_name = nil
       post :create, :address => bill_address.attributes
       expect(response).to render_template(:index)
     end
     it "redirects to edit template" do
-      bill_address.first_name = nil #invalidate the address
+      bill_address.first_name = nil
       put :update, :id => bill_address.id, :address => bill_address.attributes
       expect(response).to render_template(:edit)
     end
