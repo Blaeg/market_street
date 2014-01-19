@@ -14,15 +14,10 @@ describe Shopping::AddressesController do
   let(:ship_address) { create(:ship_address, 
     :addressable_id => user.id, :addressable_type => 'User') }
 
-  it "index action renders index template" do
-    get :index
-    expect(response).to render_template(:index)
-  end
-
   it "create action redirects when model is valid" do
     Address.any_instance.stubs(:valid?).returns(true)
     post :create, :address => ship_address.attributes
-    expect(response).to redirect_to(shopping_cart_review_path)
+    expect(response).to be_success
   end
 
   it "edit action renders edit template" do
@@ -33,26 +28,20 @@ describe Shopping::AddressesController do
   it "update action redirects when model is valid" do
     Address.any_instance.stubs(:valid?).returns(true)
     put :update, :id => ship_address.id, :address => ship_address.attributes
-    expect(response).to redirect_to(shopping_cart_review_path)
-  end
-
-  it "update action redirects when model is valid" do
-    Address.any_instance.stubs(:valid?).returns(true)
-    put :select_address, :id => ship_address.id
-    expect(response).to redirect_to(shopping_cart_review_path)
+    expect(response).to be_success
   end
 
   context "invalid address" do 
     it "redirects to index template" do
       ship_address.first_name = nil
       post :create, :address => ship_address.attributes
-      expect(response).to render_template(:index)
+      expect(response).to redirect_to shopping_cart_review_path
     end
     
     it "redirects to edit template" do
       ship_address.first_name = nil #invalidate the address
       put :update, :id => ship_address.id, :address => ship_address.attributes
-      expect(response).to render_template(:edit)
+      expect(response).to redirect_to shopping_cart_review_path
     end
   end
 end

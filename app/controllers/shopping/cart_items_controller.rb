@@ -3,7 +3,7 @@ class Shopping::CartItemsController < Shopping::BaseController
     session_cart.save if session_cart.new_record?    
     if cart_item = session_cart.add_variant(variant.id, new_quantity)
       session_cart.save_user(current_user)
-      redirect_to shopping_cart_url
+      redirect_to shopping_carts_url
     else #error case          
       redirect_to catalog_products_url(variant.product)
     end    

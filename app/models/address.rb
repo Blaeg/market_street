@@ -99,6 +99,9 @@ class Address < ActiveRecord::Base
     }
   end
 
+  def full_address_line
+    [address1, address2, city_state_zip, "(#{name})"].compact.join(', ')
+  end
   # Use this method to represent the full address as an array compacted
   #
   # @param [none]

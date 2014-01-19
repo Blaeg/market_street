@@ -13,11 +13,6 @@ describe Shopping::BillingAddressesController do
     create_cart(user, [variant])    
   end
 
-  it "index action renders index template" do
-    get :index
-    expect(response).to render_template(:index)
-  end
-
   it "create action returns success" do
     Address.any_instance.stubs(:valid?).returns(true)
     controller.stubs(:next_form_url).returns(shopping_orders_path)
@@ -37,23 +32,16 @@ describe Shopping::BillingAddressesController do
     expect(response).to be_success
   end
 
-  it "update action returns success" do
-    Address.any_instance.stubs(:valid?).returns(true)
-    controller.stubs(:next_form_url).returns(shopping_orders_path)
-    put :select_address, :id => bill_address.id
-    expect(response).to be_success
-  end
-
   context "invalid address" do 
     it "redirects to index template" do
       bill_address.first_name = nil
       post :create, :address => bill_address.attributes
-      expect(response).to render_template(:index)
+      expect(response).to redirect_to shopping_cart_review_path
     end
     it "redirects to edit template" do
       bill_address.first_name = nil
       put :update, :id => bill_address.id, :address => bill_address.attributes
-      expect(response).to render_template(:edit)
+      expect(response).to redirect_to shopping_cart_review_path
     end
   end
 end

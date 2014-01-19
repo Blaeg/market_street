@@ -1,20 +1,6 @@
 class Shopping::BillingAddressesController < Shopping::BaseController
-  helper_method :countries, :phone_types
-  # GET /shopping/addresses
-  def index
-    if session_cart.cart_items.empty?
-      flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')
-      return redirect_to catalog_products_url
-    end
+  helper_method :countries
   
-    @form_address = @shopping_address = Address.new
-    
-    if !Settings.require_state_in_address && countries.size == 1
-      @shopping_address.country = countries.first
-    end
-    form_info
-  end
-
   def edit
     form_info
     @form_address = @shopping_address = Address.find(params[:id])
@@ -29,10 +15,10 @@ class Shopping::BillingAddressesController < Shopping::BaseController
     @form_address = @shopping_address    
 
     if @shopping_address.id
-      head :ok
+      render json: {}, status: :ok
     else
       form_info
-      render :action => "index"
+      redirect_to(shopping_cart_review_path, :notice => 'Address was not created.')
     end
   end
 
@@ -44,21 +30,15 @@ class Shopping::BillingAddressesController < Shopping::BaseController
     @shopping_address.bill_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
     if @shopping_address.save
-      head :ok
+      render json: {}, status: :ok
     else
       # the form needs to have an id
       @form_address = current_user.addresses.find(params[:id])
       # the form needs to reflect the attributes to customer entered
       @form_address.attributes = allowed_params
       @states     = State.form_selector
-      render action: "edit"
+      redirect_to(shopping_cart_review_path, :notice => 'Address was not updated.')
     end
-  end
-
-  def select_address
-    address = current_user.addresses.find(params[:id])
-    head :ok
-    #redirect_to next_form_url(session_order)
   end
 
   def destroy
@@ -77,10 +57,6 @@ class Shopping::BillingAddressesController < Shopping::BaseController
     params.require(:address).permit(:first_name, :last_name, 
       :address1, :address2, :city, :state_id, :state_name, 
       :zip_code, :default, :bill_default, :country_id)
-  end
-
-  def phone_types
-    @phone_types ||= PhoneType.all.map{|p| [p.name, p.id]}
   end
 
   def form_info

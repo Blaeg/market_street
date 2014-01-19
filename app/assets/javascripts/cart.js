@@ -16,12 +16,45 @@ MarketStreet.Cart.newForm = {
       var cartItemId = $(this).attr('data-cart-item-id');
       var form = $('#edit_cart_item_'+cartItemId);
 
-      $.ajax({  
+      $.ajax({ 
         type: "POST",  
         url: form.attr("action"),  
-        data: form.serializeArray(),  
+        data: form.serializeArray(),
         success: function() {
-          location.reload();
+          //location.reload();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert('failure');
+        }
+      });  
+      return false;
+    });
+
+    //select address
+    $( "#cart_ship_address_id" ).change(function() {
+      var form = $('#cart_ship_address_id');
+      $.ajax({ 
+        type: "PUT",  
+        url: '/shopping/cart',  
+        data: form.serializeArray(),
+        success: function() {
+          //location.reload();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert('failure');
+        }
+      });  
+      return false;
+    });
+    
+    $( "#cart_bill_address_id" ).change(function() {
+      var form = $('#cart_bill_address_id');
+      $.ajax({ 
+        type: "PUT",  
+        url: '/shopping/cart',  
+        data: form.serializeArray(),
+        success: function() {
+          //location.reload();
         },
         error: function(jqXHR, textStatus, errorThrown) {
           alert('failure');

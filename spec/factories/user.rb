@@ -13,6 +13,22 @@ FactoryGirl.define do
         instance.save!
       end
     end
+
+    trait :with_ship_addresses do
+      after(:create) do |instance|
+        2.times do 
+          instance.shipping_addresses << create(:address, :addressable => instance)
+        end        
+      end
+    end
+
+    trait :with_bill_addresses do
+      after(:create) do |instance|
+        2.times do 
+          instance.billing_addresses << create(:address, :addressable => instance)
+        end        
+      end
+    end
   end
 
   factory :admin_user, :parent => :user do

@@ -5,7 +5,7 @@
         =fa_icon "caret-down", text: "Shopping Cart (#{session_cart.cart_items.size})", class: "pull-right"
       %ul.dropdown-menu
         - session_cart.cart_items.each do |item|
-          %li= link_to item.variant.product_name, shopping_cart_path
+          %li= link_to item.variant.product_name, shopping_carts_path
                          
   - if current_user
     %li.dropdown

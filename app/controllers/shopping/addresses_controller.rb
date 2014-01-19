@@ -1,14 +1,6 @@
 class Shopping::AddressesController < Shopping::BaseController
   helper_method :countries
-  # GET /shopping/addresses
-  def index
-    @form_address = @shopping_address = Address.new
-    if !Settings.require_state_in_address && countries.size == 1
-      @shopping_address.country = countries.first
-    end
-    form_info
-  end
-
+  
   # GET /shopping/addresses/1/edit
   def edit
     form_info
@@ -22,10 +14,10 @@ class Shopping::AddressesController < Shopping::BaseController
     @shopping_address.bill_default = (current_user.default_billing_address.nil?)
         
     if @shopping_address.save
-      redirect_to(shopping_cart_review_path, :notice => 'Address was successfully created.')
+      render json: {}, status: :ok
     else
       form_info
-      render :action => "index"
+      redirect_to(shopping_cart_review_path, :notice => 'Address was not created.')
     end
   end
 
@@ -38,20 +30,13 @@ class Shopping::AddressesController < Shopping::BaseController
     @shopping_address.bill_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
     if @shopping_address.save
-      redirect_to(shopping_cart_review_path, :notice => 'Address was successfully updated.')
+      render json: {}, status: :ok      
     else
-      # the form needs to have an id
       @form_address = current_user.addresses.find(params[:id])
-      # the form needs to reflect the attributes to customer entered
       @form_address.attributes = allowed_params
       @states     = State.form_selector
-      render :action => "edit"
+      redirect_to(shopping_cart_review_path, :notice => 'Address was not updated.')
     end
-  end
-
-  def select_address
-    address = current_user.addresses.find(params[:id])
-    redirect_to shopping_cart_review_path
   end
 
   def destroy

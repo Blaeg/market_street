@@ -22,19 +22,18 @@ describe Shopping::CartsController do
     expect(response).to render_template(:review)
   end
 
-  describe "select_ship_address" do
+  describe "update" do
     let(:ship_address) { create(:ship_address, :addressable => user)}
+    let(:bill_address) { create(:bill_address, :addressable => user)}
+
     it "selects ship address to cart" do 
-      post :select_ship_address, :ship_address_id => ship_address.id
+      post :update, :cart => {:ship_address_id => ship_address.id}
       expect(response).to be_success
       expect(@cart.reload.ship_address_id).to eq ship_address.id
     end
-  end
 
-  describe "select_bill_address" do 
-    let(:bill_address) { create(:bill_address, :addressable => user)}
     it "selects bill address to cart" do 
-      post :select_bill_address, :bill_address_id => bill_address.id
+      post :update, :cart => {:bill_address_id => bill_address.id}
       expect(response).to be_success
       expect(@cart.reload.bill_address_id).to eq bill_address.id
     end
