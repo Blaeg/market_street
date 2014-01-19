@@ -9,6 +9,7 @@ class Cart < ActiveRecord::Base
   belongs_to :bill_address, class_name: 'Address'
 
   accepts_nested_attributes_for :cart_items, :ship_address, :bill_address
+  scope :active, -> { where("is_active= true") }
 
   def add_variant(variant_id, quantity = 1)
     cart_item = cart_items.where(variant_id: variant_id).first

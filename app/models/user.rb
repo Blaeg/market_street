@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
   # @param [none]
   # @return [ Cart ]
   def current_cart
-    carts.last
+    carts.active.last
   end
 
   ##  This method will one day grow into the products a user most likely likes.

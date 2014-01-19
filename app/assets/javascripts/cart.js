@@ -35,7 +35,7 @@ MarketStreet.Cart.newForm = {
       var form = $('#cart_ship_address_id');
       $.ajax({ 
         type: "PUT",  
-        url: '/shopping/cart',  
+        url: '/shopping/carts',  
         data: form.serializeArray(),
         success: function() {
           //location.reload();
@@ -51,7 +51,7 @@ MarketStreet.Cart.newForm = {
       var form = $('#cart_bill_address_id');
       $.ajax({ 
         type: "PUT",  
-        url: '/shopping/cart',  
+        url: '/shopping/carts',  
         data: form.serializeArray(),
         success: function() {
           //location.reload();

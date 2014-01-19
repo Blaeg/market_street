@@ -15,7 +15,7 @@ describe Shopping::CartItemsController do
     it "creates cart item with new quantity" do 
       post :create, :format => :json, cart_item: cart_item_attributes
       expect(CartItem.count).to eq 1
-      expect(response).to redirect_to shopping_carts_url
+      expect(response).to redirect_to shopping_cart_url
     end
   end
 
