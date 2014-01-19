@@ -12,6 +12,7 @@ gem 'state_machine', '~> 1.2.0'
 
 #db
 gem 'pg'
+gem 'unicorn'
 
 #caching
 gem 'actionpack-page_caching'
@@ -84,6 +85,7 @@ gem 'compass-flexbox'
 gem 'bootstrap-sass', '~> 3.0.3.0'
 #gem 'bootstrap-editable-rails'
 gem 'social-share-button'
+
 
 group :assets do
   gem 'uglifier',     '>= 1.3.0'

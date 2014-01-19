@@ -7,7 +7,7 @@ describe Shopping::CartItemsController do
   
   before do
     activate_authlogic
-    login_as(@user)    
+    login_as(user)
   end
 
   describe "create" do 

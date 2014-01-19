@@ -8,7 +8,7 @@ describe Shopping::CouponsController do
     @user = create(:user)
     login_as(@user)
     @variant  = create(:variant)
-    create_cart(@user, [@variant])    
+    create_cart(@user, [@variant])  
   end
 
   it "create action renders show template when coupon is not eligible" do

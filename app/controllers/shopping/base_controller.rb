@@ -1,7 +1,8 @@
 class Shopping::BaseController < ApplicationController
-  helper_method :session_order, :session_order_id
+  #helper_method :session_order, :session_order_id
   helper_method :current_line, :current_order
-
+  before_filter :require_user
+  
   protected
 
   private
@@ -36,36 +37,36 @@ class Shopping::BaseController < ApplicationController
     cookies[:insecure].nil? || cookies[:insecure] == true
   end
 
-  def session_order
-    find_or_create_order
-  end
+  # def session_order
+  #   find_or_create_order
+  # end
 
-  def session_order_id
-    session[:order_id] ? session[:order_id] : find_or_create_order.id
-  end
+  # def session_order_id
+  #   session[:order_id] ? session[:order_id] : find_or_create_order.id
+  # end
 
-  def find_or_create_order
-    return @session_order if @session_order
-    if session[:order_id].nil?
-      create_order
-    else
-      @session_order = current_user.orders.include_checkout_objects.find(session[:order_id])
-      create_order unless @session_order.initial?
-    end
-    @session_order
-  end
+  # def find_or_create_order
+  #   return @session_order if @session_order
+  #   if session[:order_id].nil?
+  #     create_order
+  #   else
+  #     @session_order = current_user.orders.include_checkout_objects.find(session[:order_id])
+  #     create_order unless @session_order.initial?
+  #   end
+  #   @session_order
+  # end
 
-  def create_order
-    @session_order = current_user.orders.create(:number       => Time.now.to_i,
-                                                :ip_address   => request.env['REMOTE_ADDR'],
-                                                :bill_address => current_user.bill_address  )
-    add_new_cart_items(session_cart.cart_items)
-    session[:order_id] = @session_order.id
-  end
+  # def create_order
+  #   @session_order = current_user.orders.create(:number       => Time.now.to_i,
+  #                                               :ip_address   => request.env['REMOTE_ADDR'],
+  #                                               :bill_address => current_user.bill_address  )
+  #   add_new_cart_items(session_cart.cart_items)
+  #   session[:order_id] = @session_order.id
+  # end
 
-  def add_new_cart_items(items)
-    items.each do |item|
-      @session_order.add_items(item.variant, item.quantity)
-    end
-  end  
+  # def add_new_cart_items(items)
+  #   items.each do |item|
+  #     @session_order.add_items(item.variant, item.quantity)
+  #   end
+  # end  
 end

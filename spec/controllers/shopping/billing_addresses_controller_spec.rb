@@ -18,11 +18,11 @@ describe Shopping::BillingAddressesController do
     expect(response).to render_template(:index)
   end
 
-  it "create action redirects when model is valid" do
+  it "create action returns success" do
     Address.any_instance.stubs(:valid?).returns(true)
     controller.stubs(:next_form_url).returns(shopping_orders_path)
     post :create, :address => bill_address.attributes
-    expect(response).to redirect_to(shopping_orders_path)
+    expect(response).to be_success
   end
 
   it "edit action renders edit template" do
@@ -30,18 +30,18 @@ describe Shopping::BillingAddressesController do
     expect(response).to render_template(:edit)
   end
 
-  it "update action redirects when model is valid" do
+  it "update action returns success" do
     Address.any_instance.stubs(:valid?).returns(true)
     controller.stubs(:next_form_url).returns(shopping_orders_path)
     put :update, :id => bill_address.id, :address => bill_address.attributes
-    expect(response).to redirect_to(shopping_orders_path)
+    expect(response).to be_success
   end
 
-  it "update action redirects when model is valid" do
+  it "update action returns success" do
     Address.any_instance.stubs(:valid?).returns(true)
     controller.stubs(:next_form_url).returns(shopping_orders_path)
     put :select_address, :id => bill_address.id
-    expect(response).to redirect_to(shopping_orders_path)
+    expect(response).to be_success
   end
 
   context "invalid address" do 

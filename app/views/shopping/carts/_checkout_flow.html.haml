@@ -1,4 +1,4 @@
 %ul#checkoutTab.nav.nav-tabs
-  %li.active= link_to 'Shipping', '#shipping', 'data-toggle' => 'tab'
-  %li= link_to 'Billing', '#billing', 'data-toggle' => 'tab'
+  %li.active= link_to 'Shipping', '#shipping', 'data-toggle' => 'tab' if current_user.billing_addresses.empty?
+  %li= link_to 'Billing', '#billing', 'data-toggle' => 'tab' if current_user.addresses.empty?
   %li= link_to 'Review', '#review', 'data-toggle' => 'tab'

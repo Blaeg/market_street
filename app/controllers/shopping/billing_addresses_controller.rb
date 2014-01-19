@@ -29,7 +29,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
     @form_address = @shopping_address    
 
     if @shopping_address.id
-      redirect_to(next_form_url(session_order))
+      head :ok
     else
       form_info
       render :action => "index"
@@ -44,7 +44,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
     @shopping_address.bill_default = (params[:id].to_i == current_user.default_billing_address.try(:id))
 
     if @shopping_address.save
-      redirect_to(next_form_url(session_order))
+      head :ok
     else
       # the form needs to have an id
       @form_address = current_user.addresses.find(params[:id])
@@ -57,14 +57,14 @@ class Shopping::BillingAddressesController < Shopping::BaseController
 
   def select_address
     address = current_user.addresses.find(params[:id])
-    redirect_to next_form_url(session_order)
+    head :ok
+    #redirect_to next_form_url(session_order)
   end
 
   def destroy
     @shopping_address = Address.find(params[:id])
     @shopping_address.update_attributes(active: false)
-
-    redirect_to(shopping_billing_addresses_url)
+    head :ok    
   end
 
   private

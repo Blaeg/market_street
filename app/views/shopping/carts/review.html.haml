@@ -5,9 +5,9 @@
 = render 'checkout_flow'
 
 #productTabContent.tab-content
-  #shipping.tab-pane.fade.in.active= render 'checkout_shipping'
-  #billing.tab-pane.fade.in= render 'checkout_billing'    
-  #review.tab-pane.fade.in
+  #shipping.tab-pane.fade.in= render 'checkout_shipping' if current_user.addresses.empty?
+  #billing.tab-pane.fade.in= render 'checkout_billing' if current_user.billing_addresses.empty?
+  #review.tab-pane.fade.in.active
     %br
     = render :partial => 'cart_items_table'
     = render :partial => 'cart_discount_and_gift_card'
