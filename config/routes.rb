@@ -49,7 +49,7 @@ MarketStreet::Application.routes.draw do
     resource  :coupon, :only => [:show, :create]
 
     #move to customer
-    resources  :addresses, :only => [:update, :create, :destroy] do
+    resources  :addresses do
       member do
         put :select_address
       end
