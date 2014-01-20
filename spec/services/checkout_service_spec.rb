@@ -41,15 +41,25 @@ describe CheckoutService do
       subject { CheckoutService.new(cart) }
       
       it "checkouts, saves the order" do           
-        placed_order = subject.checkout
-
-        #inactivate cart
-        expect(cart).not_to be_active
-        expect(cart.cart_items.map(&:active?).any?).to be_false
-        
+        placed_order = subject.checkout        
         expect(Order.count).to eq 1      
-        expect_cart_and_order_to_be_equal(cart, placed_order)                              
+        expect_cart_and_order_to_be_equal(cart, placed_order)
       end      
+
+      it "clears the cart" do 
+        subject.checkout
+        expect(cart).not_to be_active
+        expect(cart.cart_items.map(&:active?).any?).to be_false        
+        expect(cart.user.current_cart).to be_nil        
+      end
+      
+      it "reduces the inventory" do 
+        inventories = cart.cart_items.map{|i|i.variant.inventory}
+        inventory_quantity = inventories.map(&:count_on_hand).sum
+        subject.checkout
+        new_inventory_quantity = inventories.map{|i| i.reload.count_on_hand}.sum
+        expect(new_inventory_quantity).to eq (inventory_quantity - cart.total_quantity)
+      end
     end  
   end
 end

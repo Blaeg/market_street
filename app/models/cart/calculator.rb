@@ -1,4 +1,8 @@
 module Cart::Calculator
+  def total_quantity 
+    cart_items.map(&:quantity).sum
+  end
+  
   def subtotal_amount
     cart_items.map(&:subtotal_amount).sum
   end
