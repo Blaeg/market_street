@@ -9,8 +9,10 @@ MarketStreet.Product.tabs = {
       e.preventDefault()
       setTimeout('MarketStreet.Product.tabs.updateProductTabs()', 200);        
       $(this).tab('show')
-    })
+    });
 
+    //select quantity
+    $('.selectpicker').selectpicker();
   },    
 };
 
