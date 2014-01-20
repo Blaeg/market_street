@@ -3,10 +3,6 @@ module Product::PricingManager
     active_variants.present? ? price_range.first : raise( VariantRequiredError )
   end
 
-  def display_price_range(j = ' to ')
-    price_range.join(j)
-  end
-
   # range of the product prices (Just teh low and high price) as an array
   #
   # @param [none]

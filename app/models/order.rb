@@ -75,8 +75,7 @@ class Order < ActiveRecord::Base
 
   before_validation :set_email, :set_number
   after_create      :save_order_number
-  #before_save       :update_tax_rates
-
+  
   attr_accessor :total, :sub_total, :deal_amount, :taxed_total, :deal_time
   accepts_nested_attributes_for :order_items
 
@@ -96,28 +95,12 @@ class Order < ActiveRecord::Base
 
   delegate :name, :to => :user
 
-  #todo:move decorator
-  def display_completed_at(format = :us_date)
-    completed_at ? I18n.localize(completed_at, :format => format) : 'Not Finished.'
-  end
-    
   def cancel_unshipped_order(invoice)
     transaction do
       cancel!
     end
   end
 
-  # def add_cart_item( item, state_id = nil)
-  #   self.save! if self.new_record?
-  #   tax_rate_id = state_id ? item.variant.product.tax_rate(state_id) : nil
-  #   oi =  OrderItem.create(
-  #       :order        => self,
-  #       :variant_id   => item.variant.id,
-  #       :price        => item.variant.price,
-  #       :quantity     => item.quantity,
-  #       :shipping_amount => item.shipping_amount,
-  #       :tax_rate_id  => tax_rate_id)
-  
   def order_complete!
     self.complete!
     self.completed_at = Time.zone.now
@@ -178,35 +161,6 @@ class Order < ActiveRecord::Base
   #   end.any?
   # end
   
-  # add the variant to the order items in the order, normally called at order creation
-  #
-  # @param [Variant] variant to add
-  # @param [Integer] quantity to add to the order
-  # @param [Optional Integer] state_id (for taxes) to assign to the order_item
-  # @return [none]
-  def add_items(variant, quantity, state_id = nil)
-    self.save! if self.new_record?
-    self.order_items.create(:variant_id => variant.id, 
-                            :price => variant.price, 
-                            :quantity => quantity)    
-  end
-
-  # remove the variant from the order items in the order
-  #
-  # @param [Variant] variant to add
-  # @param [Integer] final quantity that should be in the order
-  # @return [none]
-  # def remove_items(variant, final_quantity)
-  #   self.order_items.select{|l| l.variant_id == variant.id }.each do |l|      
-  #     if final_quantity == 0
-  #       l.destroy
-  #     else
-  #       l.update_attributes(:quantity => final_quantity)
-  #     end      
-  #   end
-  #   self.order_items.reload
-  # end
-
   ## determines the order id from the order.number
   #
   # @param [String]  represents the order.number

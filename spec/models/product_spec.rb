@@ -130,12 +130,6 @@ describe Product, ".instance methods" do
     end
   end
 
-  context ".display_price_range(j = ' to ')" do
-    it 'returns the price range' do
-      @product.display_price_range.should == '10.0 to 15.01'
-    end
-  end
-
   context ".price_range" do
     it 'returns the price range' do
       @product.price_range.should == [10.0, 15.01]

@@ -28,8 +28,7 @@ class Product < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :permalink, use: :finders
-  include Presentation::ProductPresenter
-
+  
   serialize :product_keywords, Array
 
   attr_accessor :available_shipping_rates # these the the shipping rates per the shipping address on the order

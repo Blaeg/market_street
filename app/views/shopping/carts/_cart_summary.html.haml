@@ -1,7 +1,7 @@
 .col-md-2.pull-right.well
 	%table
 		%tr
-			%td.span2 Cart Total
+			%td.span2 Subtotal
 			%td.pull-right= number_to_currency @cart.subtotal_amount
 		- if @cart.shipping_amount > 0 
 			%tr

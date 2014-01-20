@@ -147,11 +147,6 @@ describe Order, "instance methods" do
     end
   end
 
-  #def create_invoice(credit_card, charge_amount, args)
-  #  transaction do
-  #    create_invoice_transaction(credit_card, charge_amount, args)
-  #  end
-  #end
   context ".create_invoice(credit_card, charge_amount, args)" do
     it 'returns an create_invoice on success' do
       UserMailer_mock = mock()
@@ -207,61 +202,6 @@ describe Order, "instance methods" do
       @order.completed_at.should_not == nil
     end
   end
-
-  context ".update_tax_rates" do
-    xit 'set the beginning address id after find' do
-      order_item = create(:order_item)
-      @order.ship_address_id = create(:address).id
-      @order.stubs(:order_items).returns([order_item])
-    end
-  end
-
-  context ".calculate_totals(force = false)" do
-    xit 'set the beginning address id after find' do
-      order_item = create(:order_item)
-      @order.stubs(:order_items).returns([order_item])
-      @order.calculated_at = nil
-      @order.total_amount = nil
-      @order.total_amount.should_not be_nil
-    end
-  end
-#
-#shipping_amount
-
-  context ".total amount(force = false)" do
-    xit 'calculate the order totals with shipping charges' do
-      @order.calculated_at = nil
-      @order.order_items << create(:order_item, :total_amount => 5.52, :quantity => 2)    
-      @order.shipping_amount = 100.0
-      @order.total_amount.should == 112.14
-    end
-  end
-
-  context ".shipping_amount" do
-    it 'returns one shipping rate that all items fall under' do
-      order_item = create(:order_item, quantity: 1)
-      expect(order_item.order.shipping_amount).to eq(order_item.shipping_amount)
-    end    
-  end
-
-  context ".add_items(variant, quantity, state_id = nil)" do
-    it 'adds a new variant to order items ' do
-      variant = create(:variant)
-      order_items_size = @order.order_items.size
-      @order.add_items(variant, 2)
-      @order.order_items.size.should == order_items_size + 1
-    end
-  end
-
-# context ".remove_items(variant, final_quantity)" do
-#   it 'remove variant from order items ' do
-#     variant = create(:variant)
-#     @order.add_items(variant, 3)
-#     expect(@order.reload.order_items.size).to eq(1)
-#     @order.remove_items(variant, 0)
-#     expect(@order.reload.order_items.size).to eq(0)
-#   end
-# end
 
   context ".set_email" do
     #self.email = user.email if user_id
@@ -391,50 +331,6 @@ describe Order, "instance methods" do
     end
   end
 
-end
-
-describe Order, "Without VAT" do
-  let(:order) { create(:order) } 
-  
-  before(:all) do
-    Settings.vat = false
-  end
-
-  context ".tax_amount" do
-    it 'returns one tax_charges for all order items' do
-      order.order_items << create(:order_item, :price => 20.00, :tax_amount => 2.0)
-      order.order_items << create(:order_item, :price => 10.00, :tax_amount => 1.0)      
-      expect(order.tax_amount).to eq 3.0
-    end
-  end
-end
-
-describe Order, "With VAT" do
-  let(:order) { create(:order) }
-  
-  before(:all) do
-    Settings.vat = true
-  end
-
-  context ".tax_charges" do
-    xit 'returns one tax_charges for all order items' do
-      order_item = create(:order_item, :price => 20.00)
-      order_item5 = create(:order_item, :price => 10.00)
-
-      order.stubs(:order_items).returns( [order_item, order_item5] )
-      order.tax_charges.should == [0.00 , 0.00]
-    end
-  end
-
-  context ".tax_amount" do
-    xit 'returns one tax_charges for all order items' do
-      order_item = create(:order_item, :price => 20.00)
-      order_item5 = create(:order_item, :price => 10.00)
-
-      order.stubs(:order_items).returns( [order_item, order_item5] )
-      order.tax_amount.should == 0.00
-    end
-  end
 end
 
 describe Order, "#find_customer_details" do

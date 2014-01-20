@@ -1,4 +1,3 @@
 = simple_form_for @cart, :url => shopping_carts_path do |c|
   .col-md-5= c.association :ship_address, collection: current_user.shipping_addresses.map{|a|[a.full_address_line, a.id]}, input_html: { class: 'selectpicker select_cart_address', 'data-style' => "btn-primary", 'data-width'=>"100%" } 
   .col-md-5= c.association :bill_address, collection: current_user.billing_addresses.map{|a|[a.full_address_line, a.id]}, input_html: { class: 'selectpicker select_cart_address', 'data-style' => "btn-primary", 'data-width'=>"100%" } 
-
