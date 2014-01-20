@@ -29,7 +29,7 @@ MarketStreet.Cart.newForm = {
       var cartItemId = $(this).attr('data-cart-item-id');
       var form = $('#edit_cart_item_'+cartItemId);
       $.ajax({ 
-        type: "POST",  
+        type: "PUT",  
         url: form.attr("action"),  
         data: form.serializeArray(),
         success: function() { location.reload(); },
