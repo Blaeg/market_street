@@ -1,8 +1,8 @@
 .col-md-5
   = simple_form_for @cart, :html=> { class: 'edit_cart_ship_address' }, :url => '/shopping/cart' do |c|
-    = c.association :ship_address, collection: current_user.shipping_addresses.map{|a|[a.full_address_line, a.id]}
+    = c.association :ship_address, collection: current_user.shipping_addresses.map{|a|[a.full_address_line, a.id]}, input_html: { class: 'selectpicker select_cart_address' } 
 
 .col-md-5
   = simple_form_for @cart, :html=> { class: 'edit_cart_bill_address' }, :url => '/shopping/cart' do |c|
-    = c.association :bill_address, collection: current_user.billing_addresses.map{|a|[a.full_address_line, a.id]}
+    = c.association :bill_address, collection: current_user.billing_addresses.map{|a|[a.full_address_line, a.id]}, input_html: { class: 'selectpicker select_cart_address' } 
 

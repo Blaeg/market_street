@@ -12,6 +12,19 @@ MarketStreet.Cart.newForm = {
       }
     });
 
+    $('.variant_select').click( function() {
+        $('.variant_properties').each( function(index, obj) {
+          $(obj).removeClass('selected');
+        });
+
+        var propId = '#variant_properties_' + $(this).data("variant_id");
+      $( propId ).addClass('selected');
+        $('#cart_item_variant_id').val($(this).data("variant_id"));
+        $(".variant_select").removeClass('selected_variant');
+        $(this).addClass('selected_variant');        
+      }
+    );
+
     $( ".cart_item_quantity" ).change(function() {
       var cartItemId = $(this).attr('data-cart-item-id');
       var form = $('#edit_cart_item_'+cartItemId);
@@ -20,12 +33,8 @@ MarketStreet.Cart.newForm = {
         type: "POST",  
         url: form.attr("action"),  
         data: form.serializeArray(),
-        success: function() {
-          //location.reload();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          alert('failure');
-        }
+        success: function() { /*location.reload();*/ },
+        error: function() { alert('failure'); }
       });  
       return false;
     });
@@ -37,12 +46,8 @@ MarketStreet.Cart.newForm = {
         type: "PUT",  
         url: '/shopping/carts',  
         data: form.serializeArray(),
-        success: function() {
-          //location.reload();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          alert('failure');
-        }
+        success: function() { /*location.reload();*/ },
+        error: function() { alert('failure');}
       });  
       return false;
     });
@@ -53,20 +58,20 @@ MarketStreet.Cart.newForm = {
         type: "PUT",  
         url: '/shopping/carts',  
         data: form.serializeArray(),
-        success: function() {
-          //location.reload();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          alert('failure');
-        }
+        success: function() { /*location.reload();*/ },
+        error: function() { alert('failure'); }
       });  
       return false;
     });
 
+    //checkout tabs
     $('#checkoutTab a').click(function (e) {
       e.preventDefault();
       $(this).tab('show');
     })
+
+    //select address
+    $('.selectpicker').selectpicker();
   }
 };
 

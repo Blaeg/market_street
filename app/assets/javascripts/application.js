@@ -9,6 +9,7 @@
 //= require bootstrap/collapse
 //= require bootstrap/transition
 //= require bootstrap-lightbox
+//= require bootstrap-select
 
 //= require underscore-min
 //= require underscore.string.min

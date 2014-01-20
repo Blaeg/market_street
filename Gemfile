@@ -83,7 +83,8 @@ gem 'haml-rails'
 gem "font-awesome-rails"
 gem 'compass-flexbox'
 gem 'bootstrap-sass', '~> 3.0.3.0'
-#gem 'bootstrap-editable-rails'
+gem 'bootstrap-select-rails'
+gem 'bootstrap-editable-rails'
 gem 'social-share-button'
 
 
