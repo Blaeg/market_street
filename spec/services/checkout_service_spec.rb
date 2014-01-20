@@ -37,7 +37,9 @@ describe CheckoutService do
     end
 
     context "ready to checkout" do
-      let(:cart) { create(:cart_ready_to_checkout) }      
+      let(:cart) { create(:cart_ready_to_checkout) }  
+      let(:cart_quantity) { cart.total_quantity }    
+
       subject { CheckoutService.new(cart) }
       
       it "checkouts, saves the order" do           
@@ -52,13 +54,14 @@ describe CheckoutService do
         expect(cart.cart_items.map(&:active?).any?).to be_false        
         expect(cart.user.current_cart).to be_nil        
       end
-      
+
       it "reduces the inventory" do 
-        inventories = cart.cart_items.map{|i|i.variant.inventory}
-        inventory_quantity = inventories.map(&:count_on_hand).sum
-        subject.checkout
-        new_inventory_quantity = inventories.map{|i| i.reload.count_on_hand}.sum
-        expect(new_inventory_quantity).to eq (inventory_quantity - cart.total_quantity)
+        expect(cart_quantity).to eq 2
+        expect do 
+          subject.checkout
+        end.to change {
+          cart.cart_items.map{|i|i.variant.inventory.reload.count_on_hand}.sum 
+        }.by(-cart_quantity)
       end
     end  
   end
