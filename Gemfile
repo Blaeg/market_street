@@ -87,7 +87,6 @@ gem 'bootstrap-select-rails'
 gem 'bootstrap-editable-rails'
 gem 'social-share-button'
 
-
 group :assets do
   gem 'uglifier',     '>= 1.3.0'
   gem 'sass-rails',   '~> 4.0.0'
