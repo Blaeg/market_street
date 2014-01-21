@@ -1,8 +1,8 @@
 - content_for :sidemenu do
-  .span2
+  .col-md-2
     = form_tag( admin_dashboard_path, :method => :GET, :id => 'request_report_form') do 
       %label Start Date
-      = text_field_tag 'start_date', nil, :placeholder => 'dd/mm/yyyy', :class => 'ui-datepicker span12'
+      = text_field_tag 'start_date', nil, :placeholder => 'dd/mm/yyyy', :class => 'ui-datepicker col-md-12'
       %br
       = submit_tag 'Daily', :data => { disable_with: 'Please wait...' }, :class => 'btn btn-primary'
       %br
@@ -12,7 +12,7 @@
       %br
       = submit_tag 'Monthly', :data => { disable_with: 'Please wait...' }, :class => 'btn btn-primary'         
   
-.span9
+.col-md-9
   = render :partial => "overview_table"
   = render :partial => "accounting_table"  
           

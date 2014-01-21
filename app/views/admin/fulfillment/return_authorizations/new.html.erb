@@ -1,10 +1,10 @@
 <div class=' row' style='margin-top:10px;'>
-  <div class='span4 column '>
+  <div class='col-md-4 column '>
     <div class='panel'>
       <b>Invoices:</b>
       <% @order.invoices.each do |invoice| %>
           <div  id='order-invoices'
-                class='span7 rounded-10 '>
+                class='col-md-7  '>
               Number: <%= invoice.number %> <br/>
               State: <%= invoice.state %> <br/>
               at: <%= I18n.localize(invoice.updated_at, :format => :us_time)%><br/>
@@ -13,10 +13,10 @@
       <% end %>
     </div>
   </div>
-  <div class='span4 column'>
+  <div class='col-md-4 column'>
     <div class='panel'>
       <b>Items</b>
-      <div id='order-items' class=' rounded-10'>
+      <div id='order-items' class=' '>
         <% @order.order_items.each do |item| %>
           <%= item.variant.product_name %> <%= number_to_currency item.total %><br/>
         <% end %>
@@ -27,7 +27,7 @@
 
 <h2>New RMA</h2>
 
-<div class='span6 column '>
+<div class='col-md-6 column '>
 <%= form_for(@return_authorization, :url => admin_fulfillment_order_return_authorizations_path(@order)) do |f| %>
   <%= render :partial => '/admin/fulfillment/return_authorizations/form', :locals => {:f => f} %>
 <% end %>

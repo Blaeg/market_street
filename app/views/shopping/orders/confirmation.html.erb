@@ -2,9 +2,9 @@
   <div class="row">
     <div class='eight columns'>
       <div class="top-box background-gray red-border-left">
-        <h4 class="margin-0 text-10 bold margin-left-10 padding-left-10 padding-top-10">Thank You, Your order has been placed</h4>
-        <div class='row padding-top-10 padding-left-30'>
-          <ul class='span12 columns'>
+        <h4 class="bold">Thank You, Your order has been placed</h4>
+        <div class='row'>
+          <ul class='col-md-12 columns'>
             <li>
               An email confirmation has been sent to you
             </li>
@@ -15,14 +15,14 @@
         </div>
       </div>
       <hr style='color:#aac;'/>
-      <div class=' padding-10 border-1 margin-0'>
+      <div class=''>
         <% @order.order_items.each_with_index do |item, i| %>
-          <div class='row clearfix bottom20'>
-            <div class='four column top20'>
+          <div class='row clearfix'>
+            <div class='four column'>
               <%= image_tag item.variant.product.featured_image(:medium) %>
             </div>
             <div class='eight column'>
-              <h4 class='red bold text-10 top20'>
+              <h4 class='red bold'>
                 Item #<%= i + 1 %>: <%= raw item.variant.product_name %>
               </h4>
             </div>

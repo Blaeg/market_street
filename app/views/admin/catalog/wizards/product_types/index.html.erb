@@ -7,7 +7,7 @@
 
 <div id='shopping_addresses_selections' class='clearfix'>
   <% @product_types.each do |product_type| %>
-    <div class='span6 column box <%= cycle( '', 'last') %> <%= 'selected' if selected?(product_type.id) %> '>
+    <div class='col-md-6 column box <%= cycle( '', 'last') %> <%= 'selected' if selected?(product_type.id) %> '>
       <label><%= product_type.name %></label><br/>
       <%= button_to 'Use', admin_catalog_wizards_product_type_path(product_type),
                     :class => "button spade inline-block  ",

@@ -1,19 +1,19 @@
 <% content_for :sidemenu do %>
-  <div class="span2">
+  <div class="col-md-2">
     <%= search_form_for @q, url: admin_customer_users_path do |f| %>
       <%= f.label :first_name_cont %>
-      <%= f.text_field :first_name_cont, class: 'span12'%>
+      <%= f.text_field :first_name_cont, class: 'col-md-12'%>
       <%= f.label :last_name_cont %>
-      <%= f.text_field :last_name_cont, class: 'span12' %>
+      <%= f.text_field :last_name_cont, class: 'col-md-12' %>
       <%= f.label :email_cont %>
-      <%= f.text_field(:email_cont, class: 'span12')%>
+      <%= f.text_field(:email_cont, class: 'col-md-12')%>
       <%= f.submit(:class => "btn btn-primary") %>       
     <% end %>
     <%= link_to "New User", new_admin_customer_user_path, :class => "btn" %>
   </div>
 <% end %>
 
-<div class="span9">
+<div class="col-md-9">
   <table class="table table-bordered table-striped">
     <thead>
     <tr>

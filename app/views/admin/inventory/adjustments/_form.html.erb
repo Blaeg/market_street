@@ -10,19 +10,19 @@
   </div>
 <% end %>
 <div class='clear'></div>
-<div class='span12'>
-  <div class='span5'>
+<div class='col-md-12'>
+  <div class='col-md-5'>
     <%= f.label :qty_to_add %>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= f.number_field :qty_to_add, {:step => 1} %>
   </div>
 
 
-  <div class='span5'>
+  <div class='col-md-5'>
     <label>Amount ($$$) Refunded by the Supplier</label>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= number_field_tag :refund, 0.00, {:step => 0.01} %>
   </div>
 

@@ -1,5 +1,5 @@
 <div  id='shipment-address'
-      class='three rounded-10 line_item_yellow'>
+      class='three  line_item_yellow'>
   <div class='panel'>
    <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @shipment.address} %>
    <%= link_to 'Change Address', edit_admin_fulfillment_shipment_address_path(@shipment, @shipment.address) %>

@@ -1,14 +1,14 @@
 <% content_for :sidemenu do %>
-  <div class="span2">
+  <div class="col-md-2">
     <%= search_form_for @q, url: admin_fulfillment_invoices_path do |f| %>
       <%= f.label :order_id_cont %>
-      <%= f.text_field :order_id_eq, class: 'span12'%>
+      <%= f.text_field :order_id_eq, class: 'col-md-12'%>
       <%= f.submit(:class => "btn btn-primary") %>       
     <% end %>    
   </div>
 <% end %>
 
-<div class="span9">
+<div class="col-md-9">
   <table class="table table-striped table-bordered">
     <thead>
     <tr>

@@ -1,5 +1,5 @@
-<div class='span12'>
-  <div class='span7 columns'>
+<div class='col-md-12'>
+  <div class='col-md-7'>
     <h1>Order Summary</h1>
     <div>
       <% i = 1 %>
@@ -11,24 +11,20 @@
       <% end %>
     </div>
     <div class='row'>
-      <div id='final-order-shipping-address' class='four large-6 columns radius' >
-        <div class='panel'>
-          <h5>Shipping Address</h5>
-          <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %>
-          <%= link_to 'Change address', shopping_addresses_path, :class => 'btn' %>
-        </div>
+      <div>
+        <h5>Shipping Address</h5>
+        <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %>
+        <%= link_to 'Change address', shopping_addresses_path, :class => 'btn' %>
       </div>
-      <div id='final-order-shipping-address' class=' four large-6 columns radius last' >
-        <div class='panel'>
-          <h5>Billing Address</h5>
-          <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.bill_address} %>
-          <%= link_to 'Change address', shopping_billing_addresses_path, 
-            :class => 'btn' %>
-        </div>
-      </div>
+      <div>
+        <h5>Billing Address</h5>
+        <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.bill_address} %>
+        <%= link_to 'Change address', shopping_billing_addresses_path, 
+          :class => 'btn' %>
+      </div>      
     </div>
   </div>
-  <div class='pretty_table span5 columns last'>
+  <div class='pretty_table col-md-5 columns last'>
     <table>
       <thead>
         <tr>
@@ -84,12 +80,12 @@
       </div>
     <div class='clear'></div>
       <div class='row'>
-        <div class="field span6 column">
+        <div class="field col-md-6 column">
           <%= label_tag 'First' %>
            <%= text_field_tag(:first_name, @credit_card.first_name) %>
         </div>
 
-        <div class="field span6 column">
+        <div class="field col-md-6 column">
           <%= label_tag :last_name, 'Last' %>
            <%= text_field_tag(:last_name, @credit_card.last_name) %>
         </div>
@@ -100,12 +96,12 @@
           <%= label_tag 'Number'%>
            <%= text_field_tag(:number, @credit_card.number ,:class => ' disableAutoComplete', :autocomplete => "off") %>
         </div>
-        <div class="field span3 column">
+        <div class="field col-md-3 column">
           <%= label_tag :verification_value, 'VCC'%>
            <%= text_field_tag(:verification_value, @credit_card.verification_value ,:class => 'disableAutoComplete', :autocomplete => "off") %>
         </div>
       </div>
-      <div class='span12 clearfix custom'>
+      <div class='col-md-12 clearfix custom'>
         <div class='row'>
 
           <div class="field column large-6">

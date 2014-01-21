@@ -3,11 +3,11 @@
   Shipment for <%= @order.user.name %>
 </div>
 <div class='clear'></div>
-<div id='order-shipment-items' class='span7 last float-left'>
+<div id='order-shipment-items' class='col-md-7 last float-left'>
 <h4>Order Items</h4>
   <% @order.order_items.each_with_index do |item,i| %>
     <div  id='order-shipment-item<%= i %>'
-          class='span6 rounded-4 line_item_yellow'>
+          class='col-md-6 rounded-4 line_item_yellow'>
 
         <%= item.variant.product_name %> <%= item.variant.sku %> <%= number_to_currency item.variant.price %> <br/>
         <% if item.shipped? %>
@@ -20,21 +20,21 @@
     </div>
   <% end %>
 </div>
-<div class='span7 last float-left' >
+<div class='col-md-7 last float-left' >
 <h4>Shipping address</h4>
   <div  id='order-ship-address'
-        class='span6 rounded-4 line_item_yellow'>
+        class='col-md-6 rounded-4 line_item_yellow'>
     <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %>
   </div>
 </div>
-<div class='span7 last float-left'>
+<div class='col-md-7 last float-left'>
 <h4>Shipment Details</h4>
   <% if @order.shipments.empty? %>
     No Shipments have been made on this order.
   <% end %>
   <% @order.shipments.each do |shipment| %>
       <div  id='order-shipment-items'
-            class='span6 rounded-4 <%= cycle("line_item_yellow", "line_item_gray") %>'>
+            class='col-md-6 rounded-4 <%= cycle("line_item_yellow", "line_item_gray") %>'>
           Shipping Method: <%= shipment.shipping_method.name %> <br/>
           Shipping #: <%= shipment.number %> Tracking:<%= shipment.tracking %> State:<%= shipment.state %>
       </div>
@@ -42,7 +42,7 @@
 </div>
 <div class='clear'></div>
 Ask if you want to authorize full amount of partial with reason<br/>
-<div class='span12 last'>
+<div class='col-md-12 last'>
   <% @order.invoices.each do |invoice| %>
     <div style='display:inline-block;' class='line_item_gray'> <%= invoice.state %> Invoice:</div>
     <%=  invoice.number %> => <%= number_to_currency invoice.amount %>

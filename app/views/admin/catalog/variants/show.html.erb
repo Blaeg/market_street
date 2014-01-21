@@ -4,57 +4,57 @@
 
 <%= link_to 'Edit Variant', edit_admin_catalog_product_variant_path(@product, @variant), :class => 'btn' %>
 
-<fieldset id="admin-product-names" class='span12'>
+<fieldset id="admin-product-names" class='col-md-12'>
 
 <div class='clear'></div>
-<div class='span3'>
+<div class='col-md-3'>
   <%= label :variant, :sku %>
 </div>
-<div class='span6 last'>
+<div class='col-md-6 last'>
   <%= @variant.sku %>
 </div>
 <div class='clear'></div>
-<div class='span3'>
+<div class='col-md-3'>
   <%= label :variant, :price %>
 </div>
-<div class='span6 last'>
+<div class='col-md-6 last'>
   <%= @variant.price %>
 </div>
 
 <div class='clear'></div>
-<div class='span3'>
+<div class='col-md-3'>
   <%= label :variant, :cost %>
 </div>
-<div class='span6 last'>
+<div class='col-md-6 last'>
   <%= @variant.cost %>
 </div>
 
 <div class='clear'></div>
-<div class='span3'>
+<div class='col-md-3'>
   <%= label :variant, :count_on_hand %>
 </div>
-<div class='span6 last'>
+<div class='col-md-6 last'>
   <%= @variant.count_on_hand %>
 </div>
 
 <div class='clear'></div>
-<div class='span3'>
+<div class='col-md-3'>
   <%= label :variant, :count_pending_to_customer %>
 </div>
-<div class='span6 last'>
+<div class='col-md-6 last'>
   <%= @variant.count_pending_to_customer %>
 </div>
 
 <div class='clear'></div>
-<div class='span3'>
+<div class='col-md-3'>
   <%= label :variant, :count_pending_from_supplier %>
 </div>
-<div class='span6 last'>
+<div class='col-md-6 last'>
   <%= @variant.count_pending_from_supplier %>
 </div>
 </fieldset>
 
-<fieldset id="admin-product-properties" class='span12'>
+<fieldset id="admin-product-properties" class='col-md-12'>
   <legend>Properties</legend>
   <% @variant.variant_properties.each do |variant_prop|  %>
     <%= variant_prop.property.identifing_name %>: <%= variant_prop.description %> <br/>

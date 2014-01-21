@@ -1,73 +1,71 @@
-  <% if @address.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@address.errors.count, "error") %> prohibited this shipping address from being saved:</h2>
+<% if @address.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@address.errors.count, "error") %> prohibited this shipping address from being saved:</h2>
 
-      <ul>
-      <% @address.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <ul>
+    <% @address.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 <div class='main-address'>
-    <div class="inline span12 ">
-      <div class="field span6 columns">
-         <%= f.label :first_name %>
-         <%= f.text_field :first_name, :class => '' %>
-      </div>
+  <div class="inline col-md-12 ">
+    <div class="col-md-6">
+       <%= f.label :first_name %>
+       <%= f.text_field :first_name, :class => '' %>
+    </div>
 
-      <div class="field span6 columns">
-        <%= f.label :last_name %>
-        <%= f.text_field :last_name, :class => '' %>
+    <div class="col-md-6">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, :class => '' %>
+    </div>
+  </div>
+  <div class='clear'></div>
+    <div class="col-md-12">
+      <div class="field">
+        <%= f.label :address1 %>
+        <%= f.text_field :address1 %><br/>
+
+        <%= f.label :address2 %>
+        <%= f.text_field :address2 %>
       </div>
     </div>
-    <div class='clear'></div>
-      <div class="span12 columns">
-        <div class="field">
-          <%= f.label :address1 %>
-          <%= f.text_field :address1 %><br/>
-
-          <%= f.label :address2 %>
-          <%= f.text_field :address2 %>
-        </div>
-      </div>
 
     <div class='clearfix'></div>
-      <div class=" span12 clearfix">
-        <div class="field five columns">
+      <div class=" col-md-12 clearfix">
+        <div>
           <%= f.label :city %>
           <%= f.text_field :city %>
         </div>
 
       <% if Settings.require_state_in_address %>
-        <div class="field span4 columns">
+        <div class="col-md-4">
           <%= f.label    :state_id, "State/Province" %>
           <%= f.select   :state_id, @states,
                         :include_blank => true %>
         </div>
       <% elsif countries.size == 1 %>
-        <div class="field column">
+        <div>
           <%= f.label :country_id, "Country" %>
           <%= countries.first.name %>
           <%= f.hidden_field   :country_id %>
         </div>
       <% else %>
-        <div class="field column">
+        <div>
           <%= f.label    :country_id, "Country" %>
           <%= f.select   :country_id, Country.form_selector,
                         :include_blank => true %>
         </div>
       <% end %>
-
-        <div class="field two large-2 columns">
+        <div>
           <%= f.label :zip_code %>
           <%= f.text_field :zip_code %>
         </div>
       </div>
-
 </div>
-<div class="field span12 column" style='margin-bottom:10px;'>
-  <label for='address.ship_default' class='span10' style='margin-top:3px;display: inline-block;'>
+<div class="field col-md-12 column" style='margin-bottom:10px;'>
+  <label for='address.ship_default' class='col-md-10' style='margin-top:3px;display: inline-block;'>
     <%= f.check_box :ship_default, :class => 'columns' %>
     Make this my default shipping address
   </label>

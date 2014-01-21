@@ -1,18 +1,18 @@
-<fieldset id="admin-product-overviews" class='span-14'>
+<fieldset id="admin-product-overviews" class='col-md-14'>
   <legend>Inventory</legend>
   <div>Count on Hand</div>
-  <div id="variant_overviews" class='span-14 last'>
+  <div id="variant_overviews" class='col-md-14 last'>
     <% @product.variants.each do |variant| %>
       <div  id='variant_<%= variant.id %>' 
-            class="variant_form left span-14 last">
+            class="variant_form left col-md-14 last">
         <%= form.fields_for :variants, 
                             variant do |variant_inventory_form|%>
-          <div class='span-13 ' style='background-color: <%= cycle("#F2F5F9", "#FFF") -%>;'> 
-            <div class='span9 first'>
+          <div class='col-md-13 ' style='background-color: <%= cycle("#F2F5F9", "#FFF") -%>;'> 
+            <div class='col-md-9 first'>
               <%= variant.name_with_sku %>:  # on hand => <%= variant.count_on_hand %>
             </div>
-            <div class='span3 prepend-1 last'>
-              Add <%= variant_inventory_form.text_field :qty_to_add , :class => 'span-1'%>
+            <div class='col-md-3  last'>
+              Add <%= variant_inventory_form.text_field :qty_to_add , :class => 'col-md-1'%>
             </div>
           </div>
         <% end %>

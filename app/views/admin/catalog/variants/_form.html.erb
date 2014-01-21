@@ -1,48 +1,48 @@
 <%= error_messages_for 'variant' %>
 
-<fieldset id="admin-product-names" class='span12'>
+<fieldset id="admin-product-names" class='col-md-12'>
 <div class='clear'></div>
-  <div class='span3'>
+  <div class='col-md-3'>
     <%= form.label :sku %>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= form.text_field :sku %>
   </div>
 
 <div class='clear'></div>
-  <div class='span3'>
+  <div class='col-md-3'>
     <%= form.label :price %>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= form.text_field :price %>
   </div>
 <div class='clear'></div>
-  <div class='span3'>
+  <div class='col-md-3'>
     <%= form.label :cost %>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= form.text_field :cost %>
   </div>
 
 <div class='clear'></div>
-  <div class='span3'>
+  <div class='col-md-3'>
     <%= form.label :master %>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= form.check_box :master %>
   </div>
 </fieldset>
 
-<fieldset id="admin-product-properties" class='span12'>
+<fieldset id="admin-product-properties" class='col-md-12'>
   <legend>Properties</legend>
 
-  <div id="variant_properties" class='span12 last'>
+  <div id="variant_properties" class='col-md-12 last'>
     <% @product.properties.each do |property| %>
       <div  id='variant_<%= property.id %>'
-            class="variant_form left span12 last">
+            class="variant_form left col-md-12 last">
         <%= form.fields_for :variant_properties,
                             property.variant_properties.find_or_initialize_by_variant_id(@variant.id) do |variant_property_form|%>
-          <div class='span4 left'>
+          <div class='col-md-4 left'>
             <%= property.display_name %>:
           </div>
           Primary?: <%= variant_property_form.check_box  :primary %> <br/>

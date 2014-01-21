@@ -9,50 +9,50 @@
 <fieldset id="admin-product-general-info" class='four column' style='margin-right:25px'>
   <legend>General Info</legend>
 <div class='clear'></div>
-  <div class='span3'>
+  <div class='col-md-3'>
     <%= form.label :name %>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= form.text_field :name %>
   </div>
 
 <div class='clear'></div>
-  <div class='span3'>
+  <div class='col-md-3'>
     <%= form.label :permalink %>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= form.text_field :permalink %>
   </div>
 
 <div class='clear'></div>
-  <div class='span3'>
+  <div class='col-md-3'>
     <%= form.label :set_keywords, 'Search keywords' %><br/> (separate with a comma)
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= form.text_field :set_keywords %>
   </div>
 
 <div class='clear'></div>
-  <div class='span3'>
+  <div class='col-md-3'>
     <%= form.label :meta_keywords %>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= form.text_field :meta_keywords %>
   </div>
 
 <div class='clear'></div>
-  <div class='span3'>
+  <div class='col-md-3'>
     <%= form.label :meta_description %>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%= form.text_field :meta_description %>
   </div>
 
 <div class='clear'></div>
-  <div class='span3'>
+  <div class='col-md-3'>
     <%= form.label :product_type %>
   </div>
-  <div class='span6 last'>
+  <div class='col-md-6 last'>
     <%#= form.select :product_type_id, @select_product_types %>
     <%= form.select :product_type_id,
                     nested_set_options(ProductType, ProductType.new) {|i| "#{'-' * i.level} #{i.name}" },
@@ -64,7 +64,7 @@
 
 
 
-<fieldset id="admin-product-properties" class='span7 column last'>
+<fieldset id="admin-product-properties" class='col-md-7 column last'>
   <legend>Properties</legend>
 
   <div id='select-product-prototype'>

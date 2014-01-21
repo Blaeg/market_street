@@ -1,22 +1,22 @@
 <%= form.fields_for :variants, Variant.new(product_id: @product.id), child_index: "new_variants" do |ff| %>
 <div id='variants_fields_template' style='display:none;'>
-  <div class='span6 span3  columns new_variant_container'  style='float: left;' >
-    <table class='span6 ar-sidebar' style='width:240px;' >
+  <div class='col-md-6 col-md-3 new_variant_container'  style='float: left;' >
+    <table class='col-md-6 ar-sidebar' style='width:240px;' >
       <tr>
         <td></td>
         <td style='float:right;'> <%= link_to 'remove', '#remove', :class => 'remove_variant_child' %> </td>
       </tr>
       <tr>
-        <td>SKU   </td><td> <%= ff.text_field :sku,   class: 'span3' %> </td>
+        <td>SKU   </td><td> <%= ff.text_field :sku,   class: 'col-md-3' %> </td>
       </tr>
       <tr>
-        <td>Price </td><td> <%= ff.text_field :price, class: 'span3' %> </td>
+        <td>Price </td><td> <%= ff.text_field :price, class: 'col-md-3' %> </td>
       </tr>
       <tr>
-        <td>Cost  </td><td> <%= ff.text_field :cost,  class: 'span3' %> </td>
+        <td>Cost  </td><td> <%= ff.text_field :cost,  class: 'col-md-3' %> </td>
       </tr>
       <tr>
-        <td>Name  </td><td> <%= ff.text_field :name,  class: 'span3' %> </td>
+        <td>Name  </td><td> <%= ff.text_field :name,  class: 'col-md-3' %> </td>
       </tr>
       <tr>
         <td>&nbsp; </td><td> &nbsp; </td>
@@ -36,7 +36,7 @@
             </td>
             <td >
               <%= variant_property_form.hidden_field  :property_id %>
-              <%= variant_property_form.text_field    :description, class: 'span3' %>
+              <%= variant_property_form.text_field    :description, class: 'col-md-3' %>
             </td >
           </tr>
           <% end %>
@@ -50,7 +50,7 @@
 
 
 <% @product.variants.each do |variant| %>
-  <div class='span6 span3 column ' >
+  <div class='col-md-6 col-md-3' >
     <%= form.fields_for :variants, variant do |ff|%>
     <table class='table table-bordered table-striped' style='width:240px;'>
       <thead>
@@ -59,19 +59,19 @@
         </tr>
       </thead>
       <tr>
-        <td>SKU   </td><td> <%= ff.text_field :sku,   class: 'span3' %> </td>
+        <td>SKU   </td><td> <%= ff.text_field :sku,   class: 'col-md-3' %> </td>
       </tr>
       <tr>
-        <td>Price </td><td> <%= ff.text_field :price, class: 'span3' %> </td>
+        <td>Price </td><td> <%= ff.text_field :price, class: 'col-md-3' %> </td>
       </tr>
       <tr>
-        <td>Cost  </td><td> <%= ff.text_field :cost,  class: 'span3' %> </td>
+        <td>Cost  </td><td> <%= ff.text_field :cost,  class: 'col-md-3' %> </td>
       </tr>
       <tr>
-        <td>Name  </td><td> <%= ff.text_field :name,  class: 'span3' %> </td>
+        <td>Name  </td><td> <%= ff.text_field :name,  class: 'col-md-3' %> </td>
       </tr>
       <tr>
-        <td>Inactivate </td><td> <%= ff.check_box :inactivate, class: 'span3' %> </td>
+        <td>Inactivate </td><td> <%= ff.check_box :inactivate, class: 'col-md-3' %> </td>
       </tr>
       <% @product.properties.each do |property| %>
         <tr style='background:#ACF;text-align:center;'>e
@@ -88,7 +88,7 @@
             </td>
             <td >
               <%= variant_property_form.hidden_field  :property_id %>
-              <%= variant_property_form.text_field    :description,  class: 'span3' %>
+              <%= variant_property_form.text_field    :description,  class: 'col-md-3' %>
             </td >
           </tr>
         <% end %>

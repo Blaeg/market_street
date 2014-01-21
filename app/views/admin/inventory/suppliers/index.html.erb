@@ -1,17 +1,17 @@
 <% content_for :sidemenu do %>
-<div class="span2">
+<div class="col-md-2">
   <%= search_form_for @q, url: admin_inventory_suppliers_path do |f| %>
   <%= f.label :name_cont %>
-  <%= f.text_field :name_cont, class: 'span12'%>
+  <%= f.text_field :name_cont, class: 'col-md-12'%>
   <%= f.label :email_cont %>
-  <%= f.text_field :email_cont, class: 'span12' %>
+  <%= f.text_field :email_cont, class: 'col-md-12' %>
   <%= f.submit(:class => "btn btn-primary") %>       
   <% end %>
   <%= link_to "New Supplier", new_admin_inventory_supplier_path, :class => "btn" %>
 </div>
 <% end %>
 
-<div class="span9">
+<div class="col-md-9">
   <table class="table table-striped table-bordered">
     <thead>
       <tr>

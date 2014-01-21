@@ -1,7 +1,7 @@
 <% @all_properties.each do |property| %>
-  <div  id='property_<%= property.id %>' class="property_form left span9 last">
+  <div  id='property_<%= property.id %>' class="property_form left col-md-9 last">
     <% checked_property = @product.name && @product.properties.select {|p| p.id == property.id } %>
-    <div class='span4'> 
+    <div class='col-md-4'> 
       <%= check_box_tag "product[property_ids][]", property.id, checked_property ? 1 : 0 %>
       <%= property.display_name %>: 
     </div>
