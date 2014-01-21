@@ -1,6 +1,5 @@
 // Spacelab
 // Bootswatch
-//= require jquery
-//= require jquery_ujs
+//= require application
 //= require spacelab/loader
 //= require spacelab/bootswatch

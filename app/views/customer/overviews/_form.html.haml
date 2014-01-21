@@ -3,9 +3,9 @@
     = f.input :first_name
     = f.input :last_name
     = f.input :email
-    = f.input :app_theme, collection: User::APP_THEMES
+    = f.input :app_theme, collection: User::APP_THEMES, :input_html => {:class=> 'selectpicker'}
     = f.input :nav_bar_inverse
     = f.input :password
     = f.input :password_confirmation        
     = f.button :submit
-.clearfix    
+.clearfix 

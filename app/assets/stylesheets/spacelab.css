@@ -1,6 +1,6 @@
 /* Spacelab
  * Bootswatch
- *= require_self
+ *= require application
  *= require spacelab/loader
  *= require spacelab/bootswatch
 */

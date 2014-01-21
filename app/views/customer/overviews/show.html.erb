@@ -8,13 +8,12 @@
     </li>
     <li>
       <label>App Theme:</label>
-      <%= current_user.app_theme %>    
+      <%= current_user.app_theme.upcase %>    
     </li>
     <li>
-      <label>Nav Bar:</label>
+      <label>Nav Bar Inverse Color:</label>
       <%= current_user.nav_bar_inverse %>
     </li>
-
     <li>
       <%= link_to "Edit", edit_customer_overview_path() %>
     </li>
@@ -37,3 +36,4 @@
     <%= number_to_currency current_user.store_credit.amount %>
   </div>
 </div>
+<div class="clearfix"></div>

@@ -1,6 +1,6 @@
 /* Journal
  * Bootswatch
- *= require_self
+ *= require application
  *= require journal/loader
  *= require journal/bootswatch
 */

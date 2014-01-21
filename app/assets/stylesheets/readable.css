@@ -1,6 +1,6 @@
 /* Readable
  * Bootswatch
- *= require_self
+ *= require application
  *= require readable/loader
  *= require readable/bootswatch
 */
