@@ -40,6 +40,7 @@ class ApplicationController < ActionController::Base
     'cosmo'
     'flatly' 
     'united'
+    'spacelab'
   end
 
   private

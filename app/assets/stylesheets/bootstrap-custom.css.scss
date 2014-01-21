@@ -34,8 +34,8 @@
   border-top: 1px solid #e5e5e5;
 }
 
- 
-a.no_link, a.no_link:hover, a.no_link:active { 
+a.no_link_style, a.no_link_style:hover, a.no_link_style:active,
+a.no_link_style:visited, a.no_link_style:focus { 
   text-decoration: none; 
-  color: white; 
+  color: white;
 }

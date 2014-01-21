@@ -1,6 +1,6 @@
 /* United
  * Bootswatch
- *= require_self
+ *= require application
  *= require united/loader
  *= require united/bootswatch
 */

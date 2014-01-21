@@ -5,5 +5,5 @@
       %h4= link_to product.short_name, catalog_product_path(product)
       %h5= product.price_label
       %p
-        .btn.btn-primary= link_to fa_icon("heart", text: 'Save'), shopping_wish_items_path(:format => :json, :variant_id => product.variants.first.id), :method => :post, :remote => true, :class => 'no_link'                
-        .btn.btn-danger= link_to fa_icon("shopping-cart", text: 'Buy'),catalog_product_path(product), :class => 'no_link'                     
+        .btn.btn-primary= link_to fa_icon("heart", text: 'Save'), shopping_wish_items_path(:format => :json, :variant_id => product.variants.first.id), :method => :post, :remote => true, :class => 'no_link_style'                
+        .btn.btn-danger= link_to fa_icon("shopping-cart", text: 'Buy'),catalog_product_path(product), :class => 'no_link_style'                     

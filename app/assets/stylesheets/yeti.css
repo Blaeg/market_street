@@ -1,6 +1,6 @@
 /* Yeti
  * Bootswatch
- *= require_self
+ *= require application
  *= require yeti/loader
  *= require yeti/bootswatch
 */
