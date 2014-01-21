@@ -34,10 +34,12 @@ class ApplicationController < ActionController::Base
   end
 
   def layout_theme
+    return 'application' if current_user.nil? 
     current_user.app_theme
   end
 
   def nav_bar_inverse?
+    return true if current_user.nil? 
     current_user.nav_bar_inverse
   end
 
@@ -81,15 +83,6 @@ class ApplicationController < ActionController::Base
       redirect_to root_url
     end
   end  
-
-  def store_return_location
-    # disallow return to login, logout, signup pages
-    disallowed_urls = [ login_url, logout_url ]
-    disallowed_urls.map!{|url| url[/\/\w+$/]}
-    unless disallowed_urls.include?(request.url)
-      session[:return_to] = request.url
-    end
-  end
 
   def search_product
     @search_product || Product.new
