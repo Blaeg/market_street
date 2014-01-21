@@ -1,3 +1,8 @@
+<% content_for :page_stylesheet do %>
+  <%= stylesheet_link_tag "markitup/skins/markitup/style" %>
+  <%= stylesheet_link_tag "markitup/sets/default/style" %>  
+<% end %>
+
 <%= render :partial => '/admin/catalog/sub_header'%>
 
 <h3>Edit Product Description</h3> 
@@ -11,12 +16,7 @@
   <% end %>
 </div>
 
-<% content_for :head do %>
-  <%= stylesheet_link_tag "markitup/skins/markitup/style" %>
-  <%= stylesheet_link_tag "markitup/sets/default/style" %>  
-<% end %>
-
-<% content_for :bottom do -%>
+<% content_for :page_javascript do -%>
 <%= javascript_include_tag "markitup/jquery.markitup" %>
 <%= javascript_include_tag "markitup/sets/default/set" %>
 <script type="text/javascript" >

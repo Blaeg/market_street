@@ -1,4 +1,4 @@
-<% content_for :head do -%>
+<% content_for :page_stylesheet do -%>
   <%= stylesheet_link_tag 'chosen.css' %>
 <% end %>
 
@@ -44,7 +44,7 @@
   </div>
 <% end %>
 
-<% content_for :bottom do -%>
+<% content_for :page_javascript do -%>
   <%= javascript_include_tag 'chosen/chosen.jquery.min.js' %>
   <%= javascript_include_tag 'admin/properties.js' %>
 <% end %>
