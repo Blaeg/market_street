@@ -82,9 +82,12 @@ gem 'compass-rails',  git: 'git://github.com/Compass/compass-rails.git', branch:
 gem 'haml-rails'
 gem "font-awesome-rails"
 gem 'compass-flexbox'
+gem 'therubyracer'
 gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'bootstrap-select-rails'
 gem 'bootstrap-editable-rails'
+gem 'twitter-bootswatch-rails', '~> 3.0.3'
+gem 'twitter-bootswatch-rails-helpers'
 gem 'social-share-button'
 
 group :assets do

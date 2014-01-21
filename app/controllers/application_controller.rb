@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   add_breadcrumb "Home", :root_path
   protect_from_forgery
-  layout 'application'
+  layout :themed_layout
+  
   helper_method :current_user,
                 :session_cart,
                 :search_product,
@@ -29,6 +30,11 @@ class ApplicationController < ActionController::Base
 
   def product_types
     @product_types ||= ProductType.roots
+  end
+
+  def themed_layout
+    'application'
+    'themes/cyborg'
   end
 
   private
