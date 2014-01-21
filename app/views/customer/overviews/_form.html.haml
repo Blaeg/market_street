@@ -1,0 +1,11 @@
+.col-md-8
+  = simple_form_for @user, :url => customer_overview_path, :method => :put do |f|
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :email
+    = f.input :app_theme, collection: User::APP_THEMES
+    = f.input :nav_bar_inverse
+    = f.input :password
+    = f.input :password_confirmation        
+    = f.button :submit
+.clearfix    

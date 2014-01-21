@@ -34,14 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def layout_theme
-    'application'
-    'cyborg'
-    'cerulean'   
-    'cosmo'
-    'flatly' 
-    'united'
-    'spacelab'
-    'slate'
+    current_user.app_theme
   end
 
   private

@@ -22,12 +22,12 @@ MarketStreet::Application.routes.draw do
     resource  :password_reset,  :only => [:new, :create, :edit, :update]
     resource  :activation,      :only => [:show]
 
+    resource  :overview, :only => [:show, :edit, :update]
     resources :orders, :only => [:index, :show]
     resources :addresses
     resources :credit_cards
     resources :referrals, :only => [:index, :create, :update]
-    resource  :store_credit, :only => [:show]
-    resource  :overview, :only => [:show, :edit, :update]
+    resource  :store_credit, :only => [:show]    
   end
 
   namespace :catalog do
