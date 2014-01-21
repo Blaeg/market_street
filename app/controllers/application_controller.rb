@@ -37,7 +37,8 @@ class ApplicationController < ActionController::Base
     'application'
     'cyborg'
     'cerulean'   
-    'cosmo' 
+    'cosmo'
+    'flatly' 
   end
 
   private
