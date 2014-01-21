@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   add_breadcrumb "Home", :root_path
   protect_from_forgery
-  layout :themed_layout
+  layout 'application'
   
   helper_method :current_user,
                 :session_cart,
@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
                 :product_types,
                 :customer_confirmation_page_view,
                 :sort_column, 
-                :sort_direction
+                :sort_direction,
+                :layout_theme
 
   before_filter :secure_session
 
@@ -32,9 +33,10 @@ class ApplicationController < ActionController::Base
     @product_types ||= ProductType.roots
   end
 
-  def themed_layout
+  def layout_theme
     'application'
-    'themes/cyborg'
+    'cyborg'
+    'cerulean'    
   end
 
   private
