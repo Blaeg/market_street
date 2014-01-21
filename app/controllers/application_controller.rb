@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
                 :customer_confirmation_page_view,
                 :sort_column, 
                 :sort_direction,
-                :layout_theme
+                :layout_theme, :nav_bar_inverse?
 
   before_filter :secure_session
 
@@ -35,6 +35,10 @@ class ApplicationController < ActionController::Base
 
   def layout_theme
     current_user.app_theme
+  end
+
+  def nav_bar_inverse?
+    current_user.nav_bar_inverse
   end
 
   private
