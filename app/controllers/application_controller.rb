@@ -36,7 +36,8 @@ class ApplicationController < ActionController::Base
   def layout_theme
     'application'
     'cyborg'
-    'cerulean'    
+    'cerulean'   
+    'cosmo' 
   end
 
   private

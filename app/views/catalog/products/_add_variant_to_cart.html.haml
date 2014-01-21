@@ -3,6 +3,6 @@
   - if @product.active_variants.size >= 1
     - @product.active_variants.each_with_index do |variant, i|
       .btn.btn-primary.variant_select{:id => 'variant_'+variant.id.to_s, 'data-variant_id' => variant.id }= variant.sub_name
-  #submit_add_to_cart.btn.btn-danger.col-md-2.pull-right= link_to 'Add to Cart', '#', :class => 'no_link' unless @product.active_variants.empty? 
+  #submit_add_to_cart.btn.btn-danger.col-md-3.pull-right= link_to 'Add to Cart', '#', :class => 'no_link' unless @product.active_variants.empty? 
   .col-md-2.pull-right= f.select :quantity, (1..6)
   %hr
