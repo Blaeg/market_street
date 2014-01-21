@@ -3,7 +3,7 @@
 %head>
   %title= content_for?(:title) ? "#{site_name}: #{yield(:title)}" : site_name
   %link{:href => "/assets/favicon.ico", :rel => "shortcut icon"}
-  = stylesheet_link_tag "application", :media => "all"
+  = stylesheet_link_tag layout_theme, :media => "all"
   = csrf_meta_tag 
   = yield :head
   = render 'shared/metadata'
@@ -13,6 +13,6 @@
     = render 'layouts/header/alert_notice'
     = yield      
   = render 'layouts/footer/google_analytics' unless @disable_ga
-  = javascript_include_tag 'application'
+  = javascript_include_tag layout_theme
   = yield :bottom 
 = yield :below_body
