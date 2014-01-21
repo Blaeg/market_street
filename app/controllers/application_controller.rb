@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
     'flatly' 
     'united'
     'spacelab'
+    'slate'
   end
 
   private

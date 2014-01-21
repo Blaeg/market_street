@@ -1,30 +1,30 @@
 .col-md-2.pull-right.well
 	%table
 		%tr
-			%td.span2 Subtotal
+			%td.col-md-2 Subtotal
 			%td.pull-right= number_to_currency @cart.subtotal_amount
 		- if @cart.shipping_amount > 0 
 			%tr
-				%td Shipping
+				%td.col-md-2 Shipping
 				%td.pull-right= number_to_currency @cart.shipping_amount			
 		- if @cart.tax_amount > 0 
 			%tr
-				%td Tax
+				%td.col-md-2 Tax
 				%td.pull-right= number_to_currency @cart.tax_amount			
 		-if @cart.credit_amount > 0
 			%tr 
-				%td Credit
+				%td.col-md-2 Credit
 				%td.pull-right= number_to_currency @cart.credit_amount			
 
 		-if @cart.discount_amount > 0
 			%tr 
-				%td Discount
+				%td.col-md-2 Discount
 				%td.pull-right= number_to_currency @cart.discount_amount			
 		%tr
 			%td{:colspan=>"2"}
 				%hr      
 		%tr
-			%td 
+			%td.col-md-2
 				%strong Total
 			%td.pull-right= number_to_currency @cart.total_amount
 .clearfix			
