@@ -15,9 +15,10 @@ class Customer::OverviewsController < Customer::BaseController
   private
 
   def user_params
-    params.require(:user).permit(:password, :password_confirmation, :first_name, :last_name)
+    params.require(:user).permit(:password, :password_confirmation, 
+      :first_name, :last_name, :app_theme, :nav_bar_inverse)
   end
-  
+
   def selected_customer_tab(tab)
     tab == 'profile'
   end
