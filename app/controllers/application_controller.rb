@@ -39,6 +39,7 @@ class ApplicationController < ActionController::Base
     'cerulean'   
     'cosmo'
     'flatly' 
+    'united'
   end
 
   private
@@ -103,9 +104,7 @@ class ApplicationController < ActionController::Base
   end
 
   def session_cart
-    return @session_cart if defined?(@session_cart)    
-    return current_user.current_cart if current_user && current_user.current_cart
-    Cart.create      
+    @session_cart ||= (current_user && current_user.current_cart) ? current_user.current_cart : Cart.create    
   end
 
   ###  Authlogic helper methods

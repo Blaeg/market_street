@@ -29,12 +29,16 @@
 #
 
 class User < ActiveRecord::Base
+
   include TransactionAccountable
   require_dependency 'user/states'
   include User::States
   require_dependency 'user/user_cim'
   include User::UserCim
   include Presentation::UserPresenter
+
+  APP_THEMES = %w(application cyborg cerulean cosmo flatly journal readable
+    simplx slate spacelab united yeti)
 
   acts_as_authentic do |config|
     config.validate_email_field
@@ -104,6 +108,7 @@ class User < ActiveRecord::Base
                           :uniqueness => true,##  This should be done at the DB this is too expensive in rails
                           :format   => { :with => CustomValidators::Emails.email_validator },
                           :length => { :maximum => 255 }
+  validates :app_theme, :inclusion => APP_THEMES
 
   accepts_nested_attributes_for :shipping_addresses, :billing_addresses, :user_roles
   accepts_nested_attributes_for :customer_comments, :reject_if => proc { |attributes| attributes['note'].strip.blank? }
