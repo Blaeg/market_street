@@ -23,6 +23,6 @@ describe ProductDecorator do
   end
 
   it "displays short name" do 
-    expect(subject.short_name.length).to eq ProductDecorator::SHORT_LENGTH
+    expect(subject.short_name.length).to be <= ProductDecorator::SHORT_LENGTH
   end
 end
