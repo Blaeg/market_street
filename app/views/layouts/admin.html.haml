@@ -11,7 +11,7 @@
   .container-fluid
     .row-fluid
       = render 'layouts/header/alert_notice'
-      .breadcrumb= render_breadcrumbs
+      = render_breadcrumbs
       - if content_for?(:sidemenu)
         = yield :sidemenu         
       = yield     
