@@ -14,6 +14,10 @@ gem 'state_machine', '~> 1.2.0'
 gem 'pg'
 gem 'unicorn'
 
+#validation
+gem 'validates_phone_number'
+gem 'email_validator'
+
 #caching
 gem 'actionpack-page_caching'
 

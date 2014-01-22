@@ -80,9 +80,8 @@ class Order < ActiveRecord::Base
 
   validates :number,      :presence => true
   validates :user_id,     :presence => true
-  validates :email,       :presence => true,
-    :format   => { :with => CustomValidators::Emails.email_validator }
-  
+  validates :email,       :presence => true, :email => true
+    
   scope :active_session_carts,  -> (user, session_id) { where(state: :active, user_id: user, session_id: session_id) }
   scope :between, -> (start_time, end_time) { where("orders.completed_at >= ? AND orders.completed_at <= ?", start_time, end_time) }
   scope :finished, -> { where({:orders => { :state => ['complete', 'paid']}})}

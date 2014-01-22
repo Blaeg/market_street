@@ -32,6 +32,7 @@ class Admin::Customer::StoreCreditsController < Admin::BaseController
   def amount_to_add_is_valid?
     params[:amount_to_add] && params[:amount_to_add].is_numeric?
   end
+  
   def amount_to_add
     amount_to_add_is_valid? ? params[:amount_to_add].to_f : 0.0
   end

@@ -4,11 +4,13 @@ module StringExtensions
     when 's' then "'"
     else "'s"
     end
-  end
+  end  
 
   def is_numeric?
-      Float self rescue false
+  	Float self rescue false
   end
 end
 
-String.send :include, StringExtensions
+class String
+  include StringExtensions
+end

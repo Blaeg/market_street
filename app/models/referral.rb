@@ -7,7 +7,7 @@ class Referral < ActiveRecord::Base
   validates :referring_user_id,            :presence => true
   validates :email,             :presence   => true,
                                 :uniqueness => true,
-                                :format     => { :with => CustomValidators::Emails.email_validator }
+                                :email => true                                
 
   before_validation :assign_referral_program
   validate :validate_has_not_signed_up_yet

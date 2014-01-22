@@ -42,17 +42,15 @@ class Address < ActiveRecord::Base
   has_many :phones, :as => :phoneable
   has_many :shipments
 
-  validates :first_name,   :presence => true, :length => { :maximum => 25 },
-                           :format   => { :with => CustomValidators::Names.name_validator }
-  validates :last_name,    :presence => true, :length => { :maximum => 25 },
-                           :format   => { :with => CustomValidators::Names.name_validator }
+  validates :first_name,   :presence => true, :length => { :maximum => 25 }                           
+  validates :last_name,    :presence => true, :length => { :maximum => 25 }                           
   validates :address1,     :presence => true, :length => { :maximum => 255 }
-  validates :city,         :presence => true, :length => { :maximum => 75 },
-                           :format   => { :with => CustomValidators::Names.name_validator }
+  validates :city,         :presence => true, :length => { :maximum => 75 }
   validates :state_id,     :presence => true,  :if => Proc.new { |address| Settings.require_state_in_address}
   validates :country_id,   :presence => true,  :if => Proc.new { |address| !Settings.require_state_in_address}
   validates :zip_code,     :presence => true,       :length => { :minimum => 5, :maximum => 12 }
-  
+  validates :phone,        :phone_number => true, :if => Proc.new { |address| address.phone.present? }
+
   before_validation :sanitize_data
 
   attr_accessor :replace_address_id # if you are updating an address set this field.
