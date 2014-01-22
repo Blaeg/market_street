@@ -11,7 +11,8 @@ class Admin::Customer::StoreCreditsController < Admin::BaseController
   def update
     if amount_to_add_is_valid?
       customer.store_credit.add_credit(amount_to_add)
-      redirect_to admin_customer_user_store_credits_url( customer ), :notice  => "Successfully updated store credit."
+      redirect_to admin_customer_user_store_credits_url( customer ), 
+        :notice  => "Successfully updated store credit."
     else
       customer.errors.add(:base, 'Amount must be numeric')
       form_info
