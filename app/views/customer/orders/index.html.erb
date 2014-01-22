@@ -4,7 +4,8 @@
   <% unless @orders.length > 0 %>
     You currently do not have any orders.
   <% end %>
-
+  
+  <% @orders = OrderDecorator.decorate_collection(@orders) %>
   <% @orders.each do |order| %>
     <div class='order-list-item ten'>
       <ul>

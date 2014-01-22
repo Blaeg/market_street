@@ -25,7 +25,7 @@ class Admin::Customer::StoreCreditsController < Admin::BaseController
     end
 
     def customer
-      @customer ||= User.includes(:store_credit).find(params[:user_id])
+      @customer ||= UserDecorator.decorate(User.includes(:store_credit).find(params[:user_id]))
     end
 
     def amount_to_add_is_valid?

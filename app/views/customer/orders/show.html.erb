@@ -26,6 +26,7 @@
         <tr>
           <td COLSPAN=2> Items </td>
         </tr>
+        <% @orders = OrderDecorator.decorate_collection(@orders) %>
         <% @order.order_items.each do |item| %>
           <tr>
             <td class='left-align' COLSPAN=2> <%= item.variant.product_name %> </td>

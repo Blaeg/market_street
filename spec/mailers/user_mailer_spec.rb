@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe UserMailer, "Signup Email" do
     #include EmailSpec::Helpers
     #include EmailSpec::Matchers
@@ -95,5 +97,4 @@ describe UserMailer, "#order_confirmation" do
     it "has the correct subject" do
       @email.should have_subject(/Order Confirmation/)
     end
-
 end

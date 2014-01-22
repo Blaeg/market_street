@@ -79,7 +79,7 @@ class Admin::Customer::AddressesController < Admin::BaseController
   end
 
   def customer
-    @customer ||= User.includes(:addresses).find(params[:user_id])
+    @customer ||= UserDecorator.decorate(User.includes(:addresses).find(params[:user_id]))
   end
 
   def select_states

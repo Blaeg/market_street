@@ -35,8 +35,7 @@ class User < ActiveRecord::Base
   include User::States
   require_dependency 'user/user_cim'
   include User::UserCim
-  include Presentation::UserPresenter
-
+  
   APP_THEMES = %w(application cyborg cerulean cosmo flatly journal readable
     simplx slate spacelab united yeti)
 
@@ -114,7 +113,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :customer_comments, :reject_if => proc { |attributes| attributes['note'].strip.blank? }
 
   scope :super_admin, -> { joins(:user_roles).joins(:roles).where("roles.name = ?", 'super_administrator') }
-
+  
   def active?
     !['canceled', 'inactive'].any? {|s| self.state == s }
   end

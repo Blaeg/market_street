@@ -54,8 +54,7 @@ class Order < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :number
-  include Presentation::OrderPresenter
-
+  
   has_many   :order_items, :dependent => :destroy
   has_many   :shipments
   

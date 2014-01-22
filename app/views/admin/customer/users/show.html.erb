@@ -4,7 +4,9 @@
   <div class='col-md-4 column'>
     <div class='panel'>
       <h4>Orders</h4>
-      <% @user.finished_orders.sort_by{|o| o.completed_at}.reverse!.each do |order| %>
+      <% @orders = OrderDecorator.decorate_collection(@user.finished_orders)
+%>
+      <% @orders.sort_by{|o| o.completed_at}.reverse!.each do |order| %>
         <ul class='vertical-list'>
           <li><label>Order #</label><%= link_to order.number, edit_admin_fulfillment_order_path(order) %></li>
           <li><label>Price</label><%= order.first_invoice_amount.present? ? number_to_currency( order.first_invoice_amount ) : 'Not Charged yet.' %></li>

@@ -22,9 +22,8 @@ describe User do
 end
 
 describe User, ".name" do
+  let(:user) { User.decorator.decorate(build(:user)) } 
   it "returns the correct name" do
-    user = build(:user)
-    #should_receive(:authenticate).with("password").and_return(true)
     user.stubs(:first_name).returns("Fred")
     user.stubs(:last_name).returns("Flint")
     user.name.should == "Fred Flint"
@@ -32,7 +31,6 @@ describe User, ".name" do
 end
 
 describe User, "instance methods" do
-
   before(:each) do
     User.any_instance.stubs(:start_store_credits).returns(true)  ## simply speed up tests, no reason to have store_credit object
   end
@@ -164,21 +162,17 @@ describe User, "instance methods" do
   end
 
   context ".email_address_with_name" do
-    #"\"#{name}\" <#{email}>"
+    let(:user) { User.decorator.decorate(user) } 
+    
     it 'show the persons name and email address' do
-      @user.email       = 'myfake@email.com'
-      @user.first_name  = 'Dave'
-      @user.last_name   = 'Commerce'
-      @user.email_address_with_name.should == '"Dave Commerce" <myfake@email.com>'
+      user.email       = 'myfake@email.com'
+      user.first_name  = 'Dave'
+      user.last_name   = 'Commerce'
+      expect(user.email_address_with_name).to eq '"Dave Commerce" <myfake@email.com>'
     end
   end
 
-  context ".get_cim_profile" do
-    pending "test for get_cim_profile"
-  end
-
   context ".merchant_description" do
-    # [name, default_shipping_address.try(:address_lines)].compact.join(', ')
     it 'show the name and address lines' do
       address = create(:address, :address1 => 'Line one street', :address2 => 'Line two street')
       @user.first_name = 'First'
@@ -202,10 +196,10 @@ end
 
 describe User, 'store_credit methods' do
   context '.start_store_credits' do
+    let(:user) { create(:user) }
     it 'create store_credit object on create' do
-      user = create(:user)
-      user.store_credit.should_not be_nil
-      user.store_credit.id.should_not be_nil
+      expect(user.store_credit).not_to be_nil
+      expect(user.store_credit.id).not_to be_nil      
     end
   end
 end

@@ -37,6 +37,6 @@ class Admin::Customer::CommentsController < Admin::BaseController
   end
 
   def customer
-    @customer ||= User.find(params[:user_id])
+    @customer ||= UserDecorator.decorate(User.find(params[:user_id]))
   end
 end
