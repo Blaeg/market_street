@@ -14,7 +14,7 @@
   = render 'layouts/header/header'
   .container
     = render 'layouts/header/alert_notice'
-    %ol.breadcrumb= render_breadcrumbs 
+    = render_breadcrumbs 
     = yield
     = render 'layouts/footer/footer'
   = render 'layouts/footer/google_analytics' unless @disable_ga
