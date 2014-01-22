@@ -2,18 +2,17 @@ require 'spec_helper'
 
 describe Customer::ActivationsController do
   render_views
-
+  let(:user) { create(:user, :state => 'inactive') }
+  
   it "show action renders show template" do
-    @user = create(:user, :state => 'inactive')
-    get :show, :id => @user.id, :a => @user.perishable_token
-    assigns[:user].id.should == @user.id
+    get :show, :id => user.id, :a => user.perishable_token
+    expect(assigns[:user].id).to eq user.id
     expect(response).to redirect_to(root_url)
   end
 
   it "show action renders show template" do
-    @user = create(:user, :state => 'inactive')
-    get :show, :id => @user.id, :a => 'bad0perishabletoken'
-    assigns[:user].should == nil
+    get :show, :id => user.id, :a => 'bad0perishabletoken'
+    expect(assigns[:user]).to be_nil
     expect(response).to redirect_to(root_url)
   end
 end
