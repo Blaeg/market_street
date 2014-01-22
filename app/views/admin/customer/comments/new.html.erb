@@ -1,6 +1,6 @@
 <h1> New Comment </h1>
 
-<%= customer.name %>
+<%= customer.display_name %>
 <%= form_for @comment, :url => admin_customer_user_comments_path(customer, @comment) do |f| %>
   <%=  render :partial => 'form', :locals => {:f => f} %>
   <div class="actions"><%= f.submit 'Create' , :class => 'btn' %></div>

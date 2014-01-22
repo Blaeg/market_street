@@ -1,6 +1,6 @@
-<h3>Edit <%= @user.name %> </h3>
+<h3>Edit <%= @user.display_name %> </h3>
 
-<%= link_to "Show #{@user.name}", admin_customer_user_path(@user), class: 'btn btn-success' %>
+<%= link_to "Show #{@user.display_name}", admin_customer_user_path(@user), class: 'btn btn-success' %>
 
 <%= form_for @user, :url => admin_customer_user_path(@user)  do |form| %>
   <%= render :partial => '/admin/customer/users/form', :locals => {:form => form} %>

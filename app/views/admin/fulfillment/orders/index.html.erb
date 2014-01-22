@@ -26,8 +26,7 @@
       <th></th>
     </tr>
     </thead>
-    <% @orders = OrderDecorator.decorate_collection(@orders) %>
-    <% @orders.each do |order| %>
+    <% OrderDecorator.decorate_collection(@orders).each do |order| %>
       <tr>
         <td><%= link_to order.number, admin_fulfillment_order_path(order) %></td>
         <td><%= order.name %></td>

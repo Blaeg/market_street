@@ -12,6 +12,7 @@ class Admin::Customer::UsersController < Admin::BaseController
 
   def show
     @user = User.includes([:shipments, :finished_orders, :return_authorizations]).find(params[:id])    
+    @user = UserDecorator.decorate(@user)
   end
 
   def new
@@ -44,7 +45,7 @@ class Admin::Customer::UsersController < Admin::BaseController
     @user = User.includes(:roles).find(params[:id])
     authorize! :create_users, current_user
     if @user.update_attributes(user_params)
-      flash[:notice] = "#{@user.name} has been updated."
+      flash[:notice] = "#{@user.display_name} has been updated."
       redirect_to admin_customer_users_url
     else
       form_info

@@ -1,4 +1,4 @@
-<h2> New Address (<%= customer.name %>) </h2>
+<h2> New Address (<%= customer.display_name %>) </h2>
 <%= form_for @form_address, :url => admin_customer_user_addresses_path(customer, @form_address) do |f| %>
   <%=  render :partial => 'form', :locals => {:f => f} %>
   <div class="actions"><%= f.submit 'Create' , :class => 'btn' %></div>

@@ -201,14 +201,6 @@ class User < ActiveRecord::Base
     customer_cim_id
   end
 
-  # name and first line of address (used by credit card gateway to descript the merchant)
-  #
-  # @param  [ none ]
-  # @return [ String ] name and first line of address
-  def merchant_description
-    [name, default_shipping_address.try(:address_lines)].compact.join(', ')
-  end
-
   # include addresses in Find
   #
   # @params [ none ]
@@ -255,10 +247,6 @@ class User < ActiveRecord::Base
 
   def password_required?
     self.crypted_password.blank?
-  end
-
-  def user_profile
-    return {:merchant_customer_id => id, :email => email, :description => merchant_description}
   end
 
   def before_validation_on_create

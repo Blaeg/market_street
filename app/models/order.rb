@@ -92,8 +92,6 @@ class Order < ActiveRecord::Base
   NUMBER_SEED     = 1001001001000
   CHARACTERS_SEED = 21
 
-  delegate :name, :to => :user
-
   def cancel_unshipped_order(invoice)
     transaction do
       cancel!

@@ -1,10 +1,10 @@
 class Customer::OverviewsController < Customer::BaseController
   def edit
-    @user = current_user
+    @user = UserDecorator.decorate(current_user)
   end
 
   def update
-    @user = current_user
+    @user = UserDecorator.decorate(current_user)
     if @user.update_attributes(user_params)
       redirect_to customer_overview_url(), :notice  => "Successfully updated user."
     else

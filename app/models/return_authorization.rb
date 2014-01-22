@@ -90,7 +90,7 @@ class ReturnAuthorization < ActiveRecord::Base
   # @param [none]
   # @return [String]
   def user_name
-    user.name
+    UserDecorator.decorate(user).display_name
   end
 
   # Called before validation.  sets the ReturnAuthorization number, if the id is nil the ReturnAuthorization number is bogus

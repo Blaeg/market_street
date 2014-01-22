@@ -1,5 +1,5 @@
 <div class='col-md-5 column'>
-  <h4> <%= current_user.name %> Profile </h4>
+  <h4> <%= UserDecorator.decorate(current_user).display_name %> Profile </h4>
 
   <ul id='profile_details' >
     <li>

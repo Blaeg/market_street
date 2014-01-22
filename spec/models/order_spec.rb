@@ -4,27 +4,6 @@ describe Order, "instance methods" do
   let(:user) { create(:user) }
   let(:order) { create(:order, :user => user) }
   
-  context ".name" do
-    let(:user) { UserDecorator.decorate(create(:user)) }
-    it 'returns the users name' do
-      expect(order.name).to eq user.name
-    end
-  end
-
-  context ".display_completed_at(format = :us_date)" do
-    let(:order) { OrderDecorator.decorate(create(:order, :user => user)) }
-
-    it 'returns the completed date in us format' do
-      order.stubs(:completed_at).returns(Time.zone.parse('2010-03-20 14:00:00'))
-      expect(order.display_completed_at).to eq '03/20/2010'
-    end
-
-    it 'returns "Not Finished."' do
-      order.stubs(:completed_at).returns(nil)
-      expect(order.display_completed_at).to eq "Not Finished."
-    end
-  end
-
   context ".first_invoice_amount" do
     it 'returns ""' do
       order.stubs(:completed_invoices).returns([])

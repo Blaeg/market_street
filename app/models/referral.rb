@@ -47,7 +47,7 @@ class Referral < ActiveRecord::Base
   end
 
   def referral_user_name
-    referral_user_id ? referral_user.name : 'N/A'
+    referral_user_id ? referral_user.display_name : 'N/A'
   end
 
   def registered?

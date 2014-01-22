@@ -1,6 +1,6 @@
 <h2>New shipment for Order # <%= @order.number %>  </h2>
 <div class='' >
-  <b>Shipment for <%= link_to @order.user.name, admin_customer_user_path(@order.user) %></b>
+  <b>Shipment for <%= link_to @order.user.display_name, admin_customer_user_path(@order.user) %></b>
 </div>
 <div class='clear'></div>
 <div id='order-shipment-items' class='col-md-4 column'>

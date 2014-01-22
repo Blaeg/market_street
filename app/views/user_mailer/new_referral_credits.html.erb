@@ -20,7 +20,7 @@
                               <p style="color:rgb(57,60,61);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:1.3em;font-weight:bold;line-height:18px;margin-top:0px;margin-right:0px;margin-bottom:12px;margin-left:0px">Hi<%= " #{@user.first_name}" %>,</p>
                               <p style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;line-height:18px;margin-top:0px;margin-right:0px;margin-bottom:12px;margin-left:0px">
 
-                                Your referral <%= @referral_user.name %> just made a purchase with <%= link_to "#{ @company_name }", @url %> and received <%= number_to_currency @referral_user.referree.try(:decimal_amount) %> off because you sent them!  
+                                Your referral <%= @referral_user.display_name %> just made a purchase with <%= link_to "#{ @company_name }", @url %> and received <%= number_to_currency @referral_user.referree.try(:decimal_amount) %> off because you sent them!  
 </p><p style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;line-height:18px;margin-top:0px;margin-right:0px;margin-bottom:12px;margin-left:0px">
                                 We can’t thank you enough.  You've also earned a <%= number_to_currency @referral_user.referree.try(:decimal_amount) %> store credit and will continue earning credits for everyone you send our way that purchases.   Use these credits to shop online at <%= link_to "#{ @company_name }", @url %>.
 </p>

@@ -32,8 +32,9 @@ describe ReturnAuthorization, 'instance methods' do
   end
 
   context '.user_name' do
+    let(:user) { UserDecorator.decorate(@user) }
     it 'returns the users name' do
-      @return_authorization.user_name.should == @user.name
+      @return_authorization.user_name.should == user.display_name
     end
   end
 

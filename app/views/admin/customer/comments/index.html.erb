@@ -25,5 +25,5 @@
 <p>
   <%= link_to "New Comment", new_admin_customer_user_comment_path(customer), 
     :class => 'btn' %>
-  <%= link_to "Back to #{customer.name}", admin_customer_user_path(customer), :class => 'btn'  %>
+  <%= link_to "Back to #{customer.display_name}", admin_customer_user_path(customer), :class => 'btn'  %>
 </p>

@@ -6,96 +6,12 @@ describe Product, ".instance methods with images" do
   end
 
   context "featured_image" do
-    pending "test for featured_image"
-    #it 'returns an image url' do
-      # @your_model.should_receive(:save_attached_files).and_return(true)
-      # Image.new :photo => File.new(Rails.root + 'spec/fixtures/images/rails.png')
-    #  @product.featured_image.should_not be_nil
-    #end
-
+    xit 'returns an image url' do
+      @your_model.should_receive(:save_attached_files).and_return(true)
+      Image.new :photo => File.new(Rails.root + 'spec/fixtures/images/rails.png')
+     @product.featured_image.should_not be_nil
+    end
   end
-end
-
-describe Product, ".tax_rate" do
-
-  before(:each) do
-    tr = TaxRate.new()
-    tr.send(:expire_cache)
-  end
-
-  # use case tax rate end date is nil and the start_date < now
-  it 'returns the tax rate' do
-    Settings.tax_per_state_id = true
-    tax_rate    = create(:tax_rate,
-                          :state_id => 1,
-                          :start_date => (Time.zone.now - 1.year),
-                          :end_date => nil)
-    product  = create(:product)
-    product.tax_rate(1, Time.zone.now).should == tax_rate
-  end
-  # use case tax rate end date is next month and the start_date < now
-  it 'returns the tax rate' do
-    tax_rate    = create(:tax_rate,
-                          :state_id => 1,
-                          :start_date => (Time.zone.now - 1.year),
-                          :end_date => (Time.zone.now + 1.month))
-    product  = create(:product)
-    product.tax_rate(1, Time.zone.now).should == tax_rate
-  end
-  # use case tax rate end date is one month ago and the start_date < now but the time was 2 months ago
-  it 'returns the tax rate' do
-    tax_rate    = create(:tax_rate,
-                          :state_id => 1,
-                          :start_date => (Time.zone.now - 1.year),
-                          :end_date => (Time.zone.now - 1.month))
-    Rails.cache.delete("TaxRate-active_at_ids-#{(Time.zone.now - 2.month).to_date}")
-    product  = create(:product)
-    product.tax_rate(1, (Time.zone.now - 2.month)).should == tax_rate
-  end
-  # there are no tax rates
-  it 'does not return the tax rate' do
-    product  = create(:product)
-    product.tax_rate(1, (Time.zone.now - 2.month)).should be_nil
-  end
-  # the tax rate starts next month
-  it 'does not return any tax rates' do
-    tax_rate    = create(:tax_rate,
-                          :state_id   => 1,
-                          :start_date => (Time.zone.now - 1.month),
-                          :end_date   => nil)
-    product  = create(:product)
-    product.tax_rate(1, (Time.zone.now - 2.month)).should be_nil
-  end
-  # the tax rate changes next month but is 5% now and next month will be 10%
-  it 'returns any tax rates of 5%' do
-    Settings.tax_per_state_id = true
-    tax_rate    = create(:tax_rate,
-                          :percentage => 5.0,
-                          :state_id   => 1,
-                          :start_date => (Time.zone.now - 1.year),
-                          :end_date   => (Time.zone.now + 1.month))
-
-    tax_rate2    = create(:tax_rate,
-                          :percentage => 10.0,
-                          :state_id   => 1,
-                          :start_date => (Time.zone.now + 1.month),
-                          :end_date   => (Time.zone.now + 1.year))
-    product  = create(:product)
-    product.tax_rate(1).should == tax_rate
-  end
-
-  it 'tax the countries tax rate' do
-    Settings.tax_per_state_id = false
-    tax_rate    = create(:tax_rate,
-                          :percentage => 5.0,
-                          :country_id   => 1,
-                          :start_date => (Time.zone.now - 1.year),
-                          :end_date   => (Time.zone.now + 1.month))
-    product  = create(:product)
-    product.tax_rate(1).should == tax_rate
-    Settings.tax_per_state_id = true
-  end
-
 end
 
 describe Product, ".instance methods" do
@@ -116,31 +32,13 @@ describe Product, ".instance methods" do
 
   end
 
-  context ".price" do
-    it 'returns the lowest price' do
-      @product.price.should == 10.00
-    end
-  end
-
   context ".set_keywords=(value)" do
     it 'set keywords' do
       @product.set_keywords             =  'hi, my, name, is, Dave'
       @product.product_keywords.should  == ['hi', 'my', 'name', 'is', 'Dave']
       @product.set_keywords.should      == 'hi, my, name, is, Dave'
     end
-  end
-
-  context ".price_range" do
-    it 'returns the price range' do
-      @product.price_range.should == [10.0, 15.01]
-    end
-  end
-
-  context ".price_range?" do
-    it 'returns the price range' do
-      @product.price_range?.should be_true
-    end
-  end
+  end  
 end
 
 

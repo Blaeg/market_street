@@ -1,4 +1,4 @@
-<h2> Edit <%= customer.name.possessive %> Address </h2>
+<h2> Edit <%= customer.display_name.possessive %> Address </h2>
 
 <%= form_for @form_address, :url => admin_customer_user_address_path(customer,@form_address) do |f| %>
   <%=  render :partial => 'form', :locals => {:f => f} %>

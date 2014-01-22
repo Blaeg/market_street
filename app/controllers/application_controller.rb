@@ -84,6 +84,14 @@ class ApplicationController < ActionController::Base
     end
   end  
 
+  def store_return_location
+    disallowed_urls = [ login_url, logout_url ]
+    disallowed_urls.map!{|url| url[/\/\w+$/]}
+    unless disallowed_urls.include?(request.url)
+      session[:return_to] = request.url
+    end
+  end
+
   def search_product
     @search_product || Product.new
   end

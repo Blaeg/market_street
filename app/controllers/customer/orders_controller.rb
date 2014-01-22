@@ -3,6 +3,7 @@ class Customer::OrdersController < Customer::BaseController
   # GET /customer/orders.xml
   def index
     @orders = current_user.finished_orders.find_customer_details
+    @orders = OrderDecorator.decorate_collection(@orders)
   end
 
   # GET /customer/orders/1
@@ -10,6 +11,7 @@ class Customer::OrdersController < Customer::BaseController
   def show
     @order = current_user.finished_orders.includes([:invoices])
                         .find_by_number(params[:id])
+    @order = OrderDecorator.decorate(@order)                  
   end
 
   private

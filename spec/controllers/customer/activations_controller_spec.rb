@@ -16,5 +16,4 @@ describe Customer::ActivationsController do
     assigns[:user].should == nil
     expect(response).to redirect_to(root_url)
   end
-
 end

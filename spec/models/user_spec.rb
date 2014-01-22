@@ -21,15 +21,6 @@ describe User do
   end
 end
 
-describe User, ".name" do
-  let(:user) { User.decorator.decorate(build(:user)) } 
-  it "returns the correct name" do
-    user.stubs(:first_name).returns("Fred")
-    user.stubs(:last_name).returns("Flint")
-    user.name.should == "Fred Flint"
-  end
-end
-
 describe User, "instance methods" do
   before(:each) do
     User.any_instance.stubs(:start_store_credits).returns(true)  ## simply speed up tests, no reason to have store_credit object
@@ -160,38 +151,6 @@ describe User, "instance methods" do
       @user.last_name.should    == 'Lastname'      
     end
   end
-
-  context ".email_address_with_name" do
-    let(:user) { User.decorator.decorate(user) } 
-    
-    it 'show the persons name and email address' do
-      user.email       = 'myfake@email.com'
-      user.first_name  = 'Dave'
-      user.last_name   = 'Commerce'
-      expect(user.email_address_with_name).to eq '"Dave Commerce" <myfake@email.com>'
-    end
-  end
-
-  context ".merchant_description" do
-    it 'show the name and address lines' do
-      address = create(:address, :address1 => 'Line one street', :address2 => 'Line two street')
-      @user.first_name = 'First'
-      @user.last_name  = 'Second'
-
-      @user.stubs(:default_shipping_address).returns(address)
-      @user.merchant_description.should == 'First Second, Line one street, Line two street'
-    end
-
-    it 'show the name and address lines without address2' do
-      address = create(:address, :address1 => 'Line one street', :address2 => nil)
-      @user.first_name = 'First'
-      @user.last_name  = 'Second'
-
-      @user.stubs(:default_shipping_address).returns(address)
-      @user.merchant_description.should == 'First Second, Line one street'
-    end
-  end
-
 end
 
 describe User, 'store_credit methods' do
@@ -223,31 +182,17 @@ describe User, 'private methods' do
     end
   end
 
-  context ".create_cim_profile" do
-    pending "test for create_cim_profile"
-  end
-
   context ".before_validation_on_create" do
-    #UserMailer.expects(:signup_notification).once.returns(sign_up_mock)
-    it 'assign the access_token' do
-      user = build(:user)
+    let(:user) { build(:user) }
+    
+    it 'assign the access_token' do      
       user.expects(:before_validation_on_create).once
       user.save
     end
+
     it 'assign the access_token' do
       @user.save
       @user.access_token.should_not be_nil
     end
-  end
-
-  context ".user_profile" do
-    #{:merchant_customer_id => self.id, :email => self.email, :description => self.merchant_description}
-    it 'returns a hash of user info' do
-      @user.save
-      profile = @user.send(:user_profile)
-      profile.keys.include?(:merchant_customer_id).should be_true
-      profile.keys.include?(:email).should be_true
-      profile.keys.include?(:description).should be_true
-    end
-  end
+  end  
 end

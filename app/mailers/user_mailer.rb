@@ -1,3 +1,4 @@
+
 class UserMailer < ActionMailer::Base
   default from: "admin@marketstreet.com"
 
@@ -32,7 +33,7 @@ class UserMailer < ActionMailer::Base
     @url = root_url
 
     mail(:to => @referral.email,
-         :subject => "Referral from #{@user.name}")
+         :subject => "Referral from #{@user.display_name}")
   end
 
   def order_confirmation(order_id, invoice_id)

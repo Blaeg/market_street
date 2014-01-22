@@ -20,7 +20,7 @@
       <tr>
         <td><%= link_to referral.name, [:admin, :customer, referral] %></td>
         <td><%= referral.email %></td>
-        <td><%= referral.referring_user.name %></td>
+        <td><%= UserDecorator.decorate(referral.referring_user).display_name %></td>
         <td><%= referral.referral_program.name %></td>
         <td><%= referral.referral_user.try(:name) %></td>
         <td><%= referral.sent_at %></td>
