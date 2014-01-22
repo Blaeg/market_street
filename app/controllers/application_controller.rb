@@ -118,8 +118,8 @@ class ApplicationController < ActionController::Base
     @current_user = current_user_session && current_user_session.record
   end
 
-  def redirect_back_or_default(default)
-    redirect_to(session[:return_to] || default)
+  def redirect_back_or_default
+    redirect_to(session[:return_to] || root_url)
     session[:return_to] = nil
   end
 

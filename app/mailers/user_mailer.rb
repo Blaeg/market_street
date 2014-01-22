@@ -40,7 +40,7 @@ class UserMailer < ActionMailer::Base
     @order = Order.includes(:user).find(order_id)
     @user = UserDecorator.decorate(@order.user)
     @url = root_url
-    @site_name = site_name
+    @site_name = 'Market Street'
 
     mail(:to => @order.email,
      :subject => "Order Confirmation")
