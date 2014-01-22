@@ -1,7 +1,6 @@
 class Admin::Fulfillment::InvoicesController < Admin::BaseController
   add_breadcrumb "Invoice", :admin_fulfillment_invoices_path
-  include InvoicePrinter
-
+  
   def index
     @q = Invoice.search(params[:q])
     @invoices = @q.result.includes([:order]).
@@ -17,10 +16,7 @@ class Admin::Fulfillment::InvoicesController < Admin::BaseController
                                             ]]).find(params[:id])
 
     respond_to do |format|
-      format.html
-      format.pdf do
-        send_data print_form(@invoice).render, :filename => "invoice_#{@invoice.number}.pdf", :type => 'application/pdf'
-      end
+      format.html      
     end
   end
 
