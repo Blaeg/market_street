@@ -3,12 +3,30 @@ require 'spec_helper'
 describe UserDecorator do
 	let(:user) { UserDecorator.decorate(create(:user))}
 
-	describe User, ".name" do
+	describe User, ".display_name" do
 	  it "returns the correct name" do
-	    user.stubs(:first_name).returns("Fred")
-	    user.stubs(:last_name).returns("Flint")
+	    user.first_name = "Fred"
+	    user.last_name = "Flint"
 	    user.display_name.should == "Fred Flint"
 	  end
+
+    it "returns the correct name" do
+      user.first_name = "Fred"
+      user.last_name = nil
+      user.display_name.should == "Fred"
+    end
+
+    it "returns the correct name" do
+      user.first_name = nil
+      user.last_name = "Flint"
+      user.display_name.should == "Flint"
+    end
+
+    it "returns the correct name" do
+      user.first_name = nil 
+      user.last_name = nil
+      user.display_name.should == user.email
+    end
 	end
 	
 	describe User,  ".email_address_with_name" do

@@ -1,29 +1,34 @@
 class ProductDecorator < Draper::Decorator
   delegate_all
+  SHORT_LENGTH = 20
+  
+  def short_name
+    name[0..SHORT_LENGTH-1]
+  end
 
   def price
-    active_variants.present? ? price_range.first : raise( VariantRequiredError )
+    variant_prices.first
   end
 
-  def price_range?
-    !(price_range.first == price_range.last)
-  end
-  
   def price_range
-    return @price_range if @price_range
-    return @price_range = ['N/A', 'N/A'] if active_variants.empty?
-    @price_range = active_variants.minmax {|a,b| a.price <=> b.price }.map(&:price)
+    [variant_prices.first, variant_prices.last]    
   end
 
   def price_label
-  	str = ActionController::Base.helpers.number_to_currency(self.price_range.first)  	
-  	if price_range?        		
-  		str += '-'+ ActionController::Base.helpers.number_to_currency(product.price_range.last) 
-  	end
-  	str
+    return price unless price_range?
+    price_range.map { |pr|
+      ActionController::Base.helpers.number_to_currency(pr)
+    }.join('-')  	
   end  
 
-  def short_name
-  	name[0..20]
+  private 
+
+  def price_range?
+    variant_prices.first != variant_prices.last
+  end
+
+  def variant_prices 
+    raise( VariantRequiredError ) if active_variants.empty?
+    @variant_prices ||= active_variants.map(&:price).sort
   end
 end

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :product do
-    name { Forgery(:lorem_ipsum).words( rand( 3..8 ), :random => true).titlecase }
+    name { Forgery(:lorem_ipsum).words( rand( 3..25 ), :random => true).titlecase }
     description { Forgery(:lorem_ipsum).sentences(4, :random => true) }
     description_markup   { Forgery(:lorem_ipsum).sentences(4, :random => true) }
     product_type         { |c| c.association(:product_type) }

@@ -20,19 +20,19 @@ class Admin::Customer::StoreCreditsController < Admin::BaseController
   end
 
   private
-    def form_info
+  
+  def form_info
 
-    end
+  end
 
-    def customer
-      @customer ||= UserDecorator.decorate(User.includes(:store_credit).find(params[:user_id]))
-    end
+  def customer
+    @customer ||= UserDecorator.decorate(User.includes(:store_credit).find(params[:user_id]))
+  end
 
-    def amount_to_add_is_valid?
-      params[:amount_to_add] && params[:amount_to_add].is_numeric?
-    end
-    def amount_to_add
-      amount_to_add_is_valid? ? params[:amount_to_add].to_f : 0.0
-    end
-
+  def amount_to_add_is_valid?
+    params[:amount_to_add] && params[:amount_to_add].is_numeric?
+  end
+  def amount_to_add
+    amount_to_add_is_valid? ? params[:amount_to_add].to_f : 0.0
+  end
 end

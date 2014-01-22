@@ -1,9 +1,12 @@
 class UserDecorator < Draper::Decorator
   delegate_all
 
+  def full_name
+    [first_name, last_name].compact.map(&:capitalize).join(" ")
+  end
+
   def display_name
-    (first_name? && last_name?) ? [first_name.capitalize, 
-      last_name.capitalize ].join(" ") : email
+    (full_name != "") ? full_name : email
   end
 
   def email_address_with_name
@@ -19,5 +22,3 @@ class UserDecorator < Draper::Decorator
       :description => merchant_description}
   end
 end
-
-
