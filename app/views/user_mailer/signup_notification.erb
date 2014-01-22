@@ -5,7 +5,7 @@
   </head>
     <body>
       <h1> Welcome to marketstreet.com, <%= @user.display_name %></h1>
-      <a href='#{customer_activation_url(:a => @user.perishable_token )}'>
+      <a href='#{activate_customer_registration_url(:a => @user.perishable_token )}'>
         Click to Activate
       </a>"
       <p>Thanks for joining and have a great day!</p>

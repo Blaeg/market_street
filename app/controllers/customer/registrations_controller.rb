@@ -28,6 +28,19 @@ class Customer::RegistrationsController < ApplicationController
     end
   end
 
+  def activate
+    @user = User.find_by_perishable_token(params[:a])
+    
+    if @user && (@user.active? || @user.activate!)
+      @user = UserDecorator.decorate(@user)
+      UserSession.create(@user, true)
+      flash[:notice] = "Welcome back #{@user.display_name}"
+    else
+      flash[:notice] = "Invalid Activation URL!"
+    end
+    redirect_to root_url
+  end
+
   protected
 
   def allowed_params

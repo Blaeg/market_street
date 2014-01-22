@@ -17,8 +17,13 @@ MarketStreet::Application.routes.draw do
 
   #CUSTOMER
   namespace :customer do
+    resources :registrations,   :only => [:index, :new, :create] do 
+      member do 
+        get :activate
+      end
+    end
+
     resources :user_sessions, :only => [:new, :create, :destroy]
-    resources :registrations,   :only => [:index, :new, :create]
     resource  :password_reset,  :only => [:new, :create, :edit, :update]
     resource  :activation,      :only => [:show]
 
