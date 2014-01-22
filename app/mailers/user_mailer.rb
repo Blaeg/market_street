@@ -11,7 +11,6 @@ class UserMailer < ActionMailer::Base
   def password_reset_instructions(user_id)
     @user = UserDecorator.decorate(User.find(user_id))
     @url = edit_customer_password_reset_url(:id => @user.perishable_token)
-    @key = UsersNewsletter.unsubscribe_key(@user.email)
     mail( :to => @user.email_address_with_name, 
           :subject => "Reset Password Instructions")
   end
@@ -37,11 +36,12 @@ class UserMailer < ActionMailer::Base
   end
 
   def order_confirmation(order_id, invoice_id)
-    @invoice  = Invoice.find(invoice_id)
-    @order    = Order.includes(:user).find(order_id)
+    @invoice = Invoice.find(invoice_id)
+    @order = Order.includes(:user).find(order_id)
     @user = UserDecorator.decorate(@order.user)
-    @url      = root_url
-    @site_name = 'site_name'
+    @url = root_url
+    @site_name = site_name
+
     mail(:to => @order.email,
      :subject => "Order Confirmation")
   end

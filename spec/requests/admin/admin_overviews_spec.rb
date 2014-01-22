@@ -15,7 +15,7 @@ end
 
 def cookied_login
    User.acts_as_authentic_config[:maintain_sessions] = false
-   create(:user, :first_name => 'Dave', :email => 'test@nonadmin.com', 
+   create(:user, :first_name => 'Alex', :email => 'test@nonadmin.com', 
       :password => 'secret1', :password_confirmation => 'secret1')
 
    User.any_instance.stubs(:admin?).returns(false)

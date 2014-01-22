@@ -32,9 +32,9 @@ describe UserDecorator do
 	describe User,  ".email_address_with_name" do
     it 'show the persons name and email address' do
       user.email       = 'myfake@email.com'
-      user.first_name  = 'Dave'
+      user.first_name  = 'Alex'
       user.last_name   = 'Commerce'
-      expect(user.email_address_with_name).to eq '"Dave Commerce" <myfake@email.com>'
+      expect(user.email_address_with_name).to eq '"Alex Commerce" <myfake@email.com>'
     end
   end
 

@@ -34,9 +34,9 @@ describe Product, ".instance methods" do
 
   context ".set_keywords=(value)" do
     it 'set keywords' do
-      @product.set_keywords             =  'hi, my, name, is, Dave'
-      @product.product_keywords.should  == ['hi', 'my', 'name', 'is', 'Dave']
-      @product.set_keywords.should      == 'hi, my, name, is, Dave'
+      @product.set_keywords             =  'hi, my, name, is, Alex'
+      @product.product_keywords.should  == ['hi', 'my', 'name', 'is', 'Alex']
+      @product.set_keywords.should      == 'hi, my, name, is, Alex'
     end
   end  
 end

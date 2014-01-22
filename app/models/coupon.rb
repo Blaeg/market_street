@@ -1,6 +1,6 @@
 # Coupons are straight forward.  Picture a coupon you have in a grocery store.
 # The only big difference in the grocery store you can have 30 coupon for different items you buy.
-# For ror-e you can only have one Coupon for an entire order.  This is pretty standard in the ecommerce world.
+# You can only have one Coupon for an entire order.  This is pretty standard in the ecommerce world.
 
 # The method that is most important:
 #

@@ -1,6 +1,6 @@
 ##Project Overview
 
-Market Street is a Ecommerce/marketplace platform. (forked from ror_commerce)
+Market Street is a Ecommerce/marketplace platform.
 
 Its features aim to provide 
     <ol>
@@ -81,16 +81,6 @@ This is needed for using sendgrid on heroku(config/initializers/mail.rb):
     heroku config:add SENDGRID_PASSWORD=xxxxxxxxxxxxxxx
 
 
-##Quick Evaluation
-
-If you just want to see what ror_ecommerce looks like, before you enter any products into the database, run the following command:
-
-    rake db:seed_fake
-
-You should now have a minimal dataset, and be able to see a demo of the various parts of the app.
-Note: make sure you have `config/settings.yml` set up correctly before you try to checkout.
-Also, please take a look at [The 15 minute e-commerce video](http://www.ror-e.com/info/videos/7).
-
 ##ImageMagick and rMagick on OS X 10.8
 ------------------------------------
 
@@ -113,8 +103,6 @@ If you would like to read the docs, you can generate them with the following com
 
 First, create `config/settings.yml` and change the encryption key and paypal/auth.net information.
 You can also change `config/settings.yml.example` to `config/settings.yml` until you get your real info.
-
-To change from authlogic to any other gateway look at the documentation [HERE](http://drhenner.github.com/ror_ecommerce/config.html)
 
 ## Paperclip
 
@@ -241,12 +229,4 @@ Now paste this code in there:
 
 ##Author
 
-RoR Ecommerce was created by David Henner. [Contributors](https://github.com/drhenner/ror_ecommerce/blob/master/Contributors.md).
-
-##FYI:
-
-Shipping categories are categories based off price:
-
-you might have two shipping categories (light items) & (heavy items)
-
-Have fun!!!
+Market Street was created by Alex C.
