@@ -1,6 +1,4 @@
 class Shopping::AddressesController < Shopping::BaseController
-  helper_method :countries
-  
   # GET /shopping/addresses/1/edit
   def edit
     form_info
@@ -48,15 +46,11 @@ class Shopping::AddressesController < Shopping::BaseController
   private
 
   def allowed_params
-    params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :bill_default, :country_id)
+    params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :bill_default, :country_code)
   end
 
   def form_info
     @shopping_addresses = current_user.shipping_addresses
     @states     = State.form_selector
-  end
-
-  def countries
-    @countries ||= Country.active
   end
 end

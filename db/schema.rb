@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140121093437) do
+ActiveRecord::Schema.define(version: 20140123092508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20140121093437) do
     t.boolean  "is_active",        default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "country_id"
     t.string   "address_type"
+    t.string   "country_code"
   end
 
   add_index "addresses", ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
@@ -78,15 +78,6 @@ ActiveRecord::Schema.define(version: 20140121093437) do
   add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
   add_index "comments", ["created_by"], name: "index_comments_on_created_by", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
-
-  create_table "countries", force: true do |t|
-    t.string  "name"
-    t.string  "abbreviation", limit: 5
-    t.boolean "active",                 default: false
-  end
-
-  add_index "countries", ["active"], name: "index_countries_on_active", using: :btree
-  add_index "countries", ["name"], name: "index_countries_on_name", using: :btree
 
   create_table "coupons", force: true do |t|
     t.string   "type",                                                  null: false
@@ -488,12 +479,11 @@ ActiveRecord::Schema.define(version: 20140121093437) do
     t.string  "name",                       null: false
     t.string  "abbreviation",     limit: 5, null: false
     t.string  "described_as"
-    t.integer "country_id",                 null: false
     t.integer "shipping_zone_id",           null: false
+    t.string  "country_code"
   end
 
   add_index "states", ["abbreviation"], name: "index_states_on_abbreviation", using: :btree
-  add_index "states", ["country_id"], name: "index_states_on_country_id", using: :btree
   add_index "states", ["name"], name: "index_states_on_name", using: :btree
 
   create_table "store_credits", force: true do |t|
@@ -515,7 +505,6 @@ ActiveRecord::Schema.define(version: 20140121093437) do
   create_table "tax_rates", force: true do |t|
     t.decimal "percentage", precision: 8, scale: 2, default: 0.0,  null: false
     t.integer "state_id"
-    t.integer "country_id"
     t.date    "start_date",                                        null: false
     t.date    "end_date"
     t.boolean "active",                             default: true

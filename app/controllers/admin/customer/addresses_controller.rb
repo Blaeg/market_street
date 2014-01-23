@@ -12,8 +12,8 @@ class Admin::Customer::AddressesController < Admin::BaseController
 
   def new
     @address = Address.new
-    if !Settings.require_state_in_address && countries.size == 1
-      @address.country = countries.first
+    if !Settings.require_state_in_address && 
+      @address.country_code = 'US'
     end
     @address.ship_default = (customer.default_shipping_address.nil?)
     @form_address = @address
@@ -75,7 +75,7 @@ class Admin::Customer::AddressesController < Admin::BaseController
   private
 
   def allowed_params
-    params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :bill_default, :country_id)
+    params.require(:address).permit(:first_name, :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, :default, :bill_default, :country_code)
   end
 
   def customer

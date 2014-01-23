@@ -131,7 +131,7 @@ RailsAdmin.config do |config|
   #     configure :active, :boolean 
   #     configure :created_at, :datetime 
   #     configure :updated_at, :datetime 
-  #     configure :country_id, :integer         # Hidden 
+  #     configure :country_code, :integer         # Hidden 
   #     configure :address_type, :string 
 
   #   # Cross-section configuration:
@@ -2000,7 +2000,7 @@ RailsAdmin.config do |config|
   #     configure :name, :string 
   #     configure :abbreviation, :string 
   #     configure :described_as, :string 
-  #     configure :country_id, :integer         # Hidden 
+  #     configure :country_code, :integer         # Hidden 
   #     configure :shipping_zone_id, :integer         # Hidden 
 
   #   # Cross-section configuration:
@@ -2135,7 +2135,7 @@ RailsAdmin.config do |config|
   #     configure :id, :integer 
   #     configure :percentage, :decimal 
   #     configure :state_id, :integer         # Hidden 
-  #     configure :country_id, :integer         # Hidden 
+  #     configure :country_code, :integer         # Hidden 
   #     configure :start_date, :date 
   #     configure :end_date, :date 
   #     configure :active, :boolean 

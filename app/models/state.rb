@@ -5,15 +5,13 @@
 #
 
 class State < ActiveRecord::Base
-
-  belongs_to :country
   has_many   :addresses
   has_many   :tax_rates
   belongs_to :shipping_zone
 
   validates :name,              :presence => true,       :length => { :maximum => 150 }
   validates :abbreviation,      :presence => true,       :length => { :maximum => 12 }
-  validates :country_id,        :presence => true
+  validates :country_code,      :presence => true
   validates :shipping_zone_id,  :presence => true
 
   def abbreviation_name(append_name = "")
@@ -21,11 +19,11 @@ class State < ActiveRecord::Base
   end
 
   def self.form_selector
-    order('country_id ASC, abbreviation ASC').collect { |state| [state.abbreviation_name, state.id] }
+    order('country_code ASC, abbreviation ASC').collect { |state| [state.abbreviation_name, state.id] }
   end
 
   def self.all_with_country_id(c_id)
-    where(country_id: c_id)
+    where(country_code: c_id)
   end
 
   def self.create_all

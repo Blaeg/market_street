@@ -8,7 +8,7 @@
       = ba.input :city
       = ba.association :state, collection: State.all
       = ba.input :zip_code
-      = ba.association :country, collection: Country.active
+      = ba.input :country_code, :input_html => {class: 'bfh-selectbox bfh-countries', 'data-flags' => true, 'data-country' => "US", 'data-available' => "US"}    
       = ba.input :address_type, :as => :hidden, :input_html => { :value => "BILL" }
     .col-md-4
       %input{:type=>"radio", :value=>"option1", :name=>"payment1"} Pay in person

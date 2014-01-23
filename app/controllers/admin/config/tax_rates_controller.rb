@@ -1,7 +1,6 @@
 class Admin::Config::TaxRatesController < Admin::Config::BaseController
   add_breadcrumb "Tax Rate", :admin_config_tax_rates_path
-  helper_method :countries
-
+  
   # GET /admin/config/tax_rates
   def index
     @tax_rates = TaxRate.all
@@ -58,15 +57,11 @@ class Admin::Config::TaxRatesController < Admin::Config::BaseController
   private
 
   def allowed_params
-    params.require(:tax_rate).permit(:percentage, :state_id, :country_id, :start_date, :end_date, :active)
-  end
-
-  def countries
-    @countries    ||= Country.form_selector
+    params.require(:tax_rate).permit(:percentage, :state_id, :country_code, :start_date, :end_date, :active)
   end
 
   def form_info
-    @states       = State.all_with_country_id(@tax_rate.state.country_id) if  @tax_rate.state_id
+    @states       = State.all_with_country_id(@tax_rate.state.country_code) if  @tax_rate.state_id
     @states       ||= []
   end
 end

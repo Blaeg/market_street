@@ -23,7 +23,7 @@ MarketStreet.TaxRateForm = {
     if ( ! isNaN(id - 0) && id  != "" ) {
       jQuery.getJSON(
          '/states',
-         { country_id : id },
+         { country_code : id },
         function(json) {
            MarketStreet.TaxRateForm.refreshStates(json);
          }

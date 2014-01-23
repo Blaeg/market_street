@@ -5,7 +5,7 @@
 #  id            :integer(4)      not null, primary key
 #  percentage    :decimal(8, 2)   default(0.0), not null
 #  state_id      :integer(4)      not null
-#  country_id      :integer(4)      not null
+#  country_code      :integer(4)      not null
 #  start_date    :date            not null
 #  end_date      :date
 #  active        :boolean(1)      default(TRUE)
@@ -13,12 +13,11 @@
 
 class TaxRate < ActiveRecord::Base
   belongs_to :state
-  belongs_to :country
-
+  
   validates :percentage,    :numericality => true,
                             :presence => true
   validates :state_id,      :presence => true, :if => :tax_per_state?
-  validates :country_id,    :presence => true, :if => :tax_per_country?
+  validates :country_code,    :presence => true, :if => :tax_per_country?
   validates :start_date,    :presence => true
 
   after_save :expire_cache
@@ -45,7 +44,7 @@ class TaxRate < ActiveRecord::Base
 
   # region_id can be state or country depending on the setup in config/settings.yml
   def self.for_region(region_id)
-    where(["#{ Settings.tax_per_state_id ? 'state_id' : 'country_id'} = ?", region_id ])
+    where(["#{ Settings.tax_per_state_id ? 'state_id' : 'country_code'} = ?", region_id ])
   end
 
   def self.active_at_ids(date = Time.zone.now.to_date)

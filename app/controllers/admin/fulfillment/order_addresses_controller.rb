@@ -60,7 +60,7 @@ class Admin::Fulfillment::OrderAddressesController < Admin::BaseController
   def allowed_params
     params.require(:address).permit(:address_type, :first_name, 
       :last_name, :address1, :address2, :city, :state_id, :state_name, :zip_code, 
-      :phone_id, :alternative_phone, :default, :bill_default, :active, :country_id)
+      :phone_id, :alternative_phone, :default, :bill_default, :active, :country_code)
   end
 
   def states

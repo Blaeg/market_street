@@ -35,18 +35,17 @@ describe State, "class methods" do
     @states.first.last.class.should   == Fixnum
   end
 
-  context 'all_with_country_id(country_id)' do
+  context 'all_with_country_id(country_code)' do
     before(:each) do
-      @country = Country.find_or_create_by(id: Country::USA_ID)
-      @states = FactoryGirl.create_list(:state, 2, :country => @country)
+      @states = FactoryGirl.create_list(:state, 2, :country_code => 'US')
     end
 
     it 'returns an array of States' do
       @states.first.class.should        == State
     end
 
-    it 'states with country id == country_id' do
-      @states.first.country_id.should == @country.id
+    it 'states with country id == country_code' do
+      @states.first.country_code.should == 'US'
     end
   end
 end

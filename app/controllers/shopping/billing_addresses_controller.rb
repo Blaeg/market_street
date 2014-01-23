@@ -1,6 +1,4 @@
 class Shopping::BillingAddressesController < Shopping::BaseController
-  helper_method :countries
-  
   def edit
     form_info
     @form_address = @shopping_address = Address.find(params[:id])
@@ -56,7 +54,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   def allowed_params
     params.require(:address).permit(:first_name, :last_name, 
       :address1, :address2, :city, :state_id, :state_name, 
-      :zip_code, :default, :bill_default, :country_id)
+      :zip_code, :default, :bill_default, :country_code)
   end
 
   def form_info

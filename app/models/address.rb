@@ -44,7 +44,7 @@ class Address < ActiveRecord::Base
   validates :address1,     :presence => true, :length => { :maximum => 255 }
   validates :city,         :presence => true, :length => { :maximum => 75 }
   validates :state_id,     :presence => true,  :if => Proc.new { |address| Settings.require_state_in_address}
-  validates :country_id,   :presence => true,  :if => Proc.new { |address| !Settings.require_state_in_address}
+  validates :country_code,   :presence => true,  :if => Proc.new { |address| !Settings.require_state_in_address}
   validates :zip_code,     :presence => true,       :length => { :minimum => 5, :maximum => 12 }
   validates :phone,        :phone_number => true, :if => Proc.new { |address| address.phone.present? }
 
@@ -89,7 +89,7 @@ class Address < ActiveRecord::Base
       :address2 => address2,
       :city     => city,
       :state    => state.abbreviation,
-      :country  => state.country_id == Country::USA_ID ? 'US' : 'CAN',
+      :country_code  => 'US',
       :zip      => zip_code      
     }
   end

@@ -11,7 +11,6 @@ end
 require 'factory_girl_rails'
 
 puts "SEEDING GEO"
-Country.create_all
 State.create_all
 
 puts "SEEDING USERS"

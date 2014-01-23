@@ -1,6 +1,4 @@
 class Customer::AddressesController < Customer::BaseController
-  helper_method :countries
-
   def index
     @addresses = current_user.shipping_addresses
   end
@@ -12,8 +10,8 @@ class Customer::AddressesController < Customer::BaseController
   def new
     form_info
     @address = Address.new
-    if !Settings.require_state_in_address && countries.size == 1
-      @address.country = countries.first
+    if !Settings.require_state_in_address
+      @address.country_code = 'US'
     end
     @address.ship_default = (current_user.default_shipping_address.nil?)
     @form_address = @address
@@ -74,7 +72,7 @@ class Customer::AddressesController < Customer::BaseController
 
   def allowed_params
     params.require(:address).permit(:first_name, :last_name, :address1, :address2, 
-      :city, :state_id, :state_name, :zip_code, :default, :bill_default, :country_id)
+      :city, :state_id, :state_name, :zip_code, :default, :bill_default, :country_code)
   end
 
   def form_info
@@ -83,9 +81,5 @@ class Customer::AddressesController < Customer::BaseController
 
   def selected_customer_tab(tab)
     tab == 'address'
-  end
-  
-  def countries
-    @countries ||= Country.active
   end
 end

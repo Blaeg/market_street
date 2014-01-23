@@ -23,7 +23,7 @@ describe Address, "methods" do
                           :state_id => state.id,
                           :zip_code   => '13156',
                           :address_type  => 'BILL',
-                          :country_id => state.country_id
+                          :country_code => state.country_code
                           )}
   before(:each) do
     User.any_instance.stubs(:start_store_credits).returns(true)  ## simply speed up tests, no reason to have store_credit object
@@ -67,7 +67,7 @@ describe Address, "methods" do
       cc_params[:city].should    == 'Fredville'
       cc_params[:state].should   == 'CA'
       cc_params[:zip].should     == '13156'
-      cc_params[:country].should == 'US'
+      cc_params[:country_code].should == 'US'
     end
   end
 
