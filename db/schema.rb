@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123092508) do
+ActiveRecord::Schema.define(version: 20140123100848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -500,20 +500,6 @@ ActiveRecord::Schema.define(version: 20140123092508) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "tax_rates", force: true do |t|
-    t.decimal "percentage", precision: 8, scale: 2, default: 0.0,  null: false
-    t.integer "state_id"
-    t.date    "start_date",                                        null: false
-    t.date    "end_date"
-    t.boolean "active",                             default: true
-  end
-
-  add_index "tax_rates", ["state_id"], name: "index_tax_rates_on_state_id", using: :btree
-
-  create_table "tax_statuses", force: true do |t|
-    t.string "name", null: false
   end
 
   create_table "transaction_accounts", force: true do |t|

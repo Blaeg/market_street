@@ -52,14 +52,6 @@ describe Variant, " instance methods" do
     end
   end
 
-  context ".product_tax_rate(state_id, tax_time = Time.now)" do
-    it 'returns the products tax rate for the given state' do
-      tax_rate = create(:tax_rate)
-      @variant.product.stubs(:tax_rate).returns(tax_rate)
-      @variant.product_tax_rate(1).should == tax_rate
-    end
-  end
-
   context ".display_property_details(separator = '<br/>')" do
     # variant_properties.collect {|vp| [vp.property.display_name ,vp.description].join(separator) }
     it 'show all property details' do

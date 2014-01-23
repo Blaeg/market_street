@@ -24,7 +24,6 @@ class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :shipping_rate
   belongs_to :variant
-  belongs_to :tax_rate
   belongs_to :shipment
 
   has_many   :shipments
