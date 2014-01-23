@@ -1,10 +1,8 @@
 require 'spec_helper'
 
 describe Product, ".instance methods with images" do
-  before(:each) do
-    @product = create(:product_with_image)
-  end
-
+  let(:product) { create(:product_with_image)}
+  
   context "featured_image" do
     xit 'returns an image url' do
       @your_model.should_receive(:save_attached_files).and_return(true)
@@ -24,12 +22,10 @@ describe Product, ".instance methods" do
   end
 
   context "featured_image" do
-
     it 'returns no_image url' do
       @product.featured_image.should        == 'no_image_small.jpg'
       @product.featured_image(:mini).should == 'no_image_mini.jpg'
     end
-
   end
 
   context ".set_keywords=(value)" do
@@ -41,6 +37,23 @@ describe Product, ".instance methods" do
   end  
 end
 
+describe Product, "comments" do 
+  let(:user) { create(:user) }
+  let(:product) { create(:product) }
+  
+  it "adds comments" do 
+    expect {
+      product.comments.create(user_id: user.id, note: 'practice')
+    }.to change(Comment, :count).by(1)
+  end
+
+  it "remove comments" do
+    product.comments.create(user_id: user.id, note: 'practice')
+    expect {
+      product.comments.first.destroy
+    }.to change(Comment, :count).by(-1)
+  end
+end
 
 describe Product, "class methods" do
 
@@ -55,9 +68,5 @@ describe Product, "class methods" do
       products.include?(product1).should be_false
       products.include?(product2).should be_true
     end
-  end
-
-  context "#featured" do
-    pending "test for featured"
   end  
 end

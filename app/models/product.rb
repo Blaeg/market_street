@@ -62,6 +62,7 @@ class Product < ActiveRecord::Base
   has_many :variants
   has_many :images, -> {order(:position)}, as: :imageable, dependent: :destroy
 
+  has_many :comments, :as => :commentable
   has_many :active_variants, -> { where(deleted_at: nil) }, class_name: 'Variant'
 
   before_validation :sanitize_data
