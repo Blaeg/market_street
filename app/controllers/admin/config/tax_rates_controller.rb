@@ -61,7 +61,7 @@ class Admin::Config::TaxRatesController < Admin::Config::BaseController
   end
 
   def form_info
-    @states       = State.all_with_country_id(@tax_rate.state.country_code) if  @tax_rate.state_id
+    @states       = State.all_with_country_code(@tax_rate.state.country_code) if  @tax_rate.state_id
     @states       ||= []
   end
 end

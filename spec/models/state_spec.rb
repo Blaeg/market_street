@@ -35,7 +35,7 @@ describe State, "class methods" do
     @states.first.last.class.should   == Fixnum
   end
 
-  context 'all_with_country_id(country_code)' do
+  context 'all_with_country_code(country_code)' do
     before(:each) do
       @states = FactoryGirl.create_list(:state, 2, :country_code => 'US')
     end

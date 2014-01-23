@@ -22,8 +22,8 @@ class State < ActiveRecord::Base
     order('country_code ASC, abbreviation ASC').collect { |state| [state.abbreviation_name, state.id] }
   end
 
-  def self.all_with_country_id(c_id)
-    where(country_code: c_id)
+  def self.all_with_country_code(country_code)
+    where(country_code: country_code)
   end
 
   def self.create_all
