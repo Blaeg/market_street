@@ -14,3 +14,6 @@
 //= require underscore-min
 //= require underscore.string.min
 //= require social-share-button
+
+//= require lang/en_US/bootstrap-formhelpers-countries.en_US
+//= require bootstrap-formhelpers-countries
