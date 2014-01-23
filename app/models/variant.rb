@@ -22,9 +22,6 @@
 #
 
 class Variant < ActiveRecord::Base
-  require_dependency 'variant/pricing_manager'
-  include Variant::PricingManager
-
   require_dependency 'variant/availability_manager'
   include Variant::AvailabilityManager
 

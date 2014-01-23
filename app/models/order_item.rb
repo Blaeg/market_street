@@ -34,7 +34,6 @@ class OrderItem < ActiveRecord::Base
   after_destroy :set_order_calculated_at_to_nil
 
   validates :variant_id,  :presence => true
-  #validates :order_id,    :presence => true
   validates :quantity,    :presence => true
 
   def set_beginning_values

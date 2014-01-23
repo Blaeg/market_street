@@ -13,17 +13,3 @@ describe OrderItem, "instance methods" do
     end
   end  
 end
-
-describe OrderItem, "Without VAT" do
-  before(:all) do
-    Settings.vat = false
-  end
-  
-  context ".calculate_total(coupon = nil)" do
-    xit 'calculate_total' do
-      order_item = create(:order_item, :price => 20.00)
-      order_item.calculate_total
-      order_item.total.should == 20.00
-    end
-  end  
-end

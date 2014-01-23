@@ -32,6 +32,6 @@ module Order::Calculator
   private 
 
   def item_prices
-    order_items.map(&:adjusted_price)
+    order_items.map(&:price)
   end
 end
