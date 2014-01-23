@@ -14,6 +14,9 @@ MarketStreet::Application.routes.draw do
   get 'faq' => 'home#faq', as: :faq_home
   get 'terms' => 'home#terms', as: :terms_home
   get 'subscription' => 'home#subscription', as: :subscription_home
+  
+  #comments
+  resource :comment, :only => [:create, :destroy]
 
   #CUSTOMER
   namespace :customer do
