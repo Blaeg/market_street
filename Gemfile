@@ -32,13 +32,18 @@ gem 'chronic'
 gem 'authlogic', github: 'binarylogic/authlogic', ref: 'e4b2990d6282f3f7b50249b4f639631aef68b939'
 gem 'cancan',         '~> 1.6.8'
 
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+
 #print
 gem 'awesome_nested_set', '~> 3.0.0.rc.1'
 gem 'awesome_print'
 gem 'prawn',        '~> 0.12.0'
+gem 'ruby-progressbar'
 
 #system
 gem 'aws-sdk'
+gem 'whenever'
 
 #decorate
 gem "asset_sync"
@@ -47,6 +52,10 @@ gem 'dynamic_form'
 gem 'breadcrumbs_on_rails'
 gem 'draper'
 gem "friendly_id"
+
+
+
+gem 'acts-as-taggable-on'
 
 #upload
 gem 'paperclip',    '~> 3.0'
@@ -69,6 +78,9 @@ gem 'kaminari'
 gem "ransack"
 gem 'nokogiri'
 
+#data
+gem 'country_select'
+
 #JS libraries
 gem "jquery-rails"
 gem 'jquery-ui-rails'
@@ -90,6 +102,7 @@ gem 'therubyracer'
 gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'bootstrap-select-rails'
 gem 'bootstrap-editable-rails'
+gem 'bootstrap-form-helpers-rails', :git => 'https://github.com/johnu/bootstrap-form-helpers-rails.git'
 gem 'twitter-bootswatch-rails', '~> 3.0.3'
 gem 'twitter-bootswatch-rails-helpers'
 gem 'social-share-button'
@@ -152,3 +165,6 @@ group :test do
   gem 'capybara', "~> 1.1"#, :git => 'git://github.com/jnicklas/capybara.git'  
   gem 'capybara-screenshot'
 end
+
+#archived for later
+#gem 'money' #exchange
