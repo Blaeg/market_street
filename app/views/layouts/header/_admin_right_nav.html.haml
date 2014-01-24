@@ -1,0 +1,9 @@
+%ul.nav.navbar-nav.navbar-right
+  %li.dropdown
+    = link_to "#", data: { toggle: 'dropdown'}, class: 'dropdown-toggle' do
+      =fa_icon "caret-down", text: current_user.first_name, class: "pull-right"
+    %ul.dropdown-menu            
+      -if current_user.admin?
+        %li= link_to 'Admin', admin_dashboard_path
+        %li.divider
+      %li= link_to 'Log Out', logout_path, :method => 'DELETE'			 

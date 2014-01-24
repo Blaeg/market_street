@@ -1,21 +1,21 @@
 !!!
 %html{:lang => "en"}
 %head>
+  %meta(charset="utf-8")
+  %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+  %meta(name="viewport" content="width=device-width, initial-scale=1.0")
   %title= content_for?(:title) ? "#{site_name}: #{yield(:title)}" : site_name
   %link{:href => "/assets/favicon.ico", :rel => "shortcut icon"}
   = stylesheet_link_tag "application-admin", :media => "all"
   = csrf_meta_tag 
-  = yield :head
+  = yield(:page_stylesheet) if content_for?(:page_stylesheet)
 %body
   = render 'layouts/header/admin_header'
-  .container-fluid
-    .row-fluid
-      = render 'layouts/header/alert_notice'
-      = render_breadcrumbs
-      - if content_for?(:sidemenu)
-        = yield :sidemenu         
-      = yield     
+  .container
+    = render 'layouts/header/alert_notice'
+    = render_breadcrumbs      
+    = yield :sidemenu if content_for?(:sidemenu)
+    = yield     
   = javascript_include_tag 'application-admin'  
-  = yield :bottom
-  = yield(:below_body)
-  
+  = yield :page_javascript
+= yield(:below_body)  
