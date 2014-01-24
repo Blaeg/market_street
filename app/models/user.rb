@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   include User::UserCim
   
   APP_THEMES = %w(application cyborg cerulean cosmo flatly journal readable
-    simplx slate spacelab united yeti)
+    simplex slate spacelab united yeti)
 
   acts_as_authentic do |config|
     config.validate_email_field
