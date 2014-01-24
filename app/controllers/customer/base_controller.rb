@@ -6,6 +6,6 @@ class Customer::BaseController < ApplicationController
   protected
   
   def selected_customer_tab(tab)
-    tab == ''
+    raise 'no'
   end
 end

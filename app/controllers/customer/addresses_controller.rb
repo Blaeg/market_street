@@ -80,6 +80,6 @@ class Customer::AddressesController < Customer::BaseController
   end
 
   def selected_customer_tab(tab)
-    tab == 'address'
+    (tab == 'address') ? 'active' : ''
   end
 end

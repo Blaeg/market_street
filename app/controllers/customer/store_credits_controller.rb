@@ -6,7 +6,7 @@ class Customer::StoreCreditsController < Customer::BaseController
 
   private
 
-    def selected_customer_tab(tab)
-      tab == 'store_credit'
-    end
+  def selected_customer_tab(tab)
+    (tab == 'store_credit') ? 'active' : ''
+  end
 end

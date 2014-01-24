@@ -49,6 +49,6 @@ class Customer::CreditCardsController < Customer::BaseController
   end
 
   def selected_customer_tab(tab)
-    tab == 'credit_cards'
+    (tab == 'credit_cards') ? 'active' : ''
   end
 end

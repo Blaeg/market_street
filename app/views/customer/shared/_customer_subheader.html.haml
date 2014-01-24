@@ -1,0 +1,6 @@
+%ul.nav.nav-tabs
+  %li{'class' => selected_customer_tab('profile')}= link_to 'Profile', customer_overview_path()
+  %li{'class' => selected_customer_tab('address')}= link_to 'Addresses', customer_addresses_path()
+  %li{'class' => selected_customer_tab('credit_cards')}= link_to 'Credit Cards', customer_credit_cards_path()
+  %li{'class' => selected_customer_tab('orders')}= link_to 'Orders', customer_orders_path()  
+  %li{'class' => selected_customer_tab('referrals')}= link_to 'Referrals', customer_referrals_path()  

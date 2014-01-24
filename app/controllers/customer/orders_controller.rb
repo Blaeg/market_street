@@ -17,6 +17,6 @@ class Customer::OrdersController < Customer::BaseController
   private
 
   def selected_customer_tab(tab)
-    tab == 'orders'
+    (tab == 'orders') ? 'active' : ''
   end
 end

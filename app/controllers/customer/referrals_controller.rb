@@ -36,6 +36,6 @@ class Customer::ReferralsController < Customer::BaseController
   end
 
   def selected_customer_tab(tab)
-    tab == 'referrals'
+    (tab == 'referrals') ? 'active' : ''
   end  
 end

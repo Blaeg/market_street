@@ -22,6 +22,6 @@ class Customer::OverviewsController < Customer::BaseController
   end
 
   def selected_customer_tab(tab)
-    tab == 'profile'
+    (tab == 'profile') ? 'active' : ''
   end
 end
