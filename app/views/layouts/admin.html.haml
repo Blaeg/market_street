@@ -10,9 +10,9 @@
   = csrf_meta_tag 
   = yield(:page_stylesheet) if content_for?(:page_stylesheet)
 %body
-  = render 'layouts/header/admin_header'
+  = render 'layouts/admin_header/header'
   .container
-    = render 'layouts/header/alert_notice'
+    = render 'shared/alert_notice'
     = render_breadcrumbs      
     = yield :sidemenu if content_for?(:sidemenu)
     = yield     
