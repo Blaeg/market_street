@@ -1,5 +1,7 @@
 class Customer::OverviewsController < Customer::BaseController
+  add_breadcrumb "Profile", :customer_overview_path
   def edit
+    add_breadcrumb "Edit", :edit_customer_overview_path
     @user = UserDecorator.decorate(current_user)
   end
 
