@@ -1,7 +1,0 @@
-// Slate
-// Bootswatch
-
-
-
-
-;
