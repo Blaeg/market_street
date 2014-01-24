@@ -17,3 +17,5 @@
 
 //= require lang/en_US/bootstrap-formhelpers-countries.en_US
 //= require bootstrap-formhelpers-countries
+
+//= require shared

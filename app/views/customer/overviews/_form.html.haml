@@ -1,11 +1,17 @@
 .col-md-8
-  = simple_form_for @user, :url => customer_overview_path, :method => :put do |f|
-    = f.input :first_name
-    = f.input :last_name
-    = f.input :email
-    = f.input :app_theme, collection: User::APP_THEMES, :input_html => {:class=> 'selectpicker'}
-    = f.input :nav_bar_inverse
-    = f.input :password
-    = f.input :password_confirmation        
-    = f.button :submit
-.clearfix 
+  = simple_form_for @user, :url => customer_overview_path, :method => :put,defaults: { input_html: { class: 'form-control' }} do |f|
+    .row
+      .col-md-6= f.input :first_name
+      .col-md-6= f.input :last_name
+    .row
+      .col-md-12= f.input :email
+    .row
+      .col-md-6= f.input :app_theme, collection: User::APP_THEMES, :input_html => {:class=> 'selectpicker'}
+    .row
+      .col-md-6= f.input :nav_bar_inverse
+    .row
+      .col-md-12= f.input :password
+      .col-md-12= f.input :password_confirmation              
+    .row
+      %br
+      .col-md-12= f.button :submit

@@ -53,8 +53,6 @@ gem 'breadcrumbs_on_rails'
 gem 'draper'
 gem "friendly_id"
 
-
-
 gem 'acts-as-taggable-on'
 
 #upload

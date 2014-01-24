@@ -1,9 +1,0 @@
-<div class='col-md-9'>
-  <h3> Edit Profile </h3>
-
-  <%= form_for current_user, :url => customer_overview_path, :method => 'PUT' do |f| %>
-    <%=  render :partial => 'form', :locals => {:f => f} %>
-  <% end %>
-</div>
-
-<div class="clearfix"></div>
