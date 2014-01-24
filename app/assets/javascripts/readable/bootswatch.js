@@ -1,3 +1,0 @@
-// Readable
-// Bootswatch
-// bootswatch.js

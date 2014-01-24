@@ -13,6 +13,6 @@
     = render 'layouts/header/alert_notice'
     = yield      
   = render 'layouts/footer/google_analytics' unless @disable_ga
-  = javascript_include_tag layout_theme
+  = javascript_include_tag 'application'
   = yield :bottom 
 = yield :below_body

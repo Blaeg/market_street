@@ -1,5 +1,0 @@
-// Simplex
-// Bootswatch
-//= require application
-//= require simplex/loader
-//= require simplex/bootswatch

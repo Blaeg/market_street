@@ -1,3 +1,0 @@
-// Journal
-// Bootswatch
-// bootswatch.js

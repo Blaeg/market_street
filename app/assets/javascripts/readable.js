@@ -1,5 +1,0 @@
-// Readable
-// Bootswatch
-//= require application
-//= require readable/loader
-//= require readable/bootswatch
