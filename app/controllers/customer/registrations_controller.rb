@@ -12,19 +12,24 @@ class Customer::RegistrationsController < ApplicationController
     # Saving without session maintenance to skip
     # auto-login which can't happen here because
     # the User has not yet been activated
-    if @user.save_without_session_maintenance
-      EmailWorker::SendSignUpNotification.perform_async(@user.id)
-      #cookies[:MarketStreet_uid] = @user.access_token
-      #session[:authenticated_at] = Time.now
-      #cookies[:insecure] = false
-      UserSession.new(@user.attributes)
-      flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
-      redirect_to root_url
-    else
-      @registration = true
-      @user_session = UserSession.new
-      flash[:notice] = "There is an error. Please try again."      
-      redirect_to new_customer_registration_url
+    respond_to do |format|
+      if @user.save_without_session_maintenance
+        EmailWorker::SendSignUpNotification.perform_async(@user.id)
+        #cookies[:MarketStreet_uid] = @user.access_token
+        #session[:authenticated_at] = Time.now
+        #cookies[:insecure] = false
+        UserSession.new(@user.attributes)
+        format.html { redirect_to root_url, notice: 'User was successfully created.' }
+        format.json { render json: @user, status: :created, location: @user }        
+      else
+        @registration = true
+        @user_session = UserSession.new
+        format.html do 
+          flash[:notice] = "There is an error. Please try again."      
+          redirect_to new_customer_registration_url
+        end
+        format.json { render json: @user.errors, status: :unprocessable_entity }        
+      end
     end
   end
 
